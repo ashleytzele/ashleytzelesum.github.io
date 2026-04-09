@@ -11,11 +11,6 @@ ASHLEYTZELE Personal Website/
 │   ├── images/                     # Hero, about, and project images
 │   ├── logos/                      # Logo and social media icons
 │   └── documents/                  # CV and other files
-├── projects/                       # (Archived) Individual project page
-├── skills/                         # (Archived) Individual skills page
-├── experience_education/           # (Archived) Individual experience page
-├── contact/                        # (Archived) Individual contact page
-├── home/                          # (Archived) Individual home page
 ├── server.py                      # Python local server (recommended)
 ├── package.json                   # Node.js dependencies (optional)
 └── README.md                      # This file
