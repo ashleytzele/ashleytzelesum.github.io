@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ASHLEYTZELE</title>
+    <link rel="icon" href="assets/logos/ASHLEYTZELE_LOGO.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/logos/ASHLEYTZELE_LOGO.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#101b30",
+                        "tertiary-container": "#001f27",
+                        "on-surface": "#191c1d",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#006399",
+                        "on-primary-container": "#79849d",
+                        "on-surface-variant": "#44474c",
+                        "on-primary-fixed-variant": "#3c475d",
+                        "surface-container-high": "#e7e8e9",
+                        "secondary-fixed": "#cde5ff",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#101b30",
+                        "surface": "#f8f9fa",
+                        "surface-container": "#edeeef",
+                        "surface-dim": "#d9dadb",
+                        "inverse-primary": "#bbc6e2",
+                        "inverse-surface": "#2e3132",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#545e76",
+                        "primary-fixed-dim": "#bbc6e2",
+                        "tertiary": "#000000",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-variant": "#e1e3e4",
+                        "primary-fixed": "#d7e2ff",
+                        "surface-container-low": "#f3f4f5",
+                        "on-secondary-fixed-variant": "#004b74",
+                        "on-primary": "#ffffff",
+                        "on-background": "#191c1d",
+                        "outline": "#74777d",
+                        "on-tertiary-fixed": "#001f27",
+                        "tertiary-fixed": "#b3ebff",
+                        "tertiary-fixed-dim": "#4cd6fb",
+                        "secondary-container": "#67bafd",
+                        "primary": "#000000",
+                        "outline-variant": "#c4c6cc",
+                        "on-tertiary-container": "#0090ad",
+                        "on-secondary-container": "#004972",
+                        "surface-bright": "#f8f9fa",
+                        "on-secondary-fixed": "#001d32",
+                        "background": "#f8f9fa",
+                        "on-tertiary-fixed-variant": "#004e5f",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#94ccff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+    <header class="bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-xl fixed top-0 w-full z-50 shadow-sm dark:shadow-none">
+        <div class="flex justify-between items-center px-6 py-4 w-full max-w-7xl mx-auto">
+            <div class="flex items-center gap-3">
+                <img src="assets/logos/ASHLEYTZELE_LOGO.png" alt="ASHLEYTZELE Logo" class="h-8 w-8 rounded-full object-cover">
+                <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-slate-50 font-inter tracking-tight">ASHLEYTZELE</span>
+            </div>
+            <nav class="hidden md:flex items-center gap-8 text-[10px] uppercase tracking-widest font-bold font-inter">
+                <a class="text-sky-600 dark:text-sky-400 font-bold hover:text-sky-700 dark:hover:text-sky-300 transition-colors duration-200" href="#home">Home</a>
+                <a class="text-slate-600 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors duration-200" href="#projects">Projects</a>
+                <a class="text-slate-600 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors duration-200" href="#experience">Experience</a>
+                <a class="text-slate-600 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors duration-200" href="#skills">Skills</a>
+                <a class="text-slate-600 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors duration-200" href="#contact">Contact</a>
+            </nav>
+            <span class="material-symbols-outlined text-slate-900 dark:text-slate-50" data-icon="code">code</span>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-40 px-6 max-w-7xl mx-auto">
+        <!-- Hero Section -->
+        <section class="mb-32 min-h-[70vh] flex flex-col justify-center" id="home">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div>
+                        <h1 class="text-3xl md:text-5xl font-black tracking-tighter text-primary leading-none mb-6">
+                            <span class="text-lg md:text-3xl text-on-surface-variant font-medium">Hello, I'm</span><br/>ASHLEY SUM
+                        </h1>
+                        <p class="text-xl md:text-2xl text-on-surface-variant font-medium max-w-2xl leading-relaxed">
+                            Creative engineering meets thoughtful design. I build scalable systems, beautiful interfaces, and everything in between.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-4 pt-8 items-center">
+                        <a href="assets/documents/ASHLEY_SUM_CV.pdf" download class="px-8 py-4 bg-primary text-on-primary font-bold uppercase text-sm tracking-widest rounded-lg hover:bg-slate-800 transition-colors duration-200">
+                            Download CV
+                        </a>
+                        <a href="#contact" class="px-8 py-4 border-2 border-primary text-primary font-bold uppercase text-sm tracking-widest rounded-lg hover:bg-primary hover:text-on-primary transition-colors duration-200">
+                            Get In Touch
+                        </a>
+                        <div class="flex gap-4 ml-4">
+                            <a href="https://www.linkedin.com/in/ashley-sum" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg border-2 border-primary hover:bg-primary transition-colors duration-200" title="LinkedIn">
+                                <img src="assets/logos/linkedin.png" alt="LinkedIn" class="w-6 h-6">
+                            </a>
+                            <a href="https://github.com/ashleytzele" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg border-2 border-primary hover:bg-primary transition-colors duration-200" title="GitHub">
+                                <img src="assets/logos/github.png" alt="GitHub" class="w-6 h-6">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:flex justify-center items-center">
+                    <img src="assets/images/hero-image.jpg" alt="Ashley Sum" class="w-full max-w-sm rounded-xl object-cover shadow-lg">
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="mb-32">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-5xl md:text-6xl font-black tracking-tighter text-primary mb-8 leading-tight">
+                        About Me.
+                    </h2>
+                    <p class="text-lg text-on-surface-variant leading-relaxed mb-6">
+                        I'm a full-stack engineer passionate about creating elegant solutions to complex problems. With expertise spanning frontend, backend, and DevOps, I design systems that are not just functional, but exceptional.
+                    </p>
+                    <p class="text-lg text-on-surface-variant leading-relaxed mb-8">
+                        Whether it's architecting scalable infrastructure or crafting intuitive interfaces, I bring architectural rigor to every project.
+                    </p>
+                    <a href="#skills" class="inline-flex items-center gap-3 text-primary font-bold uppercase text-sm tracking-widest hover:gap-5 transition-all duration-200">
+                        Explore Skills
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
+                </div>
+                <div>
+                    <img src="assets/images/about-image.jpg" alt="Ashley Sum - About" class="w-full max-w-md rounded-xl object-cover shadow-lg">
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="mb-32" id="projects">
+            <div class="mb-16">
+                <h2 class="text-5xl md:text-6xl font-black tracking-tighter text-primary leading-tight">
+                    Projects.
+                </h2>
+            </div>
+            <div class="space-y-16">
+                <!-- Project 1: SplitWise -->
+                <div class="group bg-surface-container rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:bg-surface-container-high">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
+                        <!-- Left: Image -->
+                        <div class="min-h-80 md:min-h-96 overflow-hidden flex items-center justify-center">
+                            <img alt="SplitWise Swimming Analytics Dashboard" class="w-120 h-96 object-cover group-hover:scale-105 transition-transform duration-500 rounded-full" src="assets/images/splitwise-screenshot.png"/>
+                        </div>
+                        <!-- Right: Content -->
+                        <div class="p-8 md:p-12 flex flex-col justify-center space-y-6">
+                            <div class="flex gap-2 flex-wrap">
+                                <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 bg-surface-container-lowest text-primary rounded-md border border-outline-variant/30">Data Analytics</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 bg-surface-container-lowest text-primary rounded-md border border-outline-variant/30">Web App</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 bg-surface-container-lowest text-primary rounded-md border border-outline-variant/30">Full-Stack</span>
+                            </div>
+                            <h3 class="text-4xl font-black tracking-tighter text-primary">SplitWise</h3>
+                            <p class="text-on-surface-variant text-lg leading-relaxed">
+                                Swimming analytics tool to analyze 50m swim performance using advanced data visualization and performance metrics.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
+                                    <i class="devicon-python-plain text-xs"></i>PYTHON
+                                </span>
+                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
+                                    <i class="devicon-html5-plain text-xs"></i>HTML
+                                </span>
+                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
+                                    <i class="devicon-flask-original text-xs"></i>FLASK
+                                </span>
+                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
+                                    <i class="devicon-tailwindcss-plain text-xs"></i>TAILWIND CSS
+                                </span>
+                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
+                                    <i class="devicon-javascript-plain text-xs"></i>JavaScript
+                                </span>
+
+                            </div>
+                            <div class="flex flex-wrap gap-4 pt-4">
+                                <a class="inline-flex items-center gap-2 px-3 py-1 bg-primary text-on-primary font-bold uppercase text-xs tracking-widest rounded-lg hover:bg-secondary transition-colors duration-200" href="assets/videos/splitwise-demo.mp4" target="_blank" rel="noopener noreferrer">
+                                    <span class="material-symbols-outlined text-sm" data-icon="play_circle">play_circle</span>
+                                    Watch Demo
+                                </a>
+                                <a class="inline-flex items-center gap-2 px-3 py-1 border-2 border-primary text-primary font-bold uppercase text-xs tracking-widest rounded-lg hover:bg-primary hover:text-on-primary transition-all duration-200" href="https://github.com/ashleytzele/SplitWise-Swim" target="_blank" rel="noopener noreferrer">
+                                    <span class="material-symbols-outlined text-sm" data-icon="code">code</span>
+                                    Source Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: NBA Guessing Game -->
+                <div class="group bg-surface-container rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:bg-surface-container-high">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
+                        <!-- Left: Image -->
+                        <div class="min-h-80 md:min-h-96 overflow-hidden flex items-center justify-center">
+                            <img alt="NBA Player Guessing Game Interface" class="w-120 h-96 object-cover group-hover:scale-105 transition-transform duration-500 rounded-full" src="assets/images/nba-game-screenshot.png"/>
+                        </div>
+                        <!-- Right: Content -->
+                        <div class="p-8 md:p-12 flex flex-col justify-center space-y-6">
+                            <div class="flex gap-2 flex-wrap">
+                                <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 bg-surface-container-lowest text-primary rounded-md border border-outline-variant/30">Game Dev</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 bg-surface-container-lowest text-primary rounded-md border border-outline-variant/30">Interactive</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 bg-surface-container-lowest text-primary rounded-md border border-outline-variant/30">Hackathon</span>
+                            </div>
+                            <h3 class="text-4xl font-black tracking-tighter text-primary">NBA Player Guessing Game</h3>
+                            <p class="text-on-surface-variant text-lg leading-relaxed">
+                                Interactive guessing game featuring progressive image blur mechanics. Built during SFHacks 2025 with responsive gameplay and engaging mechanics.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
+                                    <i class="devicon-python-plain text-xs"></i>PYTHON
+                                </span>
+                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
+                                    <i class="devicon-flask-original text-xs"></i>FLASK
+                                </span>
+                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
+                                    <i class="devicon-mongodb-plain text-xs"></i>MONGODB
+                                </span>
+                            </div>
+                            <div class="flex flex-wrap gap-4 pt-4">
+                                <a class="inline-flex items-center gap-2 px-3 py-1 bg-primary text-on-primary font-bold uppercase text-xs tracking-widest rounded-lg hover:bg-secondary transition-colors duration-200" href="assets/videos/nba-demo.mp4" target="_blank" rel="noopener noreferrer">
+                                    <span class="material-symbols-outlined text-sm" data-icon="play_circle">play_circle</span>
+                                    Watch Demo
+                                </a>
+                                <a class="inline-flex items-center gap-2 px-3 py-1 border-2 border-primary text-primary font-bold uppercase text-xs tracking-widest rounded-lg hover:bg-primary hover:text-on-primary transition-all duration-200" href="https://github.com/ashleytzele/NBA-Guessing-Game" target="_blank" rel="noopener noreferrer">
+                                    <span class="material-symbols-outlined text-sm" data-icon="code">code</span>
+                                    Source Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience & Education Section -->
+        <section class="mb-32" id="experience">
+            <div class="mb-16">
+                <h2 class="text-5xl md:text-6xl font-black tracking-tighter text-primary leading-tight mb-6">Experience & Education</h2>
+                <p class="text-lg max-w-2xl text-on-surface-variant leading-relaxed">
+                    A chronological record of professional growth, academic excellence, and leadership across diverse technical and operational domains.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <!-- Education Column -->
+                <aside class="lg:col-span-4 space-y-12">
+                    <div>
+                        <h3 class="text-xs font-bold tracking-[0.2em] text-on-surface-variant uppercase mb-8 flex items-center gap-2">
+                            <span class="w-8 h-px bg-outline-variant"></span> Education
+                        </h3>
+                        <div class="space-y-12">
+                            <div class="relative group">
+                                <div class="space-y-2">
+                                    <div class="text-xs font-bold text-secondary uppercase tracking-widest">2025 — Present</div>
+                                    <h4 class="text-2xl font-bold tracking-tight text-primary">San Francisco State University</h4>
+                                    <p class="text-on-surface-variant leading-relaxed">Bachelor of Science in Computer Science</p>
+                                    <div class="pt-4 flex flex-wrap gap-2">
+                                        <span class="px-2 py-1 bg-surface-container text-[10px] font-bold uppercase tracking-wider rounded">Dean's List</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative group">
+                                <div class="space-y-2">
+                                    <div class="text-xs font-bold text-secondary uppercase tracking-widest">2022 — 2024</div>
+                                    <h4 class="text-2xl font-bold tracking-tight text-primary">Inti International College Subang</h4>
+                                    <p class="text-on-surface-variant leading-relaxed">American Degree Transfer Program, Applied Science</p>
+                                    <div class="pt-4 flex flex-wrap gap-2">
+                                        <span class="px-2 py-1 bg-surface-container text-[10px] font-bold uppercase tracking-wider rounded">Dean's List</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                <!-- Experience Column -->
+                <section class="lg:col-span-8">
+                    <h3 class="text-xs font-bold tracking-[0.2em] text-on-surface-variant uppercase mb-8 flex items-center gap-2">
+                        <span class="w-8 h-px bg-outline-variant"></span> Professional Roles
+                    </h3>
+                    <div class="relative space-y-12 pl-8">
+                        <div class="absolute left-0 top-4 bottom-4 w-px bg-outline-variant"></div>
+                        
+                        <!-- Role 1: Student Lead -->
+                        <article class="relative group">
+                            <div class="absolute -left-[36px] top-2 w-4 h-4 rounded-full bg-surface-container-lowest border-2 border-primary z-10"></div>
+                            <div class="bg-surface-container-low p-8 rounded-md transition-all duration-300 hover:bg-primary-container hover:text-on-primary">
+                                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                                    <div>
+                                        <span class="text-xs font-bold text-secondary uppercase tracking-widest group-hover:text-secondary-fixed">Current Role</span>
+                                        <h4 class="text-2xl font-black tracking-tighter">Student Lead (Aquatics)</h4>
+                                        <p class="text-on-surface-variant group-hover:text-on-primary-container">San Francisco State University Campus Recreation</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-bold tracking-tighter">Apr. 2026 — Present</div>
+                                    </div>
+                                </div>
+                                <div class="grid md:grid-cols-2 gap-8">
+                                    <ul class="space-y-3 text-sm leading-relaxed">
+                                        <li class="flex gap-3">
+                                            <span class="material-symbols-outlined text-secondary group-hover:text-secondary-fixed shrink-0" data-icon="check_circle">check_circle</span>
+                                            <span>Supervised and trained lifeguard staff to ensure compliance with safety protocols.</span>
+                                        </li>
+                                        <li class="flex gap-3">
+                                            <span class="material-symbols-outlined text-secondary group-hover:text-secondary-fixed shrink-0" data-icon="check_circle">check_circle</span>
+                                            <span>Coordinated staff scheduling and operations to improve workflow efficiency.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Role 2: IT Support -->
+                        <article class="relative group">
+                            <div class="absolute -left-[36px] top-2 w-4 h-4 rounded-full bg-surface-container-lowest border-2 border-outline-variant group-hover:border-primary z-10"></div>
+                            <div class="bg-surface-container-low p-8 rounded-md transition-all duration-300 hover:bg-primary-container hover:text-on-primary">
+                                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                                    <div>
+                                        <span class="text-xs font-bold text-secondary uppercase tracking-widest group-hover:text-secondary-fixed">Technical Practice</span>
+                                        <h4 class="text-2xl font-black tracking-tighter">IT Support</h4>
+                                        <p class="text-on-surface-variant group-hover:text-on-primary-container">Zengo Corporation Sdn Bhd</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-bold tracking-tighter">Jun. 2024 — Sep. 2024</div>
+                                    </div>
+                                </div>
+                                <div class="grid md:grid-cols-2 gap-8">
+                                    <ul class="space-y-3 text-sm leading-relaxed">
+                                        <li class="flex gap-3">
+                                            <span class="material-symbols-outlined text-secondary group-hover:text-secondary-fixed shrink-0" data-icon="check_circle">check_circle</span>
+                                            <span>Provided technical support and troubleshooting for users and systems.</span>
+                                        </li>
+                                        <li class="flex gap-3">
+                                            <span class="material-symbols-outlined text-secondary group-hover:text-secondary-fixed shrink-0" data-icon="check_circle">check_circle</span>
+                                            <span>Developed a custom inventory tracking program, automating calculations and reducing manual work by 50%.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Role 3: Lifeguard -->
+                        <article class="relative group">
+                            <div class="absolute -left-[36px] top-2 w-4 h-4 rounded-full bg-surface-container-lowest border-2 border-outline-variant group-hover:border-primary z-10"></div>
+                            <div class="bg-surface-container-low p-8 rounded-md transition-all duration-300 hover:bg-primary-container hover:text-on-primary">
+                                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                                    <div>
+                                        <span class="text-xs font-bold text-secondary uppercase tracking-widest group-hover:text-secondary-fixed">Certification & Safety</span>
+                                        <h4 class="text-2xl font-black tracking-tighter">Lifeguard</h4>
+                                        <p class="text-on-surface-variant group-hover:text-on-primary-container">San Francisco State University Campus Recreation</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-bold tracking-tighter">Aug. 2025 — Mar. 2026</div>
+                                    </div>
+                                </div>
+                                <p class="text-sm leading-relaxed mb-6 group-hover:text-on-primary-container">
+                                    Learned and maintained proficiency in first responder skills such as First Aid and CPR. Responded to emergency situations in a timely and efficient manner.
+                                </p>
+                                <div class="flex gap-4">
+                                    <span class="material-symbols-outlined text-error group-hover:text-secondary-fixed" data-icon="medical_services" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+                                    <span class="material-symbols-outlined text-secondary group-hover:text-secondary-fixed" data-icon="pool">pool</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </div>        </section>
+
+        <!-- Skills Section -->
+        <section class="mb-32" id="skills">
+            <div class="mb-16">
+                <h2 class="text-5xl md:text-6xl font-black tracking-tighter text-primary leading-tight">Skills.</h2>
+                <p class="text-lg text-on-surface-variant font-medium mt-4">A focused stack for building full-stack applications and data-driven tools.</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-6 w-full">
+                <!-- Languages Card -->
+                <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-surface-container rounded-xl p-8 border border-outline-variant/20 hover:shadow-lg hover:border-primary transition-all duration-300 flex flex-col">
+                    <h3 class="text-xl font-bold tracking-tight text-primary mb-6">Languages</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
+                            <i class="devicon-python-plain text-lg"></i>
+                            Python
+                        </span>
+                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
+                            <i class="devicon-java-plain text-lg"></i>
+                            Java
+                        </span>
+                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
+                            <i class="devicon-cplusplus-plain text-lg"></i>
+                            C++
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Frontend Card -->
+                <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-surface-container rounded-xl p-8 border border-outline-variant/20 hover:shadow-lg hover:border-primary transition-all duration-300 flex flex-col">
+                    <h3 class="text-xl font-bold tracking-tight text-primary mb-6">Frontend</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
+                            <i class="devicon-html5-plain text-lg"></i>
+                            HTML
+                        </span>
+                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
+                            <i class="devicon-css3-plain text-lg"></i>
+                            CSS
+                        </span>
+                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
+                            <i class="devicon-tailwindcss-plain text-lg"></i>
+                            Tailwind CSS
+                        </span>
+                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
+                            <i class="devicon-bootstrap-plain text-lg"></i>
+                            Bootstrap
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Backend Card -->
+                <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-surface-container rounded-xl p-8 border border-outline-variant/20 hover:shadow-lg hover:border-primary transition-all duration-300 flex flex-col">
+                    <h3 class="text-xl font-bold tracking-tight text-primary mb-6">Backend</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
+                            <i class="devicon-flask-original text-lg"></i>
+                            Flask
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Database Card -->
+                <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-surface-container rounded-xl p-8 border border-outline-variant/20 hover:shadow-lg hover:border-primary transition-all duration-300 flex flex-col">
+                    <h3 class="text-xl font-bold tracking-tight text-primary mb-6">Database</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
+                            <i class="devicon-mongodb-plain text-lg"></i>
+                            MongoDB
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Tools Card -->
+                <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-surface-container rounded-xl p-8 border border-outline-variant/20 hover:shadow-lg hover:border-primary transition-all duration-300 flex flex-col">
+                    <h3 class="text-xl font-bold tracking-tight text-primary mb-6">Tools</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
+                            <i class="devicon-git-plain text-lg"></i>
+                            Git
+                        </span>
+                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
+                            <i class="devicon-github-original text-lg"></i>
+                            GitHub
+                        </span>
+                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
+                            <i class="devicon-vscode-plain text-lg"></i>
+                            VS Code
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="mb-32" id="contact">
+            <div class="mb-16 text-center">
+                <h2 class="text-5xl md:text-6xl font-black tracking-tighter text-primary leading-tight mb-6">
+                    Let's Have a Coffee Chat.
+                </h2>
+                <p class="text-lg text-on-surface-variant leading-relaxed max-w-2xl mx-auto">
+                    Whether you're interested in technology, coding, or just talking about sports — from swimming and basketball to baseball and Formula 1 — I'm always open to connect and have a conversation.
+                </p>
+            </div>
+            
+            <div class="flex flex-col items-center gap-12">
+                <!-- Contact Methods -->
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center flex-wrap">
+                    <!-- Email -->
+                    <a href="mailto:ashleysumtzele04@gmail.com" class="inline-flex items-center gap-3 px-8 py-4 bg-primary text-on-primary font-bold uppercase text-sm tracking-widest rounded-lg hover:bg-slate-800 transition-all duration-300 shadow-md hover:shadow-lg">
+                        <span class="material-symbols-outlined" data-icon="mail">mail</span>
+                        Email Me
+                    </a>
+                    
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/ashley-sum" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 border-2 border-primary text-primary font-bold uppercase text-sm tracking-widest rounded-lg hover:bg-primary hover:text-on-primary transition-all duration-300">
+                        <img src="assets/logos/linkedin.png" alt="LinkedIn" class="w-5 h-5">
+                        LinkedIn
+                    </a>
+                    
+                    <!-- GitHub -->
+                    <a href="https://github.com/ashleytzele" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 border-2 border-primary text-primary font-bold uppercase text-sm tracking-widest rounded-lg hover:bg-primary hover:text-on-primary transition-all duration-300">
+                        <img src="assets/logos/github.png" alt="GitHub" class="w-5 h-5">
+                        GitHub
+                    </a>
+                </div>
+                
+                <!-- Response Message -->
+                <p class="text-center text-on-surface-variant text-sm">
+                    Feel free to reach out — I usually respond within a day.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Main Footer (Desktop) -->
+    <footer class="bg-slate-900 dark:bg-slate-950 text-slate-50 py-16 mt-32 hidden md:block">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand Section -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <img src="assets/logos/ASHLEYTZELE LOGO.jpeg" alt="ASHLEYTZELE Logo" class="h-8 w-8 rounded-full object-cover">
+                        <span class="text-xl font-black tracking-tighter">ASHLEYTZELE</span>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Full-stack engineer building elegant solutions to complex problems. Combining architectural rigor with thoughtful design.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-widest mb-6 text-slate-200">Navigation</h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><a href="#home" class="hover:text-sky-400 transition-colors duration-200">Home</a></li>
+                        <li><a href="#projects" class="hover:text-sky-400 transition-colors duration-200">Projects</a></li>
+                        <li><a href="#experience" class="hover:text-sky-400 transition-colors duration-200">Experience</a></li>
+                        <li><a href="#skills" class="hover:text-sky-400 transition-colors duration-200">Skills</a></li>
+                        <li><a href="#contact" class="hover:text-sky-400 transition-colors duration-200">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Links -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-widest mb-6 text-slate-200">Connect</h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li>
+                            <a href="https://www.linkedin.com/in/ashley-sum" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-sky-400 transition-colors duration-200">
+                                <img src="assets/logos/linkedin.png" alt="LinkedIn" class="w-4 h-4">
+                                LinkedIn
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/ashleytzele" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-sky-400 transition-colors duration-200">
+                                <img src="assets/logos/github.png" alt="GitHub" class="w-4 h-4">
+                                GitHub
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:ashleysumtzele04@gmail.com" class="hover:text-sky-400 transition-colors duration-200">
+                                ashleysumtzele04@gmail.com
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- CTA -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-widest mb-6 text-slate-200">Let's Talk</h4>
+                    <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                        Interested in collaborating or just want to chat? I'd love to hear from you.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold uppercase tracking-widest rounded-md transition-colors duration-200">
+                        Get In Touch
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t border-slate-700 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+                    <p>&copy; 2026 ASHLEYTZELE. All rights reserved.</p>
+                    <div class="flex gap-6">
+                        <a href="#home" class="hover:text-slate-300 transition-colors duration-200">Privacy Policy</a>
+                        <a href="#home" class="hover:text-slate-300 transition-colors duration-200">Terms of Service</a>
+                    </div>
+                    <p>Designed & Built with <span class="text-red-500">❤️</span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Navigation Footer -->
+    <footer class="bg-slate-50/90 dark:bg-slate-950/90 backdrop-blur-lg fixed bottom-0 w-full z-50 rounded-t-lg shadow-[0_-10px_30px_rgba(25,28,29,0.04)] md:hidden">
+        <div class="flex justify-around items-center px-4 py-3 pb-safe">
+            <a href="#home" class="flex flex-col items-center justify-center bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 rounded-xl px-3 py-1.5 transition-all duration-200 scale-95 active:scale-90">
+                <span class="material-symbols-outlined" data-icon="home">home</span>
+                <span class="text-[10px] uppercase tracking-widest font-bold font-inter mt-1">Home</span>
+            </a>
+            <a href="#projects" class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1.5 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 scale-95 active:scale-90">
+                <span class="material-symbols-outlined" data-icon="folder_special">folder_special</span>
+                <span class="text-[10px] uppercase tracking-widest font-bold font-inter mt-1">Projects</span>
+            </a>
+            <a href="#experience" class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1.5 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 scale-95 active:scale-90">
+                <span class="material-symbols-outlined" data-icon="school">school</span>
+                <span class="text-[10px] uppercase tracking-widest font-bold font-inter mt-1">Experience</span>
+            </a>
+            <a href="#skills" class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1.5 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 scale-95 active:scale-90">
+                <span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+                <span class="text-[10px] uppercase tracking-widest font-bold font-inter mt-1">Skills</span>
+            </a>
+            <a href="#contact" class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1.5 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 scale-95 active:scale-90">
+                <span class="material-symbols-outlined" data-icon="alternate_email">alternate_email</span>
+                <span class="text-[10px] uppercase tracking-widest font-bold font-inter mt-1">Contact</span>
+            </a>
+        </div>
+    </footer>
+</body>
+</html>
