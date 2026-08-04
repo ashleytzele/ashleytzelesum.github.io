@@ -55,20 +55,24 @@ Project screenshots remain visually dominant. The flow steps clarify the work; t
 
 ## Visual System
 
+The visual reference is Archify's Signal Flow preset. The portfolio borrows its clear primary path, compact semantic nodes, dark/light contrast, and finite trace motion. It does not reproduce Archify's viewer shell, diagram controls, component taxonomy, or exact styling.
+
 ### Character
 
-Precise, energetic, and analytical without resembling a generic dashboard, Mermaid diagram, or productivity whiteboard.
+Precise, energetic, and analytical without resembling a generic dashboard, Mermaid diagram, productivity whiteboard, or embedded Archify artifact.
 
 ### Palette
 
-- Graphite — `#171A1D`: primary text and strong surfaces
-- Paper — `#F4F6F3`: main canvas
-- Signal Blue — `#2563EB`: active connectors and primary actions
-- Process Lime — `#B9E769`: rare highlight for completed or key nodes
-- Cool Gray — `#D7DDD9`: inactive connectors and boundaries
-- Muted Ink — `#66706A`: supporting text
+- Deep Graphite — `#0B0F14`: primary canvas
+- Raised Graphite — `#141B23`: nodes and supporting surfaces
+- Signal Cyan — `#38BDF8`: primary authored path and focus
+- Process Blue — `#2563EB`: actions and secondary route segments
+- Warm Signal — `#F59E5B`: rare emphasis for a decision or key project moment
+- Cool Line — `#34404D`: inactive connectors and boundaries
+- Soft White — `#EDF4F7`: primary text
+- Muted Steel — `#94A3AD`: supporting text
 
-Blue carries the main system path. Lime is reserved for one or two high-value moments and never used as a general decorative accent.
+Cyan carries the main system path. Blue supports actions and secondary relationships. Warm Signal is reserved for one or two high-value moments and never used as a general decorative accent. The design avoids the common near-black-and-acid-green AI aesthetic.
 
 ### Typography
 
@@ -80,15 +84,24 @@ Fallbacks are declared so the prototype remains readable if remote fonts fail.
 
 ### Layout
 
-Desktop uses a centered reading column with selected full-width project moments. A single connector can move laterally to relate content, but text always follows an obvious top-to-bottom order.
+Desktop uses a centered reading column with selected full-width project moments. A single luminous connector can move laterally to relate content, but text always follows an obvious top-to-bottom order. Nodes use compact headers, quiet borders, and restrained glow rather than glass cards.
 
 Mobile collapses every relationship into a vertical sequence. Connectors never cross, content never depends on hover, and touch targets are at least 44 pixels.
 
 ## Signature Element
 
-One continuous system line begins beside Ashley's name and progresses through the page. It changes state as the visitor scrolls and connects only information with a real relationship.
+One continuous Signal Flow line begins beside Ashley's name and progresses through the page. It changes state as the visitor scrolls and connects only information with a real relationship.
 
-The line is the sole expressive motion system. Other animation remains restrained: short node reveals, subtle project-image transitions, and clear hover or focus feedback. Reduced-motion preferences disable drawing and reveal animation while retaining the full content structure.
+The line is the sole expressive motion system. It traces each section once as the visitor reaches it, then becomes static. Other animation remains restrained: short node reveals, subtle project-image transitions, and clear hover or focus feedback. There is no looping ambient motion. Reduced-motion preferences disable drawing and reveal animation while retaining the full content structure.
+
+### Deliberate Departures from Archify
+
+- No canvas panning, zooming, semantic search, route probing, presentation controls, legends, or export interface
+- No requirement to interpret component colors before understanding the content
+- No dense network topology or crossing connectors
+- No diagram chrome around the page
+- Project evidence and conventional headings remain more prominent than nodes
+- Mobile uses a single vertical rail instead of a scaled diagram
 
 ## Section Designs
 
