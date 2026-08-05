@@ -1,0 +1,12 @@
+# Editor / OS
+.DS_Store
+
+# Tooling caches — not part of the site
+.codegraph/
+.superpowers/
+.impeccable/
+node_modules/
+package-lock.json
+
+# Résumé source documents live outside the repo; only the built PDF ships
+*.docx
