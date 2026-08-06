@@ -264,3 +264,10 @@ p{margin:0;color:var(--sec)}
   .dwg .ln{stroke-dashoffset:0;animation:none}.dwg .axis{transform:scaleY(1);animation:none}
   .dwg .fd,.an{opacity:1;animation:none}
   .rec,.proj,.cells{break-inside:avoid}}
+
+/* Media slot: every form is held at the same scale floor inside the scroll
+   region, so a narrow viewport pans the figure rather than shrinking it
+   illegibly. No reduced-motion rule is needed: preload="none" with no autoplay
+   means nothing moves until the visitor presses play. */
+.figbox img,.figbox video{min-width:1000px;max-width:none;height:auto;display:block}
+.figbox video{background:var(--paper)}

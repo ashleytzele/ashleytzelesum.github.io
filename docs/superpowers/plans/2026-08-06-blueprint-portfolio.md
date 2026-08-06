@@ -558,29 +558,48 @@ document. Replaces the previous single-page design."
 
 ---
 
-### Task 4: Prove the media slot accepts all three forms
+### Task 4: Prove the media slot accepts video
 
-The spec commits the media slot to drawn SVG, image **and** video. Two of the three ship today; video is unproven, and `assets/videos/splitwise-demo.mp4` already exists in the repo. This task makes the video form real so the contract is not aspirational.
+The spec commits the media slot to drawn SVG, image **and** video. Five of the six project figures are drawn SVGs and the 05.4 SplitWise figure is already an `<img>` — two of the three forms are proven, video is not — and `assets/videos/splitwise-demo.mp4` already exists in the repo. This task makes the video form real so the contract is not aspirational. The swap is **image → video**: the 05.4 figure is `<img src="assets/images/splitwise-dashboard.jpg" …>` today, not a drawn SVG.
 
 **Files:**
-- Modify: `index.html` (the `05.4` SplitWise figure inside `<div id="p4" class="detail">`)
-- Modify: `test/contracts.test.mjs` (add the video contract test)
+- Modify: `index.html` (the `05.4` SplitWise figure inside `<div class="pb">`, above `<div id="p4" class="detail">`)
+- Modify: `test/contracts.test.mjs` (retire the now-vacuous img-only test, add three media-slot tests covering whichever form is present)
 
 **Interfaces:**
 - Consumes: `readSite()` from Task 2; the `.figbox` markup produced by Task 3.
-- Produces: a `<video>` inside a `.figbox` that satisfies the same six media-slot conditions as the SVG and image forms.
+- Produces: a `<video>` inside a `.figbox` that satisfies the same media-slot conditions as the SVG and image forms.
 
-- [ ] **Step 1: Write the failing video contract test**
+- [ ] **Step 1: Write the failing tests**
 
-Append to `test/contracts.test.mjs`:
+The existing test `every img declares intrinsic size and a substantive alt` becomes vacuous once this change lands — it would have zero `<img>` elements to check and no guard against an empty set. Replace it in `test/contracts.test.mjs` with:
 
 ```javascript
+test('every figure slot holds exactly one medium', () => {
+  const figs = html.split('<div class="figbox"').slice(1);
+  assert.ok(figs.length > 0, 'expected figure slots');
+  for (const f of figs) {
+    const body = f.slice(0, f.indexOf('class="figcap"'));
+    const n = (body.match(/<svg class="dwg"|<img\b|<video\b/g) || []).length;
+    assert.equal(n, 1, `a media slot holds exactly one medium, found ${n}`);
+  }
+});
+
+test('every media element declares intrinsic size and a text alternative', () => {
+  const media = html.match(/<(?:img|video)\b[^>]*>/g) || [];
+  assert.ok(media.length > 0, 'expected at least one img or video');
+  for (const m of media) {
+    assert.match(m, /\bwidth="\d+"/, `no width: ${m}`);
+    assert.match(m, /\bheight="\d+"/, `no height: ${m}`);
+    const alt = /(?:alt|aria-label)="([^"]*)"/.exec(m);
+    assert.ok(alt && alt[1].length > 20, `text alternative too thin: ${m}`);
+  }
+});
+
 test('every video satisfies the media slot contract', () => {
   const videos = html.match(/<video[^>]*>/g) || [];
   assert.ok(videos.length > 0, 'expected at least one video, to prove the slot');
   for (const v of videos) {
-    assert.match(v, /\bwidth="\d+"/, `no intrinsic width: ${v}`);
-    assert.match(v, /\bheight="\d+"/, `no intrinsic height: ${v}`);
     assert.match(v, /\bposter="[^"]+"/, `no poster frame: ${v}`);
     assert.ok(v.includes('muted'), `must be muted: ${v}`);
     assert.ok(v.includes('controls'), `must expose controls: ${v}`);
@@ -588,16 +607,9 @@ test('every video satisfies the media slot contract', () => {
     assert.ok(!v.includes('autoplay'), `autoplay is forbidden: ${v}`);
   }
 });
-
-test('every video carries a text description', () => {
-  // The slot requires a substantive alternative, not a filename.
-  const blocks = [...html.matchAll(/<video[\s\S]{0,600}?<\/video>/g)].map(m => m[0]);
-  for (const b of blocks) {
-    const label = /aria-label="([^"]*)"/.exec(b);
-    assert.ok(label && label[1].length > 20, `thin or missing description: ${b.slice(0, 80)}`);
-  }
-});
 ```
+
+These three cover the media-slot contract for whichever forms are present (SVG, image, video) and cannot pass on an empty document, unlike the test they replace.
 
 - [ ] **Step 2: Run to verify it fails**
 
@@ -605,83 +617,69 @@ test('every video carries a text description', () => {
 node --test test/contracts.test.mjs
 ```
 
-Expected: FAIL — `expected at least one video, to prove the slot`.
+Expected: FAIL — `every video satisfies the media slot contract` fails with `expected at least one video, to prove the slot`. The other two pass against the current img/SVG figures, which is correct — they are not new assertions about video, just a stronger replacement for the retired img-only test.
 
-- [ ] **Step 3: Generate a poster frame from the existing video**
+- [ ] **Step 3: Replace the 05.4 figure with the video form**
 
-```bash
-ffmpeg -i assets/videos/splitwise-demo.mp4 -vf "select=eq(n\,0)" -vframes 1 \
-  assets/images/splitwise-demo-poster.jpg
-python3 -c "
-import struct
-d=open('assets/images/splitwise-demo-poster.jpg','rb').read()
-i=2
-while i<len(d):
-    if d[i]!=0xFF: break
-    m=d[i+1]; L=struct.unpack('>H',d[i+2:i+4])[0]
-    if m in (0xC0,0xC2):
-        h,w=struct.unpack('>HH',d[i+5:i+9]); print('poster',w,'x',h); break
-    i+=2+L"
-```
+No `ffmpeg` step and no generated poster: the spec requires the poster be legible on its own, and the existing `assets/images/splitwise-dashboard.jpg` dashboard screenshot is more legible than frame zero of a screen recording (usually a blank app shell). Reusing it also keeps that asset referenced rather than orphaning it. `2916x1656` is the file's real intrinsic size (via `ffprobe`); the file has no audio track, is 9 MB, and runs 100 seconds.
 
-If `ffmpeg` is not installed, stop and report it — do not ship a video without a poster, and do not substitute an unrelated image. Note the printed dimensions; they are the `width`/`height` for Step 4.
-
-- [ ] **Step 4: Replace the 05.4 figure with the video form**
-
-In `index.html`, inside `<div id="p4" class="detail">`, replace the existing `<div class="figbox" …>` block (the drawn SVG for SplitWise) with:
+In `index.html`, replace the existing `<div class="figbox" …>` block for 05.4 (an `<img>`, not an SVG) with:
 
 ```html
 <div class="figbox" tabindex="0" role="group" aria-label="Figure 4, scrollable">
-  <video class="fig" width="WIDTH" height="HEIGHT"
-    poster="assets/images/splitwise-demo-poster.jpg"
+  <video class="fig" width="2916" height="1656"
+    poster="assets/images/splitwise-dashboard.jpg"
     src="assets/videos/splitwise-demo.mp4"
     preload="none" muted controls playsinline
-    aria-label="Screen recording of SplitWise Swim: a race is loaded, split times are entered, and the pacing chart redraws to compare each 50 against the target split."></video>
-  <div class="cap"><span>Fig. 05.4 &mdash; Race split entry and pacing comparison</span><span>Not to scale</span></div>
+    aria-label="Screen recording of SplitWise Swim: a race is loaded, split times are entered, and the velocity and stroke-rate charts redraw to compare each split against the target pace."></video>
+  <div class="figcap"><span>Fig. 05.4 &mdash; Performance dashboard, recorded</span><span>Live application</span></div>
 </div>
 ```
 
-Substitute the real `WIDTH` and `HEIGHT` printed in Step 3.
+Note the caption class is `figcap`, matching the other figures — not `cap`.
 
-- [ ] **Step 5: Give the video the same scale and reduced-motion handling as the other media forms**
+- [ ] **Step 4: Give the video the same scale floor as the other media forms**
 
-Append to `assets/css/blueprint.css`:
+Append to `assets/css/blueprint.css`. This applies the scale floor to all three media forms, not just video, because the contract is the same for each:
 
 ```css
-/* Media slot: a video is held at its authored scale inside the same scroll
-   region as a drawn figure, so a phone pans it rather than shrinking it.
-   No reduced-motion rule is needed: preload="none" with no autoplay means
-   nothing moves until the visitor presses play. */
-.figbox video.fig{min-width:640px;max-width:none;height:auto;display:block;
-  border:1px solid var(--hair);background:var(--paper)}
+/* Media slot: every form is held at the same scale floor inside the scroll
+   region, so a narrow viewport pans the figure rather than shrinking it
+   illegibly. No reduced-motion rule is needed: preload="none" with no autoplay
+   means nothing moves until the visitor presses play. */
+.figbox img,.figbox video{min-width:1000px;max-width:none;height:auto;display:block}
+.figbox video{background:var(--paper)}
 ```
 
-- [ ] **Step 6: Run the tests**
+- [ ] **Step 5: Run the tests**
 
 ```bash
 node --test
 ```
 
-Expected: PASS, including the two new video tests. `every local asset referenced actually exists` now also covers the poster and the mp4.
+Expected: PASS, including all three replacement tests. `every local asset referenced actually exists` now also covers the mp4; no new poster file is created since the poster reuses `assets/images/splitwise-dashboard.jpg`.
 
-- [ ] **Step 7: Check it in the browser**
+- [ ] **Step 6: Check it in the browser**
 
 ```bash
 python3 -m http.server 8118 &
-open http://localhost:8118/#a005
+open "http://localhost:8118/?cb=1#a005"
 ```
 
-Confirm: the 05.4 figure shows the poster frame, does not play on its own, plays with controls, and the figure region still scrolls on a narrow window. Stop the server.
+Confirm: the 05.4 figure shows the poster frame, does not play on its own, plays with controls, and the figure region still scrolls on a narrow window. Check the network panel to confirm the 9 MB mp4 is not fetched on page load. Stop the server.
 
-- [ ] **Step 8: Commit**
+Two measurement traps to watch for: the automation tab reports `visibilityState: "hidden"` during scripted browser calls, which throttles media loading and observers — a real user tab does not have this problem. And Chrome may serve a cached copy on a plain reload, so use a fresh query string.
+
+- [ ] **Step 7: Commit**
 
 ```bash
-git add index.html assets/css/blueprint.css assets/images/splitwise-demo-poster.jpg test/contracts.test.mjs
+git add index.html assets/css/blueprint.css test/contracts.test.mjs
 git commit -m "Prove the media slot accepts video
 
-The 05.4 figure is now a screen recording rather than a drawn diagram, using the
-same scroll region, scale floor and text alternative as the SVG and image forms.
-Muted, no autoplay, poster required, nothing preloaded."
+The 05.4 figure is now a screen recording rather than a static screenshot, using
+the same scroll region, scale floor and text alternative as the SVG and image
+forms. Muted, no autoplay, poster reuses the existing dashboard screenshot,
+nothing preloaded."
 ```
 
 ---
@@ -1103,7 +1101,7 @@ Expected: `[]`, or the single known-advisory `numbered-section-markers`, which i
 |---|---|
 | Document Structure | Task 3 (sheets ship intact); contract test on `role="tab"` count |
 | Sheet / Record / Project slots | Task 3; heading, placeholder and `aria-controls` tests |
-| Media slot | Task 4 (all three forms, six conditions each) |
+| Media slot | Task 4 (all three forms covered by a shared one-medium and size/alt test, video also checked against its five extra conditions: poster, muted, controls, preload, no autoplay) |
 | Component slot | Task 3; the tablist/tabpanel and `aria-pressed` tests |
 | Field slot | Task 3 — no separate test; it is markup shape, caught by eye in Task 3 Step 6 |
 | Icon slot | Task 2 dead-symbol and `aria-hidden` tests |
@@ -1120,4 +1118,4 @@ Two spec items have no automated test and are checked by eye instead, which I am
 
 **Type consistency.** `readSite()` is defined in Task 2 Step 1 and consumed by Tasks 2 and 4 under the same name, returning `{html, css, js}` in both. Asset paths written in Task 1 match the ones substituted in Task 3 Step 1 and Step 3, and the ones asserted by `every local asset referenced actually exists`. The ids listed in Task 3's Produces block are the ones Task 4 and Task 5 address.
 
-**One known gap.** Task 4 depends on `ffmpeg` for the poster frame. If it is unavailable, Task 4 blocks — the step says stop and report rather than ship a video with no poster or a substituted image. Tasks 5–7 do not depend on Task 4 and can proceed.
+**One known gap.** None remaining for Task 4 — it reuses the existing `assets/images/splitwise-dashboard.jpg` as the poster rather than generating one with `ffmpeg`, so it has no external tool dependency. Tasks 5–7 do not depend on Task 4 and can proceed independently either way.

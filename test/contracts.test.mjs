@@ -106,13 +106,36 @@ test('component group uses tab semantics, not aria-pressed', () => {
   assert.equal((html.match(/role="tabpanel"/g) || []).length, 1);
 });
 
-test('every img declares intrinsic size and a substantive alt', () => {
-  const imgs = html.match(/<img[^>]*>/g) || [];
-  for (const img of imgs) {
-    assert.match(img, /\bwidth="\d+"/, `no width: ${img}`);
-    assert.match(img, /\bheight="\d+"/, `no height: ${img}`);
-    const alt = /alt="([^"]*)"/.exec(img);
-    assert.ok(alt && alt[1].length > 20, `alt too thin: ${img}`);
+test('every figure slot holds exactly one medium', () => {
+  const figs = html.split('<div class="figbox"').slice(1);
+  assert.ok(figs.length > 0, 'expected figure slots');
+  for (const f of figs) {
+    const body = f.slice(0, f.indexOf('class="figcap"'));
+    const n = (body.match(/<svg class="dwg"|<img\b|<video\b/g) || []).length;
+    assert.equal(n, 1, `a media slot holds exactly one medium, found ${n}`);
+  }
+});
+
+test('every media element declares intrinsic size and a text alternative', () => {
+  const media = html.match(/<(?:img|video)\b[^>]*>/g) || [];
+  assert.ok(media.length > 0, 'expected at least one img or video');
+  for (const m of media) {
+    assert.match(m, /\bwidth="\d+"/, `no width: ${m}`);
+    assert.match(m, /\bheight="\d+"/, `no height: ${m}`);
+    const alt = /(?:alt|aria-label)="([^"]*)"/.exec(m);
+    assert.ok(alt && alt[1].length > 20, `text alternative too thin: ${m}`);
+  }
+});
+
+test('every video satisfies the media slot contract', () => {
+  const videos = html.match(/<video[^>]*>/g) || [];
+  assert.ok(videos.length > 0, 'expected at least one video, to prove the slot');
+  for (const v of videos) {
+    assert.match(v, /\bposter="[^"]+"/, `no poster frame: ${v}`);
+    assert.ok(v.includes('muted'), `must be muted: ${v}`);
+    assert.ok(v.includes('controls'), `must expose controls: ${v}`);
+    assert.ok(v.includes('preload="none"'), `must not preload: ${v}`);
+    assert.ok(!v.includes('autoplay'), `autoplay is forbidden: ${v}`);
   }
 });
 
