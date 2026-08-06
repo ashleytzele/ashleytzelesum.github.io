@@ -52,6 +52,17 @@ a{color:inherit}
 .index a[aria-current]{border-bottom-color:var(--ink)}
 .index .foot{margin-top:auto;font-family:'MN',monospace;font-size:8px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--ref);line-height:2}
+/* Theme toggle: a drawing-sheet polarity field, same vocabulary as .foot.
+   display:none by default; the js class (set inline, gated the same way as
+   the rest of the document) is what makes it visible, since a control that
+   cannot run must not be shown. min-height/min-width hold the 44px target
+   at every width per the same approach as .skip and .index a. */
+.theme-toggle{display:none}
+.js .theme-toggle{display:flex;align-items:center;justify-content:center;min-height:44px;
+  width:100%;margin-top:calc(var(--u)*1.5);border:1px solid var(--line);background:none;
+  color:var(--ref);cursor:pointer;font-family:'MN',monospace;font-size:8px;letter-spacing:.16em;
+  text-transform:uppercase;transition:border-color .2s linear,color .2s linear}
+.theme-toggle:hover{border-color:var(--ink);color:var(--ink)}
 .doc{margin-left:var(--idx)}
 @media(max-width:960px){
   .index{position:sticky;width:auto;bottom:auto;border-right:0;border-bottom:1px solid var(--ink);
@@ -62,6 +73,9 @@ a{color:inherit}
   .index a{grid-template-columns:auto;padding:13px 8px;border:0;white-space:nowrap;min-height:44px;min-width:44px;display:flex;align-items:center;justify-content:center}
   .index a .t{display:none}.index .foot{display:none}
   .index a[aria-current] .n{text-decoration:underline;text-underline-offset:4px}
+  /* Kept outside .foot (and thus outside its display:none above) so a
+     visitor on a narrow viewport still has a way to switch themes. */
+  .js .theme-toggle{width:auto;min-width:44px;margin-top:0;flex:none;padding:0 14px}
   .doc{margin-left:0}
 }
 

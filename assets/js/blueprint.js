@@ -56,4 +56,34 @@
       if(e.key==='Enter'||e.key===' '){e.preventDefault();show(n.dataset.part);return}
       var d=STEP[e.key],j=e.key==='Home'?0:e.key==='End'?parts.length-1:d?(i+d+parts.length)%parts.length:-1;
       if(j<0)return;e.preventDefault();show(parts[j].dataset.part,true);});});
+
+  /* theme toggle: "sheet polarity" field in the index footer. The initial
+     theme itself is applied by the inline script in <body> so there is no
+     flash; this only wires the click and keeps the label/meta in sync. No
+     localStorage read here — the inline script already applied any stored
+     choice to data-theme before this file even loaded. */
+  var themeBtn=document.getElementById('themeToggle');
+  if(themeBtn){
+    var THEME_LABEL={light:'Sheet · Normal',dark:'Sheet · Inverted'};
+    var effectiveTheme=function(){
+      var t=document.documentElement.getAttribute('data-theme');
+      if(t==='light'||t==='dark')return t;
+      return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+    };
+    var syncThemeBtn=function(theme){
+      themeBtn.textContent=THEME_LABEL[theme];
+      themeBtn.setAttribute('aria-pressed',String(theme==='dark'));
+    };
+    syncThemeBtn(effectiveTheme());
+    themeBtn.addEventListener('click',function(){
+      var next=effectiveTheme()==='dark'?'light':'dark';
+      document.documentElement.setAttribute('data-theme',next);
+      var color=next==='dark'?'#0D0D0D':'#FFFFFF';
+      [].slice.call(document.querySelectorAll('meta[name="theme-color"]')).forEach(function(m){
+        m.setAttribute('content',color);
+      });
+      try{localStorage.setItem('theme',next)}catch(e){}
+      syncThemeBtn(next);
+    });
+  }
 })();

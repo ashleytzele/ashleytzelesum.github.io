@@ -100,10 +100,44 @@ test('interactive SVG is not inside a presentational role', () => {
 });
 
 test('component group uses tab semantics, not aria-pressed', () => {
-  assert.ok(!html.includes('aria-pressed'), 'single-select group must not use aria-pressed');
-  assert.equal((html.match(/role="tablist"/g) || []).length, 1);
-  assert.equal((html.match(/role="tab"/g) || []).length, 4);
-  assert.equal((html.match(/role="tabpanel"/g) || []).length, 1);
+  // Scoped to the A-001 assembly, not the whole document: the theme toggle
+  // elsewhere on the page legitimately uses aria-pressed (it is a two-state
+  // toggle button, not a single-select group), so a document-wide ban would
+  // be checking the wrong thing.
+  const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
+  assert.ok(!a001.includes('aria-pressed'), 'single-select group must not use aria-pressed');
+  assert.equal((a001.match(/role="tablist"/g) || []).length, 1);
+  assert.equal((a001.match(/role="tab"/g) || []).length, 4);
+  assert.equal((a001.match(/role="tabpanel"/g) || []).length, 1);
+});
+
+test('theme toggle is a real button with an accessible name that says what it does', () => {
+  const tag = /<button[^>]*id="themeToggle"[^>]*>/.exec(html);
+  assert.ok(tag, 'expected a <button id="themeToggle">, not a div/checkbox');
+  assert.match(tag[0], /aria-pressed="(?:true|false)"/, 'must report its state to assistive tech');
+  const name = /aria-label="([^"]+)"/.exec(tag[0]);
+  assert.ok(name, 'expected an aria-label on the theme toggle');
+  assert.doesNotMatch(name[1], /^(toggle|button|click)$/i, `accessible name too thin: "${name[1]}"`);
+  assert.match(name[1], /theme|dark|light/i, `accessible name does not say what the control does: "${name[1]}"`);
+});
+
+test('the stored theme is applied by the inline script, not the external one', () => {
+  const inlineScripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]);
+  assert.ok(inlineScripts.length > 0, 'expected an inline <script> in <body>');
+  const inline = inlineScripts.join('\n');
+  assert.match(inline, /localStorage/, 'inline script must read the stored theme before paint');
+  assert.match(inline, /setAttribute\(\s*['"]data-theme['"]/,
+    'inline script must apply data-theme itself — applying it from the external script would flash the wrong theme first');
+  assert.ok(!/getItem\(\s*['"]theme['"]\s*\)/.test(js),
+    'assets/js/blueprint.js must not read the stored theme itself: it is a separate request and loads after paint');
+});
+
+test('localStorage access around the theme toggle is guarded with try/catch', () => {
+  const inline = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]).join('\n');
+  assert.match(inline, /try\s*\{[\s\S]*?localStorage[\s\S]*?\}\s*catch/,
+    'inline localStorage read must be wrapped in try/catch (Safari private browsing throws)');
+  assert.match(js, /try\s*\{[\s\S]*?localStorage[\s\S]*?\}\s*catch/,
+    'blueprint.js localStorage write must be wrapped in try/catch (Safari private browsing throws)');
 });
 
 test('every figure slot holds exactly one medium', () => {

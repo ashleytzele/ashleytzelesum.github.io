@@ -33,7 +33,41 @@ responsive/touch-target measurements are unaffected by this; the
 `anims` section and anything depending on scroll-triggered reveal are not
 reliable if the tab is hidden while the script runs.
 
-### Baseline — 2026-08-06 (post final-fix-wave)
+### Baseline — 2026-08-06 (theme toggle added)
+
+Measured via the Chrome DevTools protocol against
+`http://localhost:8129/?cb=finalrun_a` (plus fresh-query-string iframe loads
+per width, per the existing responsive methodology), after adding the
+`#themeToggle` "sheet polarity" button to the index footer. This baseline
+supersedes the prior "post final-fix-wave" run: `combos` moved from 58 to 61
+(the toggle's text and its `:hover` state add distinct colour/background
+combinations to the contrast scan) and `responsive[*].targets` moved from 35
+to 36 (one new interactive control). Everything else — `fails: []`,
+`under44: []`, `minDrawnText`, `withoutJS`, `headingsStable`, `keyboard` — is
+unchanged and still holds.
+
+The toggle itself was measured directly in the same iframe pass: it renders
+at **115.1×44 CSS px** at 320/390/768 (mobile row layout, `min-width:44px`
+floor) and **175×44 CSS px** at 1024/1440 (desktop sidebar, `width:100%` of
+the 216px column) — at least 44×44 at every width tested, including the two
+required checkpoints, 320 and 1440. With the `js` class removed (the
+no-script path), `getComputedStyle(themeToggle).display` is `"none"` —
+confirmed hidden rather than merely inert when JavaScript is unavailable.
+
+Behavioural checks (real navigation, not iframe, since these depend on
+`localStorage` persisting across a load): with `localStorage` cleared and the
+OS/browser in dark mode, the button loads reading "Sheet · Inverted" /
+`aria-pressed="true"` with `data-theme` left unset (`--paper` resolves dark
+from the `prefers-color-scheme` media query, not from an override) — the
+default correctly follows the OS preference. Clicking it sets
+`data-theme="light"`, both `theme-color` meta tags to `#FFFFFF`, and
+`localStorage.theme` to `"light"`. Reloading with a fresh query string
+(`?cb=cleartest2`, to rule out a cached response) reproduces `data-theme`,
+`--paper` and both meta tags in the light state before any visible paint —
+the choice survives a reload with no flash of the wrong theme.
+
+Below is the previous run's note on the responsive-pass fix, unchanged
+context for how `targets` is derived:
 
 Measured via the Chrome DevTools protocol against
 `http://localhost:8129/?cb=fixverify_full1`, after fixing the responsive pass
@@ -72,16 +106,17 @@ is trusted as recorded.
 ```json
 {
  "light": {
-  "combos": 58,
+  "combos": 61,
   "fails": []
  },
  "dark": {
-  "combos": 58,
+  "combos": 61,
   "fails": []
  },
  "withoutJS": {
   "hidden": 0,
-  "undrawn": 0
+  "undrawn": 0,
+  "themeToggleHiddenWithoutJS": true
  },
  "headingsStable": true,
  "keyboard": {
@@ -99,37 +134,42 @@ is trusted as recorded.
   {
    "px": 320,
    "overflow": false,
-   "targets": 35,
+   "targets": 36,
    "under44": [],
-   "minDrawnText": 10.5
+   "minDrawnText": 10.5,
+   "themeToggle": { "w": 115.1, "h": 44 }
   },
   {
    "px": 390,
    "overflow": false,
-   "targets": 35,
+   "targets": 36,
    "under44": [],
-   "minDrawnText": 10.5
+   "minDrawnText": 10.5,
+   "themeToggle": { "w": 115.1, "h": 44 }
   },
   {
    "px": 768,
    "overflow": false,
-   "targets": 35,
+   "targets": 36,
    "under44": [],
-   "minDrawnText": 10.5
+   "minDrawnText": 10.5,
+   "themeToggle": { "w": 115.1, "h": 44 }
   },
   {
    "px": 1024,
    "overflow": false,
-   "targets": 35,
+   "targets": 36,
    "under44": [],
-   "minDrawnText": 10.5
+   "minDrawnText": 10.5,
+   "themeToggle": { "w": 175, "h": 44 }
   },
   {
    "px": 1440,
    "overflow": false,
-   "targets": 35,
+   "targets": 36,
    "under44": [],
-   "minDrawnText": 10.5
+   "minDrawnText": 10.5,
+   "themeToggle": { "w": 175, "h": 44 }
   }
  ]
 }
@@ -150,6 +190,10 @@ recorded a pass — `31, []` — while the real page, panels opened, measured
 `35, [4 targets under 44px]` at every width; see `.refs a` in
 `assets/css/blueprint.css`, fixed to carry the same 44px touch-target
 treatment as `.idm dd a`/`.v a`/`.mn a`).
+
+`targets: 36` in the JSON above supersedes that `35`: the one further target
+is `#themeToggle`, added by the theme-toggle change documented at the top of
+this section.
 
 Required: zero contrast failures in both themes; nothing hidden with JS off;
 heading outline stable under interaction; one tab stop for the component group
