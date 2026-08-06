@@ -33,19 +33,24 @@ responsive/touch-target measurements are unaffected by this; the
 `anims` section and anything depending on scroll-triggered reveal are not
 reliable if the tab is hidden while the script runs.
 
-### Baseline — 2026-08-06
+### Baseline — 2026-08-06 (post final-fix-wave)
 
-Measured via the Chrome DevTools protocol against `http://localhost:8129/?cb=t5run`.
-The controlling tab reported `document.visibilityState === "hidden"` and
-`document.hasFocus() === false` throughout the run, even after an explicit
-OS-level attempt to bring the Chrome window and tab to the foreground
-(`osascript` window/tab activation). This is the known automation-tab trap:
-Chrome throttles `IntersectionObserver` delivery in a backgrounded tab, and
-`assets/js/blueprint.js` gates every entrance animation behind an
-`IntersectionObserver` (lines 3–12). So `anims.total: 0` below is most likely
-an artifact of the reveal observers never firing in the 2500ms window, not
-evidence that the page has no entrance animations — **it is not treated as a
-trusted measurement of `anims.total`.**
+Measured via the Chrome DevTools protocol against
+`http://localhost:8129/?cb=fixverify_full1`, after fixing the responsive pass
+to open every `.detail` disclosure panel before measuring (previously it
+measured a collapsed page: every control inside `.detail` is `display:none`
+until a "more" button is clicked, so those controls never entered the
+`height > 0` guard and the gate never saw them — see the prior baseline's
+`targets: 31` below versus this run's `targets: 35`).
+
+The controlling tab reported `document.visibilityState === "hidden"`
+throughout the run — the same known automation-tab trap as the prior
+baseline: Chrome throttles `IntersectionObserver` delivery in a backgrounded
+tab, and `assets/js/blueprint.js` gates every entrance animation behind an
+`IntersectionObserver` (lines 3–12). So `anims.total: 2` below is not treated
+as a trusted measurement of the page's real animation count — it is most
+likely an undercount from reveal observers not firing reliably in the 2500ms
+window while backgrounded.
 
 The two fields the gate actually requires from this section, `anims.infinite`
 and `anims.layoutProps`, are corroborated independently by reading
@@ -67,11 +72,11 @@ is trusted as recorded.
 ```json
 {
  "light": {
-  "combos": 60,
+  "combos": 58,
   "fails": []
  },
  "dark": {
-  "combos": 60,
+  "combos": 58,
   "fails": []
  },
  "withoutJS": {
@@ -86,7 +91,7 @@ is trusted as recorded.
   "endGoesLast": true
  },
  "anims": {
-  "total": 0,
+  "total": 2,
   "infinite": 0,
   "layoutProps": []
  },
@@ -94,35 +99,35 @@ is trusted as recorded.
   {
    "px": 320,
    "overflow": false,
-   "targets": 31,
+   "targets": 35,
    "under44": [],
    "minDrawnText": 10.5
   },
   {
    "px": 390,
    "overflow": false,
-   "targets": 31,
+   "targets": 35,
    "under44": [],
    "minDrawnText": 10.5
   },
   {
    "px": 768,
    "overflow": false,
-   "targets": 31,
+   "targets": 35,
    "under44": [],
    "minDrawnText": 10.5
   },
   {
    "px": 1024,
    "overflow": false,
-   "targets": 31,
+   "targets": 35,
    "under44": [],
    "minDrawnText": 10.5
   },
   {
    "px": 1440,
    "overflow": false,
-   "targets": 31,
+   "targets": 35,
    "under44": [],
    "minDrawnText": 10.5
   }
@@ -130,10 +135,21 @@ is trusted as recorded.
 }
 ```
 
-Note: figure 05.4 changed from a raster image to a `<video>` after this
-script was written. `minDrawnText` and the touch-target counts above already
-reflect that change (`.dwg text` selection is unaffected by the swap; the
-video sits inside the same `.figbox` scroll region as the other figures).
+Note: figure 05.4 is a `<video>` (`minDrawnText` and the touch-target counts
+above already reflect that; `.dwg text` selection is unaffected by the swap,
+and the video sits inside the same `.figbox` scroll region as the other
+figures). Its box is now held at 1000×567.9 CSS px at every viewport width
+(320/390/768/1024/1440), with zero difference between the poster-only state
+and the state after `loadedmetadata` fires — verified directly against the
+video element, not just via this script's `overflow` field.
+
+`targets: 35, under44: []` above supersedes the prior baseline's
+`targets: 31, under44: []`: the four additional targets are the controls
+inside `.detail` panels that the unfixed script could not see at all (it
+recorded a pass — `31, []` — while the real page, panels opened, measured
+`35, [4 targets under 44px]` at every width; see `.refs a` in
+`assets/css/blueprint.css`, fixed to carry the same 44px touch-target
+treatment as `.idm dd a`/`.v a`/`.mn a`).
 
 Required: zero contrast failures in both themes; nothing hidden with JS off;
 heading outline stable under interaction; one tab stop for the component group

@@ -170,6 +170,40 @@ test('a failed script load cannot leave content hidden', () => {
   assert.match(tag[0], /onerror="[^"]*classList\.remove\('js'\)[^"]*"/);
 });
 
+test('no .figbox media rule (img/video) uses a min-width floor', () => {
+  // min-width plus max-width:none is a safe 1:1 floor only for SVG, whose
+  // intrinsic width is always its viewBox (1000). A raster or a video carries
+  // its true pixel size, so the same idiom uncaps it — this rendered a
+  // 2916px-wide video at 2916px on every viewport (FIX 1).
+  const rules = css.match(/\.figbox[^{]*\{[^}]*\}/g) || [];
+  const mediaRules = rules.filter(r => /\b(img|video)\b/.test(r.split('{')[0]));
+  assert.ok(mediaRules.length > 0, 'expected .figbox img/video rules to exist');
+  for (const r of mediaRules) {
+    assert.ok(!r.includes('min-width'), `min-width floor on raster/video rule: ${r}`);
+  }
+});
+
+test('every video declares an aspect-ratio, to prevent layout shift on metadata load', () => {
+  const videos = html.match(/<video\b[^>]*>/g) || [];
+  assert.ok(videos.length > 0, 'expected at least one video, to prove the check');
+  for (const v of videos) {
+    assert.match(v, /aspect-ratio\s*:\s*[\d.]+\s*\/\s*[\d.]+/, `no aspect-ratio: ${v}`);
+  }
+});
+
+test('assembly "N public" balloon matches distinct project source links', () => {
+  const a005 = html.slice(html.indexOf('id="a005"'), html.indexOf('id="a006"'));
+  const repos = new Set([...a005.matchAll(/href="https:\/\/github\.com\/[^"]+"/g)].map(m => m[0]));
+  const balloon = /(\d+)\s+public/.exec(html);
+  assert.ok(balloon, 'expected an "N public" balloon on the assembly drawing');
+  assert.equal(Number(balloon[1]), repos.size,
+    `balloon says ${balloon[1]} public, but ${repos.size} distinct GitHub repo links are on the projects sheet`);
+  // The specification record (blueprint.js SPEC.engineering) must agree too.
+  const specPublic = /\['Public','(\d+)'\]/.exec(js);
+  assert.ok(specPublic, 'expected a Public field in SPEC.engineering');
+  assert.equal(Number(specPublic[1]), repos.size);
+});
+
 test('test/ contains no browser-only scripts', () => {
   // Node's runner sweeps every .js/.mjs under a directory named test/, whatever
   // it is called. A browser-only script placed here throws on `document` and

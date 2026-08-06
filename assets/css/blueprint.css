@@ -147,7 +147,7 @@ p{margin:0;color:var(--sec)}
 .idm dt{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ref);padding-top:3px}
 .idm dd{margin:0;color:var(--sec);font-size:.9rem;overflow-wrap:anywhere}
 /* WCAG 2.5.5 AAA: text links carry their own 44px block so the row grows with them. */
-.idm dd a,.v a,.mn a{display:inline-block;padding-block:calc(var(--u)*1.75);line-height:1.4}
+.idm dd a,.v a,.mn a,.refs a{display:inline-block;padding-block:calc(var(--u)*1.75);line-height:1.4}
 
 /* records */
 .rec{display:grid;grid-template-columns:9.5rem minmax(0,1fr) minmax(0,.8fr);gap:calc(var(--u)*3);
@@ -167,13 +167,6 @@ p{margin:0;color:var(--sec)}
   .rec .s{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}}
 
 /* module + list grids */
-.cells{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));border:1px solid var(--line)}
-.cell{padding:calc(var(--u)*2);border-right:1px solid var(--line)}
-.cell:last-child{border-right:0}
-.cell .k{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ref)}
-.cell .v{font-size:.9rem;margin-top:calc(var(--u)*1.5);line-height:1.9}
-.cell .d{font-family:'MN',monospace;font-size:.68rem;color:var(--ref);margin-top:8px;line-height:1.8}
-@media(max-width:900px){.cell{border-right:0;border-bottom:1px solid var(--line)}.cell:last-child{border-bottom:0}}
 .tags{display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:calc(var(--u)*1.5)}
 .tag{font-family:'MN',monospace;font-size:.72rem;color:var(--sec)}
 
@@ -201,12 +194,9 @@ p{margin:0;color:var(--sec)}
 #a001 .dwgbox svg{min-width:520px;max-width:none}
 #a004 .dwgbox svg{min-width:1000px;max-width:none}
 .figbox:focus-visible,.dwgbox:focus-visible{outline:1.5px solid var(--ink);outline-offset:3px}
-.dwgwrap{overflow-x:auto}
-@media(max-width:760px){}
 .figcap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:'MN',monospace;
   font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ref);
   border-top:1px solid var(--hair);margin-top:calc(var(--u)*1.5);padding-top:8px}
-.figbox img{border:1px solid var(--hair)}
 .more{margin-top:calc(var(--u)*2);min-height:44px;background:none;border:1px solid var(--ink);cursor:pointer;
   font-family:'MN',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
   color:inherit;padding:9px 16px;transition:background .2s linear,color .2s linear}
@@ -256,18 +246,20 @@ p{margin:0;color:var(--sec)}
   .dwg .fd,.an{opacity:1;animation:none}
   *{animation-duration:.001ms!important;transition-duration:.001ms!important}}
 @media print{@page{size:A3 landscape;margin:8mm}
-  :root{--paper:#fff;--ink:#000;--sec:#333;--ref:#555;--line:#CCC;--hair:#E5E5E5;--mid:#999}
+  :root{--paper:#fff;--ink:#000;--sec:#333;--ref:#555;--refdec:#777;--line:#CCC;--hair:#E5E5E5;--mid:#999}
   body{font-size:9pt}.index{display:none}.doc{margin-left:0}
   .sheet{break-after:page}.sheet:last-child{break-after:auto}
   .cover .pane{min-height:auto}.rule{display:none}
   .detail{display:block!important}.more{display:none}
   .dwg .ln{stroke-dashoffset:0;animation:none}.dwg .axis{transform:scaleY(1);animation:none}
   .dwg .fd,.an{opacity:1;animation:none}
-  .rec,.proj,.cells{break-inside:avoid}}
+  .rec,.proj{break-inside:avoid}}
 
-/* Media slot: every form is held at the same scale floor inside the scroll
-   region, so a narrow viewport pans the figure rather than shrinking it
-   illegibly. No reduced-motion rule is needed: preload="none" with no autoplay
-   means nothing moves until the visitor presses play. */
-.figbox img,.figbox video{min-width:1000px;max-width:none;height:auto;display:block}
-.figbox video{background:var(--paper)}
+/* Media slot: every form is held at the sheet's 1000px figure width inside the
+   scroll region, so a narrow viewport pans rather than shrinking the figure
+   illegibly. `width`, not `min-width`: an SVG's intrinsic width is its viewBox
+   (1000, so a floor sufficed) but a raster or a video carries its true pixel
+   size, and an uncapped max-width rendered this 2916px video at 2916px. */
+.figbox img,.figbox video{width:1000px;max-width:none;height:auto;display:block;
+  border:1px solid var(--hair)}
+.figbox video{object-fit:contain;background:var(--paper)}

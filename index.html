@@ -91,7 +91,7 @@
             <rect x="100" y="31" width="340" height="80" fill="transparent" pointer-events="all"/>
             <g class="k ln" style="animation-delay:.15s"><rect x="196" y="40" width="208" height="62" pathLength="1"/></g>
             <g class="fd" style="animation-delay:.9s">
-              <text class="tn" x="212" y="66">Engineering</text><text class="ts" x="212" y="84">6 projects &middot; 2 public</text>
+              <text class="tn" x="212" y="66">Engineering</text><text class="ts" x="212" y="84">6 projects &middot; 3 public</text>
               <circle class="f" cx="120" cy="71" r="15"/><text class="tl" x="120" y="75" text-anchor="middle" fill="var(--ink)">01</text>
               <path class="c" d="M135,71 H196" pathLength="1"/><text class="tl" x="418" y="75">A-005</text></g></g>
           <g class="part" id="tab-experience" role="tab" aria-selected="false" tabindex="-1" aria-controls="specpanel" data-part="experience">
@@ -122,8 +122,8 @@
         </svg>
       </div>
       <div>
-        <div class="spec" id="specpanel" style="margin-top:0" role="tabpanel" tabindex="0" aria-labelledby="tab-engineering">
-          <h3 class="sk">Component Specification</h3>
+        <div class="spec" id="specpanel" style="margin-top:0" role="tabpanel" tabindex="0" aria-labelledby="spec-h">
+          <h3 class="sk" id="spec-h">Component Specification</h3>
           <p class="sh" id="spec-t">Select a component</p>
           <p id="spec-p">Select any component in the drawing to display its
             specification. Each component references another drawing in this set.</p>
@@ -491,7 +491,7 @@
             split analysis, stroke rate, velocity charts, personal best tracking and improvement
             trends over a swimmer&rsquo;s history.</p>
           <div class="figbox" tabindex="0" role="group" aria-label="Figure 4, scrollable">
-            <video class="fig" width="2916" height="1656"
+            <video class="fig" width="2916" height="1656" style="aspect-ratio:2916/1656"
               poster="assets/images/splitwise-dashboard.jpg"
               src="assets/videos/splitwise-demo.mp4"
               preload="none" muted controls playsinline

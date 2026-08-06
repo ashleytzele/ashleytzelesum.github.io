@@ -104,6 +104,11 @@
     f.src = location.pathname + '?cb=' + px;
     f.onload = () => setTimeout(() => {
       const d = f.contentDocument;
+      // Open every disclosure panel before measuring. Otherwise every control
+      // inside `.detail` is display:none (closed by default) and gets filtered
+      // out by the height>0 guard below, so the gate never sees the controls a
+      // visitor reaches by clicking "Open detail".
+      d.querySelectorAll('.more').forEach(b => b.click());
       const tg = [...d.querySelectorAll('a[href],button,[role=tab]')]
         .filter(e => e.getBoundingClientRect().height > 0);
       const small = tg.filter(e => { const r = e.getBoundingClientRect(); return r.width < 44 || r.height < 44; });

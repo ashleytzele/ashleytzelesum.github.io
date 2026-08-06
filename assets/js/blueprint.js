@@ -31,7 +31,7 @@
 
   /* A-001 component specifications */
   var SPEC={
-    engineering:{t:'Engineering',p:'Six documented projects: four from a professional engagement, two published as open source. Most of it has been enterprise systems — dashboards, ERP customisation, mobile, hardware integration.',d:[['Ref drawing','A-005'],['Projects','6'],['Public','2']]},
+    engineering:{t:'Engineering',p:'Six documented projects: three from a professional engagement, three published as open source. Most of it has been enterprise systems — dashboards, ERP customisation, mobile, hardware integration.',d:[['Ref drawing','A-005'],['Projects','6'],['Public','3']]},
     experience:{t:'Experience',p:'Four roles across software and operations. The software work is at OSPIT Mobility; the aquatics and support roles are where I learned to run things other people depend on.',d:[['Ref drawing','A-003'],['Roles','4'],['Current','Software Engineering Intern']]},
     education:{t:'Education',p:'Computer Science at San Francisco State, transferred from INTI International College in Malaysia. Coursework has been fundamentals: data structures, algorithms, object-oriented programming, systems.',d:[['Ref drawing','A-002'],['Institution','San Francisco State'],['Degree','B.S. Computer Science']]},
     modules:{t:'System Modules',p:'What I build with, arranged by where it sits in the stack. Python and Flask do most of the work, Java and Android for mobile, MongoDB and SQL for what persists.',d:[['Ref drawing','A-004'],['Languages','6'],['Interests','10']]}
