@@ -136,3 +136,13 @@ test('behaviour script has no dependencies and parses', () => {
   assert.ok(!/\b(import|require)\s*[(\s]/.test(js), 'script must be dependency-free');
   new Function(js); // throws on a syntax error
 });
+
+test('a failed script load cannot leave content hidden', () => {
+  // The `js` class is set by an inline script that always runs, but the behaviour
+  // script is a separate request. If it 404s or is blocked, nothing would remove
+  // the reveal state and 15 blocks would stay at opacity 0 forever — and <noscript>
+  // would not fire, because JS is enabled. The onerror handler is the only guard.
+  const tag = /<script[^>]*src="assets\/js\/blueprint\.js"[^>]*>/.exec(html);
+  assert.ok(tag, 'behaviour script tag not found');
+  assert.match(tag[0], /onerror="[^"]*classList\.remove\('js'\)[^"]*"/);
+});
