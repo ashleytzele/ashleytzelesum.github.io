@@ -1,78 +1,49 @@
 # ashleytzelesum.com
 
-Personal portfolio for **Ashley Sum** — CS student at San Francisco State, national-level swimmer, building data tools for the sports I actually compete in.
+Personal portfolio for Ashley Sum, presented as an engineering drawing set:
+a title block and six numbered sheets covering identity, education, experience,
+system modules, projects and contact.
 
-**Live:** [ashleytzelesum.com](https://ashleytzelesum.com) · [LinkedIn](https://www.linkedin.com/in/ashley-sum) · [CV](assets/documents/ASHLEY_SUM_CV.pdf)
+Static site on GitHub Pages. No build step, no dependencies, no framework.
 
-## What's here
+## Layout
 
-One static page. No framework, no runtime dependencies.
+    index.html                        markup, plus the inline icon sprite
+    assets/css/blueprint.css          the whole stylesheet
+    assets/js/blueprint.js            scroll reveal, component tabs, disclosures
+    assets/fonts/                     Public Sans and Spline Sans Mono (OFL 1.1)
+    assets/images/                    figure media and the video poster
+    assets/videos/                    figure media
+    assets/documents/                 résumé
+    docs/superpowers/specs/           design spec
+    docs/superpowers/plans/           implementation plan
+    test/                             contract tests (node --test)
+    tools/measure-in-browser.js       manual browser measurement gate
 
-```
-index.html          the entire site — markup + a small scroll-spy script
-tailwind.config.js  design tokens (colors, radii, fonts)
-src/input.css       CSS source — base styles and component classes
-assets/
-  css/site.css      compiled stylesheet (committed; do not edit by hand)
-  images/           hero, about, project screenshots
-  logos/            site logo, social icons
-  videos/           project demo recordings
-  documents/        CV (PDF)
-CNAME               custom domain
-sitemap.xml         search engines
-_config.yml         disables Jekyll processing on GitHub Pages
-```
+## Running it
 
-Sections live in `index.html` behind these anchors: `#home`, `#about`, `#projects`, `#experience`, `#skills`, `#contact`. HTML comments mark each boundary.
+    python3 -m http.server 8118
 
-## Running it locally
+Then open <http://localhost:8118/>.
 
-```bash
-npm run serve      # http://localhost:8080
-```
+## Tests
 
-Opening `index.html` directly in a browser also works — there's no server-side anything.
+    node --test
 
-## Changing styles
+Plus a manual browser measurement pass — `tools/measure-in-browser.js`. See
+`test/README.md` for how to run it.
 
-`assets/css/site.css` is generated. Whenever you **add or change a Tailwind class in `index.html`**, or edit `src/input.css` / `tailwind.config.js`, rebuild it:
+## Changing content
 
-```bash
-npm install        # once
-npm run build      # rebuild assets/css/site.css
-```
+Every fact on the page lives in a named slot with a fixed shape. The shapes are
+specified in `docs/superpowers/specs/2026-08-06-blueprint-portfolio-design.md`;
+the contract tests enforce them. A figure can be a drawn SVG, an image or a
+video, and swapping one for another is a change inside the slot alone.
 
-Or leave `npm run watch` running while you edit, and it rebuilds on save.
+Sheet numbers `A-001`–`A-006` are load-bearing: the index, the anchors and the
+cross-references inside the drawings all depend on them.
 
-**Commit the rebuilt `assets/css/site.css`.** If you forget, the new class silently has no effect on the live site — that's the one footgun in this setup.
+## Credits
 
-## Deploying
-
-Build the CSS, then push to `main`. GitHub Pages serves it at [ashleytzelesum.com](https://ashleytzelesum.com) within a minute or two.
-
-## Editing
-
-| To change | Edit |
-| --- | --- |
-| Any copy | The text in `index.html` — search for the section comment |
-| Colors, radii, fonts | `tailwind.config.js`, then `npm run build` |
-| A project | Duplicate a `<!-- Project N -->` block, swap image, copy, tech chips, links |
-| CV | Replace `assets/documents/ASHLEY_SUM_CV.pdf`, keep the filename |
-| Images | Drop into `assets/images/`, update the `src`, set `width`/`height` |
-
-Resize images to roughly 2× their display size before committing, and keep the `width`/`height` attributes accurate — they prevent the page from jumping as images load.
-
-## Stack
-
-Tailwind CSS (compiled), Material Symbols, Inter, devicon. The only JavaScript is a ~20-line `IntersectionObserver` that highlights the current section in the nav.
-
-## Known limitations
-
-- **No dark mode.** The `dark:` variants that used to be scattered through the markup could never activate, so they were removed. Adding real dark mode means defining dark values for the whole token set in `tailwind.config.js`.
-- **Demo links open raw `.mp4` files** (8.6 MB and 3.4 MB) rather than embedded players, and neither project has a live deployment.
-- **`og:image` is a 500×500 square logo** while `twitter:card` is set to `summary`. A proper 1200×630 preview image would look better when the site is shared.
-- **The design is largely an untouched Material 3 export** — the token set in `tailwind.config.js` has far more colors than the site uses.
-
----
-
-© 2026 Ashley Sum
+Fonts: Public Sans and Spline Sans Mono, SIL OFL 1.1 — see `assets/fonts/OFL.txt`.
+Icons: Simple Icons, CC0 1.0, inlined as an SVG sprite.
