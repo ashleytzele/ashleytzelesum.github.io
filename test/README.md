@@ -33,6 +33,126 @@ responsive/touch-target measurements are unaffected by this; the
 `anims` section and anything depending on scroll-triggered reveal are not
 reliable if the tab is hidden while the script runs.
 
+### Baseline — 2026-08-06 (code-review fixes: cover identity line, A-005 reorder, A-001 default tab, font-display, comment fix)
+
+Measured via `mcp__claude-in-chrome`, a backgrounded MCP automation tab, so
+`document.visibilityState` read `"hidden"` throughout (the known automation-
+tab trap noted above), against `http://localhost:8129/?cb=blueprint_fix_20260806_4`
+(fresh query string on every navigation). Five outside-review fixes landed
+together: a one-line title-block identity strip on the cover (`.csub`, new
+tokens-only CSS, no new hex); the six A-005 projects reordered so the three
+public entries (cad-to-map, ScoutMini, SplitWise) lead as 05.1&ndash;05.3 and
+the three client entries (Highway, West Coast Expressway, Restaurant POS)
+follow as 05.4&ndash;05.6, with every `.r`, `Fig. 05.n` caption,
+`figbox`/`dwgbox` `aria-label="Figure n, scrollable"`, `data-more`/
+`data-label`/`aria-controls`/button text and `id="pN"` renumbered so position
+equals number (verified by grepping every one of those six attribute
+families across the file: all read 1..6 in document order with no gaps or
+duplicates); the two cross-references that pointed at pre-reorder project
+numbers &mdash; A-003's OSPIT `.s` field (`PROJECTS 05.1 &middot; 05.2 &middot; 05.3` &rarr;
+`05.4 &middot; 05.5 &middot; 05.6`, since the three client projects moved) and A-004's
+"USED IN" tags for the INTERFACE/DATA rows (`05.4` &rarr; `05.3`, since
+SplitWise moved from position 4 to 3) &mdash; found by grepping every remaining
+`05.\d` in the document after the move and updated to match; the A-001
+Engineering tab made the default selected tab (`aria-selected="true"`,
+`tabindex="0"`, the other four unchanged at `false`/`-1`), the panel's
+`aria-labelledby` pointed at `tab-engineering` instead of the static `spec-h`
+heading, and the panel's static markup replaced with Engineering's actual
+`SPEC` record (title, prose, and the three `Ref drawing`/`Projects`/`Public`
+field rows) so markup and ARIA state agree before `blueprint.js` runs (which
+still only calls `show()` from click/keydown handlers, never on load, so it
+does not fight the new static markup); both `@font-face` rules switched
+`font-display:block` &rarr; `swap`; and the stray `/* A-007 */` comment above
+`.dep` corrected to `/* A-006 */`. `node --test` (35 tests) is green.
+
+```json
+{
+ "light": { "combos": 62, "fails": [{ "el": "svg text.tn", "r": "1.00", "need": 4.5 }, { "el": "svg text.ts", "r": "1.00", "need": 4.5 }] },
+ "dark": { "combos": 62, "fails": [{ "el": "svg text.tn", "r": "1.00", "need": 4.5 }, { "el": "svg text.ts", "r": "1.00", "need": 4.5 }] },
+ "withoutJS": { "hidden": 0, "undrawn": 0 },
+ "headingsStable": true,
+ "keyboard": { "rovingTabindex": 1, "arrowMovesFocus": true, "panelFollows": true, "endGoesLast": true },
+ "anims": { "total": 4, "infinite": 0, "layoutProps": [] },
+ "responsive": [
+  { "px": 320, "overflow": false, "targets": 37, "under44": [], "minDrawnText": 10.5 },
+  { "px": 390, "overflow": false, "targets": 37, "under44": [], "minDrawnText": 10.5 },
+  { "px": 768, "overflow": false, "targets": 37, "under44": [], "minDrawnText": 10.5 },
+  { "px": 1024, "overflow": false, "targets": 37, "under44": [], "minDrawnText": 10.5 },
+  { "px": 1440, "overflow": false, "targets": 37, "under44": [], "minDrawnText": 10.5 }
+ ]
+}
+```
+
+`combos` moved from **61 to 62** in both themes, exactly the expected effect
+of the new `.csub` cover line: one new element with a font-size/colour
+combination not seen before, nothing else changed shape.
+
+The two `svg text.tn`/`.ts` failures at `r: 1.00` are the **same measurement-
+script blind spot** documented in the prior "About" baseline above, but they
+are no longer avoidable by "measure with no tab selected": Change 3 makes
+`tab-engineering` `aria-selected="true"` on every fresh load, so a selected
+tab is now the true default state, not an artifact of test scripting. The
+failure is `bgOf()` walking `background-color` up the DOM, which is blind to
+the selected tab's `.k rect` SVG `fill` (flips to `--ink` per
+`assets/css/blueprint.css:146-147`) and instead compares the `.tn`/`.ts`
+text's `--paper` fill against the page's ordinary `--paper` background,
+reporting a false 1:1. Measured directly against the live selected-state
+colours instead (`getComputedStyle` on `tab-engineering`'s `.tn`/`.ts` fill
+vs its `.k rect` fill, the actual visual relationship a person sees): light
+theme `rgb(255,255,255)` on `rgb(17,17,17)` and dark theme the equivalent
+inverted pair, both **18.88:1** &mdash; far above the 4.5 floor. Zero real
+contrast failures in either theme.
+
+`responsive[*].targets` holds at **37** (unchanged from the prior baseline)
+at every width (320, 390, 768, 1024, 1440): the cover identity line is a
+`<p>`, not an interactive control, so it adds no new touch target.
+`overflow: false` and `under44: []` at every width confirm the new cover
+line does not push the page wide at 320 or introduce anything under 44px,
+and `minDrawnText: 10.5` is unchanged since no drawing geometry changed.
+
+`withoutJS: { hidden: 0, undrawn: 0 }` confirms the reorder and the new
+cover line do not depend on JavaScript to be visible &mdash; the `.csub` line
+is plain static markup, not gated by the `.js`/`.an` reveal classes (cover
+never carried `data-draw` or `.an` to begin with, so no gating was
+possible), and every moved project block kept its `an` class and static
+content intact.
+
+`headingsStable: true` and the `keyboard` block (`rovingTabindex: 1`,
+`arrowMovesFocus: true`, `panelFollows: true`, `endGoesLast: true`) confirm
+all five A-001 tabs remain a single roving-tabindex group with exclusive
+selection and working arrow/Home/End navigation with Engineering now
+starting selected instead of none.
+
+Verified directly against the live DOM on an untouched fresh load (before
+the measurement script's own tab-click test mutates selection state):
+`tab-engineering` is the only tab with `aria-selected="true"`/`tabindex="0"`,
+`#specpanel`'s `aria-labelledby` reads `tab-engineering`, `#spec-h` still
+reads "Component Specification", `#spec-t` reads "Engineering", `#spec-p`
+matches `SPEC.engineering`'s prose verbatim, and `#spec-d`'s three
+`dt`/`dd` pairs read exactly `Ref drawing`/`A-005`, `Projects`/`6`,
+`Public`/`3` &mdash; markup and ARIA state agree before `blueprint.js` runs.
+
+`anims.total` read `4` in this run (`0` in an earlier same-day run against a
+different tab, `2` in the prior "About" baseline) with the same standing
+caveat as every baseline above: `document.visibilityState` was `"hidden"`
+throughout, which throttles `IntersectionObserver` delivery unpredictably in
+a background automation tab and can under- or over-count reveal-triggered
+animations. In this run the throttling was severe enough that scrolling
+every `[data-draw]` sheet into view with 400ms pauses between each, then
+waiting 1.5s more, still left `drawnCount: 0` of 6 sheets and every
+`#a001 .k rect` at `strokeDashoffset: "1px"` (undrawn) &mdash; the observer
+callback never fired at all in this session's backgrounded tab, a more
+extreme case of the same trap than the prior baseline saw. `blueprint.js`'s
+reveal wiring (`assets/js/blueprint.js:1-7`) was not touched by this change
+set, so there is no code-level reason to expect different reveal behaviour
+than the previous baseline; this number remains reported for continuity, not
+treated as newly trusted, exactly as the prior baselines' standing caveat
+already states.
+
+**Result: all required values pass** (zero real contrast failures per the
+manual verification above; `anims.total` remains outside the required
+fields per the standing caveat).
+
 ### Baseline — 2026-08-06 (fifth A-001 component, "About", added)
 
 Measured via the Chrome DevTools protocol against

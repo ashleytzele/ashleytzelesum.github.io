@@ -71,6 +71,7 @@
     <div class="lab">Project Document &nbsp;&middot;&nbsp; AS-001</div>
     <div class="mid">
       <h1 class="t"><span class="of">Blueprint of</span>Ashley Sum</h1>
+      <p class="csub">Computer Science, San Francisco State &middot; Software engineering internships, Summer 2027</p>
       <div class="cmeta">
         <div><span class="k">Revision</span><span class="v">3.0</span></div>
         <div><span class="k">Scale</span><span class="v">1:1</span></div>
@@ -97,7 +98,7 @@
           aria-label="Exploded assembly: five components along assembly axis A-A, each referencing another drawing in this set.">
           <path class="c axis" d="M300,24 V616" stroke-dasharray="14 5 3 5" pathLength="1"/>
           <text class="tl fd" style="animation-delay:1.3s" x="300" y="636" text-anchor="middle">ASSEMBLY AXIS A&ndash;A</text>
-          <g class="tabs" role="tablist" aria-label="Assembly components" aria-orientation="vertical"><g class="part" id="tab-engineering" role="tab" aria-selected="false" tabindex="0" aria-controls="specpanel" data-part="engineering">
+          <g class="tabs" role="tablist" aria-label="Assembly components" aria-orientation="vertical"><g class="part" id="tab-engineering" role="tab" aria-selected="true" tabindex="0" aria-controls="specpanel" data-part="engineering">
             <rect x="100" y="31" width="340" height="80" fill="transparent" pointer-events="all"/>
             <g class="k ln" style="animation-delay:.15s"><rect x="196" y="40" width="208" height="62" pathLength="1"/></g>
             <g class="fd" style="animation-delay:.9s">
@@ -139,12 +140,11 @@
         </svg>
       </div>
       <div>
-        <div class="spec" id="specpanel" style="margin-top:0" role="tabpanel" tabindex="0" aria-labelledby="spec-h">
+        <div class="spec" id="specpanel" style="margin-top:0" role="tabpanel" tabindex="0" aria-labelledby="tab-engineering">
           <h3 class="sk" id="spec-h">Component Specification</h3>
-          <p class="sh" id="spec-t">Select a component</p>
-          <p id="spec-p">Select any component in the drawing to display its
-            specification. Each component references another drawing in this set.</p>
-          <dl id="spec-d"></dl>
+          <p class="sh" id="spec-t">Engineering</p>
+          <p id="spec-p">Six documented projects: three from a professional engagement, three published as open source. Most of it has been enterprise systems &mdash; dashboards, ERP customisation, mobile, hardware integration.</p>
+          <dl id="spec-d"><dt>Ref drawing</dt><dd>A-005</dd><dt>Projects</dt><dd>6</dd><dt>Public</dt><dd>3</dd></dl>
         </div>
         <div class="ident an" style="animation-delay:1.3s">
           <p>Computer Science at <b>San Francisco State University</b>, from Malaysia. I build
@@ -209,10 +209,10 @@
               systems, and contributed to Android development across multiple integrated
               repositories. Investigated production issues, took part in architecture discussions,
               and wrote the workflow and technical documentation for large systems.</div></div>
-          <div class="s">PROJECTS<br>05.1 &middot; 05.2 &middot; 05.3</div>
+          <div class="s">PROJECTS<br>05.4 &middot; 05.5 &middot; 05.6</div>
         </div>
       <button class="more" type="button" data-more="j1" aria-controls="j1" data-label="OSPIT Mobility" aria-expanded="false">Open detail &mdash; OSPIT Mobility</button>
-      <div class="detail" id="j1"><div class="fld"><span class="k">Responsibilities</span><ul><li>Developed enterprise software solutions</li><li>Worked on ERP customisation and system improvements</li><li>Contributed to Android application development</li><li>Built and enhanced operational dashboards</li><li>Improved documentation for large-scale software systems</li><li>Worked with Git and collaborative development workflows</li><li>Participated in software architecture discussions</li><li>Investigated production issues and implemented fixes</li><li>Designed workflows and technical documentation</li><li>Supported system integration across multiple repositories</li></ul></div></div>
+      <div class="detail" id="j1"><div class="fld"><span class="k">Responsibilities</span><ul><li>Customised ERP modules</li><li>Contributed to Android application development</li><li>Built and extended operational dashboards</li><li>Investigated production issues and shipped fixes</li><li>Designed workflows and wrote technical documentation</li><li>Integrated systems across multiple repositories</li></ul></div></div>
       </article>
       <article class="job an">
       <div class="rec" style="animation-delay:.1s">
@@ -291,8 +291,8 @@
           <path d="M790,66 H850 M790,148 H850 M790,230 H850 M790,312 H850" pathLength="1"/>
         </g>
         <g class="tl fd" style="animation-delay:1.05s">
-          <text x="860" y="70">05.4</text><text x="860" y="152">05.1&ndash;05.6</text>
-          <text x="860" y="234">05.4</text><text x="860" y="316">ALL</text>
+          <text x="860" y="70">05.3</text><text x="860" y="152">05.1&ndash;05.6</text>
+          <text x="860" y="234">05.3</text><text x="860" y="316">ALL</text>
         </g>
         <g class="dm fd" style="animation-delay:1.15s">
           <path d="M110,30 V348 M102,30 H118 M102,348 H118" pathLength="1"/>
@@ -357,14 +357,114 @@
 
     <!-- 05.1 -->
     <article class="proj an">
-      <div class="ph"><div class="r">05.1</div><h3>Highway Digitalization Platform</h3>
+      <div class="ph"><div class="r">05.1</div><h3>cad-to-map</h3>
+        <div class="tagline">Open Source Tool</div></div>
+      <div class="pb"><div class="side">Personal<br>Public</div>
+        <div>
+          <p class="pdesc">Turns a CAD site plan into one self-contained interactive map with
+            search and walking directions, working with no network. Generalised from highway
+            facility work and published for anyone to install.</p>
+          <div class="figbox" tabindex="0" role="group" aria-label="Figure 1, scrollable">
+            <img class="fig" width="1568" height="782" src="assets/images/cad-to-map-viewer.jpg"
+              alt="3D map viewer built by cad-to-map from a DXF site plan, showing the tool&rsquo;s own demo site &ldquo;RSA Sungai Contoh&rdquo; &mdash; a fictional Malaysian rest area, not client work. Extruded building volumes, category POI pins, a marked 74-bay parking area, a &ldquo;You Are Here&rdquo; kiosk marker, an amenity search box, and 2D/3D and dark-mode controls are visible.">
+            <div class="figcap"><span>Fig. 05.1 &mdash; Demo site viewer, captured</span><span>cad-to-map demo &mdash; not client work</span></div>
+          </div>
+          <button class="more" type="button" data-more="p1" aria-controls="p1" data-label="05.1" aria-expanded="false">Open detail &mdash; 05.1</button>
+          <div class="detail" id="p1">
+            <div class="dgrid">
+              <div class="fld"><span class="k">Purpose</span><p>Make a CAD site plan navigable by
+                anyone, without a tile server, an API key or a network connection.</p></div>
+              <div class="fld"><span class="k">Technology</span><p>Python &middot; ezdxf &middot; Shapely &middot;
+                MapLibre &middot; GeoJSON</p></div>
+              <div class="fld"><span class="k">Lessons learned</span><p>Unclosed outlines, labels on the wrong layer, blocks nested inside blocks. Almost all the work went into absorbing what plans actually do in practice; the conversion itself was straightforward.</p></div>
+            </div>
+            <div class="refs"><a href="https://github.com/ashleytzele/cad-to-map"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
+          </div>
+        </div></div>
+    </article>
+
+    <!-- 05.2 -->
+    <article class="proj an">
+      <div class="ph"><div class="r">05.2</div><h3>ScoutMini</h3>
+        <div class="tagline">AI Analysis CLI</div></div>
+      <div class="pb"><div class="side">Personal<br>Public</div>
+        <div>
+          <p class="pdesc">Answers Formula 1 questions from fetched data rather than model memory.
+            Every claim cites its source, and the whole test suite runs offline.</p>
+          <div class="figbox" tabindex="0" role="group" aria-label="Figure 2, scrollable">
+            <svg class="dwg" viewBox="0 0 1000 260" role="img"
+              aria-label="Terminal transcript of running python -m scoutmini pace Leclerc Monaco, season 2024, against real FastF1 timing data: Charles Leclerc&rsquo;s fastest lap, median race pace and tyre strategy for the 2024 Monaco Grand Prix, with the data source printed as the final, emphasised line.">
+              <g class="fd" style="animation-delay:.15s"><text class="tl" x="40" y="30">$ python -m scoutmini pace Leclerc Monaco --season 2024</text></g>
+              <g class="fd" style="animation-delay:.4s"><rect class="f" x="40" y="48" width="920" height="148" pathLength="1"/></g>
+              <g class="fd" style="animation-delay:.65s">
+                <text class="ts" x="64" y="80">Charles Leclerc &mdash; Monaco Grand Prix 2024 (R)</text>
+                <text class="ts" x="64" y="106">LEC &mdash; fastest 1:15.162, median race pace 1:18.500 over 76 accurate laps.</text>
+                <text class="ts" x="64" y="132">Tyre strategy: MEDIUM (L1-1, 1 laps), HARD (L2-78, 77 laps)</text>
+              </g>
+              <g class="c ln" style="animation-delay:.5s"><path d="M64,150 H896" pathLength="1"/></g>
+              <g class="fd" style="animation-delay:.85s"><text class="ts" x="64" y="174" style="fill:var(--ink)" font-weight="600">Source: FastF1 (official F1 timing data)</text></g>
+              <g class="dm fd" style="animation-delay:1s"><path d="M64,214 H340 M64,210 V218 M340,210 V218" pathLength="1"/></g>
+              <text class="tl fd" style="animation-delay:1.05s" x="202" y="236" text-anchor="middle">EVERY REPORT PRINTS ITS SOURCES</text>
+            </svg>
+            <div class="figcap"><span>Fig. 05.2 &mdash; Real CLI output, verbatim</span><span>FastF1 timing data</span></div>
+          </div>
+          <button class="more" type="button" data-more="p2" aria-controls="p2" data-label="05.2" aria-expanded="false">Open detail &mdash; 05.2</button>
+          <div class="detail" id="p2">
+            <div class="dgrid">
+              <div class="fld"><span class="k">Constraint</span><p>The model never answers from its
+                own memory. It only ever sees what the tools return.</p></div>
+              <div class="fld"><span class="k">Technology</span><p>Python &middot; OpenAI &middot; Typer &middot; pytest</p></div>
+              <div class="fld"><span class="k">Lessons learned</span><p>I built it so the model never answers from memory: it only ever sees what a tool returned, and every report prints its sources. Prompting it to be careful did not hold; only the structure did.</p></div>
+            </div>
+            <div class="refs"><a href="https://github.com/ashleytzele/scoutmini"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
+          </div>
+        </div></div>
+    </article>
+
+    <!-- 05.3 -->
+    <article class="proj an">
+      <div class="ph"><div class="r">05.3</div><h3>SplitWise Swimming Analytics</h3>
+        <div class="tagline">Full Stack Web Application</div></div>
+      <div class="pb"><div class="side">Personal<br>Deployed</div>
+        <div>
+          <p class="pdesc">A performance analytics platform for competitive swimming: race and
+            split analysis, stroke rate, velocity charts, personal best tracking and improvement
+            trends over a swimmer&rsquo;s history.</p>
+          <div class="figbox" tabindex="0" role="group" aria-label="Figure 3, scrollable">
+            <video class="fig" width="2916" height="1656" style="aspect-ratio:2916/1656"
+              poster="assets/images/splitwise-dashboard.jpg"
+              src="assets/videos/splitwise-demo.mp4"
+              preload="none" muted controls playsinline
+              aria-label="Screen recording of SplitWise Swim: a race is loaded, split times are entered, and the velocity and stroke-rate charts redraw to compare each split against the target pace."></video>
+            <div class="figcap"><span>Fig. 05.3 &mdash; Performance dashboard, recorded</span><span>Live application</span></div>
+          </div>
+          <button class="more" type="button" data-more="p3" aria-controls="p3" data-label="05.3" aria-expanded="false">Open detail &mdash; 05.3</button>
+          <div class="detail" id="p3">
+            <div class="dgrid">
+              <div class="fld"><span class="k">Features</span>
+                <ul><li>Race &amp; split analysis</li><li>Stroke rate analysis</li><li>Velocity charts</li>
+                  <li>Personal best tracking</li><li>Improvement trends</li>
+                  <li>Swim comparison &amp; historical records</li></ul></div>
+              <div class="fld"><span class="k">Technology</span>
+                <p>Flask &middot; MongoDB &middot; Bootstrap &middot; Chart.js &middot; Python &middot; HTML &middot; CSS &middot; JavaScript</p></div>
+              <div class="fld"><span class="k">Lessons learned</span><p>I swim the sport, so I already knew which numbers mattered, and that turned out to be most of the design work. Deciding what a race is actually made of took far longer than building the charts.</p></div>
+            </div>
+            <div class="refs"><a href="https://splitwise-mo3y.onrender.com">Live application</a>
+              <a href="https://github.com/ashleytzele/SplitWise-Swim"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
+          </div>
+        </div></div>
+    </article>
+
+    <!-- 05.4 -->
+    <article class="proj an">
+      <div class="ph"><div class="r">05.4</div><h3>Highway Digitalization Platform</h3>
         <div class="tagline">Enterprise Dashboard</div></div>
       <div class="pb"><div class="side">OSPIT<br>Professional</div>
         <div>
           <p class="pdesc">A large-scale highway operations platform digitising infrastructure
             management and operational workflows. My role was architecture and documentation:
             breaking the system into modules, producing flow diagrams and dashboard prototypes.</p>
-          <div class="figbox" tabindex="0" role="group" aria-label="Figure 1, scrollable">
+          <div class="figbox" tabindex="0" role="group" aria-label="Figure 4, scrollable">
             <svg class="dwg" viewBox="0 0 1000 250" role="img"
               aria-label="Nine platform modules feeding a single operational dashboard with reporting and monitoring.">
               <g class="c ln" style="animation-delay:.1s">
@@ -383,10 +483,10 @@
                 <text x="780" y="99">Reporting</text><text x="780" y="165">Monitoring</text></g>
               <text class="tl fd" style="animation-delay:1s" x="20" y="240">SIX MODULES &middot; ONE OPERATIONAL VIEW</text>
             </svg>
-            <div class="figcap"><span>Fig. 05.1 &mdash; Module map</span><span>Not to scale</span></div>
+            <div class="figcap"><span>Fig. 05.4 &mdash; Module map</span><span>Not to scale</span></div>
           </div>
-          <button class="more" type="button" data-more="p1" aria-controls="p1" data-label="05.1" aria-expanded="false">Open detail &mdash; 05.1</button>
-          <div class="detail" id="p1">
+          <button class="more" type="button" data-more="p4" aria-controls="p4" data-label="05.4" aria-expanded="false">Open detail &mdash; 05.4</button>
+          <div class="detail" id="p4">
             <div class="dgrid">
               <div class="fld"><span class="k">Features</span>
                 <ul><li>Asset &amp; incident management</li><li>Equipment failure workflow</li>
@@ -397,23 +497,23 @@
                   <li>Designed complete workflow documentation</li><li>Produced system flow diagrams</li>
                   <li>Created dashboard prototypes</li><li>Documented business processes</li>
                   <li>Planned scalable architecture</li></ul></div>
-              <div class="fld"><span class="k">Lessons learned</span><p>Documenting a system you did not build forces you to understand it better than the people using it. Breaking the platform into modules was what made everything else possible. Once the boundaries were named, the workflows and dashboard specifications followed.</p></div>
+              <div class="fld"><span class="k">Lessons learned</span><p>I did not build the platform I was documenting, which meant learning it more thoroughly than the people who used it daily. Breaking it into modules came first; once the boundaries were named, the workflows and dashboard specifications followed.</p></div>
             </div>
             <div class="refs"><span>Client work &mdash; not published</span></div>
           </div>
         </div></div>
     </article>
 
-    <!-- 05.2 -->
+    <!-- 05.5 -->
     <article class="proj an">
-      <div class="ph"><div class="r">05.2</div><h3>West Coast Expressway Android Application</h3>
+      <div class="ph"><div class="r">05.5</div><h3>West Coast Expressway Android Application</h3>
         <div class="tagline">Android Development</div></div>
       <div class="pb"><div class="side">OSPIT<br>Professional</div>
         <div>
           <p class="pdesc">A driver-facing Android application for a highway network. I worked
             across multiple integrated repositories, fixing issues, improving stability and
             integrating backend services.</p>
-          <div class="figbox" tabindex="0" role="group" aria-label="Figure 2, scrollable">
+          <div class="figbox" tabindex="0" role="group" aria-label="Figure 5, scrollable">
             <svg class="dwg" viewBox="0 0 1000 250" role="img"
               aria-label="Android application with eight feature modules connected to backend services.">
               <g class="fd" style="animation-delay:.6s"><rect class="f" x="40" y="80" width="150" height="90" pathLength="1"/>
@@ -433,10 +533,10 @@
                 <text class="ts" x="800" y="139" text-anchor="middle">multiple repositories</text></g>
               <text class="tl fd" style="animation-delay:1s" x="20" y="243">EIGHT FEATURE MODULES</text>
             </svg>
-            <div class="figcap"><span>Fig. 05.2 &mdash; Feature map</span><span>Not to scale</span></div>
+            <div class="figcap"><span>Fig. 05.5 &mdash; Feature map</span><span>Not to scale</span></div>
           </div>
-          <button class="more" type="button" data-more="p2" aria-controls="p2" data-label="05.2" aria-expanded="false">Open detail &mdash; 05.2</button>
-          <div class="detail" id="p2">
+          <button class="more" type="button" data-more="p5" aria-controls="p5" data-label="05.5" aria-expanded="false">Open detail &mdash; 05.5</button>
+          <div class="detail" id="p5">
             <div class="dgrid">
               <div class="fld"><span class="k">Features</span>
                 <ul><li>Route planner &amp; toll calculation</li><li>Points of interest</li>
@@ -446,23 +546,23 @@
                 <ul><li>Fixed Android application issues</li><li>Worked across multiple integrated repositories</li>
                   <li>Improved application stability</li><li>Investigated codebase architecture</li>
                   <li>Integrated backend services</li></ul></div>
-              <div class="fld"><span class="k">Lessons learned</span><p>Most of the work was reading, not writing. Fixing anything meant first understanding how the repositories fitted together, and the bugs that took longest were the ones where the cause sat in a different repo from the symptom.</p></div>
+              <div class="fld"><span class="k">Lessons learned</span><p>The bugs that took longest were the ones where the cause sat in a different repository from the symptom. Before I could fix anything I had to hold the whole set in my head at once, so most of my time went on reading rather than writing.</p></div>
             </div>
             <div class="refs"><span>Client work &mdash; not published</span></div>
           </div>
         </div></div>
     </article>
 
-    <!-- 05.3 -->
+    <!-- 05.6 -->
     <article class="proj an">
-      <div class="ph"><div class="r">05.3</div><h3>Restaurant POS Printing System</h3>
+      <div class="ph"><div class="r">05.6</div><h3>Restaurant POS Printing System</h3>
         <div class="tagline">Point-of-Sale Integration</div></div>
       <div class="pb"><div class="side">OSPIT<br>Professional</div>
         <div>
           <p class="pdesc">Thermal receipt printing integrated into restaurant ordering, so one
             deployment drives any ESC/POS printer rather than one manufacturer&rsquo;s. Four printer
             models tested and compared.</p>
-          <div class="figbox" tabindex="0" role="group" aria-label="Figure 3, scrollable">
+          <div class="figbox" tabindex="0" role="group" aria-label="Figure 6, scrollable">
             <svg class="dwg" viewBox="0 0 1000 230" role="img"
               aria-label="Ordering system sends jobs through an ESC/POS layer to four tested printer models.">
               <g class="fd" style="animation-delay:.6s"><rect class="f" x="40" y="80" width="170" height="70" pathLength="1"/>
@@ -480,10 +580,10 @@
                 <text x="670" y="145">POSMAC CP-Q2 Plus</text><text x="670" y="198">POSMAC CP-Q3</text></g>
               <text class="tl fd" style="animation-delay:1s" x="20" y="220">FOUR MODELS TESTED &middot; ANY VENDOR</text>
             </svg>
-            <div class="figcap"><span>Fig. 05.3 &mdash; Print path</span><span>Not to scale</span></div>
+            <div class="figcap"><span>Fig. 05.6 &mdash; Print path</span><span>Not to scale</span></div>
           </div>
-          <button class="more" type="button" data-more="p3" aria-controls="p3" data-label="05.3" aria-expanded="false">Open detail &mdash; 05.3</button>
-          <div class="detail" id="p3">
+          <button class="more" type="button" data-more="p6" aria-controls="p6" data-label="05.6" aria-expanded="false">Open detail &mdash; 05.6</button>
+          <div class="detail" id="p6">
             <div class="dgrid">
               <div class="fld"><span class="k">My responsibilities</span>
                 <ul><li>Compared printer compatibility</li><li>Implemented ESC/POS printing</li>
@@ -491,109 +591,9 @@
                   <li>Reduced deployment costs</li></ul></div>
               <div class="fld"><span class="k">Hardware tested</span>
                 <ul><li>Epson TM-m30</li><li>Epson TM-T81III</li><li>POSMAC CP-Q2 Plus</li><li>POSMAC CP-Q3</li></ul></div>
-              <div class="fld"><span class="k">Lessons learned</span><p>The constraint was the protocol, not the hardware. Once I stopped comparing printers and started looking at what they all spoke, choosing a model became a cost decision instead of a technical one.</p></div>
+              <div class="fld"><span class="k">Lessons learned</span><p>I started by comparing printer models and got nowhere. They turned out to share a common protocol, and once I was targeting that rather than the hardware, picking a model became a purchasing decision instead of a technical one.</p></div>
             </div>
             <div class="refs"><span>Client work &mdash; not published</span></div>
-          </div>
-        </div></div>
-    </article>
-
-    <!-- 05.4 -->
-    <article class="proj an">
-      <div class="ph"><div class="r">05.4</div><h3>SplitWise Swimming Analytics</h3>
-        <div class="tagline">Full Stack Web Application</div></div>
-      <div class="pb"><div class="side">Personal<br>Deployed</div>
-        <div>
-          <p class="pdesc">A performance analytics platform for competitive swimming: race and
-            split analysis, stroke rate, velocity charts, personal best tracking and improvement
-            trends over a swimmer&rsquo;s history.</p>
-          <div class="figbox" tabindex="0" role="group" aria-label="Figure 4, scrollable">
-            <video class="fig" width="2916" height="1656" style="aspect-ratio:2916/1656"
-              poster="assets/images/splitwise-dashboard.jpg"
-              src="assets/videos/splitwise-demo.mp4"
-              preload="none" muted controls playsinline
-              aria-label="Screen recording of SplitWise Swim: a race is loaded, split times are entered, and the velocity and stroke-rate charts redraw to compare each split against the target pace."></video>
-            <div class="figcap"><span>Fig. 05.4 &mdash; Performance dashboard, recorded</span><span>Live application</span></div>
-          </div>
-          <button class="more" type="button" data-more="p4" aria-controls="p4" data-label="05.4" aria-expanded="false">Open detail &mdash; 05.4</button>
-          <div class="detail" id="p4">
-            <div class="dgrid">
-              <div class="fld"><span class="k">Features</span>
-                <ul><li>Race &amp; split analysis</li><li>Stroke rate analysis</li><li>Velocity charts</li>
-                  <li>Personal best tracking</li><li>Improvement trends</li>
-                  <li>Swim comparison &amp; historical records</li></ul></div>
-              <div class="fld"><span class="k">Technology</span>
-                <p>Flask &middot; MongoDB &middot; Bootstrap &middot; Chart.js &middot; Python &middot; HTML &middot; CSS &middot; JavaScript</p></div>
-              <div class="fld"><span class="k">Lessons learned</span><p>Building for a sport I actually swim meant I already knew which numbers mattered, and that turned out to be most of the design. The hard part was not the charts. It was deciding what a race is actually made of.</p></div>
-            </div>
-            <div class="refs"><a href="https://splitwise-mo3y.onrender.com">Live application</a>
-              <a href="https://github.com/ashleytzele/SplitWise-Swim"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
-          </div>
-        </div></div>
-    </article>
-
-    <!-- 05.5 -->
-    <article class="proj an">
-      <div class="ph"><div class="r">05.5</div><h3>cad-to-map</h3>
-        <div class="tagline">Open Source Tool</div></div>
-      <div class="pb"><div class="side">Personal<br>Public</div>
-        <div>
-          <p class="pdesc">Turns a CAD site plan into one self-contained interactive map with
-            search and walking directions, working with no network. Generalised from highway
-            facility work and published for anyone to install.</p>
-          <div class="figbox" tabindex="0" role="group" aria-label="Figure 5, scrollable">
-            <img class="fig" width="1568" height="782" src="assets/images/cad-to-map-viewer.jpg"
-              alt="3D map viewer built by cad-to-map from a DXF site plan, showing the tool&rsquo;s own demo site &ldquo;RSA Sungai Contoh&rdquo; &mdash; a fictional Malaysian rest area, not client work. Extruded building volumes, category POI pins, a marked 74-bay parking area, a &ldquo;You Are Here&rdquo; kiosk marker, an amenity search box, and 2D/3D and dark-mode controls are visible.">
-            <div class="figcap"><span>Fig. 05.5 &mdash; Demo site viewer, captured</span><span>cad-to-map demo &mdash; not client work</span></div>
-          </div>
-          <button class="more" type="button" data-more="p5" aria-controls="p5" data-label="05.5" aria-expanded="false">Open detail &mdash; 05.5</button>
-          <div class="detail" id="p5">
-            <div class="dgrid">
-              <div class="fld"><span class="k">Purpose</span><p>Make a CAD site plan navigable by
-                anyone, without a tile server, an API key or a network connection.</p></div>
-              <div class="fld"><span class="k">Technology</span><p>Python &middot; ezdxf &middot; Shapely &middot;
-                MapLibre &middot; GeoJSON</p></div>
-              <div class="fld"><span class="k">Lessons learned</span><p>Real drawings are never clean. Almost all the work went into absorbing what plans do in practice: unclosed outlines, labels on the wrong layer, nested blocks. The conversion itself was the easy part.</p></div>
-            </div>
-            <div class="refs"><a href="https://github.com/ashleytzele/cad-to-map"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
-          </div>
-        </div></div>
-    </article>
-
-    <!-- 05.6 -->
-    <article class="proj an">
-      <div class="ph"><div class="r">05.6</div><h3>ScoutMini</h3>
-        <div class="tagline">AI Analysis CLI</div></div>
-      <div class="pb"><div class="side">Personal<br>Public</div>
-        <div>
-          <p class="pdesc">Answers Formula 1 questions from fetched data rather than model memory.
-            Every claim cites its source, and the whole test suite runs offline.</p>
-          <div class="figbox" tabindex="0" role="group" aria-label="Figure 6, scrollable">
-            <svg class="dwg" viewBox="0 0 1000 260" role="img"
-              aria-label="Terminal transcript of running python -m scoutmini pace Leclerc Monaco, season 2024, against real FastF1 timing data: Charles Leclerc&rsquo;s fastest lap, median race pace and tyre strategy for the 2024 Monaco Grand Prix, with the data source printed as the final, emphasised line.">
-              <g class="fd" style="animation-delay:.15s"><text class="tl" x="40" y="30">$ python -m scoutmini pace Leclerc Monaco --season 2024</text></g>
-              <g class="fd" style="animation-delay:.4s"><rect class="f" x="40" y="48" width="920" height="148" pathLength="1"/></g>
-              <g class="fd" style="animation-delay:.65s">
-                <text class="ts" x="64" y="80">Charles Leclerc &mdash; Monaco Grand Prix 2024 (R)</text>
-                <text class="ts" x="64" y="106">LEC &mdash; fastest 1:15.162, median race pace 1:18.500 over 76 accurate laps.</text>
-                <text class="ts" x="64" y="132">Tyre strategy: MEDIUM (L1-1, 1 laps), HARD (L2-78, 77 laps)</text>
-              </g>
-              <g class="c ln" style="animation-delay:.5s"><path d="M64,150 H896" pathLength="1"/></g>
-              <g class="fd" style="animation-delay:.85s"><text class="ts" x="64" y="174" style="fill:var(--ink)" font-weight="600">Source: FastF1 (official F1 timing data)</text></g>
-              <g class="dm fd" style="animation-delay:1s"><path d="M64,214 H340 M64,210 V218 M340,210 V218" pathLength="1"/></g>
-              <text class="tl fd" style="animation-delay:1.05s" x="202" y="236" text-anchor="middle">EVERY REPORT PRINTS ITS SOURCES</text>
-            </svg>
-            <div class="figcap"><span>Fig. 05.6 &mdash; Real CLI output, verbatim</span><span>FastF1 timing data</span></div>
-          </div>
-          <button class="more" type="button" data-more="p6" aria-controls="p6" data-label="05.6" aria-expanded="false">Open detail &mdash; 05.6</button>
-          <div class="detail" id="p6">
-            <div class="dgrid">
-              <div class="fld"><span class="k">Constraint</span><p>The model never answers from its
-                own memory. It only ever sees what the tools return.</p></div>
-              <div class="fld"><span class="k">Technology</span><p>Python &middot; OpenAI &middot; Typer &middot; pytest</p></div>
-              <div class="fld"><span class="k">Lessons learned</span><p>A model will answer confidently whether or not it knows. The only fix that held was structural: never let it recall, only let it read what a tool returned. Everything else was a workaround.</p></div>
-            </div>
-            <div class="refs"><a href="https://github.com/ashleytzele/scoutmini"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
           </div>
         </div></div>
     </article>
