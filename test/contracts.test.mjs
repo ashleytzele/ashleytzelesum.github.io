@@ -107,8 +107,33 @@ test('component group uses tab semantics, not aria-pressed', () => {
   const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
   assert.ok(!a001.includes('aria-pressed'), 'single-select group must not use aria-pressed');
   assert.equal((a001.match(/role="tablist"/g) || []).length, 1);
-  assert.equal((a001.match(/role="tab"/g) || []).length, 4);
+  assert.ok((a001.match(/role="tab"/g) || []).length >= 1);
   assert.equal((a001.match(/role="tabpanel"/g) || []).length, 1);
+});
+
+test('component count moves as one unit: tab count, SPEC records, and the dimension label all agree', () => {
+  // The spec calls the balloon numbers, the "n components" dimension label
+  // and the specification records "one unit" — changing the count means
+  // updating all three together. A hardcoded "4" here would silently drift
+  // the moment a fifth (or sixth) component is added without touching this
+  // test, so every side is derived instead of asserted against a literal.
+  const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
+  const tabCount = (a001.match(/role="tab"/g) || []).length;
+
+  const specBlock = /var SPEC=\{([\s\S]*?)\n  \};/.exec(js);
+  assert.ok(specBlock, 'expected a SPEC object in blueprint.js');
+  const specKeys = [...specBlock[1].matchAll(/^\s*([a-zA-Z]+):\{/gm)].map(m => m[1]);
+  assert.equal(specKeys.length, tabCount,
+    `${specKeys.length} SPEC records but ${tabCount} tabs`);
+
+  const label = /(\d+)\s+COMPONENTS</.exec(a001);
+  assert.ok(label, 'expected an "N COMPONENTS" dimension label on the assembly drawing');
+  assert.equal(Number(label[1]), tabCount,
+    `dimension label says ${label[1]} components but there are ${tabCount} tabs`);
+
+  // Every tab's data-part must have a matching SPEC record, and vice versa.
+  const dataParts = [...a001.matchAll(/data-part="([a-z]+)"/g)].map(m => m[1]);
+  assert.deepEqual([...dataParts].sort(), [...specKeys].sort());
 });
 
 test('theme toggle is a real button with an accessible name that says what it does', () => {

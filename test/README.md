@@ -33,6 +33,109 @@ responsive/touch-target measurements are unaffected by this; the
 `anims` section and anything depending on scroll-triggered reveal are not
 reliable if the tab is hidden while the script runs.
 
+### Baseline — 2026-08-06 (fifth A-001 component, "About", added)
+
+Measured via the Chrome DevTools protocol against
+`http://localhost:8129/?cb=about5_clean_1785999400` (fresh query string; a
+background tab, so `document.visibilityState` read `"hidden"` throughout —
+the known automation-tab trap noted below), after adding a fifth `role="tab"`
+component ("About", balloon `05`) to the A-001 assembly, extending the
+drawing's axis/dimension line/viewBox to fit it, and relabelling the
+dimension text from `4 COMPONENTS` to `5 COMPONENTS`.
+
+`combos: 61`/`61` and `fails: []`/`[]` in both themes are **unchanged** from
+the prior baseline: the new box reuses the same `.tn`/`.ts`/`.tl` classes as
+the other four, so it adds zero new colour/font-size combinations to the
+scan. A first pass run against a page left in a stray selected-tab state (an
+artifact of test scripting, not a real defect — see note below) reported two
+false failures on `svg text.tn`/`svg text.ts` at `r: 1.00`; a clean reload
+reproduced `fails: []` on both themes, confirmed by rerunning the full script
+against a fresh navigation with no prior tab interaction. The false failure
+was traced to the measurement script's `bgOf()` helper, which walks
+`background-color` up the DOM — a check that is blind to the `.k rect`'s SVG
+`fill`, so when a tab is `aria-selected` (rect fill flips to `--ink`, text
+fill flips to `--paper` per `assets/css/blueprint.css:146-147`) the script
+sees only the page's ordinary `--paper` background behind `--paper` text and
+reports a false 1:1 ratio. This is a known blind spot in the measurement
+script itself, not a rendering defect — the actual selected-state contrast
+(`--paper` text on an `--ink`-filled rect) is the strongest ratio on the
+page. Every baseline in this file, including this one, is measured with no
+tab left selected, which is why it has never shown up here before.
+
+`responsive[*].targets` moved from **36 to 37** at every width (320, 390,
+768, 1024, 1440) — the fifth tab is one more keyboard-reachable interactive
+control, exactly the expected effect of adding a fifth `role="tab"`.
+`under44: []`, `overflow: false`, and `minDrawnText: 10.5` are unchanged at
+every width: the new box's `.tn`/`.ts`/`.tl` text reuses the same
+`.figbox .dwg`/`.dwgbox .dwg` 10.5px floor as the other four, and the taller
+drawing (`viewBox="0 0 520 646"`, up from `530`) scales inside the same
+`.dwgbox` scroll region without pushing the page wide at any width.
+
+`keyboard.tabCount: 5` confirms all five tabs are in the roving-tabindex
+group: `rovingTabindex: 1` (exactly one stop for the whole group),
+`arrowMovesFocus: true`, `panelFollows: true`, and `endGoesLast: true` (Home/End
+still land on the first/last of all five, not just the original four) all
+hold, verified directly against `#tab-about`: clicking it sets
+`aria-selected="true"`, moves `#specpanel`'s `aria-labelledby` to
+`tab-about`, and populates the panel with the `about` `SPEC` record
+(`Ref drawing A-001`, `Focus Systems, operability`, `Available Summer 2027`)
+exactly as authored.
+
+Geometry was read directly off the live SVG, not inferred from a screenshot,
+because a screenshot taken in the throttled automation tab under-renders
+scroll-reveal animation (see the trap note below): all five `.k rect`
+elements report `strokeDashoffset: "0px"` (fully drawn), the axis path reads
+`M300,24 V616`, the dimension line reads `M60,40 V566 M52,40 H68 M52,566
+H68`, and the rotated label reads exactly `5 COMPONENTS` — the axis and
+dimension line still bracket the full five-box stack (`y` values 40, 156,
+272, 388, 504 for the five outline rects), and the sheet's `drawn` class and
+`opacity: 1` on the new group confirm it revealed in sequence with the rest,
+not that a screenshot merely failed to capture it mid-throttle.
+
+`anims.total` read `2`, matching the prior baseline, with the same standing
+caveat: `document.visibilityState` was `"hidden"` throughout this run, which
+throttles `IntersectionObserver` delivery and can undercount reveal-
+triggered animations, so this number is reported for continuity, not treated
+as newly trusted.
+
+```json
+{
+ "light": { "combos": 61, "fails": [] },
+ "dark": { "combos": 61, "fails": [] },
+ "withoutJS": { "hidden": 0, "undrawn": 0 },
+ "headingsStable": true,
+ "keyboard": {
+  "rovingTabindex": 1,
+  "arrowMovesFocus": true,
+  "panelFollows": true,
+  "endGoesLast": true,
+  "tabCount": 5
+ },
+ "anims": { "total": 2, "infinite": 0, "layoutProps": [] },
+ "responsive": [
+  { "px": 320, "overflow": false, "targets": 37, "under44": [], "minDrawnText": 10.5 },
+  { "px": 390, "overflow": false, "targets": 37, "under44": [], "minDrawnText": 10.5 },
+  { "px": 768, "overflow": false, "targets": 37, "under44": [], "minDrawnText": 10.5 },
+  { "px": 1024, "overflow": false, "targets": 37, "under44": [], "minDrawnText": 10.5 },
+  { "px": 1440, "overflow": false, "targets": 37, "under44": [], "minDrawnText": 10.5 }
+ ]
+}
+```
+
+Required: zero contrast failures in both themes; nothing hidden with JS off;
+heading outline stable under interaction; one tab stop for the component
+group (now five members) with working arrows and Home/End; zero infinite
+animations; zero layout properties animated; no horizontal overflow and no
+target under 44x44 at 320, 390, 768, 1024 and 1440; smallest drawn label at
+least 10px at every width.
+
+**Result: all required values pass** (see caveat above re: `anims.total`,
+which is not one of the required fields). This baseline's `responsive`
+entries no longer carry a `themeToggle` sub-field — the copy of
+`tools/measure-in-browser.js` in this repo at time of measurement does not
+compute one; earlier baselines below that show it reflect an older revision
+of the script.
+
 ### Baseline — 2026-08-06 (05.5 and 05.6 swapped for real evidence)
 
 Measured via the Chrome DevTools protocol against

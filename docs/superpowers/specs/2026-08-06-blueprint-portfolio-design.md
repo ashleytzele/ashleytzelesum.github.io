@@ -27,7 +27,7 @@ Sheets may be added, but a new sheet takes the next number in sequence and inher
 | Sheet | Title | Holds |
 |---|---|---|
 | Cover | Title block | Name, revision, scale, status, author, date, sheet count |
-| A-001 | Identity | Exploded assembly of the four components, component specification panel, contact block |
+| A-001 | Identity | Exploded assembly of the five components, component specification panel, contact block |
 | A-002 | Education | Education records |
 | A-003 | Experience | Role records with expandable detail |
 | A-004 | System Modules | Stack section drawing, module cells, legend |
@@ -83,7 +83,7 @@ Swapping a drawn SVG for a video must be a change inside the slot only.
 
 ### Component slot — A-001 assembly
 
-The assembly drawing holds a fixed count of components, currently four, each with a balloon number, a name, a one-line summary, a cross-reference to another sheet, and a specification record.
+The assembly drawing holds a fixed count of components, currently five, each with a balloon number, a name, a one-line summary, a cross-reference to another sheet, and a specification record.
 
 Components behave as a single-select group: selecting one displays its specification beside the drawing. The count is content; the interaction is structure. Changing the count means updating the balloon numbers, the "n components" dimension label, and the specification records together — they are one unit.
 
