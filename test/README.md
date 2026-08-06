@@ -33,6 +33,49 @@ responsive/touch-target measurements are unaffected by this; the
 `anims` section and anything depending on scroll-triggered reveal are not
 reliable if the tab is hidden while the script runs.
 
+### Baseline — 2026-08-06 (05.5 and 05.6 swapped for real evidence)
+
+Measured via the Chrome DevTools protocol against
+`http://localhost:8129/?cb=figures_clean_3` (fresh query string; a background
+tab, so `document.visibilityState` read `"hidden"` throughout — the known
+automation-tab trap noted below), after replacing the drawn SVG for **Fig.
+05.5 (cad-to-map)** with a real `<img>` screenshot of the tool's own demo
+site, and the drawn SVG for **Fig. 05.6 (ScoutMini)** with a new drawn SVG
+that reproduces the tool's real terminal transcript as selectable text.
+
+Every measured value is **identical** to the prior "theme toggle added"
+baseline below: `combos: 61`/`61`, `fails: []`/`[]`, `targets: 36` and
+`under44: []` at all five widths, `minDrawnText: 10.5` at all five widths,
+`overflow: false` at all five widths, `headingsStable: true`, all four
+`keyboard` fields, `withoutJS: {hidden:0, undrawn:0}`, and
+`anims: {infinite:0, layoutProps:[]}`. Swapping the two figures added zero
+new contrast combinations, zero new touch targets, and no regression to any
+required field — the new `<img>` is not an interactive element and the new
+SVG's six `<text>` labels reuse the same `.tl`/`.ts` classes (and therefore
+the same 10.5px floor) as every other figure on the sheet.
+
+`anims.total` read `2`, matching the prior baseline's trusted figure, but is
+still not treated as a verified count for the reason recorded below: the tab
+reported `visibilityState: "hidden"` the whole run, which throttles
+`IntersectionObserver` delivery and can undercount reveal-triggered
+animations. It is reported here only because it happens to agree with the
+last trusted number, not because this run re-establishes trust in it.
+
+The new `<img>` (Fig. 05.5) was checked directly, not just via the generic
+scan: `naturalWidth`/`naturalHeight` read `1568`×`782`, matching the
+`width`/`height` HTML attributes exactly, and its `getBoundingClientRect()`
+was identical before and after the `load` event fired (`{width:1000,
+height:499.7}` both times) — confirming no layout shift, per the media slot
+contract. It renders at the same held 1000px figure width as every SVG on
+the sheet, inside the same keyboard-reachable `.figbox` scroll region.
+
+The new SVG (Fig. 05.6) was also checked directly: all six `<text>` elements
+(the command line, the three transcript lines, the emphasised source line,
+and the dimension-style callout label) read `fontSize: "10.5px"` via
+`getComputedStyle` at the figure's held 1000px width — at the 10.5px floor,
+same as every other drawn label on the sheet, not merely at-or-above it by
+coincidence of a larger authored size.
+
 ### Baseline — 2026-08-06 (theme toggle added)
 
 Measured via the Chrome DevTools protocol against

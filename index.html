@@ -535,20 +535,9 @@
             search and walking directions, working with no network. Generalised from highway
             facility work and published for anyone to install.</p>
           <div class="figbox" tabindex="0" role="group" aria-label="Figure 5, scrollable">
-            <svg class="dwg" viewBox="0 0 1000 180" role="img"
-              aria-label="A DXF drawing is converted to GeoJSON, then built into a single self-contained HTML map.">
-              <g class="k ln" style="animation-delay:.15s"><path d="M180,90 H300 M480,90 H600 M780,90 H840" pathLength="1"/></g>
-              <g class="fd" style="animation-delay:.75s">
-                <path d="M300,90 l-10,-4 v8 z" fill="var(--ink)" pathLength="1"/><path d="M600,90 l-10,-4 v8 z" fill="var(--ink)" pathLength="1"/>
-                <rect class="f" x="40" y="60" width="140" height="60" pathLength="1"/><text class="tn" x="110" y="95" text-anchor="middle">DXF plan</text>
-                <rect class="f" x="300" y="60" width="180" height="60" pathLength="1"/><text class="tn" x="390" y="88" text-anchor="middle">Converter</text>
-                <text class="ts" x="390" y="105" text-anchor="middle">ezdxf &middot; Shapely</text>
-                <rect class="f" x="600" y="60" width="180" height="60" pathLength="1"/><text class="tn" x="690" y="88" text-anchor="middle">One HTML map</text>
-                <text class="ts" x="690" y="105" text-anchor="middle">no network needed</text></g>
-              <text class="tl fd" style="animation-delay:.95s" x="850" y="94">PUBLIC</text>
-              <text class="tl fd" style="animation-delay:1s" x="20" y="165">DRAWING IN &middot; NAVIGABLE MAP OUT</text>
-            </svg>
-            <div class="figcap"><span>Fig. 05.5 &mdash; Conversion path</span><span>Not to scale</span></div>
+            <img class="fig" width="1568" height="782" src="assets/images/cad-to-map-viewer.jpg"
+              alt="3D map viewer built by cad-to-map from a DXF site plan, showing the tool&rsquo;s own demo site &ldquo;RSA Sungai Contoh&rdquo; &mdash; a fictional Malaysian rest area, not client work. Extruded building volumes, category POI pins, a marked 74-bay parking area, a &ldquo;You Are Here&rdquo; kiosk marker, an amenity search box, and 2D/3D and dark-mode controls are visible.">
+            <div class="figcap"><span>Fig. 05.5 &mdash; Demo site viewer, captured</span><span>cad-to-map demo &mdash; not client work</span></div>
           </div>
           <button class="more" type="button" data-more="p5" aria-controls="p5" data-label="05.5" aria-expanded="false">Open detail &mdash; 05.5</button>
           <div class="detail" id="p5">
@@ -573,22 +562,21 @@
           <p class="pdesc">Answers Formula 1 questions from fetched data rather than model memory.
             Every claim cites its source, and the whole test suite runs offline.</p>
           <div class="figbox" tabindex="0" role="group" aria-label="Figure 6, scrollable">
-            <svg class="dwg" viewBox="0 0 1000 200" role="img"
-              aria-label="A question triggers data tools, whose returned data alone is given to the language model, producing a sourced report.">
-              <g class="k ln" style="animation-delay:.15s"><path d="M170,100 H270 M450,100 H550 M730,100 H820" pathLength="1"/></g>
-              <g class="fd" style="animation-delay:.75s">
-                <path d="M270,100 l-10,-4 v8 z" fill="var(--ink)" pathLength="1"/><path d="M550,100 l-10,-4 v8 z" fill="var(--ink)" pathLength="1"/>
-                <path d="M820,100 l-10,-4 v8 z" fill="var(--ink)" pathLength="1"/>
-                <rect class="f" x="40" y="70" width="130" height="60" pathLength="1"/><text class="tn" x="105" y="105" text-anchor="middle">Question</text>
-                <rect class="f" x="270" y="70" width="180" height="60" pathLength="1"/><text class="tn" x="360" y="98" text-anchor="middle">Data tools</text>
-                <text class="ts" x="360" y="115" text-anchor="middle">real results only</text>
-                <rect class="f" x="550" y="70" width="180" height="60" pathLength="1"/><text class="tn" x="640" y="98" text-anchor="middle">Model</text>
-                <text class="ts" x="640" y="115" text-anchor="middle">writes, never recalls</text>
-                <rect class="f" x="820" y="70" width="140" height="60" pathLength="1"/><text class="tn" x="890" y="105" text-anchor="middle">Sourced report</text></g>
-              <g class="dm fd" style="animation-delay:1s"><path d="M550,150 H730 M550,146 V154 M730,146 V154" pathLength="1"/></g>
-              <text class="tl fd" style="animation-delay:1.05s" x="640" y="172" text-anchor="middle">NO MEMORY CROSSES THIS BOUNDARY</text>
+            <svg class="dwg" viewBox="0 0 1000 260" role="img"
+              aria-label="Terminal transcript of running python -m scoutmini pace Leclerc Monaco, season 2024, against real FastF1 timing data: Charles Leclerc&rsquo;s fastest lap, median race pace and tyre strategy for the 2024 Monaco Grand Prix, with the data source printed as the final, emphasised line.">
+              <g class="fd" style="animation-delay:.15s"><text class="ts" x="40" y="30">$ python -m scoutmini pace Leclerc Monaco --season 2024</text></g>
+              <g class="fd" style="animation-delay:.4s"><rect class="f" x="40" y="48" width="920" height="148" pathLength="1"/></g>
+              <g class="fd" style="animation-delay:.65s">
+                <text class="ts" x="64" y="80">Charles Leclerc &mdash; Monaco Grand Prix 2024 (R)</text>
+                <text class="ts" x="64" y="106">LEC &mdash; fastest 1:15.162, median race pace 1:18.500 over 76 accurate laps.</text>
+                <text class="ts" x="64" y="132">Tyre strategy: MEDIUM (L1-1, 1 laps), HARD (L2-78, 77 laps)</text>
+              </g>
+              <g class="c ln" style="animation-delay:.5s"><path d="M64,150 H896" pathLength="1"/></g>
+              <g class="fd" style="animation-delay:.85s"><text class="ts" x="64" y="174" style="fill:var(--ink)" font-weight="600">Source: FastF1 (official F1 timing data)</text></g>
+              <g class="dm fd" style="animation-delay:1s"><path d="M64,214 H340 M64,210 V218 M340,210 V218" pathLength="1"/></g>
+              <text class="tl fd" style="animation-delay:1.05s" x="202" y="236" text-anchor="middle">EVERY REPORT PRINTS ITS SOURCES</text>
             </svg>
-            <div class="figcap"><span>Fig. 05.6 &mdash; Grounding contract</span><span>Not to scale</span></div>
+            <div class="figcap"><span>Fig. 05.6 &mdash; Real CLI output, verbatim</span><span>FastF1 timing data</span></div>
           </div>
           <button class="more" type="button" data-more="p6" aria-controls="p6" data-label="05.6" aria-expanded="false">Open detail &mdash; 05.6</button>
           <div class="detail" id="p6">
