@@ -15,8 +15,13 @@ So this one is run by hand:
 
     python3 -m http.server 8118
 
-Open `http://localhost:8118/?cb=1`, paste `test/measure-in-browser.js` into the
+Open `http://localhost:8118/?cb=1`, paste `tools/measure-in-browser.js` into the
 DevTools console, and compare the JSON against the baseline below.
+
+The script lives in `tools/`, not `test/`: Node's test runner sweeps every
+`.js`/`.mjs` file under a directory named `test/` regardless of filename, and
+this script throws on `document` when loaded outside a browser, which would
+make `node --test` permanently red.
 
 **Always load with a fresh query string.** A plain reload can serve a cached
 copy and make a fixed defect look unfixed.

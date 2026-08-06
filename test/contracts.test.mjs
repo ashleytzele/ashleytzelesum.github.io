@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { readSite } from './read.mjs';
 
 const { html, css, js } = readSite();
@@ -168,4 +168,15 @@ test('a failed script load cannot leave content hidden', () => {
   const tag = /<script[^>]*src="assets\/js\/blueprint\.js"[^>]*>/.exec(html);
   assert.ok(tag, 'behaviour script tag not found');
   assert.match(tag[0], /onerror="[^"]*classList\.remove\('js'\)[^"]*"/);
+});
+
+test('test/ contains no browser-only scripts', () => {
+  // Node's runner sweeps every .js/.mjs under a directory named test/, whatever
+  // it is called. A browser-only script placed here throws on `document` and
+  // makes the suite permanently red, which trains everyone to ignore red runs.
+  // Browser scripts live in tools/.
+  const stray = readdirSync('test')
+    .filter(f => /\.(js|cjs|mjs)$/.test(f))
+    .filter(f => /\bdocument\.|\bwindow\.|getComputedStyle\(/.test(readFileSync(`test/${f}`, 'utf8')));
+  assert.deepEqual(stray, [], 'browser-only scripts belong in tools/, not test/');
 });

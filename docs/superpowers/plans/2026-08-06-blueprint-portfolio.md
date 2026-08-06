@@ -689,7 +689,7 @@ nothing preloaded."
 The contract tests cover structure. Contrast, touch-target size, overflow and animation behaviour need a real layout engine. This is a single script run in a browser — no headless dependency, keeping the repo package-free.
 
 **Files:**
-- Create: `test/measure-in-browser.js`
+- Create: `tools/measure-in-browser.js`
 - Create: `test/README.md`
 
 **Interfaces:**
@@ -698,7 +698,7 @@ The contract tests cover structure. Contrast, touch-target size, overflow and an
 
 - [ ] **Step 1: Write the measurement script**
 
-Create `test/measure-in-browser.js`:
+Create `tools/measure-in-browser.js`:
 
 ```javascript
 // Paste into DevTools on a served copy of the site, or run via a browser tool.
@@ -877,7 +877,7 @@ So this one is run by hand:
 
     python3 -m http.server 8118
 
-Open `http://localhost:8118/?cb=1`, paste `test/measure-in-browser.js` into the
+Open `http://localhost:8118/?cb=1`, paste `tools/measure-in-browser.js` into the
 DevTools console, and compare the JSON against the baseline below.
 
 **Always load with a fresh query string.** A plain reload can serve a cached
@@ -899,7 +899,7 @@ Replace `<DATE>` with today's date and paste the real JSON under it.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add test/measure-in-browser.js test/README.md
+git add tools/measure-in-browser.js test/README.md
 git commit -m "Add browser measurement gate and record the baseline
 
 Contrast, touch targets, overflow and animation budget measured in a real
@@ -1080,7 +1080,7 @@ Expected: all three true. The previously published PDF had no `/Kids` and would 
 
 - [ ] **Step 6: Run the measurement gate against the live site**
 
-Open `https://ashleytzelesum.com/?cb=1`, paste `test/measure-in-browser.js`, and confirm the numbers match the baseline in `test/README.md`. Differences here but not locally mean a caching or path problem, not a design problem.
+Open `https://ashleytzelesum.com/?cb=1`, paste `tools/measure-in-browser.js`, and confirm the numbers match the baseline in `test/README.md`. Differences here but not locally mean a caching or path problem, not a design problem.
 
 - [ ] **Step 7: Re-run the anti-pattern detector on the deployed markup**
 
