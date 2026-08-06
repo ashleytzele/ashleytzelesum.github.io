@@ -47,7 +47,7 @@ test('sprite has no dead symbols and no dangling references', () => {
 });
 
 test('no icon-only control: every icon svg is aria-hidden', () => {
-  const icons = html.match(/<svg class="ic"[^>]*>/g) || [];
+  const icons = html.match(/<svg class="ico"[^>]*>/g) || [];
   assert.ok(icons.length > 0, 'expected icons in the document');
   const exposed = icons.filter(tag => !tag.includes('aria-hidden="true"'));
   assert.deepEqual(exposed, []);
@@ -123,10 +123,13 @@ test('every local asset referenced actually exists', () => {
   assert.deepEqual(missing, []);
 });
 
-test('no third-party requests', () => {
-  const external = html.match(/(?:src|href)="https?:\/\/[^"]+"/g) || [];
-  const offenders = external.filter(u => !u.includes('ashleytzelesum.com'));
-  assert.deepEqual(offenders, [], 'the spec forbids CDN, fonts and embeds from other hosts');
+test('no third-party resource loads', () => {
+  // Navigation links to GitHub and LinkedIn are content the spec requires under
+  // Contact. What is forbidden is *loading* from another host — CDN, analytics,
+  // fonts, embeds — so only resource-loading elements are checked, not <a href>.
+  const loads = html.match(/<(?:link|script|img|video|source|iframe|audio|embed|object)\b[^>]*\b(?:src|href|data)="https?:\/\/[^"]*"/g) || [];
+  const offenders = loads.filter(u => !u.includes('ashleytzelesum.com'));
+  assert.deepEqual(offenders, [], 'the spec forbids CDN, fonts, analytics and embeds from other hosts');
 });
 
 test('behaviour script has no dependencies and parses', () => {

@@ -1,637 +1,633 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <meta name="description" content="Computer Science student building full-stack applications and exploring AI. Portfolio featuring projects in data analytics, web development, and game development."/>
-    <meta name="keywords" content="Computer Science, Full-Stack Developer, AI, Python, Flask, React, Portfolio"/>
-    <meta name="author" content="Ashley Sum"/>
-    <meta name="robots" content="index, follow"/>
-    <meta name="google-site-verification" content="googlebc73ba2c4c8d6dbc"/>
-    <meta property="og:title" content="Ashley Sum — CS Student &amp; Sports Data Developer"/>
-    <meta property="og:description" content="Explore my portfolio of full-stack applications, data analytics tools, and AI projects."/>
-    <meta property="og:image" content="https://ashleytzelesum.com/assets/logos/ASHLEYTZELE_LOGO.png"/>
-    <meta property="og:url" content="https://ashleytzelesum.com"/>
-    <meta property="og:type" content="website"/>
-    <meta name="twitter:card" content="summary"/>
-    <meta name="twitter:title" content="Ashley Sum — CS Student &amp; Sports Data Developer"/>
-    <meta name="twitter:description" content="Explore my portfolio of full-stack applications, data analytics tools, and AI projects."/>
-    <meta name="twitter:image" content="https://ashleytzelesum.com/assets/logos/ASHLEYTZELE_LOGO.png"/>
-    <meta name="theme-color" content="#f8f9fa"/>
-
-    <title>Ashley Sum — CS Student &amp; Sports Data Developer</title>
-    <link rel="canonical" href="https://ashleytzelesum.com/"/>
-    <link rel="icon" href="assets/logos/ASHLEYTZELE_LOGO.png" type="image/png">
-    <link rel="apple-touch-icon" href="assets/logos/ASHLEYTZELE_LOGO.png">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css"/>
-    <link rel="stylesheet" href="assets/css/site.css"/>
-
-    <!-- JSON-LD Structured Data for Organization -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Ashley Sum",
-      "url": "https://ashleytzelesum.com",
-      "image": "https://ashleytzelesum.com/assets/logos/ASHLEYTZELE_LOGO.png",
-      "description": "Computer Science student building full-stack applications and exploring AI",
-      "sameAs": [
-        "https://www.linkedin.com/in/ashley-sum",
-        "https://github.com/ashleytzele"
-      ],
-      "email": "ashleysumtzele04@gmail.com"
-    }
-    </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ashley Sum — Software Engineer</title>
+<meta name="description" content="Ashley Sum, Computer Science at San Francisco State. A portfolio presented as an engineering drawing set: identity, education, experience, system modules, projects and contact.">
+<meta name="author" content="Ashley Sum">
+<meta name="robots" content="index, follow">
+<meta name="google-site-verification" content="googlebc73ba2c4c8d6dbc">
+<link rel="canonical" href="https://ashleytzelesum.com/">
+<link rel="icon" href="assets/logos/ASHLEYTZELE_LOGO.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/logos/ASHLEYTZELE_LOGO.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ashleytzelesum.com/">
+<meta property="og:title" content="Ashley Sum — Software Engineer">
+<meta property="og:description" content="A portfolio presented as an engineering drawing set. Six sheets: identity, education, experience, system modules, projects and contact.">
+<meta property="og:image" content="https://ashleytzelesum.com/assets/logos/ASHLEYTZELE_LOGO.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ashley Sum — Software Engineer">
+<meta name="twitter:description" content="A portfolio presented as an engineering drawing set.">
+<meta name="twitter:image" content="https://ashleytzelesum.com/assets/logos/ASHLEYTZELE_LOGO.png">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D0D0D" media="(prefers-color-scheme: dark)">
+<link rel="preload" href="assets/fonts/public-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/spline-sans-mono.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/blueprint.css">
 </head>
-<body class="bg-surface text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
-    <a href="#home" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-on-primary focus:rounded-lg focus:font-bold">Skip to content</a>
-    <header class="bg-slate-50/80 backdrop-blur-xl fixed top-0 w-full z-50 shadow-sm">
-        <div class="flex justify-between items-center px-6 py-4 w-full max-w-7xl mx-auto">
-            <div class="flex items-center gap-3">
-                <img src="assets/logos/ASHLEYTZELE_LOGO.png" alt="" width="256" height="256" class="h-8 w-8 rounded-full object-cover">
-                <span class="text-xl font-black tracking-tighter text-slate-900">ASHLEYTZELE</span>
-            </div>
-            <nav class="hidden md:flex items-center gap-8 text-[10px] uppercase tracking-widest font-bold">
-                <a class="nav-link text-slate-600 hover:text-sky-600 transition-colors duration-200" href="#home">Home</a>
-                <a class="nav-link text-slate-600 hover:text-sky-600 transition-colors duration-200" href="#projects">Projects</a>
-                <a class="nav-link text-slate-600 hover:text-sky-600 transition-colors duration-200" href="#experience">Experience</a>
-                <a class="nav-link text-slate-600 hover:text-sky-600 transition-colors duration-200" href="#skills">Skills</a>
-                <a class="nav-link text-slate-600 hover:text-sky-600 transition-colors duration-200" href="#contact">Contact</a>
-            </nav>
-            <span class="material-symbols-outlined text-slate-900" aria-hidden="true">code</span>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><symbol id="i-github" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" pathLength="1"/></symbol><symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" pathLength="1"/></symbol><symbol id="i-openjdk" viewBox="0 0 24 24"><path d="M11.915 0 11.7.215C9.515 2.4 7.47 6.39 6.046 10.483c-1.064 1.024-3.633 2.81-3.711 3.551-.093.87 1.746 2.611 1.55 3.235-.198.625-1.304 1.408-1.014 1.939.1.188.823.011 1.277-.491a13.389 13.389 0 0 0-.017 2.14c.076.906.27 1.668.643 2.232.372.563.956.911 1.667.911.397 0 .727-.114 1.024-.264.298-.149.571-.33.91-.5.68-.34 1.634-.666 3.53-.604 1.903.062 2.872.39 3.559.704.687.314 1.15.664 1.925.664.767 0 1.395-.336 1.807-.9.412-.563.631-1.33.72-2.24.06-.623.055-1.32 0-2.066.454.45 1.117.604 1.213.424.29-.53-.816-1.314-1.013-1.937-.198-.624 1.642-2.366 1.549-3.236-.08-.748-2.707-2.568-3.748-3.586C16.428 6.374 14.308 2.394 12.13.215zm.175 6.038a2.95 2.95 0 0 1 2.943 2.942 2.95 2.95 0 0 1-2.943 2.943A2.95 2.95 0 0 1 9.148 8.98a2.95 2.95 0 0 1 2.942-2.942zM8.685 7.983a3.515 3.515 0 0 0-.145.997c0 1.951 1.6 3.55 3.55 3.55 1.95 0 3.55-1.598 3.55-3.55 0-.329-.046-.648-.132-.951.334.095.64.208.915.336a42.699 42.699 0 0 1 2.042 5.829c.678 2.545 1.01 4.92.846 6.607-.082.844-.29 1.51-.606 1.94-.315.431-.713.651-1.315.651-.593 0-.932-.27-1.673-.61-.741-.338-1.825-.694-3.792-.758-1.974-.064-3.073.293-3.821.669-.375.188-.659.373-.911.5s-.466.2-.752.2c-.53 0-.876-.209-1.16-.64-.285-.43-.474-1.101-.545-1.948-.141-1.693.176-4.069.823-6.614a43.155 43.155 0 0 1 1.934-5.783c.348-.167.749-.31 1.192-.425zm-3.382 4.362a.216.216 0 0 1 .13.031c-.166.56-.323 1.116-.463 1.665a33.849 33.849 0 0 0-.547 2.555 3.9 3.9 0 0 0-.2-.39c-.58-1.012-.914-1.642-1.16-2.08.315-.24 1.679-1.755 2.24-1.781zm13.394.01c.562.027 1.926 1.543 2.24 1.783-.246.438-.58 1.068-1.16 2.08a4.428 4.428 0 0 0-.163.309 32.354 32.354 0 0 0-.562-2.49 40.579 40.579 0 0 0-.482-1.652.216.216 0 0 1 .127-.03z" pathLength="1"/></symbol><symbol id="i-python" viewBox="0 0 24 24"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z" pathLength="1"/></symbol><symbol id="i-javascript" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z" pathLength="1"/></symbol><symbol id="i-html5" viewBox="0 0 24 24"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" pathLength="1"/></symbol><symbol id="i-css" viewBox="0 0 24 24"><path d="M0 0v20.16A3.84 3.84 0 0 0 3.84 24h16.32A3.84 3.84 0 0 0 24 20.16V3.84A3.84 3.84 0 0 0 20.16 0Zm14.256 13.08c1.56 0 2.28 1.08 2.304 2.64h-1.608c.024-.288-.048-.6-.144-.84-.096-.192-.288-.264-.552-.264-.456 0-.696.264-.696.84-.024.576.288.888.768 1.08.72.288 1.608.744 1.92 1.296q.432.648.432 1.656c0 1.608-.912 2.592-2.496 2.592-1.656 0-2.4-1.032-2.424-2.688h1.68c0 .792.264 1.176.792 1.176.264 0 .456-.072.552-.24.192-.312.24-1.176-.048-1.512-.312-.408-.912-.6-1.32-.816q-.828-.396-1.224-.936c-.24-.36-.36-.888-.36-1.536 0-1.44.936-2.472 2.424-2.448m5.4 0c1.584 0 2.304 1.08 2.328 2.64h-1.608c0-.288-.048-.6-.168-.84-.096-.192-.264-.264-.528-.264-.48 0-.72.264-.72.84s.288.888.792 1.08c.696.288 1.608.744 1.92 1.296.264.432.408.984.408 1.656.024 1.608-.888 2.592-2.472 2.592-1.68 0-2.424-1.056-2.448-2.688h1.68c0 .744.264 1.176.792 1.176.264 0 .456-.072.552-.24.216-.312.264-1.176-.048-1.512-.288-.408-.888-.6-1.32-.816-.552-.264-.96-.576-1.2-.936s-.36-.888-.36-1.536c-.024-1.44.912-2.472 2.4-2.448m-11.031.018c.711-.006 1.419.198 1.839.63.432.432.672 1.128.648 1.992H9.336c.024-.456-.096-.792-.432-.96-.312-.144-.768-.048-.888.24-.12.264-.192.576-.168.864v3.504c0 .744.264 1.128.768 1.128a.65.65 0 0 0 .552-.264c.168-.24.192-.552.168-.84h1.776c.096 1.632-.984 2.712-2.568 2.688-1.536 0-2.496-.864-2.472-2.472v-4.032c0-.816.24-1.44.696-1.848.432-.408 1.146-.624 1.857-.63" pathLength="1"/></symbol><symbol id="i-mongodb" viewBox="0 0 24 24"><path d="M17.193 9.555c-1.264-5.58-4.252-7.414-4.573-8.115-.28-.394-.53-.954-.735-1.44-.036.495-.055.685-.523 1.184-.723.566-4.438 3.682-4.74 10.02-.282 5.912 4.27 9.435 4.888 9.884l.07.05A73.49 73.49 0 0111.91 24h.481c.114-1.032.284-2.056.51-3.07.417-.296.604-.463.85-.693a11.342 11.342 0 003.639-8.464c.01-.814-.103-1.662-.197-2.218zm-5.336 8.195s0-8.291.275-8.29c.213 0 .49 10.695.49 10.695-.381-.045-.765-1.76-.765-2.405z" pathLength="1"/></symbol><symbol id="i-flask" viewBox="0 0 24 24"><path d="M10.773 2.878c-.013 1.434.322 4.624.445 5.734l-8.558 3.83c-.56-.959-.98-2.304-1.237-3.38l-.06.027c-.205.09-.406.053-.494-.088l-.011-.018-.82-1.506c-.058-.105-.05-.252.024-.392a.78.78 0 0 1 .358-.331l9.824-4.207c.146-.064.299-.063.4.004.106.062.127.128.13.327Zm.68 7c.523 1.97.675 2.412.832 2.818l-7.263 3.7a19.35 19.35 0 0 1-1.81-2.83l8.24-3.689Zm12.432 8.786h.003c.283.402-.047.657-.153.698l-.947.37c.037.125.035.319-.217.414l-.736.287c-.229.09-.398-.059-.42-.2l-.025-.125c-4.427 1.784-7.94 1.685-10.696.647-1.981-.745-3.576-1.983-4.846-3.379l6.948-3.54c.721 1.431 1.586 2.454 2.509 3.178 2.086 1.638 4.415 1.712 5.793 1.563l-.047-.233c-.015-.077.007-.135.086-.165l.734-.288a.302.302 0 0 1 .342.086l.748-.288a.306.306 0 0 1 .341.086l.583.89Z" pathLength="1"/></symbol><symbol id="i-bootstrap" viewBox="0 0 24 24"><path d="M11.77 11.24H9.956V8.202h2.152c1.17 0 1.834.522 1.834 1.466 0 1.008-.773 1.572-2.174 1.572zm.324 1.206H9.957v3.348h2.231c1.459 0 2.232-.585 2.232-1.685s-.795-1.663-2.326-1.663zM24 11.39v1.218c-1.128.108-1.817.944-2.226 2.268-.407 1.319-.463 2.937-.42 4.186.045 1.3-.968 2.5-2.337 2.5H4.985c-1.37 0-2.383-1.2-2.337-2.5.043-1.249-.013-2.867-.42-4.186-.41-1.324-1.1-2.16-2.228-2.268V11.39c1.128-.108 1.819-.944 2.227-2.268.408-1.319.464-2.937.42-4.186-.045-1.3.968-2.5 2.338-2.5h14.032c1.37 0 2.382 1.2 2.337 2.5-.043 1.249.013 2.867.42 4.186.409 1.324 1.098 2.16 2.226 2.268zm-7.927 2.817c0-1.354-.953-2.333-2.368-2.488v-.057c1.04-.169 1.856-1.135 1.856-2.213 0-1.537-1.213-2.538-3.062-2.538h-4.16v10.172h4.181c2.218 0 3.553-1.086 3.553-2.876z" pathLength="1"/></symbol><symbol id="i-android" viewBox="0 0 24 24"><path d="M18.4395 5.5586c-.675 1.1664-1.352 2.3318-2.0274 3.498-.0366-.0155-.0742-.0286-.1113-.043-1.8249-.6957-3.484-.8-4.42-.787-1.8551.0185-3.3544.4643-4.2597.8203-.084-.1494-1.7526-3.021-2.0215-3.4864a1.1451 1.1451 0 0 0-.1406-.1914c-.3312-.364-.9054-.4859-1.379-.203-.475.282-.7136.9361-.3886 1.5019 1.9466 3.3696-.0966-.2158 1.9473 3.3593.0172.031-.4946.2642-1.3926 1.0177C2.8987 12.176.452 14.772 0 18.9902h24c-.119-1.1108-.3686-2.099-.7461-3.0683-.7438-1.9118-1.8435-3.2928-2.7402-4.1836a12.1048 12.1048 0 0 0-2.1309-1.6875c.6594-1.122 1.312-2.2559 1.9649-3.3848.2077-.3615.1886-.7956-.0079-1.1191a1.1001 1.1001 0 0 0-.8515-.5332c-.5225-.0536-.9392.3128-1.0488.5449zm-.0391 8.461c.3944.5926.324 1.3306-.1563 1.6503-.4799.3197-1.188.0985-1.582-.4941-.3944-.5927-.324-1.3307.1563-1.6504.4727-.315 1.1812-.1086 1.582.4941zM7.207 13.5273c.4803.3197.5506 1.0577.1563 1.6504-.394.5926-1.1038.8138-1.584.4941-.48-.3197-.5503-1.0577-.1563-1.6504.4008-.6021 1.1087-.8106 1.584-.4941z" pathLength="1"/></symbol><symbol id="i-git" viewBox="0 0 24 24"><path d="M13.09 23.549a1.54 1.54 0 0 1-2.18 0L.451 13.089a1.54 1.54 0 0 1 0-2.179l7.191-7.19 2.733 2.733a1.85 1.85 0 0 0 .964 2.326v6.66a1.849 1.849 0 1 0 1.54 0V8.957l2.508 2.508a1.85 1.85 0 1 0 1.09-1.09l-2.634-2.634a1.85 1.85 0 0 0-2.378-2.377L8.73 2.63 10.91.451a1.54 1.54 0 0 1 2.179 0l10.459 10.46a1.54 1.54 0 0 1 0 2.179z" pathLength="1"/></symbol><symbol id="i-chartdotjs" viewBox="0 0 24 24"><path d="M12 0L1.605 6v12L12 24l10.395-6V6zm0 1.41l9.172 5.295v10.59L12 22.59l-9.172-5.295V6.705zM5.902 8.334c-1.306 0-1.983.956-2.574 2.41v6.262L12 22.014l8.672-5.008v-5.971c-.447-.264-.894-.412-1.336-.412-4.275 0-3.97 4.885-6.717 5.8-2.748.917-3.511-8.089-6.717-8.089zm12.364.457c-2.9 0-2.137 4.732-5.342 4.732-1.63 0-2.52-1.317-3.477-1.981.148.326.3.655.442.98.467 1.068.922 2.09 1.379 2.734.228.322.455.541.644.644a.595.595 0 0 0 .549.05c.558-.187.968-.571 1.36-1.112.39-.541.74-1.228 1.154-1.916.413-.688.894-1.385 1.59-1.918.695-.534 1.607-.881 2.77-.881.465 0 .908.136 1.337.352v-.121c-.633-.849-1.348-1.563-2.406-1.563zm-6.68.152c-.868 0-1.491.82-2.076 2.06.094.055.192.106.277.167 1.06.761 1.798 1.853 3.137 1.853.678 0 1.067-.218 1.418-.585-.722-1.546-1.432-3.492-2.756-3.495Z" pathLength="1"/></symbol><symbol id="i-visualstudiocode" viewBox="0 0 24 24"><path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z" pathLength="1"/></symbol><symbol id="i-zedindustries" viewBox="0 0 24 24"><path d="M2.25 1.5a.75.75 0 0 0-.75.75v16.5H0V2.25A2.25 2.25 0 0 1 2.25 0h20.095c1.002 0 1.504 1.212.795 1.92L10.764 14.298h3.486V12.75h1.5v1.922a1.125 1.125 0 0 1-1.125 1.125H9.264l-2.578 2.578h11.689V9h1.5v9.375a1.5 1.5 0 0 1-1.5 1.5H5.185L2.562 22.5H21.75a.75.75 0 0 0 .75-.75V5.25H24v16.5A2.25 2.25 0 0 1 21.75 24H1.655C.653 24 .151 22.788.86 22.08L13.19 9.75H9.75v1.5h-1.5V9.375A1.125 1.125 0 0 1 9.375 8.25h5.314l2.625-2.625H5.625V15h-1.5V5.625a1.5 1.5 0 0 1 1.5-1.5h13.19L21.438 1.5z" pathLength="1"/></symbol><symbol id="i-androidstudio" viewBox="0 0 24 24"><path d="M19.2693 10.3368c-.3321 0-.6026.2705-.6026.6031v9.8324h-1.7379l-3.3355-6.9396c.476-.5387.6797-1.286.5243-2.0009a2.2862 2.2862 0 0 0-1.2893-1.6248v-.8124c.0121-.2871-.1426-.5787-.4043-.7407-.1391-.0825-.2884-.1234-.4402-.1234a.8478.8478 0 0 0-.4318.1182c-.2701.1671-.4248.4587-.4123.7662l-.0003.721c-1.0149.3668-1.6619 1.4153-1.4867 2.5197a2.282 2.282 0 0 0 .5916 1.2103l-3.2096 6.9064H4.0928c-1.0949-.007-1.9797-.8948-1.9832-1.9896V5.016c-.0055 1.1024.8836 2.0006 1.9859 2.0062a2.024 2.024 0 0 0 .1326-.0037h14.7453s2.5343-.2189 2.8619 1.5392c-.2491.0287-.4449.2321-.4449.4889 0 .7115-.5791 1.2901-1.3028 1.2901h-.8183zM17.222 22.5366c.2347.4837.0329 1.066-.4507 1.3007-.1296.0629-.2666.0895-.4018.0927a.9738.9738 0 0 1-.3194-.0455c-.024-.0078-.046-.0209-.0694-.0305a.9701.9701 0 0 1-.2277-.1321c-.0247-.0192-.0495-.038-.0724-.0598-.0825-.0783-.1574-.1672-.21-.2757l-1.2554-2.6143-1.5585-3.2452a.7725.7725 0 0 0-.6995-.4443h-.0024a.792.792 0 0 0-.7083.4443l-1.5109 3.2452-1.2321 2.6464a.9722.9722 0 0 1-.7985.5795c-.0626.0053-.1238-.0024-.185-.0087-.0344-.0036-.069-.0053-.1025-.0124-.0489-.0103-.0954-.0278-.142-.0452-.0301-.0113-.0613-.0197-.0901-.0339-.0496-.0244-.0948-.0565-.1397-.0889-.0217-.0156-.0457-.0275-.0662-.045a.9862.9862 0 0 1-.1695-.1844.9788.9788 0 0 1-.0708-.9852l.8469-1.8223 3.2676-7.0314a1.7964 1.7964 0 0 1-.7072-1.1637c-.1555-.9799.5129-1.9003 1.4928-2.0559V9.3946a.3542.3542 0 0 1 .1674-.3155.3468.3468 0 0 1 .3541 0 .354.354 0 0 1 .1674.3155v1.159l.0129.0064a1.8028 1.8028 0 0 1 1.2878 1.378 1.7835 1.7835 0 0 1-.6439 1.7836l3.3889 7.0507.8481 1.7643zM12.9841 12.306c.0042-.6081-.4854-1.1044-1.0935-1.1085a1.1204 1.1204 0 0 0-.7856.3219 1.101 1.101 0 0 0-.323.7716c-.0042.6081.4854 1.1044 1.0935 1.1085h.0077c.6046 0 1.0967-.488 1.1009-1.0935zm-1.027 5.2768c-.1119.0005-.2121.0632-.2571.1553l-1.4127 3.0342h3.3733l-1.4564-3.0328a.274.274 0 0 0-.2471-.1567zm8.1432-6.7459l-.0129-.0001h-.8177a.103.103 0 0 0-.103.103v12.9103a.103.103 0 0 0 .0966.103h.8435c.9861-.0035 1.7836-.804 1.7836-1.79V9.0468c0 .9887-.8014 1.7901-1.7901 1.7901zM2.6098 5.0161v.019c.0039.816.6719 1.483 1.4874 1.4869a12.061 12.061 0 0 1 .1309-.0034h1.1286c.1972-1.315.7607-2.525 1.638-3.4859H4.0993c-.9266.0031-1.6971.6401-1.9191 1.4975.2417.0355.4296.235.4296.4859zm6.3381-2.8977L7.9112.3284a.219.219 0 0 1 0-.2189A.2384.2384 0 0 1 8.098 0a.219.219 0 0 1 .1867.1094l1.0496 1.8158a6.4907 6.4907 0 0 1 5.3186 0L15.696.1094a.2189.2189 0 0 1 .3734.2189l-1.0302 1.79c1.6671.9125 2.7974 2.5439 3.0975 4.4018l-12.286-.0014c.3004-1.8572 1.4305-3.488 3.0972-4.4003zm5.3774 2.6202a.515.515 0 0 0 .5271.5028.515.515 0 0 0 .5151-.5151.5213.5213 0 0 0-.8885-.367.5151.5151 0 0 0-.1537.3793zm-5.7178-.0067a.5151.5151 0 0 0 .5207.5095.5086.5086 0 0 0 .367-.1481.5215.5215 0 1 0-.734-.7341.515.515 0 0 0-.1537.3727z" pathLength="1"/></symbol><symbol id="i-claude" viewBox="0 0 24 24"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z" pathLength="1"/></symbol></svg>
+<script>document.documentElement.className+=" js"</script>
+<noscript><style>.js .an,.js .dwg .fd{opacity:1!important}.js .dwg .ln{stroke-dashoffset:0!important}.js .dwg .axis{transform:none!important}.detail{display:block!important}.more{display:none!important}</style></noscript>
+<a class="skip" href="#a005">Skip to projects</a>
+
+<nav class="index" aria-label="Document index">
+  <div class="h">Document Index</div>
+  <ol>
+    <li><a href="#a001"><span class="n">A-001</span><span class="t">Identity</span></a></li>
+    <li><a href="#a002"><span class="n">A-002</span><span class="t">Education</span></a></li>
+    <li><a href="#a003"><span class="n">A-003</span><span class="t">Experience</span></a></li>
+    <li><a href="#a004"><span class="n">A-004</span><span class="t">System Modules</span></a></li>
+    <li><a href="#a005"><span class="n">A-005</span><span class="t">Projects</span></a></li>
+    <li><a href="#a006"><span class="n">A-006</span><span class="t">Contact</span></a></li>
+  </ol>
+  <div class="foot">AS-001<br>Rev 3.0<br>Scale 1:1<br>Active</div>
+</nav>
+
+<main class="doc">
+
+<!-- COVER -->
+<section class="sheet cover">
+  <div class="rule" aria-hidden="true">
+    <i style="left:0;top:0;width:1px;height:22px"></i><i style="left:0;top:0;width:22px;height:1px"></i>
+    <i style="right:0;top:0;width:1px;height:22px"></i><i style="right:0;top:0;width:22px;height:1px"></i>
+    <i style="left:0;bottom:0;width:1px;height:22px"></i><i style="left:0;bottom:0;width:22px;height:1px"></i>
+    <i style="right:0;bottom:0;width:1px;height:22px"></i><i style="right:0;bottom:0;width:22px;height:1px"></i>
+    <span style="left:25%;top:14px">1</span><span style="left:50%;top:14px">2</span><span style="left:75%;top:14px">3</span>
+    <span style="left:14px;top:33%">A</span><span style="left:14px;top:66%">B</span>
+  </div>
+  <div class="pane">
+    <div class="lab">Project Document &nbsp;&middot;&nbsp; AS-001</div>
+    <div class="mid">
+      <h1 class="t"><span class="of">Blueprint of</span>Ashley Sum</h1>
+      <div class="cmeta">
+        <div><span class="k">Revision</span><span class="v">3.0</span></div>
+        <div><span class="k">Scale</span><span class="v">1:1</span></div>
+        <div><span class="k">Status</span><span class="v">Active</span></div>
+        <div><span class="k">Author</span><span class="v">Ashley Sum</span></div>
+        <div><span class="k">Date</span><span class="v">2026-08-05</span></div>
+        <div><span class="k">Sheets</span><span class="v">6</span></div>
+      </div>
+    </div>
+    <div class="scrollmark">Document begins</div>
+  </div>
+</section>
+
+<!-- A-001 IDENTITY -->
+<section class="sheet" id="a001" data-draw>
+  <div class="rule" aria-hidden="true"><span style="left:14px;top:50%">A</span></div>
+  <div class="pane">
+    <div class="hdr"><div class="d"><b>Drawing A-001</b> &nbsp;<span>Identity</span></div>
+      <div class="m">Sheet 1 of 6 &nbsp;&middot;&nbsp; Rev 3.0 &nbsp;&middot;&nbsp; Scale 1:1 &nbsp;&middot;&nbsp; Active</div></div>
+    <div style="margin-top:calc(var(--u)*5)"><h2>Identity</h2></div>
+    <div class="sysgrid">
+      <div class="dwgbox" tabindex="0" role="group" aria-label="Assembly drawing, scrollable">
+        <svg class="dwg" viewBox="0 0 520 530" role="group"
+          aria-label="Exploded assembly: four components along assembly axis A-A, each referencing another drawing in this set.">
+          <path class="c axis" d="M300,24 V500" stroke-dasharray="14 5 3 5" pathLength="1"/>
+          <text class="tl fd" style="animation-delay:1.3s" x="300" y="520" text-anchor="middle">ASSEMBLY AXIS A&ndash;A</text>
+          <g class="tabs" role="tablist" aria-label="Assembly components" aria-orientation="vertical"><g class="part" id="tab-engineering" role="tab" aria-selected="false" tabindex="0" aria-controls="specpanel" data-part="engineering">
+            <rect x="100" y="31" width="340" height="80" fill="transparent" pointer-events="all"/>
+            <g class="k ln" style="animation-delay:.15s"><rect x="196" y="40" width="208" height="62" pathLength="1"/></g>
+            <g class="fd" style="animation-delay:.9s">
+              <text class="tn" x="212" y="66">Engineering</text><text class="ts" x="212" y="84">6 projects &middot; 2 public</text>
+              <circle class="f" cx="120" cy="71" r="15"/><text class="tl" x="120" y="75" text-anchor="middle" fill="var(--ink)">01</text>
+              <path class="c" d="M135,71 H196" pathLength="1"/><text class="tl" x="418" y="75">A-005</text></g></g>
+          <g class="part" id="tab-experience" role="tab" aria-selected="false" tabindex="-1" aria-controls="specpanel" data-part="experience">
+            <rect x="100" y="147" width="340" height="80" fill="transparent" pointer-events="all"/>
+            <g class="k ln" style="animation-delay:.25s"><rect x="196" y="156" width="208" height="62" pathLength="1"/></g>
+            <g class="fd" style="animation-delay:.97s">
+              <text class="tn" x="212" y="182">Experience</text><text class="ts" x="212" y="200">4 roles &middot; OSPIT, SFSU, Zengo</text>
+              <circle class="f" cx="120" cy="187" r="15"/><text class="tl" x="120" y="191" text-anchor="middle" fill="var(--ink)">02</text>
+              <path class="c" d="M135,187 H196" pathLength="1"/><text class="tl" x="418" y="191">A-003</text></g></g>
+          <g class="part" id="tab-education" role="tab" aria-selected="false" tabindex="-1" aria-controls="specpanel" data-part="education">
+            <rect x="100" y="263" width="340" height="80" fill="transparent" pointer-events="all"/>
+            <g class="k ln" style="animation-delay:.35s"><rect x="196" y="272" width="208" height="62" pathLength="1"/></g>
+            <g class="fd" style="animation-delay:1.04s">
+              <text class="tn" x="212" y="298">Education</text><text class="ts" x="212" y="316">San Francisco State &middot; B.S. CS</text>
+              <circle class="f" cx="120" cy="303" r="15"/><text class="tl" x="120" y="307" text-anchor="middle" fill="var(--ink)">03</text>
+              <path class="c" d="M135,303 H196" pathLength="1"/><text class="tl" x="418" y="307">A-002</text></g></g>
+          <g class="part" id="tab-modules" role="tab" aria-selected="false" tabindex="-1" aria-controls="specpanel" data-part="modules">
+            <rect x="100" y="379" width="340" height="80" fill="transparent" pointer-events="all"/>
+            <g class="k ln" style="animation-delay:.45s"><rect x="196" y="388" width="208" height="62" pathLength="1"/></g>
+            <g class="fd" style="animation-delay:1.11s">
+              <text class="tn" x="212" y="414">System Modules</text><text class="ts" x="212" y="432">Languages &middot; frameworks &middot; tools</text>
+              <circle class="f" cx="120" cy="419" r="15"/><text class="tl" x="120" y="423" text-anchor="middle" fill="var(--ink)">04</text>
+              <path class="c" d="M135,419 H196" pathLength="1"/><text class="tl" x="418" y="423">A-004</text></g></g>
+          </g><g class="dm fd" style="animation-delay:1.35s"><path d="M60,40 V450 M52,40 H68 M52,450 H68" pathLength="1"/>
+            <path d="M60,40 l-3.5,10 h7 z" fill="var(--mid)" stroke="none" pathLength="1"/>
+            <path d="M60,450 l-3.5,-10 h7 z" fill="var(--mid)" stroke="none" pathLength="1"/></g>
+          <text class="tl fd" style="animation-delay:1.4s" x="42" y="245" transform="rotate(-90 42 245)" text-anchor="middle">4 COMPONENTS</text>
+        </svg>
+      </div>
+      <div>
+        <div class="spec" id="specpanel" style="margin-top:0" role="tabpanel" tabindex="0" aria-labelledby="tab-engineering">
+          <h3 class="sk">Component Specification</h3>
+          <p class="sh" id="spec-t">Select a component</p>
+          <p id="spec-p">Select any component in the drawing to display its
+            specification. Each component references another drawing in this set.</p>
+          <dl id="spec-d"></dl>
         </div>
-    </header>
-
-    <main class="pt-32 pb-40 md:pb-16 px-6 max-w-7xl mx-auto">
-        <!-- Hero Section -->
-        <section class="mb-32 min-h-[70vh] flex flex-col justify-center scroll-mt-48" id="home">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-8">
-                    <div>
-                        <h1 class="text-3xl md:text-5xl font-black tracking-tighter text-primary leading-none mb-6">
-                            <span class="text-lg md:text-3xl text-on-surface-variant font-medium">Hello, I'm</span><br/>ASHLEY SUM
-                        </h1>
-                        <p class="text-xl md:text-xl text-on-surface-variant max-w-2xl leading-relaxed">
-                            Computer Science student building full-stack applications and exploring AI, focusing on practical and user-friendly software.
-                        </p>
-                    </div>
-                    <div class="flex flex-wrap gap-4 pt-8 items-center">
-                        <a href="assets/documents/Ashley-Sum-Resume.pdf" download class="px-8 py-4 bg-primary text-on-primary font-bold uppercase text-sm tracking-widest rounded-lg hover:bg-slate-800 transition-colors duration-200">
-                            Download CV
-                        </a>
-                        <a href="#contact" class="px-8 py-4 border-2 border-primary text-primary font-bold uppercase text-sm tracking-widest rounded-lg hover:bg-primary hover:text-on-primary transition-colors duration-200">
-                            Get In Touch
-                        </a>
-                        <div class="flex gap-4 ml-4">
-                            <a href="https://www.linkedin.com/in/ashley-sum" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg border-2 border-primary hover:bg-primary transition-colors duration-200" aria-label="LinkedIn profile">
-                                <img src="assets/logos/linkedin.png" alt="" width="48" height="48" class="w-6 h-6">
-                            </a>
-                            <a href="https://github.com/ashleytzele" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg border-2 border-primary hover:bg-primary transition-colors duration-200" aria-label="GitHub profile">
-                                <img src="assets/logos/github.png" alt="" width="48" height="48" class="w-6 h-6">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="hidden md:flex justify-center items-center">
-                    <img src="assets/images/hero-image.jpg" alt="Ashley Sum" width="800" height="800" fetchpriority="high" decoding="async" class="w-full max-w-sm rounded-xl object-cover shadow-lg">
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section class="mb-32 scroll-mt-32" id="about">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                <div>
-                    <h2 class="text-5xl md:text-6xl font-black tracking-tighter text-primary mb-8 leading-tight">
-                        About Me.
-                    </h2>
-                    <p class="text-base text-on-surface-variant leading-relaxed mb-6">
-                        I’m a sophomore Computer Science student at San Francisco State University with a strong interest in building practical and forward-looking software. I enjoy working on projects that combine AI with real-world applications, particularly in health and sports.
-                    </p>
-                    <p class="text-base text-on-surface-variant leading-relaxed mb-8">
-                        My background as a national-level swimmer has shaped how I approach problem-solving — staying composed under pressure while focusing on performance, efficiency, and continuous improvement. I’m especially interested in how modern training philosophies in sports are evolving toward a more data-driven approach, where technology and analytics play a key role in improving performance. This perspective influences how I design and build systems today — prioritizing quality, precision, and meaningful results over quantity.
-                    </p>
-                    <p class="text-base text-on-surface-variant leading-relaxed mb-8">
-                        Beyond swimming, I’m passionate about sports like basketball and baseball, where the growing role of statistics and data is transforming how the game is understood. I’m also a stan Formula 1 superfan, especially backing the team in red — drawn to the speed, adrenaline, and strategic precision that define the sport.
-                    </p>
-                    <a href="#skills" class="inline-flex items-center gap-3 text-primary font-bold uppercase text-sm tracking-widest hover:gap-5 transition-all duration-200">
-                        Explore Skills
-                        <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-                    </a>
-                </div>
-                <div>
-                    <img src="assets/images/about-image.jpg" alt="Ashley Sum" width="900" height="900" loading="lazy" decoding="async" class="w-full max-w-md rounded-xl object-cover shadow-lg">
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section class="mb-32 scroll-mt-32" id="projects">
-            <div class="mb-16">
-                <h2 class="text-5xl md:text-6xl font-black tracking-tighter text-primary leading-tight mb-6">Projects.</h2>
-                <p class="text-lg max-w-3xl text-on-surface-variant leading-relaxed">
-                    A collection of projects focused on building practical applications and data-driven tools.
-                </p>
-            </div>
-            <div class="space-y-16">
-                <!-- Project 1: SplitWise -->
-                <div class="group bg-surface-container rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:bg-surface-container-high">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
-                        <!-- Left: Image -->
-                        <div class="h-80 md:h-full md:min-h-96 overflow-hidden">
-                            <img alt="SplitWise Swimming Analytics Dashboard" width="1280" height="991" loading="lazy" decoding="async" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" src="assets/images/splitwise-screenshot.png"/>
-                        </div>
-                        <!-- Right: Content -->
-                        <div class="p-8 md:p-12 flex flex-col justify-center space-y-6">
-                            <div class="flex gap-2 flex-wrap">
-                                <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 bg-surface-container-lowest text-primary rounded-md border border-outline-variant/30">Data Analytics</span>
-                                <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 bg-surface-container-lowest text-primary rounded-md border border-outline-variant/30">Web App</span>
-                                <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 bg-surface-container-lowest text-primary rounded-md border border-outline-variant/30">Full-Stack</span>
-                            </div>
-                            <h3 class="text-4xl font-black tracking-tighter text-primary">SplitWise</h3>
-                            <p class="text-on-surface-variant text-lg leading-relaxed">
-                                Swimming analytics tool to analyze 50m swim performance using advanced data visualization and performance metrics.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
-                                    <i class="devicon-python-plain text-xs"></i>PYTHON
-                                </span>
-                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
-                                    <i class="devicon-html5-plain text-xs"></i>HTML
-                                </span>
-                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
-                                    <i class="devicon-flask-original text-xs"></i>FLASK
-                                </span>
-                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
-                                    <i class="devicon-tailwindcss-plain text-xs"></i>TAILWIND CSS
-                                </span>
-                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
-                                    <i class="devicon-javascript-plain text-xs"></i>JavaScript
-                                </span>
-
-                            </div>
-                            <div class="flex flex-wrap gap-4 pt-4">
-                                <a class="inline-flex items-center gap-2 px-3 py-1 bg-primary text-on-primary font-bold uppercase text-xs tracking-widest rounded-lg hover:bg-secondary transition-colors duration-200" href="assets/videos/splitwise-demo.mp4" target="_blank" rel="noopener noreferrer">
-                                    <span class="material-symbols-outlined text-sm" aria-hidden="true">play_circle</span>
-                                    Watch Demo
-                                </a>
-                                <a class="inline-flex items-center gap-2 px-3 py-1 border-2 border-primary text-primary font-bold uppercase text-xs tracking-widest rounded-lg hover:bg-primary hover:text-on-primary transition-all duration-200" href="https://github.com/ashleytzele/SplitWise-Swim" target="_blank" rel="noopener noreferrer">
-                                    <span class="material-symbols-outlined text-sm" aria-hidden="true">code</span>
-                                    Source Code
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2: NBA Guessing Game -->
-                <div class="group bg-surface-container rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:bg-surface-container-high">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
-                        <!-- Left: Image -->
-                        <div class="h-80 md:h-full md:min-h-96 overflow-hidden">
-                            <img alt="NBA Player Guessing Game Interface" width="839" height="1100" loading="lazy" decoding="async" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" src="assets/images/nba-game-screenshot.png"/>
-                        </div>
-                        <!-- Right: Content -->
-                        <div class="p-8 md:p-12 flex flex-col justify-center space-y-6">
-                            <div class="flex gap-2 flex-wrap">
-                                <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 bg-surface-container-lowest text-primary rounded-md border border-outline-variant/30">Game Dev</span>
-                                <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 bg-surface-container-lowest text-primary rounded-md border border-outline-variant/30">Interactive</span>
-                                <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 bg-surface-container-lowest text-primary rounded-md border border-outline-variant/30">Hackathon</span>
-                            </div>
-                            <h3 class="text-4xl font-black tracking-tighter text-primary">NBA Player Guessing Game</h3>
-                            <p class="text-on-surface-variant text-lg leading-relaxed">
-                                Interactive guessing game featuring progressive image blur mechanics. Built during SFHacks 2025 with responsive gameplay and engaging mechanics.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
-                                    <i class="devicon-python-plain text-xs"></i>PYTHON
-                                </span>
-                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
-                                    <i class="devicon-flask-original text-xs"></i>FLASK
-                                </span>
-                                <span class="text-[9px] font-bold tracking-widest border border-outline-variant px-3 py-1.5 rounded-md text-on-surface-variant inline-flex items-center gap-1.5">
-                                    <i class="devicon-mongodb-plain text-xs"></i>MONGODB
-                                </span>
-                            </div>
-                            <div class="flex flex-wrap gap-4 pt-4">
-                                <a class="inline-flex items-center gap-2 px-3 py-1 bg-primary text-on-primary font-bold uppercase text-xs tracking-widest rounded-lg hover:bg-secondary transition-colors duration-200" href="assets/videos/nba-demo.mp4" target="_blank" rel="noopener noreferrer">
-                                    <span class="material-symbols-outlined text-sm" aria-hidden="true">play_circle</span>
-                                    Watch Demo
-                                </a>
-                                <a class="inline-flex items-center gap-2 px-3 py-1 border-2 border-primary text-primary font-bold uppercase text-xs tracking-widest rounded-lg hover:bg-primary hover:text-on-primary transition-all duration-200" href="https://github.com/ashleytzele/NBA-Guessing-Game" target="_blank" rel="noopener noreferrer">
-                                    <span class="material-symbols-outlined text-sm" aria-hidden="true">code</span>
-                                    Source Code
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Experience & Education Section -->
-        <section class="mb-32 scroll-mt-32" id="experience">
-            <div class="mb-16">
-                <h2 class="text-5xl md:text-6xl font-black tracking-tighter text-primary leading-tight mb-6">Experience & Education.</h2>
-                <p class="text-lg max-w-2xl text-on-surface-variant leading-relaxed">
-                    My academic background and experiences that have contributed to my growth in technology and leadership.
-                </p>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                <!-- Education Column -->
-                <aside class="lg:col-span-4 space-y-12">
-                    <div>
-                        <h3 class="text-xs font-bold tracking-[0.2em] text-on-surface-variant uppercase mb-8 flex items-center gap-2">
-                            <span class="w-8 h-px bg-outline-variant"></span> Education
-                        </h3>
-                        <div class="space-y-12">
-                            <div class="relative group">
-                                <div class="space-y-2">
-                                    <div class="text-xs font-bold text-secondary uppercase tracking-widest">2025 — Present</div>
-                                    <h4 class="text-2xl font-bold tracking-tight text-primary">San Francisco State University</h4>
-                                    <p class="text-on-surface-variant leading-relaxed">Bachelor of Science in Computer Science</p>
-                                    <div class="pt-4 flex flex-wrap gap-2">
-                                        <span class="px-2 py-1 bg-surface-container text-[10px] font-bold uppercase tracking-wider rounded">Dean's List</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="relative group">
-                                <div class="space-y-2">
-                                    <div class="text-xs font-bold text-secondary uppercase tracking-widest">2022 — 2024</div>
-                                    <h4 class="text-2xl font-bold tracking-tight text-primary">Inti International College Subang</h4>
-                                    <p class="text-on-surface-variant leading-relaxed">American Degree Transfer Program, Applied Science</p>
-                                    <div class="pt-4 flex flex-wrap gap-2">
-                                        <span class="px-2 py-1 bg-surface-container text-[10px] font-bold uppercase tracking-wider rounded">Dean's List</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
-                <!-- Experience Column -->
-                <section class="lg:col-span-8">
-                    <h3 class="text-xs font-bold tracking-[0.2em] text-on-surface-variant uppercase mb-8 flex items-center gap-2">
-                        <span class="w-8 h-px bg-outline-variant"></span> Professional Roles
-                    </h3>
-                    <div class="relative space-y-12 pl-8">
-                        <div class="absolute left-0 top-4 bottom-4 w-px bg-outline-variant"></div>
-                        
-                        <!-- Role 1: Student Lead -->
-                        <article class="relative group">
-                            <div class="absolute -left-[36px] top-2 w-4 h-4 rounded-full bg-surface-container-lowest border-2 border-primary z-10"></div>
-                            <div class="bg-surface-container-low p-8 rounded-md transition-all duration-300 hover:bg-primary-container hover:text-on-primary">
-                                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                                    <div>
-                                        <span class="text-xs font-bold text-secondary uppercase tracking-widest group-hover:text-secondary-fixed">Current Role</span>
-                                        <h4 class="text-2xl font-black tracking-tighter">Student Lead (Aquatics)</h4>
-                                        <p class="text-on-surface-variant group-hover:text-on-primary-container">San Francisco State University Campus Recreation</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <div class="text-sm font-bold tracking-tighter">Apr. 2026 — Present</div>
-                                    </div>
-                                </div>
-                                <div class="grid md:grid-cols-2 gap-8">
-                                    <ul class="space-y-3 text-sm leading-relaxed">
-                                        <li class="flex gap-3">
-                                            <span class="material-symbols-outlined text-secondary group-hover:text-secondary-fixed shrink-0" aria-hidden="true">check_circle</span>
-                                            <span>Supervised and trained lifeguard staff to ensure compliance with safety protocols.</span>
-                                        </li>
-                                        <li class="flex gap-3">
-                                            <span class="material-symbols-outlined text-secondary group-hover:text-secondary-fixed shrink-0" aria-hidden="true">check_circle</span>
-                                            <span>Coordinated staff scheduling and operations to improve workflow efficiency.</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </article>
-
-                        <!-- Role 2: IT Support -->
-                        <article class="relative group">
-                            <div class="absolute -left-[36px] top-2 w-4 h-4 rounded-full bg-surface-container-lowest border-2 border-outline-variant group-hover:border-primary z-10"></div>
-                            <div class="bg-surface-container-low p-8 rounded-md transition-all duration-300 hover:bg-primary-container hover:text-on-primary">
-                                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                                    <div>
-                                        <span class="text-xs font-bold text-secondary uppercase tracking-widest group-hover:text-secondary-fixed">Technical Practice</span>
-                                        <h4 class="text-2xl font-black tracking-tighter">IT Support</h4>
-                                        <p class="text-on-surface-variant group-hover:text-on-primary-container">Zengo Corporation Sdn Bhd</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <div class="text-sm font-bold tracking-tighter">Jun. 2024 — Sep. 2024</div>
-                                    </div>
-                                </div>
-                                <div class="grid md:grid-cols-2 gap-8">
-                                    <ul class="space-y-3 text-sm leading-relaxed">
-                                        <li class="flex gap-3">
-                                            <span class="material-symbols-outlined text-secondary group-hover:text-secondary-fixed shrink-0" aria-hidden="true">check_circle</span>
-                                            <span>Provided technical support and troubleshooting for users and systems.</span>
-                                        </li>
-                                        <li class="flex gap-3">
-                                            <span class="material-symbols-outlined text-secondary group-hover:text-secondary-fixed shrink-0" aria-hidden="true">check_circle</span>
-                                            <span>Developed a custom inventory tracking program, automating calculations and reducing manual work by 50%.</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </article>
-
-                        <!-- Role 3: Lifeguard -->
-                        <article class="relative group">
-                            <div class="absolute -left-[36px] top-2 w-4 h-4 rounded-full bg-surface-container-lowest border-2 border-outline-variant group-hover:border-primary z-10"></div>
-                            <div class="bg-surface-container-low p-8 rounded-md transition-all duration-300 hover:bg-primary-container hover:text-on-primary">
-                                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                                    <div>
-                                        <span class="text-xs font-bold text-secondary uppercase tracking-widest group-hover:text-secondary-fixed">Certification & Safety</span>
-                                        <h4 class="text-2xl font-black tracking-tighter">Lifeguard</h4>
-                                        <p class="text-on-surface-variant group-hover:text-on-primary-container">San Francisco State University Campus Recreation</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <div class="text-sm font-bold tracking-tighter">Aug. 2025 — Mar. 2026</div>
-                                    </div>
-                                </div>
-                                <p class="text-sm leading-relaxed mb-6 group-hover:text-on-primary-container">
-                                    Learned and maintained proficiency in first responder skills such as First Aid and CPR. Responded to emergency situations in a timely and efficient manner.
-                                </p>
-                                <div class="flex gap-4">
-                                    <span class="material-symbols-outlined text-error group-hover:text-secondary-fixed" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">medical_services</span>
-                                    <span class="material-symbols-outlined text-secondary group-hover:text-secondary-fixed" aria-hidden="true">pool</span>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </section>
-            </div>        </section>
-
-        <!-- Skills Section -->
-        <section class="mb-32 scroll-mt-32" id="skills">
-            <div class="mb-16">
-                <h2 class="text-5xl md:text-6xl font-black tracking-tighter text-primary leading-tight mb-6">Skills.</h2>
-                <p class="text-lg max-w-3xl text-on-surface-variant leading-relaxed">
-                    A focused set of languages, frameworks, and tools used to build modern applications.
-                </p>
-            </div>
-            
-            <div class="flex flex-wrap justify-center gap-6 w-full">
-                <!-- Languages Card -->
-                <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-surface-container rounded-xl p-8 border border-outline-variant/20 hover:shadow-lg hover:border-primary transition-all duration-300 flex flex-col">
-                    <h3 class="text-xl font-bold tracking-tight text-primary mb-6">Languages</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
-                            <i class="devicon-python-plain text-lg"></i>
-                            Python
-                        </span>
-                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
-                            <i class="devicon-java-plain text-lg"></i>
-                            Java
-                        </span>
-                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
-                            <i class="devicon-cplusplus-plain text-lg"></i>
-                            C++
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Frontend Card -->
-                <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-surface-container rounded-xl p-8 border border-outline-variant/20 hover:shadow-lg hover:border-primary transition-all duration-300 flex flex-col">
-                    <h3 class="text-xl font-bold tracking-tight text-primary mb-6">Frontend</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
-                            <i class="devicon-html5-plain text-lg"></i>
-                            HTML
-                        </span>
-                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
-                            <i class="devicon-css3-plain text-lg"></i>
-                            CSS
-                        </span>
-                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
-                            <i class="devicon-tailwindcss-plain text-lg"></i>
-                            Tailwind CSS
-                        </span>
-                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
-                            <i class="devicon-bootstrap-plain text-lg"></i>
-                            Bootstrap
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Backend Card -->
-                <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-surface-container rounded-xl p-8 border border-outline-variant/20 hover:shadow-lg hover:border-primary transition-all duration-300 flex flex-col">
-                    <h3 class="text-xl font-bold tracking-tight text-primary mb-6">Backend</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
-                            <i class="devicon-flask-original text-lg"></i>
-                            Flask
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Database Card -->
-                <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-surface-container rounded-xl p-8 border border-outline-variant/20 hover:shadow-lg hover:border-primary transition-all duration-300 flex flex-col">
-                    <h3 class="text-xl font-bold tracking-tight text-primary mb-6">Database</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
-                            <i class="devicon-mongodb-plain text-lg"></i>
-                            MongoDB
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Tools Card -->
-                <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-surface-container rounded-xl p-8 border border-outline-variant/20 hover:shadow-lg hover:border-primary transition-all duration-300 flex flex-col">
-                    <h3 class="text-xl font-bold tracking-tight text-primary mb-6">Tools</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
-                            <i class="devicon-git-plain text-lg"></i>
-                            Git
-                        </span>
-                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
-                            <i class="devicon-github-original text-lg"></i>
-                            GitHub
-                        </span>
-                        <span class="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-lg text-xs font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-200">
-                            <i class="devicon-vscode-plain text-lg"></i>
-                            VS Code
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="mb-16 scroll-mt-48" id="contact">
-            <div class="mb-16 text-center">
-                <h2 class="text-5xl md:text-6xl font-black tracking-tighter text-primary leading-tight mb-6">
-                    Let's Have a Coffee Chat.
-                </h2>
-                <p class="text-lg text-on-surface-variant leading-relaxed max-w-2xl mx-auto">
-                    I’m always open to connecting — whether it’s discussing career opportunities, exploring new ideas in technology, or just talking sports, from swimming and basketball to Formula 1.
-                </p>
-            </div>
-            
-            <div class="flex flex-col items-center gap-12">
-                <!-- Contact Methods -->
-                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center flex-wrap">
-                    <!-- Email -->
-                    <a href="mailto:ashleysumtzele04@gmail.com" class="inline-flex items-center gap-3 px-8 py-4 bg-primary text-on-primary font-bold uppercase text-sm tracking-widest rounded-lg hover:bg-slate-800 transition-all duration-300 shadow-md hover:shadow-lg">
-                        <span class="material-symbols-outlined" aria-hidden="true">mail</span>
-                        Email Me
-                    </a>
-                    
-                    <!-- LinkedIn -->
-                    <a href="https://www.linkedin.com/in/ashley-sum" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 border-2 border-primary text-primary font-bold uppercase text-sm tracking-widest rounded-lg hover:bg-primary hover:text-on-primary transition-all duration-300">
-                        <img src="assets/logos/linkedin.png" alt="" width="48" height="48" class="w-5 h-5">
-                        LinkedIn
-                    </a>
-                    
-                    <!-- GitHub -->
-                    <a href="https://github.com/ashleytzele" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 border-2 border-primary text-primary font-bold uppercase text-sm tracking-widest rounded-lg hover:bg-primary hover:text-on-primary transition-all duration-300">
-                        <img src="assets/logos/github.png" alt="" width="48" height="48" class="w-5 h-5">
-                        GitHub
-                    </a>
-                </div>
-                
-                <!-- Response Message -->
-                <p class="text-center text-on-surface-variant text-sm">
-                    Feel free to reach out 
-                </p>
-            </div>
-        </section>
-    </main>
-
-    <!-- Main Footer (Desktop) -->
-    <footer class="bg-slate-900 text-slate-50 py-16 hidden md:block">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                <!-- Brand Section -->
-                <div class="space-y-6">
-                    <div class="flex items-center gap-3">
-                        <img src="assets/logos/ASHLEYTZELE_LOGO.png" alt="" width="256" height="256" class="h-8 w-8 rounded-full object-cover">
-                        <span class="text-xl font-black tracking-tighter">ASHLEYTZELE</span>
-                    </div>
-                    <p class="text-sm text-slate-400 leading-relaxed">
-                        Computer Science student focused on building practical applications and data-driven solutions.
-                    </p>
-                </div>
-
-                <!-- Quick Links -->
-                <div>
-                    <h4 class="text-sm font-bold uppercase tracking-widest mb-6 text-slate-200">Navigation</h4>
-                    <ul class="space-y-3 text-sm text-slate-400">
-                        <li><a href="#home" class="hover:text-sky-400 transition-colors duration-200">Home</a></li>
-                        <li><a href="#projects" class="hover:text-sky-400 transition-colors duration-200">Projects</a></li>
-                        <li><a href="#experience" class="hover:text-sky-400 transition-colors duration-200">Experience</a></li>
-                        <li><a href="#skills" class="hover:text-sky-400 transition-colors duration-200">Skills</a></li>
-                        <li><a href="#contact" class="hover:text-sky-400 transition-colors duration-200">Contact</a></li>
-                    </ul>
-                </div>
-
-                <!-- Social Links -->
-                <div>
-                    <h4 class="text-sm font-bold uppercase tracking-widest mb-6 text-slate-200">Connect</h4>
-                    <ul class="space-y-3 text-sm text-slate-400">
-                        <li>
-                            <a href="https://www.linkedin.com/in/ashley-sum" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-sky-400 transition-colors duration-200">
-                                <img src="assets/logos/linkedin.png" alt="" width="48" height="48" class="w-4 h-4 invert">
-                                LinkedIn
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/ashleytzele" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-sky-400 transition-colors duration-200">
-                                <img src="assets/logos/github.png" alt="" width="48" height="48" class="w-4 h-4 invert">
-                                GitHub
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:ashleysumtzele04@gmail.com" class="hover:text-sky-400 transition-colors duration-200">
-                                ashleysumtzele04@gmail.com
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- CTA -->
-                <div>
-                    <h4 class="text-sm font-bold uppercase tracking-widest mb-6 text-slate-200">Let's Talk</h4>
-                    <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                        Coffee or Tea works for me<br> I'm always open to connect and have a conversation.
-                    </p>
-                    <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold uppercase tracking-widest rounded-md transition-colors duration-200">
-                        Get In Touch
-                        <span class="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Divider -->
-            <div class="border-t border-slate-700 pt-8">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
-                    <p>&copy; 2026 Ashley Sum. All rights reserved.</p>
-                    <p>Designed &amp; built by Ashley Sum.</p>
-                </div>
-            </div>
+        <div class="ident an" style="animation-delay:1.3s">
+          <p>Computer Science at <b>San Francisco State University</b>, from Malaysia. I build
+            software that turns complex systems into things people can operate.</p>
+          <dl class="idm">
+            <dt>Status</dt><dd>Software Engineering Intern &middot; available Summer 2027</dd>
+            <dt>Location</dt><dd>San Francisco, CA &middot; relocatable</dd>
+            <dt>Contact</dt><dd><a href="mailto:ashleysumtzele04@gmail.com">ashleysumtzele04@gmail.com</a> &middot;
+              <a href="https://github.com/ashleytzele"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> GitHub</a> &middot;
+              <a href="https://www.linkedin.com/in/ashley-sum"><svg class="ico" aria-hidden="true"><use href="#i-linkedin"/></svg> LinkedIn</a> &middot;
+              <a href="assets/documents/Ashley-Sum-Resume.pdf">R&eacute;sum&eacute;</a></dd>
+          </dl>
         </div>
-    </footer>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Mobile Navigation Footer -->
-    <footer class="bg-slate-50/90 backdrop-blur-lg fixed bottom-0 w-full z-50 rounded-t-lg shadow-[0_-10px_30px_rgba(25,28,29,0.04)] md:hidden">
-        <div class="flex justify-around items-center px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-            <a href="#home" class="nav-link-m flex flex-col items-center justify-center text-slate-500 rounded-xl px-3 py-1.5 transition-all duration-200 scale-95 active:scale-90">
-                <span class="material-symbols-outlined" aria-hidden="true">home</span>
-                <span class="text-[10px] uppercase tracking-widest font-bold mt-1">Home</span>
-            </a>
-            <a href="#projects" class="nav-link-m flex flex-col items-center justify-center text-slate-500 rounded-xl px-3 py-1.5 hover:bg-slate-200 transition-all duration-200 scale-95 active:scale-90">
-                <span class="material-symbols-outlined" aria-hidden="true">folder_special</span>
-                <span class="text-[10px] uppercase tracking-widest font-bold mt-1">Projects</span>
-            </a>
-            <a href="#experience" class="nav-link-m flex flex-col items-center justify-center text-slate-500 rounded-xl px-3 py-1.5 hover:bg-slate-200 transition-all duration-200 scale-95 active:scale-90">
-                <span class="material-symbols-outlined" aria-hidden="true">school</span>
-                <span class="text-[10px] uppercase tracking-widest font-bold mt-1">Experience</span>
-            </a>
-            <a href="#skills" class="nav-link-m flex flex-col items-center justify-center text-slate-500 rounded-xl px-3 py-1.5 hover:bg-slate-200 transition-all duration-200 scale-95 active:scale-90">
-                <span class="material-symbols-outlined" aria-hidden="true">psychology</span>
-                <span class="text-[10px] uppercase tracking-widest font-bold mt-1">Skills</span>
-            </a>
-            <a href="#contact" class="nav-link-m flex flex-col items-center justify-center text-slate-500 rounded-xl px-3 py-1.5 hover:bg-slate-200 transition-all duration-200 scale-95 active:scale-90">
-                <span class="material-symbols-outlined" aria-hidden="true">alternate_email</span>
-                <span class="text-[10px] uppercase tracking-widest font-bold mt-1">Contact</span>
-            </a>
+<!-- A-002 EDUCATION -->
+<section class="sheet" id="a002" data-draw>
+  <div class="pane">
+    <div class="hdr"><div class="d"><b>Drawing A-002</b> &nbsp;<span>Education</span></div>
+      <div class="m">Sheet 2 of 6 &nbsp;&middot;&nbsp; Rev 3.0 &nbsp;&middot;&nbsp; Active</div></div>
+    <div style="margin-top:calc(var(--u)*5)"><h2>Education</h2></div>
+    <div style="margin-top:calc(var(--u)*4)">
+      <div class="rec an">
+        <div class="w">Current</div>
+        <div><h3>San Francisco State University</h3>
+          <div class="o">Bachelor of Science, Computer Science &middot; San Francisco, CA</div>
+          <div class="tags"><span class="tag">Software Engineering</span><span class="tag">Data Structures</span>
+            <span class="tag">Object-Oriented Programming</span><span class="tag">Algorithms</span>
+            <span class="tag">Systems Programming</span></div></div>
+        <div class="s">RELEVANT AREAS<br>5 listed</div>
+      </div>
+      <div class="rec an" style="animation-delay:.12s">
+        <div class="w">Completed</div>
+        <div><h3>INTI International College</h3>
+          <div class="o">Computer Science &middot; Malaysia</div>
+          <div class="x">Coursework completed before transferring to San Francisco State.</div>
+          <div class="tags"><span class="tag">Programming</span><span class="tag">Mathematics</span>
+            <span class="tag">Physics</span><span class="tag">Communication</span>
+            <span class="tag">CS Fundamentals</span></div></div>
+        <div class="s">STATUS<br>Transferred</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- A-003 EXPERIENCE -->
+<section class="sheet" id="a003" data-draw>
+  <div class="pane">
+    <div class="hdr"><div class="d"><b>Drawing A-003</b> &nbsp;<span>Experience</span></div>
+      <div class="m">Sheet 3 of 6 &nbsp;&middot;&nbsp; Rev 3.0 &nbsp;&middot;&nbsp; Active</div></div>
+    <div style="margin-top:calc(var(--u)*5)"><h2>Experience</h2></div>
+    <div style="margin-top:calc(var(--u)*4)">
+      <article class="job an">
+      <div class="rec">
+          <div class="w">Jun &ndash; Aug 2026</div>
+          <div><h3>Software Engineering Intern</h3>
+            <div class="o">OSPIT Mobility &middot; Technical / R&amp;D Department &middot; Malaysia</div>
+            <div class="x">Built enterprise software and operational dashboards, customised ERP
+              systems, and contributed to Android development across multiple integrated
+              repositories. Investigated production issues, took part in architecture discussions,
+              and wrote the workflow and technical documentation for large systems.</div></div>
+          <div class="s">PROJECTS<br>05.1 &middot; 05.2 &middot; 05.3</div>
         </div>
-    </footer>
+      <button class="more" type="button" data-more="j1" aria-controls="j1" data-label="OSPIT Mobility" aria-expanded="false">Open detail &mdash; OSPIT Mobility</button>
+      <div class="detail" id="j1"><div class="fld"><span class="k">Responsibilities</span><ul><li>Developed enterprise software solutions</li><li>Worked on ERP customisation and system improvements</li><li>Contributed to Android application development</li><li>Built and enhanced operational dashboards</li><li>Improved documentation for large-scale software systems</li><li>Worked with Git and collaborative development workflows</li><li>Participated in software architecture discussions</li><li>Investigated production issues and implemented fixes</li><li>Designed workflows and technical documentation</li><li>Supported system integration across multiple repositories</li></ul></div></div>
+      </article>
+      <article class="job an">
+      <div class="rec" style="animation-delay:.1s">
+          <div class="w">Apr 2026 &mdash;</div>
+          <div><h3>Student Lead, Aquatics</h3>
+            <div class="o">SFSU Campus Recreation &middot; San Francisco, CA</div>
+            <div class="x">Run daily aquatics operations and coordinate student staff, supporting
+              facility management and keeping safety standards enforced alongside supervisors.</div></div>
+          <div class="s">STATUS<br>Concurrent</div>
+        </div>
+      <button class="more" type="button" data-more="j2" aria-controls="j2" data-label="Student Lead" aria-expanded="false">Open detail &mdash; Student Lead</button>
+      <div class="detail" id="j2"><div class="fld"><span class="k">Responsibilities</span><ul><li>Assisted daily aquatics operations</li><li>Coordinated student staff</li><li>Supported facility management</li><li>Helped maintain safety standards</li><li>Assisted supervisors with operational tasks</li></ul></div></div>
+      </article>
+      <article class="job an">
+      <div class="rec" style="animation-delay:.2s">
+          <div class="w">Aug 2025 &ndash; Mar 2026</div>
+          <div><h3>Lifeguard</h3>
+            <div class="o">Mashouf Wellness Center &middot; San Francisco, CA</div>
+            <div class="x">Responsible for patron safety and emergency response, monitoring the
+              facility and working as part of the guard team.</div></div>
+          <div class="s">CERTIFIED<br>Lifeguarding &middot; CPR<br>AED &middot; First Aid</div>
+        </div>
+      <button class="more" type="button" data-more="j3" aria-controls="j3" data-label="Lifeguard" aria-expanded="false">Open detail &mdash; Lifeguard</button>
+      <div class="detail" id="j3"><div class="fld"><span class="k">Responsibilities</span><ul><li>Ensured patron safety</li><li>Emergency response</li><li>Facility monitoring</li><li>Team collaboration</li></ul></div></div>
+      </article>
+      <article class="job an">
+      <div class="rec" style="animation-delay:.3s">
+          <div class="w">Jun &ndash; Sep 2024</div>
+          <div><h3>IT Support</h3>
+            <div class="o">Zengo Corporation &middot; Malaysia</div>
+            <div class="x">Technical support and troubleshooting for internal users and enterprise
+              systems. Built an inventory tracking application that automated the stock
+              calculations.</div></div>
+          <div class="s">OUTPUT<br>Automated<br>stock counting</div>
+        </div>
+      <button class="more" type="button" data-more="j4" aria-controls="j4" data-label="IT Support" aria-expanded="false">Open detail &mdash; IT Support</button>
+      <div class="detail" id="j4"><div class="fld"><span class="k">Responsibilities</span><ul><li>Provided technical support and troubleshooting for internal users and enterprise systems</li><li>Developed an inventory tracking application that automated stock calculations</li></ul></div></div>
+      </article>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // ponytail: IntersectionObserver scroll-spy so the nav highlight reflects
-        // where you actually are. Swap for CSS scroll-driven animations once
-        // animation-timeline is safe to rely on in Safari.
-        (() => {
-            const links = [...document.querySelectorAll('a.nav-link, a.nav-link-m')];
-            const linked = new Set(links.map((a) => a.hash.slice(1)));
-            // Only sections that a nav link points at — #about has no link, so
-            // scrolling through it leaves Home lit rather than clearing the nav.
-            const sections = [...document.querySelectorAll('main section[id]')]
-                .filter((s) => linked.has(s.id));
-            if (!links.length || !sections.length) return;
+<!-- A-004 SYSTEM MODULES -->
+<section class="sheet" id="a004" data-draw>
+  <div class="pane">
+    <div class="hdr"><div class="d"><b>Drawing A-004</b> &nbsp;<span>System Modules</span></div>
+      <div class="m">Sheet 4 of 6 &nbsp;&middot;&nbsp; Rev 3.0 &nbsp;&middot;&nbsp; Active</div></div>
+    <div style="margin-top:calc(var(--u)*5)"><h2>System Modules</h2></div>
+    <div style="margin-top:calc(var(--u)*4)">
+      <div class="lab" style="margin-bottom:calc(var(--u)*2)">Fig. A-004.1 &mdash; System stack, section</div>
+      <div class="dwgbox" tabindex="0" role="group" aria-label="System stack section, scrollable">
+      <svg class="dwg" viewBox="0 0 1000 400" role="img"
+        aria-label="Section through the stack in four layers: interface, application, data and tooling, each listing its technologies and the project references that use it.">
+        <g class="c ln"><path d="M20,382 H980" pathLength="1"/></g>
+        <g class="k ln" style="animation-delay:.15s">
+          <rect x="150" y="30" width="640" height="72" pathLength="1"/><rect x="150" y="112" width="640" height="72" pathLength="1"/>
+          <rect x="150" y="194" width="640" height="72" pathLength="1"/><rect x="150" y="276" width="640" height="72" pathLength="1"/>
+        </g>
+        <g class="tl fd" style="animation-delay:.85s" text-anchor="end">
+          <text x="138" y="62">INTERFACE</text><text x="138" y="144">APPLICATION</text>
+          <text x="138" y="226">DATA</text><text x="138" y="308">TOOLING</text>
+        </g>
+        <g class="fd" style="animation-delay:.95s" font-size="11.5" font-weight="600">
+          <text x="172" y="62">HTML &middot; CSS &middot; Bootstrap &middot; Chart.js &middot; JavaScript</text>
+          <text x="172" y="144">Python &middot; Flask &middot; Java &middot; Android</text>
+          <text x="172" y="226">MongoDB &middot; SQL</text>
+          <text x="172" y="308">Git &middot; GitHub &middot; Android Studio &middot; VS Code &middot; Zed &middot; Claude Code</text>
+        </g>
+        <g class="ts fd" style="animation-delay:1s" fill="var(--sec)">
+          <text x="172" y="82">what the user touches</text>
+          <text x="172" y="164">where the logic lives</text>
+          <text x="172" y="246">what persists</text>
+          <text x="172" y="328">how it gets built and shipped</text>
+        </g>
+        <g class="c ln" style="animation-delay:.4s">
+          <path d="M790,66 H850 M790,148 H850 M790,230 H850 M790,312 H850" pathLength="1"/>
+        </g>
+        <g class="tl fd" style="animation-delay:1.05s">
+          <text x="860" y="70">05.4</text><text x="860" y="152">05.1&ndash;05.6</text>
+          <text x="860" y="234">05.4</text><text x="860" y="316">ALL</text>
+        </g>
+        <g class="dm fd" style="animation-delay:1.15s">
+          <path d="M110,30 V348 M102,30 H118 M102,348 H118" pathLength="1"/>
+          <path d="M110,30 l-3.5,10 h7 z" fill="var(--mid)" stroke="none" pathLength="1"/>
+          <path d="M110,348 l-3.5,-10 h7 z" fill="var(--mid)" stroke="none" pathLength="1"/>
+        </g>
+        <text class="tl fd" style="animation-delay:1.2s" x="94" y="192" transform="rotate(-90 94 192)" text-anchor="middle">FOUR LAYERS</text>
+        <text class="tl fd" style="animation-delay:1.25s" x="860" y="42">USED IN</text>
+      </svg>
+    </div>
 
-            // Entries arrive per-change, not as a full snapshot, so intersection
-            // state is accumulated here rather than read off each callback batch.
-            const visible = new Set();
+    <div class="lab" style="margin-top:calc(var(--u)*5)">Legend &mdash; module marks</div>
+    <div class="legend an">
+      <div class="lgcol"><span class="k">Interface</span><ul>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-html5"/></svg><span>HTML</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-css"/></svg><span>CSS</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-bootstrap"/></svg><span>Bootstrap</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-chartdotjs"/></svg><span>Chart.js</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-javascript"/></svg><span>JavaScript</span></li>
+      </ul></div>
+      <div class="lgcol"><span class="k">Application</span><ul>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-python"/></svg><span>Python</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-flask"/></svg><span>Flask</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-openjdk"/></svg><span>Java</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-android"/></svg><span>Android</span></li>
+      </ul></div>
+      <div class="lgcol"><span class="k">Data</span><ul>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-mongodb"/></svg><span>MongoDB</span></li>
+        <li><span class="no" aria-hidden="true"></span><span>SQL <span class="mn" style="font-size:.68rem;color:var(--ref)">no mark</span></span></li>
+      </ul></div>
+      <div class="lgcol"><span class="k">Tooling</span><ul>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-git"/></svg><span>Git</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg><span>GitHub</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-androidstudio"/></svg><span>Android Studio</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-visualstudiocode"/></svg><span>VS Code</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-zedindustries"/></svg><span>Zed</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-claude"/></svg><span>Claude Code</span></li>
+      </ul></div>
+    </div>
 
-            const observer = new IntersectionObserver((entries) => {
-                for (const e of entries) {
-                    if (e.isIntersecting) visible.add(e.target.id);
-                    else visible.delete(e.target.id);
-                }
-                const active = sections.find((s) => visible.has(s.id));
-                if (!active) return;
-                for (const a of links) {
-                    if (a.hash === '#' + active.id) a.setAttribute('aria-current', 'true');
-                    else a.removeAttribute('aria-current');
-                }
-            }, { rootMargin: '-40% 0px -40% 0px' });
+    <div style="margin-top:calc(var(--u)*5)">
+      <div class="lab" style="margin-bottom:calc(var(--u)*1.5)">Interests</div>
+      <div class="tags">
+        <span class="tag">Software Engineering</span><span class="tag">Full Stack Development</span>
+        <span class="tag">Enterprise Software</span><span class="tag">Android Development</span>
+        <span class="tag">Dashboard Design</span><span class="tag">UI/UX</span>
+        <span class="tag">Digital Transformation</span><span class="tag">System Design</span>
+        <span class="tag">Software Architecture</span><span class="tag">Data Visualisation</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-            sections.forEach((s) => observer.observe(s));
-        })();
-    </script>
+<!-- A-005 PROJECTS -->
+<section class="sheet" id="a005" data-draw>
+  <div class="pane">
+    <div class="hdr"><div class="d"><b>Drawing A-005</b> &nbsp;<span>Projects</span></div>
+      <div class="m">Sheet 5 of 6 &nbsp;&middot;&nbsp; Rev 3.0 &nbsp;&middot;&nbsp; Active</div></div>
+    <div style="margin-top:calc(var(--u)*5)"><h2>Projects</h2>
+      <p style="margin-top:calc(var(--u)*1.5);max-width:56ch">Six entries. Select any to open its
+        detail drawing. Client work is drawn rather than screenshotted.</p></div>
+
+    <!-- 05.1 -->
+    <article class="proj an">
+      <div class="ph"><div class="r">05.1</div><h3>Highway Digitalization Platform</h3>
+        <div class="tagline">Enterprise Dashboard</div></div>
+      <div class="pb"><div class="side">OSPIT<br>Professional</div>
+        <div>
+          <p class="pdesc">A large-scale highway operations platform digitising infrastructure
+            management and operational workflows. My role was architecture and documentation:
+            breaking the system into modules, producing flow diagrams and dashboard prototypes.</p>
+          <div class="figbox" tabindex="0" role="group" aria-label="Figure 1, scrollable">
+            <svg class="dwg" viewBox="0 0 1000 250" role="img"
+              aria-label="Nine platform modules feeding a single operational dashboard with reporting and monitoring.">
+              <g class="c ln" style="animation-delay:.1s">
+                <path d="M300,40 H360 M300,75 H360 M300,110 H360 M300,145 H360 M300,180 H360 M300,215 H360" pathLength="1"/>
+                <path d="M360,40 V215 M360,128 H430" pathLength="1"/></g>
+              <g class="ts fd" style="animation-delay:.7s" fill="var(--ink)" font-size="10" text-anchor="end">
+                <text x="292" y="44">Asset Management</text><text x="292" y="79">Incident Management</text>
+                <text x="292" y="114">Equipment Failure Workflow</text><text x="292" y="149">Maintenance Tracking</text>
+                <text x="292" y="184">Facility Management</text><text x="292" y="219">GIS Integration</text></g>
+              <g class="fd" style="animation-delay:.85s">
+                <rect class="f" x="430" y="98" width="200" height="60" pathLength="1"/>
+                <text class="tn" x="530" y="124" text-anchor="middle">Operational</text>
+                <text class="tn" x="530" y="142" text-anchor="middle">Dashboard</text></g>
+              <g class="c ln" style="animation-delay:.3s"><path d="M630,128 H700 M700,95 V161 M700,95 H770 M700,161 H770" pathLength="1"/></g>
+              <g class="ts fd" style="animation-delay:.95s" fill="var(--ink)" font-size="10">
+                <text x="780" y="99">Reporting</text><text x="780" y="165">Monitoring</text></g>
+              <text class="tl fd" style="animation-delay:1s" x="20" y="240">SIX MODULES &middot; ONE OPERATIONAL VIEW</text>
+            </svg>
+            <div class="figcap"><span>Fig. 05.1 &mdash; Module map</span><span>Not to scale</span></div>
+          </div>
+          <button class="more" type="button" data-more="p1" aria-controls="p1" data-label="05.1" aria-expanded="false">Open detail &mdash; 05.1</button>
+          <div class="detail" id="p1">
+            <div class="dgrid">
+              <div class="fld"><span class="k">Features</span>
+                <ul><li>Asset &amp; incident management</li><li>Equipment failure workflow</li>
+                  <li>Maintenance tracking</li><li>Highway facility management</li>
+                  <li>GIS integration</li><li>Reporting &amp; monitoring</li></ul></div>
+              <div class="fld"><span class="k">My responsibilities</span>
+                <ul><li>Broke down large system architecture into detailed modules</li>
+                  <li>Designed complete workflow documentation</li><li>Produced system flow diagrams</li>
+                  <li>Created dashboard prototypes</li><li>Documented business processes</li>
+                  <li>Planned scalable architecture</li></ul></div>
+              <div class="fld"><span class="k">Lessons learned</span><p>Documenting a system you did not build forces you to understand it better than the people using it. Breaking the platform into modules was what made everything else possible. Once the boundaries were named, the workflows and dashboard specifications followed.</p></div>
+            </div>
+            <div class="refs"><span>Client work &mdash; not published</span></div>
+          </div>
+        </div></div>
+    </article>
+
+    <!-- 05.2 -->
+    <article class="proj an">
+      <div class="ph"><div class="r">05.2</div><h3>West Coast Expressway Android Application</h3>
+        <div class="tagline">Android Development</div></div>
+      <div class="pb"><div class="side">OSPIT<br>Professional</div>
+        <div>
+          <p class="pdesc">A driver-facing Android application for a highway network. I worked
+            across multiple integrated repositories, fixing issues, improving stability and
+            integrating backend services.</p>
+          <div class="figbox" tabindex="0" role="group" aria-label="Figure 2, scrollable">
+            <svg class="dwg" viewBox="0 0 1000 250" role="img"
+              aria-label="Android application with eight feature modules connected to backend services.">
+              <g class="fd" style="animation-delay:.6s"><rect class="f" x="40" y="80" width="150" height="90" pathLength="1"/>
+                <text class="tn" x="115" y="118" text-anchor="middle">Android</text>
+                <text class="tn" x="115" y="136" text-anchor="middle">Application</text></g>
+              <g class="c ln" style="animation-delay:.15s">
+                <path d="M190,125 H250 M250,30 V220 M250,30 H330 M250,57 H330 M250,84 H330 M250,111 H330
+                         M250,138 H330 M250,165 H330 M250,192 H330 M250,219 H330" pathLength="1"/></g>
+              <g class="ts fd" style="animation-delay:.8s" fill="var(--ink)" font-size="10">
+                <text x="340" y="34">Route Planner</text><text x="340" y="61">Toll Calculation</text>
+                <text x="340" y="88">Points of Interest</text><text x="340" y="115">Emergency SOS</text>
+                <text x="340" y="142">AI Chatbot</text><text x="340" y="169">Vehicle Management</text>
+                <text x="340" y="196">User Authentication</text><text x="340" y="223">Push Notifications</text></g>
+              <g class="c ln" style="animation-delay:.35s"><path d="M620,125 H700" pathLength="1"/></g>
+              <g class="fd" style="animation-delay:.95s"><rect class="f" x="700" y="95" width="200" height="60" pathLength="1"/>
+                <text class="tn" x="800" y="121" text-anchor="middle">Backend</text>
+                <text class="ts" x="800" y="139" text-anchor="middle">multiple repositories</text></g>
+              <text class="tl fd" style="animation-delay:1s" x="20" y="243">EIGHT FEATURE MODULES</text>
+            </svg>
+            <div class="figcap"><span>Fig. 05.2 &mdash; Feature map</span><span>Not to scale</span></div>
+          </div>
+          <button class="more" type="button" data-more="p2" aria-controls="p2" data-label="05.2" aria-expanded="false">Open detail &mdash; 05.2</button>
+          <div class="detail" id="p2">
+            <div class="dgrid">
+              <div class="fld"><span class="k">Features</span>
+                <ul><li>Route planner &amp; toll calculation</li><li>Points of interest</li>
+                  <li>Emergency SOS</li><li>AI chatbot</li><li>Vehicle management</li>
+                  <li>Authentication &amp; push notifications</li></ul></div>
+              <div class="fld"><span class="k">My responsibilities</span>
+                <ul><li>Fixed Android application issues</li><li>Worked across multiple integrated repositories</li>
+                  <li>Improved application stability</li><li>Investigated codebase architecture</li>
+                  <li>Integrated backend services</li></ul></div>
+              <div class="fld"><span class="k">Lessons learned</span><p>Most of the work was reading, not writing. Fixing anything meant first understanding how the repositories fitted together, and the bugs that took longest were the ones where the cause sat in a different repo from the symptom.</p></div>
+            </div>
+            <div class="refs"><span>Client work &mdash; not published</span></div>
+          </div>
+        </div></div>
+    </article>
+
+    <!-- 05.3 -->
+    <article class="proj an">
+      <div class="ph"><div class="r">05.3</div><h3>Restaurant POS Printing System</h3>
+        <div class="tagline">Point-of-Sale Integration</div></div>
+      <div class="pb"><div class="side">OSPIT<br>Professional</div>
+        <div>
+          <p class="pdesc">Thermal receipt printing integrated into restaurant ordering, so one
+            deployment drives any ESC/POS printer rather than one manufacturer&rsquo;s. Four printer
+            models tested and compared.</p>
+          <div class="figbox" tabindex="0" role="group" aria-label="Figure 3, scrollable">
+            <svg class="dwg" viewBox="0 0 1000 230" role="img"
+              aria-label="Ordering system sends jobs through an ESC/POS layer to four tested printer models.">
+              <g class="fd" style="animation-delay:.6s"><rect class="f" x="40" y="80" width="170" height="70" pathLength="1"/>
+                <text class="tn" x="125" y="112" text-anchor="middle">Ordering</text>
+                <text class="tn" x="125" y="130" text-anchor="middle">System</text></g>
+              <g class="k ln" style="animation-delay:.2s"><path d="M210,115 H330" pathLength="1"/></g>
+              <g class="fd" style="animation-delay:.8s"><path d="M330,115 l-10,-4 v8 z" fill="var(--ink)" pathLength="1"/>
+                <rect class="f" x="330" y="80" width="180" height="70" pathLength="1"/>
+                <text class="tn" x="420" y="112" text-anchor="middle">ESC/POS</text>
+                <text class="ts" x="420" y="130" text-anchor="middle">printing layer</text></g>
+              <g class="c ln" style="animation-delay:.35s">
+                <path d="M510,115 H580 M580,35 V195 M580,35 H660 M580,88 H660 M580,141 H660 M580,194 H660" pathLength="1"/></g>
+              <g class="ts fd" style="animation-delay:.95s" fill="var(--ink)" font-size="10">
+                <text x="670" y="39">Epson TM-m30</text><text x="670" y="92">Epson TM-T81III</text>
+                <text x="670" y="145">POSMAC CP-Q2 Plus</text><text x="670" y="198">POSMAC CP-Q3</text></g>
+              <text class="tl fd" style="animation-delay:1s" x="20" y="220">FOUR MODELS TESTED &middot; ANY VENDOR</text>
+            </svg>
+            <div class="figcap"><span>Fig. 05.3 &mdash; Print path</span><span>Not to scale</span></div>
+          </div>
+          <button class="more" type="button" data-more="p3" aria-controls="p3" data-label="05.3" aria-expanded="false">Open detail &mdash; 05.3</button>
+          <div class="detail" id="p3">
+            <div class="dgrid">
+              <div class="fld"><span class="k">My responsibilities</span>
+                <ul><li>Compared printer compatibility</li><li>Implemented ESC/POS printing</li>
+                  <li>Tested multiple printer models</li><li>Optimised printer selection for clients</li>
+                  <li>Reduced deployment costs</li></ul></div>
+              <div class="fld"><span class="k">Hardware tested</span>
+                <ul><li>Epson TM-m30</li><li>Epson TM-T81III</li><li>POSMAC CP-Q2 Plus</li><li>POSMAC CP-Q3</li></ul></div>
+              <div class="fld"><span class="k">Lessons learned</span><p>The constraint was the protocol, not the hardware. Once I stopped comparing printers and started looking at what they all spoke, choosing a model became a cost decision instead of a technical one.</p></div>
+            </div>
+            <div class="refs"><span>Client work &mdash; not published</span></div>
+          </div>
+        </div></div>
+    </article>
+
+    <!-- 05.4 -->
+    <article class="proj an">
+      <div class="ph"><div class="r">05.4</div><h3>SplitWise Swimming Analytics</h3>
+        <div class="tagline">Full Stack Web Application</div></div>
+      <div class="pb"><div class="side">Personal<br>Deployed</div>
+        <div>
+          <p class="pdesc">A performance analytics platform for competitive swimming: race and
+            split analysis, stroke rate, velocity charts, personal best tracking and improvement
+            trends over a swimmer&rsquo;s history.</p>
+          <div class="figbox" tabindex="0" role="group" aria-label="Figure 4, scrollable">
+            <img src="assets/images/splitwise-dashboard.jpg" width="1000" height="774"
+              alt="SplitWise Swim showing a performance breakdown table of split distance, cumulative time, split time, velocity and stroke rate, above a velocity-by-distance chart.">
+            <div class="figcap"><span>Fig. 05.4 &mdash; Performance dashboard</span><span>Live application</span></div>
+          </div>
+          <button class="more" type="button" data-more="p4" aria-controls="p4" data-label="05.4" aria-expanded="false">Open detail &mdash; 05.4</button>
+          <div class="detail" id="p4">
+            <div class="dgrid">
+              <div class="fld"><span class="k">Features</span>
+                <ul><li>Race &amp; split analysis</li><li>Stroke rate analysis</li><li>Velocity charts</li>
+                  <li>Personal best tracking</li><li>Improvement trends</li>
+                  <li>Swim comparison &amp; historical records</li></ul></div>
+              <div class="fld"><span class="k">Technology</span>
+                <p>Flask &middot; MongoDB &middot; Bootstrap &middot; Chart.js &middot; Python &middot; HTML &middot; CSS &middot; JavaScript</p></div>
+              <div class="fld"><span class="k">Lessons learned</span><p>Building for a sport I actually swim meant I already knew which numbers mattered, and that turned out to be most of the design. The hard part was not the charts. It was deciding what a race is actually made of.</p></div>
+            </div>
+            <div class="refs"><a href="https://splitwise-mo3y.onrender.com">Live application</a>
+              <a href="https://github.com/ashleytzele/SplitWise-Swim"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
+          </div>
+        </div></div>
+    </article>
+
+    <!-- 05.5 -->
+    <article class="proj an">
+      <div class="ph"><div class="r">05.5</div><h3>cad-to-map</h3>
+        <div class="tagline">Open Source Tool</div></div>
+      <div class="pb"><div class="side">Personal<br>Public</div>
+        <div>
+          <p class="pdesc">Turns a CAD site plan into one self-contained interactive map with
+            search and walking directions, working with no network. Generalised from highway
+            facility work and published for anyone to install.</p>
+          <div class="figbox" tabindex="0" role="group" aria-label="Figure 5, scrollable">
+            <svg class="dwg" viewBox="0 0 1000 180" role="img"
+              aria-label="A DXF drawing is converted to GeoJSON, then built into a single self-contained HTML map.">
+              <g class="k ln" style="animation-delay:.15s"><path d="M180,90 H300 M480,90 H600 M780,90 H840" pathLength="1"/></g>
+              <g class="fd" style="animation-delay:.75s">
+                <path d="M300,90 l-10,-4 v8 z" fill="var(--ink)" pathLength="1"/><path d="M600,90 l-10,-4 v8 z" fill="var(--ink)" pathLength="1"/>
+                <rect class="f" x="40" y="60" width="140" height="60" pathLength="1"/><text class="tn" x="110" y="95" text-anchor="middle">DXF plan</text>
+                <rect class="f" x="300" y="60" width="180" height="60" pathLength="1"/><text class="tn" x="390" y="88" text-anchor="middle">Converter</text>
+                <text class="ts" x="390" y="105" text-anchor="middle">ezdxf &middot; Shapely</text>
+                <rect class="f" x="600" y="60" width="180" height="60" pathLength="1"/><text class="tn" x="690" y="88" text-anchor="middle">One HTML map</text>
+                <text class="ts" x="690" y="105" text-anchor="middle">no network needed</text></g>
+              <text class="tl fd" style="animation-delay:.95s" x="850" y="94">PUBLIC</text>
+              <text class="tl fd" style="animation-delay:1s" x="20" y="165">DRAWING IN &middot; NAVIGABLE MAP OUT</text>
+            </svg>
+            <div class="figcap"><span>Fig. 05.5 &mdash; Conversion path</span><span>Not to scale</span></div>
+          </div>
+          <button class="more" type="button" data-more="p5" aria-controls="p5" data-label="05.5" aria-expanded="false">Open detail &mdash; 05.5</button>
+          <div class="detail" id="p5">
+            <div class="dgrid">
+              <div class="fld"><span class="k">Purpose</span><p>Make a CAD site plan navigable by
+                anyone, without a tile server, an API key or a network connection.</p></div>
+              <div class="fld"><span class="k">Technology</span><p>Python &middot; ezdxf &middot; Shapely &middot;
+                MapLibre &middot; GeoJSON</p></div>
+              <div class="fld"><span class="k">Lessons learned</span><p>Real drawings are never clean. Almost all the work went into absorbing what plans do in practice: unclosed outlines, labels on the wrong layer, nested blocks. The conversion itself was the easy part.</p></div>
+            </div>
+            <div class="refs"><a href="https://github.com/ashleytzele/cad-to-map"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
+          </div>
+        </div></div>
+    </article>
+
+    <!-- 05.6 -->
+    <article class="proj an">
+      <div class="ph"><div class="r">05.6</div><h3>ScoutMini</h3>
+        <div class="tagline">AI Analysis CLI</div></div>
+      <div class="pb"><div class="side">Personal<br>Public</div>
+        <div>
+          <p class="pdesc">Answers Formula 1 questions from fetched data rather than model memory.
+            Every claim cites its source, and the whole test suite runs offline.</p>
+          <div class="figbox" tabindex="0" role="group" aria-label="Figure 6, scrollable">
+            <svg class="dwg" viewBox="0 0 1000 200" role="img"
+              aria-label="A question triggers data tools, whose returned data alone is given to the language model, producing a sourced report.">
+              <g class="k ln" style="animation-delay:.15s"><path d="M170,100 H270 M450,100 H550 M730,100 H820" pathLength="1"/></g>
+              <g class="fd" style="animation-delay:.75s">
+                <path d="M270,100 l-10,-4 v8 z" fill="var(--ink)" pathLength="1"/><path d="M550,100 l-10,-4 v8 z" fill="var(--ink)" pathLength="1"/>
+                <path d="M820,100 l-10,-4 v8 z" fill="var(--ink)" pathLength="1"/>
+                <rect class="f" x="40" y="70" width="130" height="60" pathLength="1"/><text class="tn" x="105" y="105" text-anchor="middle">Question</text>
+                <rect class="f" x="270" y="70" width="180" height="60" pathLength="1"/><text class="tn" x="360" y="98" text-anchor="middle">Data tools</text>
+                <text class="ts" x="360" y="115" text-anchor="middle">real results only</text>
+                <rect class="f" x="550" y="70" width="180" height="60" pathLength="1"/><text class="tn" x="640" y="98" text-anchor="middle">Model</text>
+                <text class="ts" x="640" y="115" text-anchor="middle">writes, never recalls</text>
+                <rect class="f" x="820" y="70" width="140" height="60" pathLength="1"/><text class="tn" x="890" y="105" text-anchor="middle">Sourced report</text></g>
+              <g class="dm fd" style="animation-delay:1s"><path d="M550,150 H730 M550,146 V154 M730,146 V154" pathLength="1"/></g>
+              <text class="tl fd" style="animation-delay:1.05s" x="640" y="172" text-anchor="middle">NO MEMORY CROSSES THIS BOUNDARY</text>
+            </svg>
+            <div class="figcap"><span>Fig. 05.6 &mdash; Grounding contract</span><span>Not to scale</span></div>
+          </div>
+          <button class="more" type="button" data-more="p6" aria-controls="p6" data-label="05.6" aria-expanded="false">Open detail &mdash; 05.6</button>
+          <div class="detail" id="p6">
+            <div class="dgrid">
+              <div class="fld"><span class="k">Constraint</span><p>The model never answers from its
+                own memory. It only ever sees what the tools return.</p></div>
+              <div class="fld"><span class="k">Technology</span><p>Python &middot; OpenAI &middot; Typer &middot; pytest</p></div>
+              <div class="fld"><span class="k">Lessons learned</span><p>A model will answer confidently whether or not it knows. The only fix that held was structural: never let it recall, only let it read what a tool returned. Everything else was a workaround.</p></div>
+            </div>
+            <div class="refs"><a href="https://github.com/ashleytzele/scoutmini"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
+          </div>
+        </div></div>
+    </article>
+  </div>
+</section>
+
+<!-- A-006 CONTACT -->
+<section class="sheet" id="a006" data-draw>
+  <div class="pane">
+    <div class="hdr"><div class="d"><b>Drawing A-006</b> &nbsp;<span>Contact</span></div>
+      <div class="m">Sheet 6 of 6 &nbsp;&middot;&nbsp; Rev 3.0 &nbsp;&middot;&nbsp; Active</div></div>
+    <div style="margin-top:calc(var(--u)*5)"><h2>Contact</h2></div>
+    <div class="dep an">
+      <div><div class="k">Current status</div><div class="v">Available</div>
+        <div class="d">Software engineering internship, Summer 2027</div></div>
+      <div><div class="k">Open to</div><div class="v">Collaboration</div>
+        <div class="d">Enterprise software &middot; dashboards &middot; mobile</div></div>
+      <div><div class="k">Location</div><div class="v">San Francisco, CA</div>
+        <div class="d">Relocatable</div></div>
+      <div><div class="k">Résumé</div><div class="v"><a href="assets/documents/Ashley-Sum-Resume.pdf">Download</a></div>
+        <div class="d">PDF</div></div>
+    </div>
+    <a class="init an" href="mailto:ashleysumtzele04@gmail.com" style="animation-delay:.15s">Initialize Communication</a>
+    <p class="mn" style="margin-top:calc(var(--u)*2);font-size:.82rem"><a href="mailto:ashleysumtzele04@gmail.com">ashleysumtzele04@gmail.com</a></p>
+    <div class="endpage">
+      <div class="e">End of Document</div>
+      <div class="b">Blueprint Complete</div>
+      <div class="endmeta">
+        <div><span class="k">Document Number</span><span class="v">AS-001</span></div>
+        <div><span class="k">Revision</span><span class="v">Current</span></div>
+        <div><span class="k">Status</span><span class="v">Ready for Deployment</span></div>
+      </div>
+      <div class="sig"><div class="n">Ashley Sum</div><div class="r">Software Engineer</div></div>
+      <div class="endmeta" style="border:0;padding-top:calc(var(--u)*4)">
+        <div><span class="k">Contact</span><span class="v" style="font-size:.72rem"><a href="mailto:ashleysumtzele04@gmail.com">ashleysumtzele04@gmail.com</a></span></div>
+        <div><span class="k">Repository</span><span class="v"><a href="https://github.com/ashleytzele"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> GitHub</a></span></div>
+        <div><span class="k">Profile</span><span class="v"><a href="https://www.linkedin.com/in/ashley-sum"><svg class="ico" aria-hidden="true"><use href="#i-linkedin"/></svg> LinkedIn</a></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<script src="assets/js/blueprint.js"></script>
 </body>
 </html>
