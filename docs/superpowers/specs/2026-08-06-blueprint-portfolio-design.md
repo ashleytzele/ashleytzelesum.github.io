@@ -183,7 +183,7 @@ These are verified numbers, not aspirations. The build must hold them.
 
 ## Performance Contract
 
-- Zero network requests beyond the document. Fonts self-hosted, icons inline, no dependencies.
+- Zero third-party requests. No CDN, no analytics, no embeds, no dependencies. Fonts are self-hosted as separate cacheable files and icons are inlined in the document; the prototype inlines fonts as base64 only because an artifact CSP forbids external hosts, and production must not, since a base64 font cannot be cached across page loads.
 - Zero console errors.
 - Zero infinite animations.
 - Zero layout properties animated.
