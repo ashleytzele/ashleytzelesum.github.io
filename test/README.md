@@ -33,6 +33,137 @@ responsive/touch-target measurements are unaffected by this; the
 `anims` section and anything depending on scroll-triggered reveal are not
 reliable if the tab is hidden while the script runs.
 
+### Baseline — 2026-08-07 (A-005 rebuilt: six new projects, MongoDB dropped from the stack)
+
+Measured via `mcp__claude-in-chrome`, a backgrounded MCP automation tab, so
+`document.visibilityState` read `"hidden"` throughout (the known automation-
+tab trap noted below), against `http://localhost:8129/?cb=projrebuild_20260807_1`
+(fresh query string). Ashley chose a new set of six A-005 projects: cad-to-map
+and ScoutMini revised (rewritten descriptions, `Features`/`Delivered` fields
+added, `Purpose`/`Constraint` fields retired); MeeTeam added as a new entry
+with an interim five-stage drawn SVG (`viewBox 0 0 1000 210`); SplitWise kept
+unchanged except its `Technology` field corrected from `MongoDB` to
+`SQLAlchemy` (the code uses Flask-SQLAlchemy against a relational database,
+not `pymongo`); the two client projects replaced entirely — Asset Management
+System (new `<img>` figure, `assets/images/asset-console-reconstruction.jpg`,
+1491&times;812) and ePOS Simulator (new interim drawn SVG showing the printer
+shim); and the old West Coast Expressway entry deleted outright, not
+renamed. All six `.r`/`Fig. 05.n`/`figbox` `aria-label="Figure n, scrollable"`/
+`data-more`/`data-label`/`aria-controls`/button-text/`id="pN"` families were
+verified by machine to read `1..6` in document order with no gaps or
+duplicates (position equals number).
+
+The correction cascaded to three other places that referenced the old facts:
+A-003's OSPIT `.s` field dropped from three project references to two
+(`05.4 &middot; 05.5 &middot; 05.6` &rarr; `05.5 &middot; 05.6`), since the West Coast
+Expressway entry was deleted rather than renumbered, leaving only two client
+projects; A-004's `USED IN` tags for the INTERFACE/DATA rows moved
+`05.3` &rarr; `05.4`, since SplitWise moved from position 3 to 4; and A-004's
+DATA row, its legend, and the sprite all dropped `MongoDB` (module text
+`MongoDB &middot; SQL` &rarr; `SQL`, the legend's MongoDB entry removed, and the
+now-unreferenced `#i-mongodb` `<symbol>` deleted) since the one project that
+had justified listing it no longer does &mdash; leaving the icon in place would
+have kept the site claiming a technology Ashley doesn't actually use. The
+A-001 assembly's public-repository count moved `3` &rarr; `4` (cad-to-map,
+ScoutMini, MeeTeam and SplitWise are public; the two client projects carry no
+link), updated in three places that must agree: the assembly's `Engineering`
+tab text (`6 projects &middot; 3 public` &rarr; `6 projects &middot; 4 public`),
+`SPEC.engineering`'s prose (`three from a professional engagement, three
+published as open source` &rarr; `two from a professional engagement, four
+published as open source`) and its `Public` field (`3` &rarr; `4`) in
+`assets/js/blueprint.js` &mdash; the `assembly "N public" balloon matches
+distinct project source links` contract test enforces the balloon and
+`SPEC.engineering` agree with the actual link count, and it is green.
+`SPEC.about`'s flavour text was also updated, replacing its stale reference
+to the deleted "highway platform broken into modules" example with one that
+describes the Asset Management System generically ("equipment identity
+reconciled across four separate systems of record"), naming no client.
+
+A grep across `index.html` and `assets/js/blueprint.js` for every forbidden
+confidentiality string (`West Coast Expressway`, `WCE`, `TMCS`, `OpenNMS`,
+`Gigatera`, `nightpos`, `Lush`, `MSA`, `.com.my`, plus the retired
+`Highway Digitalization`/`Restaurant POS Printing` titles, plus a scan for
+Malaysian place names beyond the country name itself) returned zero matches
+in both files.
+
+`node --test` (still 35 tests, no test added or removed by this change) is
+green.
+
+```json
+{
+ "light": { "combos": 62, "fails": [{ "el": "svg text.tn", "r": "1.00", "need": 4.5 }, { "el": "svg text.ts", "r": "1.00", "need": 4.5 }] },
+ "dark": { "combos": 62, "fails": [{ "el": "svg text.tn", "r": "1.00", "need": 4.5 }, { "el": "svg text.ts", "r": "1.00", "need": 4.5 }] },
+ "withoutJS": { "hidden": 0, "undrawn": 0 },
+ "headingsStable": true,
+ "keyboard": { "rovingTabindex": 1, "arrowMovesFocus": true, "panelFollows": true, "endGoesLast": true },
+ "anims": { "total": 0, "infinite": 0, "layoutProps": [] },
+ "responsive": [
+  { "px": 320, "overflow": false, "targets": 38, "under44": [], "minDrawnText": 10.5 },
+  { "px": 390, "overflow": false, "targets": 38, "under44": [], "minDrawnText": 10.5 },
+  { "px": 768, "overflow": false, "targets": 38, "under44": [], "minDrawnText": 10.5 },
+  { "px": 1024, "overflow": false, "targets": 38, "under44": [], "minDrawnText": 10.5 },
+  { "px": 1440, "overflow": false, "targets": 38, "under44": [], "minDrawnText": 10.5 }
+ ]
+}
+```
+
+`combos` holds at **62** in both themes, unchanged from the prior baseline:
+the content churn in A-005 (new descriptions, a new project, a swapped
+figure medium, a dropped legend entry) reused the existing `.pdesc`/`.fld`/
+`.figcap`/`.tn`/`.ts` classes throughout, so it introduced zero new
+colour/font-size combinations. The two `svg text.tn`/`.ts` failures at
+`r: 1.00` are the same `bgOf()` measurement-script blind spot documented in
+every prior baseline above: the scripted tab-click loop (run earlier in the
+same pass, to check `headingsStable`) leaves a tab selected (`tab-about`, the
+last of the five clicked) by the time the contrast scan's DOM is sampled,
+and `bgOf()` walks `background-color` up the DOM, which is blind to the
+selected tab's `.k rect` SVG `fill` (flips to `--ink`). Measured directly
+against the live selected-state colours instead: `rgb(13,13,13)` text on
+`rgb(242,242,242)`, **17.36:1** &mdash; far above the 4.5 floor. Zero real
+contrast failures in either theme.
+
+`responsive[*].targets` moved from **37 to 38** at every width: MeeTeam adds
+one more public GitHub source link (cad-to-map, ScoutMini, MeeTeam and
+SplitWise-and-its-live-app now total five links across four public projects,
+up from four links across three), and the six "Open detail" buttons stay at
+six since the total project count is unchanged at six. `overflow: false` and
+`under44: []` at every width confirm the new figures (MeeTeam's five-box SVG,
+the Asset Management `<img>`, ePOS's revised SVG) do not push the page wide
+or introduce anything under 44px, and `minDrawnText: 10.5` is unchanged:
+checked directly, MeeTeam's five `.tn` box labels render at `12px` and its
+five `.ts` sub-labels and ePOS's two `.ts` printer labels all render at
+exactly `10.5px` at the figure's held 1000px width &mdash; at the floor, not
+merely above it by coincidence.
+
+The Asset Management `<img>` was checked directly: `naturalWidth`/
+`naturalHeight` read `1491`&times;`812`, identical to the `width`/`height`
+HTML attributes, so no layout shift on load. Its alt text was verified to
+open with "Reconstruction with sample data, not a production screenshot" per
+the spec's requirement that the reconstruction be stated plainly, not
+softened.
+
+`withoutJS: { hidden: 0, undrawn: 0 }` confirms every new and revised block
+(MeeTeam's SVG, the Asset Management image, ePOS's revised SVG, all six
+project entries generally) still renders fully with JavaScript disabled, via
+the same `.js`-gated CSS the rest of the document already relies on &mdash;
+nothing about this change altered that mechanism.
+
+`headingsStable: true` and the full `keyboard` block confirm the A-001
+component group (unaffected by this change; still five tabs) keeps working
+roving-tabindex, arrow and Home/End behaviour.
+
+`anims.total` read `0` in this run, the most extreme case yet of the same
+standing caveat every baseline above records: `document.visibilityState` was
+`"hidden"` throughout, which throttles `IntersectionObserver` delivery
+unpredictably in a backgrounded automation tab. `blueprint.js`'s reveal
+wiring was not touched by this change, so there is no code-level reason to
+expect different reveal behaviour than any prior baseline; this number is
+reported for continuity only, per the same standing caveat.
+
+**Result: all required values pass** (zero real contrast failures per the
+manual verification above; `anims.total` remains outside the required
+fields per the standing caveat).
+
 ### Baseline — 2026-08-06 (code-review fixes: cover identity line, A-005 reorder, A-001 default tab, font-display, comment fix)
 
 Measured via `mcp__claude-in-chrome`, a backgrounded MCP automation tab, so
