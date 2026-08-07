@@ -47,7 +47,7 @@ unchanged except its `Technology` field corrected from `MongoDB` to
 not `pymongo`); the two client projects replaced entirely — Asset Management
 System (new `<img>` figure, `assets/images/asset-console-reconstruction.jpg`,
 1491&times;812) and ePOS Simulator (new interim drawn SVG showing the printer
-shim); and the old West Coast Expressway entry deleted outright, not
+shim); and the old client Android entry deleted outright, not
 renamed. All six `.r`/`Fig. 05.n`/`figbox` `aria-label="Figure n, scrollable"`/
 `data-more`/`data-label`/`aria-controls`/button-text/`id="pN"` families were
 verified by machine to read `1..6` in document order with no gaps or
@@ -79,12 +79,10 @@ to the deleted "highway platform broken into modules" example with one that
 describes the Asset Management System generically ("equipment identity
 reconciled across four separate systems of record"), naming no client.
 
-A grep across `index.html` and `assets/js/blueprint.js` for every forbidden
-confidentiality string (`West Coast Expressway`, `WCE`, `TMCS`, `OpenNMS`,
-`Gigatera`, `nightpos`, `Lush`, `MSA`, `.com.my`, plus the retired
-`Highway Digitalization`/`Restaurant POS Printing` titles, plus a scan for
-Malaysian place names beyond the country name itself) returned zero matches
-in both files.
+A confidentiality sweep across every tracked file returned zero matches. The
+terms it checks are deliberately **not listed here** — writing them into a file
+in a public repository is the exact leak the check exists to prevent. They live
+in `.confidential-terms`, which is gitignored. See `test/contracts.test.mjs`.
 
 `node --test` (still 35 tests, no test added or removed by this change) is
 green.
@@ -173,7 +171,7 @@ tab trap noted above), against `http://localhost:8129/?cb=blueprint_fix_20260806
 together: a one-line title-block identity strip on the cover (`.csub`, new
 tokens-only CSS, no new hex); the six A-005 projects reordered so the three
 public entries (cad-to-map, ScoutMini, SplitWise) lead as 05.1&ndash;05.3 and
-the three client entries (Highway, West Coast Expressway, Restaurant POS)
+the three client entries
 follow as 05.4&ndash;05.6, with every `.r`, `Fig. 05.n` caption,
 `figbox`/`dwgbox` `aria-label="Figure n, scrollable"`, `data-more`/
 `data-label`/`aria-controls`/button text and `id="pN"` renumbered so position

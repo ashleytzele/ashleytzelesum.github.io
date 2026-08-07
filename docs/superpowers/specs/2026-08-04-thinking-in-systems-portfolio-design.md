@@ -17,7 +17,7 @@ The prototype uses only facts and material already present in the current portfo
 - Current education, experience, skills, contact links, and CV
 - Summer 2027 internship availability
 
-The Ospit internship, WCE highway work, CAD-to-map repository, and any unsupported project outcomes are excluded until Ashley supplies and approves their final wording.
+The Ospit internship, client highway work, CAD-to-map repository, and any unsupported project outcomes are excluded until Ashley supplies and approves their final wording.
 
 ## Core Principle
 

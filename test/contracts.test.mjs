@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { execSync } from 'node:child_process';
 import { readSite } from './read.mjs';
 
 const { html, css, js } = readSite();
@@ -272,4 +273,36 @@ test('test/ contains no browser-only scripts', () => {
     .filter(f => /\.(js|cjs|mjs)$/.test(f))
     .filter(f => /\bdocument\.|\bwindow\.|getComputedStyle\(/.test(readFileSync(`test/${f}`, 'utf8')));
   assert.deepEqual(stray, [], 'browser-only scripts belong in tools/, not test/');
+});
+
+test('no client-identifying term appears in any tracked file', () => {
+  // The terms live in .confidential-terms, which is gitignored. They are NOT
+  // listed here on purpose: writing them into a tracked file is precisely the
+  // leak this test exists to catch, and a previous version of test/README.md
+  // did exactly that while documenting the check.
+  //
+  // Scans every tracked text file, not just index.html — the leak that
+  // prompted this test was in a README and two planning documents.
+  if (!existsSync('.confidential-terms')) {
+    // Skip loudly rather than pass silently: a missing list is not a clean repo.
+    console.log('  SKIPPED: .confidential-terms not present, cannot check');
+    return;
+  }
+  const terms = readFileSync('.confidential-terms', 'utf8')
+    .split('\n').map(l => l.trim())
+    .filter(l => l && !l.startsWith('#'));
+  assert.ok(terms.length > 0, 'term list is empty');
+
+  const tracked = execSync('git ls-files', { encoding: 'utf8' }).split('\n').filter(Boolean);
+  const hits = [];
+  for (const file of tracked) {
+    if (/\.(png|jpe?g|gif|mp4|woff2?|pdf|ico)$/i.test(file)) continue; // binaries: byte runs give false positives
+    let text;
+    try { text = readFileSync(file, 'utf8'); } catch { continue; }
+    const lower = text.toLowerCase();
+    for (const term of terms) {
+      if (lower.includes(term.toLowerCase())) hits.push(`${file} contains a listed term`);
+    }
+  }
+  assert.deepEqual(hits, [], 'client-identifying terms found in tracked files');
 });

@@ -11,7 +11,7 @@
 ## Global Constraints
 
 - Use only facts and material already present in the current portfolio.
-- Exclude the Ospit internship, WCE highway work, CAD-to-map repository, and unsupported outcomes.
+- Exclude the Ospit internship, client highway work, CAD-to-map repository, and unsupported outcomes.
 - Preserve `/Users/leleditit/Desktop/Github/ashleytzelesum.github.io/index.html` unchanged.
 - Keep conventional sticky anchor navigation and top-to-bottom scrolling.
 - Do not add pan, zoom, search, route probing, legends, export controls, diagram chrome, dense topology, or crossing connectors.

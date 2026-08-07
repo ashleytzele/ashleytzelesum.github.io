@@ -10,3 +10,6 @@ package-lock.json
 
 # Résumé source documents live outside the repo; only the built PDF ships
 *.docx
+
+# Client-identifying terms used by the confidentiality test — must never be committed
+.confidential-terms
