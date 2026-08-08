@@ -251,17 +251,20 @@ test('every video declares an aspect-ratio, to prevent layout shift on metadata 
   }
 });
 
-test('assembly "N public" balloon matches distinct project source links', () => {
+test('claimed public-project count matches distinct project source links', () => {
+  // The count used to sit on the assembly drawing as an "N public" balloon. After
+  // the A-001 restructure the components describe who he is rather than what the
+  // site contains, so the claim now lives only in SPEC.engineering. The thing
+  // worth testing is unchanged: a number claimed anywhere must match reality.
   const a005 = html.slice(html.indexOf('id="a005"'), html.indexOf('id="a006"'));
   const repos = new Set([...a005.matchAll(/href="https:\/\/github\.com\/[^"]+"/g)].map(m => m[0]));
-  const balloon = /(\d+)\s+public/.exec(html);
-  assert.ok(balloon, 'expected an "N public" balloon on the assembly drawing');
-  assert.equal(Number(balloon[1]), repos.size,
-    `balloon says ${balloon[1]} public, but ${repos.size} distinct GitHub repo links are on the projects sheet`);
-  // The specification record (blueprint.js SPEC.engineering) must agree too.
   const specPublic = /\['Public','(\d+)'\]/.exec(js);
   assert.ok(specPublic, 'expected a Public field in SPEC.engineering');
-  assert.equal(Number(specPublic[1]), repos.size);
+  assert.equal(Number(specPublic[1]), repos.size,
+    `SPEC.engineering claims ${specPublic[1]} public, but ${repos.size} distinct GitHub repo links are on the projects sheet`);
+  // If a balloon ever states the count again, it must agree too.
+  const balloon = /(\d+)\s+public/.exec(html);
+  if (balloon) assert.equal(Number(balloon[1]), repos.size, 'balloon disagrees with the projects sheet');
 });
 
 test('test/ contains no browser-only scripts', () => {

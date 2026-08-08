@@ -31,11 +31,10 @@
 
   /* A-001 component specifications */
   var SPEC={
-    engineering:{t:'Engineering',p:'Six documented projects: two from a professional engagement, four published as open source. Most of it has been enterprise systems: dashboards, ERP customisation, mobile, hardware integration.',d:[['Ref drawing','A-005'],['Projects','6'],['Public','4']]},
-    experience:{t:'Experience',p:'Four roles across software and operations. The software work is at OSPIT Mobility; the aquatics and support roles are where I learned to run things other people depend on.',d:[['Ref drawing','A-003'],['Roles','4'],['Current','Software Engineering Intern']]},
-    education:{t:'Education',p:'Computer Science at San Francisco State, transferred from INTI International College in Malaysia. Coursework has been fundamentals: data structures, algorithms, object-oriented programming, systems.',d:[['Ref drawing','A-002'],['Institution','San Francisco State'],['Degree','B.S. Computer Science']]},
-    modules:{t:'System Modules',p:'What I build with, arranged by where it sits in the stack. Python and Flask do most of the work, Java and Android for mobile, and SQL for what persists.',d:[['Ref drawing','A-004'],['Languages','6'],['Interests','10']]},
-    about:{t:'About',p:'Computer Science at San Francisco State, from Malaysia via INTI International College. What I keep coming back to is making complicated systems operable: equipment identity reconciled across four separate systems of record, a CAD plan turned into a map you can walk, race data turned into the few numbers that matter.',d:[['Ref drawing','A-001'],['Focus','Systems, operability'],['Available','Summer 2027']]}
+    engineering:{t:'Engineering',p:'Most of what I build sits between software and something physical: roadside equipment, thermal printers, CAD drawings, race timing. The interesting part is usually making something complicated operable by whoever has to use it.',d:[['Ref drawing','A-004'],['Projects','6'],['Public','4']]},
+    athlete:{t:'Athlete',p:'I swim competitively, which is where SplitWise came from. Knowing which numbers actually matter to a swimmer turned out to be most of the design work.',d:[['Ref drawing','A-002'],['Discipline','Swimming'],['Applied in','05.4']]},
+    leadership:{t:'Leadership',p:'Lifeguard first, then student lead in aquatics. Both are places where other people depend on you paying attention, which is a different kind of pressure from a deadline.',d:[['Ref drawing','A-003'],['Current','Student Lead, Aquatics'],['Since','2025']]},
+    background:{t:'Background',p:'From Malaysia, via INTI International College, now Computer Science at San Francisco State.',d:[['Ref drawing','A-002'],['From','Malaysia'],['Now','San Francisco']]}
   };
   var parts=[].slice.call(document.querySelectorAll('.part')),
       st=document.getElementById('spec-t'),
