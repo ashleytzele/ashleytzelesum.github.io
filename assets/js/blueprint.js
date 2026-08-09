@@ -32,7 +32,7 @@
   /* A-001 component specifications */
   var SPEC={
     engineering:{t:'Engineering',p:'Most of what I build sits between software and something physical: roadside equipment, thermal printers, CAD drawings, race timing. The interesting part is usually making something complicated operable by whoever has to use it.',d:[['Ref drawing','A-004'],['Projects','6'],['Public','4']]},
-    athlete:{t:'Athlete',p:'I swim competitively, which is where SplitWise came from. Knowing which numbers actually matter to a swimmer turned out to be most of the design work.',d:[['Ref drawing','A-002'],['Discipline','Swimming'],['Applied in','05.4']]},
+    athlete:{t:'Athlete',p:'I swim competitively, which is where SplitWise came from. Knowing which numbers actually matter to a swimmer turned out to be most of the design work.',d:[['Ref drawing','A-002'],['Discipline','Swimming'],['Applied in','05.6']]},
     leadership:{t:'Leadership',p:'Lifeguard first, then student lead in aquatics. Both are places where other people depend on you paying attention, which is a different kind of pressure from a deadline.',d:[['Ref drawing','A-003'],['Current','Student Lead, Aquatics'],['Since','2025']]},
     background:{t:'Background',p:'From Malaysia, via INTI International College, now Computer Science at San Francisco State.',d:[['Ref drawing','A-002'],['From','Malaysia'],['Now','San Francisco']]}
   };
@@ -95,8 +95,8 @@
   var mods=[].slice.call(document.querySelectorAll('.mod')),
       out=document.getElementById('modout-body');
   if(!mods.length||!out)return;
-  var PROJ={'05.1':'cad-to-map','05.2':'ScoutMini','05.3':'MeeTeam',
-            '05.4':'SplitWise','05.5':'Asset Management','05.6':'ePOS Simulator'};
+  var PROJ={'05.1':'cad-to-map','05.2':'Asset Management','05.3':'ePOS Simulator',
+            '05.4':'ScoutMini','05.5':'MeeTeam','05.6':'SplitWise'};
   var IDLE='Select a module above to see which drawings use it.';
   function label(ref){
     if(ref.charAt(0)==='A')return '<a href="#a003">'+ref+' Experience</a>';

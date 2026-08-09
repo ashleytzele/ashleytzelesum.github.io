@@ -33,6 +33,106 @@ responsive/touch-target measurements are unaffected by this; the
 `anims` section and anything depending on scroll-triggered reveal are not
 reliable if the tab is hidden while the script runs.
 
+### Baseline — 2026-08-09 (A-005 tiered: three case studies renumbered to lead, `targets` baseline corrected)
+
+Measured via `mcp__claude-in-chrome`, a backgrounded MCP automation tab, so
+`document.visibilityState` read `"hidden"` throughout (the known automation-
+tab trap noted below), against `http://localhost:8129/?cb=iapassD_20260809_1`
+(fresh query string). A-005 now reads as two tiers: cad-to-map, Asset
+Management System and ePOS Simulator lead as 05.1&ndash;05.3 with a
+&ldquo;Featured engineering work&rdquo; `.lab` divider above the first, and
+their detail panels rewritten from `Features`/`Technology`/`Lessons learned`
+to a case-study structure (`Problem`/`Constraints`/`Approach`/`Architecture`/
+`What went wrong`/`Result`/`What I learned`); ScoutMini, MeeTeam and SplitWise
+follow as 05.4&ndash;05.6 behind an &ldquo;Other builds&rdquo; `.lab` divider,
+content unchanged beyond renumbering. Every `.r`/`Fig. 05.n`/`figbox`
+`aria-label="Figure n, scrollable"`/`data-more`/`data-label`/`aria-controls`/
+button-text/`id="pN"` family was verified by machine to read `1..6` in
+document order with no gaps or duplicates, position equals number, and every
+`pN`&harr;`05.N` pair agrees (`blueprint.js`'s `data-more.replace('p','05.')`
+fallback depends on this). The cross-references this cascaded to were found
+by grepping every `05\.` in the document after the move and updated to
+match: A-002's swimming box (`Applied later in 05.4` &rarr; `05.6`); A-003's
+workstream drawing (`05.5`&rarr;`05.2`, `05.6`&rarr;`05.3`, `05.1` unchanged)
+and its OSPIT `.s` field (`05.5 &middot; 05.6` &rarr; `05.2 &middot; 05.3`);
+A-004's stack-section `USED IN` aria-label and visible labels for all four
+rows, plus every `.mod` button's `data-refs`, remapped digit-for-digit
+(`05.1&rarr;05.1, 05.2&rarr;05.4, 05.3&rarr;05.5, 05.4&rarr;05.6,
+05.5&rarr;05.2, 05.6&rarr;05.3`); and `blueprint.js`'s `PROJ` lookup table and
+`SPEC.athlete`'s `Applied in` field (`05.4`&rarr;`05.6`). `node --test` (still
+36 tests) is green.
+
+```json
+{
+ "light": { "combos": 62, "fails": [{ "el": "svg text.tn", "r": "1.00", "need": 4.5 }, { "el": "svg text.ts", "r": "1.00", "need": 4.5 }] },
+ "dark": { "combos": 62, "fails": [{ "el": "svg text.tn", "r": "1.00", "need": 4.5 }, { "el": "svg text.ts", "r": "1.00", "need": 4.5 }] },
+ "withoutJS": { "hidden": 0, "undrawn": 0 },
+ "headingsStable": true,
+ "keyboard": { "rovingTabindex": 1, "arrowMovesFocus": true, "panelFollows": true, "endGoesLast": true },
+ "anims": { "total": 0, "infinite": 0, "layoutProps": [] },
+ "responsive": [
+  { "px": 320, "overflow": false, "targets": 63, "under44": [], "minDrawnText": 10.5 },
+  { "px": 390, "overflow": false, "targets": 63, "under44": [], "minDrawnText": 10.5 },
+  { "px": 768, "overflow": false, "targets": 63, "under44": [], "minDrawnText": 10.5 },
+  { "px": 1024, "overflow": false, "targets": 63, "under44": [], "minDrawnText": 10.5 },
+  { "px": 1440, "overflow": false, "targets": 63, "under44": [], "minDrawnText": 10.5 }
+ ]
+}
+```
+
+`combos` holds at **62** in both themes, unchanged from the prior baseline:
+the rewritten case-study fields reuse the existing `.fld`/`.pdesc`/`.figcap`
+classes throughout (new field labels, same markup shape), so they introduce
+zero new colour/font-size combinations. The two `svg text.tn`/`.ts` failures
+at `r: 1.00` are the same `bgOf()` measurement-script blind spot documented
+in every prior baseline: a stray selected tab from the scripted click loop
+leaves `.k rect`'s SVG `fill` (flipped to `--ink`) invisible to `bgOf()`'s
+`background-color` walk. Not a real defect; not re-verified by hand again
+here since no styling changed in this pass.
+
+**`responsive[*].targets` jumped from the last-recorded baseline's 38 to
+63 at every width, and this is not an effect of this pass.** Diffing
+interactive-element counts against `git show HEAD:index.html` (the commit
+immediately before this pass touched anything) already reads 26 `.mod`
+buttons, 10 `.more` buttons, 4 `role="tab"` elements and 50 `href`
+attributes &mdash; the same shape measured live just now. A-004's 26-button
+module legend and the A-001 assembly's move to four tabs were both
+introduced by the two IA passes committed directly before this one
+(`Restructure IA pass 2: Journey and Experience`, `Restructure IA pass 3:
+Engineering, with modules that name their drawings`), neither of which
+re-ran this script or touched this file, so the recorded baseline of 38 had
+already been stale for two commits before this pass started. This pass adds
+and removes zero interactive elements in A-005 (`data-more`, `aria-controls`
+and `id` values changed; the count of `.more` buttons and their `.refs`
+links did not), so 63 is simply the first accurate measurement since pass 1.
+`overflow: false` and `under44: []` hold at every width, and `minDrawnText:
+10.5` is unchanged since no drawing geometry changed in this pass.
+
+`withoutJS: { hidden: 0, undrawn: 0 }` confirms the reordered and rewritten
+A-005 blocks still render fully with JavaScript disabled, via the same
+`.js`/`.an` gating the rest of the document already relies on.
+
+`headingsStable: true` and the full `keyboard` block confirm the A-001
+component group (untouched by this pass) keeps working roving-tabindex,
+arrow and Home/End behaviour.
+
+`anims.total` read `0` in this run, with the same standing caveat as every
+baseline above: `document.visibilityState` was `"hidden"` throughout, which
+throttles `IntersectionObserver` delivery unpredictably in a backgrounded
+automation tab. `blueprint.js`'s reveal wiring was not touched by this
+change, so there is no code-level reason to expect different reveal
+behaviour than any prior baseline; this number is reported for continuity
+only, per the same standing caveat.
+
+A confidentiality sweep (`node --test`'s client-identifying-term check)
+returned zero matches after this pass, including across the three rewritten
+case studies, which describe both client projects by function throughout
+(no client, product, brand, domain or place name).
+
+**Result: all required values pass** (zero real contrast failures per the
+standing measurement-script caveat above; `anims.total` remains outside the
+required fields per the standing caveat).
+
 ### Baseline — 2026-08-07 (A-005 rebuilt: six new projects, MongoDB dropped from the stack)
 
 Measured via `mcp__claude-in-chrome`, a backgrounded MCP automation tab, so
