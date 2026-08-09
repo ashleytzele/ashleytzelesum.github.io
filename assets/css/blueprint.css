@@ -296,3 +296,18 @@ p{margin:0;color:var(--sec)}
 .modout a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);
   display:inline-block;padding-block:calc(var(--u)*1.25)}
 .modout a:hover{border-bottom-color:var(--ink)}
+
+/* Cover drawing frame, responsive. Registration marks are document notation, not
+   interface: .rule is absolutely positioned with pointer-events:none, so it never
+   takes layout space, never reduces usable width and cannot be clicked. Below
+   960 the frame thins out rather than disappearing, so the cover still reads as a
+   sheet on a phone. The marks keep their drawn size at every width — registration
+   marks on a real drawing are a fixed physical size, not a proportion of the sheet.
+   Scoped to .cover so the frame on other sheets keeps its existing behaviour. */
+@media(max-width:960px){
+  .cover .rule{display:block}
+  .cover .rule .cy{display:none}   /* row letters sit in the reading gutter once the page narrows */
+}
+@media(max-width:759px){
+  .cover .rule .cx{display:none}   /* column numbers crowd a phone; the four corners carry it alone */
+}
