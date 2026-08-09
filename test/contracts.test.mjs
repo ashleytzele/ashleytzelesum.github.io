@@ -309,3 +309,25 @@ test('no client-identifying term appears in any tracked file', () => {
   }
   assert.deepEqual(hits, [], 'client-identifying terms found in tracked files');
 });
+
+test('the cover Updated date matches the last change to the site', () => {
+  // A revision date that drifts is worse than none: it states a fact about the
+  // document that stops being true the next time anything ships. This ties it to
+  // the last commit touching the three files a visitor actually receives, so the
+  // suite says "update the cover" rather than letting it quietly rot.
+  const shown = /<span class="k">Updated<\/span><span class="v">([\d-]+)<\/span>/.exec(html);
+  assert.ok(shown, 'expected an Updated field in the cover title block');
+  let last;
+  try {
+    last = execSync(
+      'git log -1 --format=%ad --date=short -- index.html assets/css/blueprint.css assets/js/blueprint.js',
+      { encoding: 'utf8' }
+    ).trim();
+  } catch {
+    console.log('  SKIPPED: no git history available');
+    return;
+  }
+  if (!last) { console.log('  SKIPPED: no commits touching site files yet'); return; }
+  assert.equal(shown[1], last,
+    `cover says Updated ${shown[1]}, but the site last changed on ${last}`);
+});
