@@ -361,76 +361,94 @@
     <div style="margin-top:calc(var(--u)*4)">
       <div class="lab" style="margin-bottom:calc(var(--u)*2)">Fig. A-004.1 &mdash; System stack, section</div>
       <div class="dwgbox" tabindex="0" role="group" aria-label="System stack section, scrollable">
-      <svg class="dwg" viewBox="0 0 1000 400" role="img"
-        aria-label="Section through the stack in four layers: interface, application, data and tooling, each listing its technologies and the project references that use it.">
-        <g class="c ln"><path d="M20,382 H980" pathLength="1"/></g>
+      <svg class="dwg" viewBox="0 0 1000 490" role="img"
+        aria-label="Section through the stack in five layers. Interface: HTML, CSS, Bootstrap, Chart.js and JavaScript, used in drawings 05.1, 05.3 and 05.4. Application: Python, Flask, Java, Kotlin and Android, used across 05.1 to 05.6. Systems: REST, MQTT, ESC/POS, ePOS-Print and authentication, used in 05.2, 05.5 and 05.6. Data: PostgreSQL, SQLite, Supabase and GeoJSON, used in 05.1, 05.3 and 05.5. Tooling: Git, Android Studio, VS Code, Zed and Claude Code, used throughout.">
+        <g class="c ln"><path d="M20,472 H980" pathLength="1"/></g>
         <g class="k ln" style="animation-delay:.15s">
           <rect x="150" y="30" width="640" height="72" pathLength="1"/><rect x="150" y="112" width="640" height="72" pathLength="1"/>
           <rect x="150" y="194" width="640" height="72" pathLength="1"/><rect x="150" y="276" width="640" height="72" pathLength="1"/>
+          <rect x="150" y="358" width="640" height="72" pathLength="1"/>
         </g>
         <g class="tl fd" style="animation-delay:.85s" text-anchor="end">
           <text x="138" y="62">INTERFACE</text><text x="138" y="144">APPLICATION</text>
-          <text x="138" y="226">DATA</text><text x="138" y="308">TOOLING</text>
+          <text x="138" y="226">SYSTEMS</text><text x="138" y="308">DATA</text><text x="138" y="390">TOOLING</text>
         </g>
         <g class="fd" style="animation-delay:.95s" font-size="11.5" font-weight="600">
           <text x="172" y="62">HTML &middot; CSS &middot; Bootstrap &middot; Chart.js &middot; JavaScript</text>
-          <text x="172" y="144">Python &middot; Flask &middot; Java &middot; Android</text>
-          <text x="172" y="226">SQL</text>
-          <text x="172" y="308">Git &middot; GitHub &middot; Android Studio &middot; VS Code &middot; Zed &middot; Claude Code</text>
+          <text x="172" y="144">Python &middot; Flask &middot; Java &middot; Kotlin &middot; Android</text>
+          <text x="172" y="226">REST &middot; MQTT &middot; ESC/POS &middot; ePOS-Print &middot; Authentication</text>
+          <text x="172" y="308">PostgreSQL &middot; SQLite &middot; Supabase &middot; GeoJSON</text>
+          <text x="172" y="390">Git &middot; Android Studio &middot; VS Code &middot; Zed &middot; Claude Code</text>
         </g>
         <g class="ts fd" style="animation-delay:1s" fill="var(--sec)">
           <text x="172" y="82">what the user touches</text>
           <text x="172" y="164">where the logic lives</text>
-          <text x="172" y="246">what persists</text>
-          <text x="172" y="328">how it gets built and shipped</text>
+          <text x="172" y="246">how the parts talk to each other</text>
+          <text x="172" y="328">what persists</text>
+          <text x="172" y="410">how it gets built and shipped</text>
         </g>
         <g class="c ln" style="animation-delay:.4s">
-          <path d="M790,66 H850 M790,148 H850 M790,230 H850 M790,312 H850" pathLength="1"/>
+          <path d="M790,66 H850 M790,148 H850 M790,230 H850 M790,312 H850 M790,394 H850" pathLength="1"/>
         </g>
         <g class="tl fd" style="animation-delay:1.05s">
-          <text x="860" y="70">05.4</text><text x="860" y="152">05.1&ndash;05.6</text>
-          <text x="860" y="234">05.4</text><text x="860" y="316">ALL</text>
+          <text x="860" y="70">05.1 05.3 05.4</text><text x="860" y="152">05.1&ndash;05.6</text>
+          <text x="860" y="234">05.2 05.5 05.6</text><text x="860" y="316">05.1 05.3 05.5</text>
+          <text x="860" y="398">ALL</text>
         </g>
         <g class="dm fd" style="animation-delay:1.15s">
-          <path d="M110,30 V348 M102,30 H118 M102,348 H118" pathLength="1"/>
+          <path d="M110,30 V430 M102,30 H118 M102,430 H118" pathLength="1"/>
           <path d="M110,30 l-3.5,10 h7 z" fill="var(--mid)" stroke="none" pathLength="1"/>
-          <path d="M110,348 l-3.5,-10 h7 z" fill="var(--mid)" stroke="none" pathLength="1"/>
+          <path d="M110,430 l-3.5,-10 h7 z" fill="var(--mid)" stroke="none" pathLength="1"/>
         </g>
-        <text class="tl fd" style="animation-delay:1.2s" x="94" y="192" transform="rotate(-90 94 192)" text-anchor="middle">FOUR LAYERS</text>
+        <text class="tl fd" style="animation-delay:1.2s" x="94" y="230" transform="rotate(-90 94 230)" text-anchor="middle">FIVE LAYERS</text>
         <text class="tl fd" style="animation-delay:1.25s" x="860" y="42">USED IN</text>
       </svg>
     </div>
 
-    <div class="lab" style="margin-top:calc(var(--u)*5)">Legend &mdash; module marks</div>
+    <div class="lab" style="margin-top:calc(var(--u)*5)">Module index &mdash; select one to see where it is used</div>
     <div class="legend an">
-      <div class="lgcol"><span class="k">Interface</span><ul>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-html5"/></svg><span>HTML</span></li>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-css"/></svg><span>CSS</span></li>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-bootstrap"/></svg><span>Bootstrap</span></li>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-chartdotjs"/></svg><span>Chart.js</span></li>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-javascript"/></svg><span>JavaScript</span></li>
+      <div class="lgcol"><span class="k">Languages</span><ul>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.1 05.2 05.5 05.6" aria-describedby="modout"><svg class="ico" aria-hidden="true"><use href="#i-python"/></svg><span>Python</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.1 05.3" aria-describedby="modout"><svg class="ico" aria-hidden="true"><use href="#i-javascript"/></svg><span>JavaScript</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="A-003" aria-describedby="modout"><svg class="ico" aria-hidden="true"><use href="#i-openjdk"/></svg><span>Java</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="A-003" aria-describedby="modout"><span class="no" aria-hidden="true"></span><span>Kotlin</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.3 05.5" aria-describedby="modout"><span class="no" aria-hidden="true"></span><span>SQL</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.1 05.3 05.4" aria-describedby="modout"><svg class="ico" aria-hidden="true"><use href="#i-html5"/></svg><span>HTML</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.1 05.3 05.4" aria-describedby="modout"><svg class="ico" aria-hidden="true"><use href="#i-css"/></svg><span>CSS</span></button></li>
       </ul></div>
-      <div class="lgcol"><span class="k">Application</span><ul>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-python"/></svg><span>Python</span></li>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-flask"/></svg><span>Flask</span></li>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-openjdk"/></svg><span>Java</span></li>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-android"/></svg><span>Android</span></li>
+      <div class="lgcol"><span class="k">Frameworks</span><ul>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.4" aria-describedby="modout"><svg class="ico" aria-hidden="true"><use href="#i-flask"/></svg><span>Flask</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.4" aria-describedby="modout"><svg class="ico" aria-hidden="true"><use href="#i-bootstrap"/></svg><span>Bootstrap</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.4" aria-describedby="modout"><svg class="ico" aria-hidden="true"><use href="#i-chartdotjs"/></svg><span>Chart.js</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="A-003" aria-describedby="modout"><svg class="ico" aria-hidden="true"><use href="#i-android"/></svg><span>Android</span></button></li>
+      </ul></div>
+      <div class="lgcol"><span class="k">Systems</span><ul>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.2 05.5" aria-describedby="modout"><span class="no" aria-hidden="true"></span><span>REST APIs</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.5" aria-describedby="modout"><span class="no" aria-hidden="true"></span><span>MQTT</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.5" aria-describedby="modout"><span class="no" aria-hidden="true"></span><span>System integration</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.6" aria-describedby="modout"><span class="no" aria-hidden="true"></span><span>ESC/POS</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.6" aria-describedby="modout"><span class="no" aria-hidden="true"></span><span>ePOS-Print</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.3" aria-describedby="modout"><span class="no" aria-hidden="true"></span><span>Authentication</span></button></li>
       </ul></div>
       <div class="lgcol"><span class="k">Data</span><ul>
-        <li><span class="no" aria-hidden="true"></span><span>SQL <span class="mn" style="font-size:.68rem;color:var(--ref)">no mark</span></span></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.3" aria-describedby="modout"><span class="no" aria-hidden="true"></span><span>PostgreSQL</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.5" aria-describedby="modout"><span class="no" aria-hidden="true"></span><span>SQLite</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.3" aria-describedby="modout"><span class="no" aria-hidden="true"></span><span>Supabase</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="05.1" aria-describedby="modout"><span class="no" aria-hidden="true"></span><span>GeoJSON</span></button></li>
       </ul></div>
-      <div class="lgcol"><span class="k">Tooling</span><ul>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-git"/></svg><span>Git</span></li>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg><span>GitHub</span></li>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-androidstudio"/></svg><span>Android Studio</span></li>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-visualstudiocode"/></svg><span>VS Code</span></li>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-zedindustries"/></svg><span>Zed</span></li>
-        <li><svg class="ico" aria-hidden="true"><use href="#i-claude"/></svg><span>Claude Code</span></li>
+      <div class="lgcol"><span class="k">Tools</span><ul>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="" aria-describedby="modout"><svg class="ico" aria-hidden="true"><use href="#i-git"/></svg><span>Git</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="" aria-describedby="modout"><svg class="ico" aria-hidden="true"><use href="#i-androidstudio"/></svg><span>Android Studio</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="" aria-describedby="modout"><svg class="ico" aria-hidden="true"><use href="#i-visualstudiocode"/></svg><span>VS Code</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="" aria-describedby="modout"><svg class="ico" aria-hidden="true"><use href="#i-zedindustries"/></svg><span>Zed</span></button></li>
+        <li><button class="mod" type="button" aria-pressed="false" data-refs="" aria-describedby="modout"><svg class="ico" aria-hidden="true"><use href="#i-claude"/></svg><span>Claude Code</span></button></li>
       </ul></div>
     </div>
+    <div class="modout" id="modout" role="status" aria-live="polite">
+      <span class="k">Used in</span>
+      <div id="modout-body">Select a module above to see which drawings use it.</div>
+    </div>
 
-    <div style="margin-top:calc(var(--u)*5)">
-      <div class="lab" style="margin-bottom:calc(var(--u)*1.5)">Interests</div>
       <div class="tags">
         <span class="tag">Software Engineering</span><span class="tag">Full Stack Development</span>
         <span class="tag">Enterprise Software</span><span class="tag">Android Development</span>

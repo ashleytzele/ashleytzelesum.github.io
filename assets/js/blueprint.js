@@ -87,3 +87,30 @@
     });
   }
 })();
+
+/* A-004: selecting a module lists the drawings that use it. aria-pressed is the
+   right pattern here — this is a toggle, not a single-select tab set, and the
+   A-001 assembly's tablist is deliberately scoped separately. */
+(function(){
+  var mods=[].slice.call(document.querySelectorAll('.mod')),
+      out=document.getElementById('modout-body');
+  if(!mods.length||!out)return;
+  var PROJ={'05.1':'cad-to-map','05.2':'ScoutMini','05.3':'MeeTeam',
+            '05.4':'SplitWise','05.5':'Asset Management','05.6':'ePOS Simulator'};
+  var IDLE='Select a module above to see which drawings use it.';
+  function label(ref){
+    if(ref.charAt(0)==='A')return '<a href="#a003">'+ref+' Experience</a>';
+    return '<a href="#a005">'+ref+' '+(PROJ[ref]||'')+'</a>';
+  }
+  mods.forEach(function(b){
+    b.addEventListener('click',function(){
+      var wasOn=b.getAttribute('aria-pressed')==='true';
+      mods.forEach(function(m){m.setAttribute('aria-pressed','false')});
+      if(wasOn){out.textContent=IDLE;return}
+      b.setAttribute('aria-pressed','true');
+      var refs=(b.getAttribute('data-refs')||'').split(' ').filter(Boolean);
+      if(!refs.length){out.textContent='Used across the whole set rather than in one drawing.';return}
+      out.innerHTML=refs.map(label).join(' &nbsp;&middot;&nbsp; ');
+    });
+  });
+})();

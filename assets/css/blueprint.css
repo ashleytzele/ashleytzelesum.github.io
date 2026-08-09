@@ -278,3 +278,21 @@ p{margin:0;color:var(--sec)}
 .figbox img,.figbox video{width:1000px;max-width:none;height:auto;display:block;
   border:1px solid var(--hair)}
 .figbox video{object-fit:contain;background:var(--paper)}
+
+/* A-004 module index: each module is a control that names the drawings using it,
+   so the cross-references are navigable rather than decorative. Styled to match
+   the legend rows it replaces; selection inverts like a selected assembly part. */
+.legend .mod{display:flex;align-items:center;gap:calc(var(--u));width:100%;min-height:44px;
+  padding:calc(var(--u)*.75) calc(var(--u));background:none;border:1px solid transparent;
+  font:inherit;font-size:.86rem;color:var(--ink);text-align:left;cursor:pointer}
+.legend .mod:hover{border-color:var(--line)}
+.legend .mod[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.legend .mod[aria-pressed="true"] .ico{color:var(--paper)}
+.legend .mod:focus-visible{outline:1.5px solid var(--ink);outline-offset:2px}
+.modout{margin-top:calc(var(--u)*3);border-top:1px solid var(--ink);padding-top:calc(var(--u)*2)}
+.modout .k{font-family:'MN',monospace;font-size:8px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ref);display:block;margin-bottom:calc(var(--u))}
+.modout #modout-body{font-size:.92rem;color:var(--sec);line-height:1.9}
+.modout a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);
+  display:inline-block;padding-block:calc(var(--u)*1.25)}
+.modout a:hover{border-bottom-color:var(--ink)}
