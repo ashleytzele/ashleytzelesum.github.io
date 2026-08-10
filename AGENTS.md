@@ -328,12 +328,6 @@ original plan (Task 7: deploy and verify live).
 4. Swimming specifics — level, events, certifications — for the Athlete
    component.
 
-### Known drift
-
-`README.md` still describes the pre-restructure sheet names ("education, system
-modules"). The sheets are now Identity, Journey, Experience, Engineering,
-Projects, Contact. Worth fixing next time README is touched.
-
 ### Pending media
 
 05.3 (ePOS Simulator) and 05.5 (MeeTeam) hold interim drawn figures. Ashley is

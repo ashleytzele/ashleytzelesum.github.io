@@ -1,16 +1,18 @@
 # ashleytzelesum.com
 
 Personal portfolio for Ashley Sum, presented as an engineering drawing set:
-a title block and six numbered sheets covering identity, education, experience,
-system modules, projects and contact.
+a cover with a title block, then six numbered sheets — A-001 Identity,
+A-002 Journey, A-003 Experience, A-004 Engineering, A-005 Projects,
+A-006 Contact.
 
 Static site on GitHub Pages. No build step, no dependencies, no framework.
 
 ## Layout
 
+    AGENTS.md                         working memory: constraints, frozen areas, traps
     index.html                        markup, plus the inline icon sprite
     assets/css/blueprint.css          the whole stylesheet
-    assets/js/blueprint.js            scroll reveal, component tabs, disclosures
+    assets/js/blueprint.js            reveal, scroll-spy, disclosures, tabs, theme toggle
     assets/fonts/                     Public Sans and Spline Sans Mono (OFL 1.1)
     assets/images/                    figure media and the video poster
     assets/videos/                    figure media
@@ -29,6 +31,9 @@ Then open <http://localhost:8118/>.
 ## Tests
 
     node --test
+
+Run it from the repo root. `node --test test/` does not work — Node resolves
+the directory as a module.
 
 Plus a manual browser measurement pass — `tools/measure-in-browser.js`. See
 `test/README.md` for how to run it.
