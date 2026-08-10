@@ -206,7 +206,6 @@ p{margin:0;color:var(--sec)}
 @media(max-width:1040px){.figbox::after,.dwgbox::after{content:"\2190 scroll to pan \2192";display:block;
   font-family:'MN',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--ref);margin-top:calc(var(--u)*1.5);position:sticky;left:0}}
-#a001 .dwgbox svg{min-width:520px;max-width:none}
 #a004 .dwgbox svg{min-width:1000px;max-width:none}
 .figbox:focus-visible,.dwgbox:focus-visible{outline:1.5px solid var(--ink);outline-offset:3px}
 .figcap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:'MN',monospace;

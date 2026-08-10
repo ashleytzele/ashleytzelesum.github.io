@@ -31,31 +31,32 @@
 
   /* A-001 component specifications */
   var SPEC={
-    engineering:{t:'Engineering',p:'Most of what I build sits between software and something physical: roadside equipment, thermal printers, CAD drawings, race timing. The interesting part is usually making something complicated operable by whoever has to use it.',d:[['Ref drawing','A-004'],['Projects','6'],['Public','4']]},
-    athlete:{t:'Athlete',p:'I swim competitively, which is where SplitWise came from. Knowing which numbers actually matter to a swimmer turned out to be most of the design work.',d:[['Ref drawing','A-002'],['Discipline','Swimming'],['Applied in','05.6']]},
-    leadership:{t:'Leadership',p:'Lifeguard first, then student lead in aquatics. Both are places where other people depend on you paying attention, which is a different kind of pressure from a deadline.',d:[['Ref drawing','A-003'],['Current','Student Lead, Aquatics'],['Since','2025']]},
-    background:{t:'Background',p:'From Malaysia, via INTI International College, now Computer Science at San Francisco State.',d:[['Ref drawing','A-002'],['From','Malaysia'],['Now','San Francisco']]}
+    background:{t:'Background',p:'From Malaysia, through INTI International College, to San Francisco State, where I am pursuing a B.S. in Computer Science.',d:[['Ref drawing','A-002'],['From','Malaysia'],['Previous','INTI International College']]},
+    now:{t:'Now',p:'I am studying Computer Science at San Francisco State and working as a Student Lead in Aquatics, with software engineering experience across systems, interfaces and physical operations.',d:[['Studying','B.S. Computer Science'],['Current','Student Lead, Aquatics'],['Seeking','Summer 2027 software engineering internship']]},
+    engineering:{t:'Engineering',p:'I am interested in software that connects systems, interfaces and physical operations, with a focus on making complicated tools usable by the people who depend on them.',d:[['Ref drawings','A-004 · A-005'],['Experience','Backend · full stack · mobile'],['Focus','Systems · operability']]},
+    athletics:{t:'Athletics',p:'Competitive swimming provides the domain knowledge behind SplitWise, while lifeguarding and aquatics work bring a different kind of operational responsibility outside software.',d:[['Ref drawing','A-002'],['Discipline','Swimming'],['Applied in','SplitWise · 05.6']]}
   };
-  var parts=[].slice.call(document.querySelectorAll('.part')),
+  var parts=[].slice.call(document.querySelectorAll('#a001 .part')),
       st=document.getElementById('spec-t'),
       sp=document.getElementById('spec-p'),
       sd=document.getElementById('spec-d');
-  var panel=document.getElementById('specpanel');
-  function show(k,focus){var s=SPEC[k];if(!s)return;
-    parts.forEach(function(n){var on=n.dataset.part===k;
-      n.setAttribute('aria-selected',String(on));n.tabIndex=on?0:-1;
-      if(on&&focus)n.focus();});
-    panel.setAttribute('aria-labelledby','tab-'+k);
-    st.textContent=s.t;sp.textContent=s.p;
-    sd.innerHTML=s.d.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>'}).join('');}
-  // Roving tabindex: one stop for the whole group, arrows move between components.
-  var STEP={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1};
-  parts.forEach(function(n,i){
-    n.addEventListener('click',function(){show(n.dataset.part)});
-    n.addEventListener('keydown',function(e){
-      if(e.key==='Enter'||e.key===' '){e.preventDefault();show(n.dataset.part);return}
-      var d=STEP[e.key],j=e.key==='Home'?0:e.key==='End'?parts.length-1:d?(i+d+parts.length)%parts.length:-1;
-      if(j<0)return;e.preventDefault();show(parts[j].dataset.part,true);});});
+      panel=document.getElementById('specpanel');
+  if(parts.length&&st&&sp&&sd&&panel){
+    function show(k,focus){var s=SPEC[k];if(!s)return;
+      parts.forEach(function(n){var on=n.dataset.part===k;
+        n.setAttribute('aria-selected',String(on));n.tabIndex=on?0:-1;
+        if(on&&focus)n.focus();});
+      panel.setAttribute('aria-labelledby','tab-'+k);
+      st.textContent=s.t;sp.textContent=s.p;
+      sd.innerHTML=s.d.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>'}).join('');}
+    var STEP={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1};
+    parts.forEach(function(n,i){
+      n.addEventListener('click',function(){show(n.dataset.part)});
+      n.addEventListener('keydown',function(e){
+        if(e.key==='Enter'||e.key===' '){e.preventDefault();show(n.dataset.part);return}
+        var d=STEP[e.key],j=e.key==='Home'?0:e.key==='End'?parts.length-1:d?(i+d+parts.length)%parts.length:-1;
+        if(j<0)return;e.preventDefault();show(parts[j].dataset.part,true);});});
+  }
 
   /* theme toggle: "sheet polarity" field in the index footer. The initial
      theme itself is applied by the inline script in <body> so there is no

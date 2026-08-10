@@ -77,7 +77,7 @@
         <div><span class="k">Scale</span><span class="v">1:1</span></div>
         <div><span class="k">Type</span><span class="v">Portfolio</span></div>
         <div><span class="k">Author</span><span class="v">Ashley Sum</span></div>
-        <div><span class="k">Updated</span><span class="v">2026-08-09</span></div>
+        <div><span class="k">Updated</span><span class="v">2026-08-10</span></div>
         <div><span class="k">Sheets</span><span class="v">6</span></div>
       </div>
     </div>
@@ -93,59 +93,55 @@
       <div class="m">Sheet 1 of 6 &nbsp;&middot;&nbsp; Rev 3.0 &nbsp;&middot;&nbsp; Scale 1:1 &nbsp;&middot;&nbsp; Active</div></div>
     <div style="margin-top:calc(var(--u)*5)"><h2>Identity</h2></div>
     <div class="sysgrid">
-      <div class="dwgbox" tabindex="0" role="group" aria-label="Assembly drawing, scrollable">
-        <svg class="dwg" viewBox="0 0 520 530" role="group"
-          aria-label="Exploded assembly: four components along assembly axis A-A, each referencing another drawing in this set.">
-          <path class="c axis" d="M300,24 V500" stroke-dasharray="14 5 3 5" pathLength="1"/>
-          <text class="tl fd" style="animation-delay:1.23s" x="300" y="520" text-anchor="middle">ASSEMBLY AXIS A&ndash;A</text>
-          <g class="tabs" role="tablist" aria-label="Assembly components" aria-orientation="vertical"><g class="part" id="tab-engineering" role="tab" aria-selected="true" tabindex="0" aria-controls="specpanel" data-part="engineering">
-            <rect x="100" y="31" width="340" height="80" fill="transparent" pointer-events="all"/>
-            <g class="k ln" style="animation-delay:.15s"><rect x="196" y="40" width="208" height="62" pathLength="1"/></g>
-            <g class="fd" style="animation-delay:.9s">
-              <text class="tn" x="212" y="66">Engineering</text><text class="ts" x="212" y="84">Software &middot; systems &middot; problem solving</text>
-              <circle class="f" cx="120" cy="71" r="15"/><text class="tl" x="120" y="75" text-anchor="middle" fill="var(--ink)">01</text>
-              <path class="c" d="M135,71 H196" pathLength="1"/><text class="tl" x="418" y="75">A-004</text></g></g>
-          <g class="part" id="tab-athlete" role="tab" aria-selected="false" tabindex="-1" aria-controls="specpanel" data-part="athlete">
-            <rect x="100" y="147" width="340" height="80" fill="transparent" pointer-events="all"/>
-            <g class="k ln" style="animation-delay:.25s"><rect x="196" y="156" width="208" height="62" pathLength="1"/></g>
-            <g class="fd" style="animation-delay:.97s">
-              <text class="tn" x="212" y="182">Athlete</text><text class="ts" x="212" y="200">Competitive swimming</text>
-              <circle class="f" cx="120" cy="187" r="15"/><text class="tl" x="120" y="191" text-anchor="middle" fill="var(--ink)">02</text>
-              <path class="c" d="M135,187 H196" pathLength="1"/><text class="tl" x="418" y="191">A-002</text></g></g>
-          <g class="part" id="tab-leadership" role="tab" aria-selected="false" tabindex="-1" aria-controls="specpanel" data-part="leadership">
-            <rect x="100" y="263" width="340" height="80" fill="transparent" pointer-events="all"/>
-            <g class="k ln" style="animation-delay:.35s"><rect x="196" y="272" width="208" height="62" pathLength="1"/></g>
-            <g class="fd" style="animation-delay:1.04s">
-              <text class="tn" x="212" y="298">Leadership</text><text class="ts" x="212" y="316">Aquatics &middot; student lead</text>
-              <circle class="f" cx="120" cy="303" r="15"/><text class="tl" x="120" y="307" text-anchor="middle" fill="var(--ink)">03</text>
-              <path class="c" d="M135,303 H196" pathLength="1"/><text class="tl" x="418" y="307">A-003</text></g></g>
-          <g class="part" id="tab-background" role="tab" aria-selected="false" tabindex="-1" aria-controls="specpanel" data-part="background">
-            <rect x="100" y="379" width="340" height="80" fill="transparent" pointer-events="all"/>
-            <g class="k ln" style="animation-delay:.45s"><rect x="196" y="388" width="208" height="62" pathLength="1"/></g>
-            <g class="fd" style="animation-delay:1.11s">
-              <text class="tn" x="212" y="414">Background</text><text class="ts" x="212" y="432">Malaysia to San Francisco</text>
-              <circle class="f" cx="120" cy="419" r="15"/><text class="tl" x="120" y="423" text-anchor="middle" fill="var(--ink)">04</text>
-              <path class="c" d="M135,419 H196" pathLength="1"/><text class="tl" x="418" y="423">A-002</text></g></g>
-          </g><g class="dm fd" style="animation-delay:1.28s"><path d="M60,40 V450 M52,40 H68 M52,450 H68" pathLength="1"/>
-            <path d="M60,40 l-3.5,10 h7 z" fill="var(--mid)" stroke="none" pathLength="1"/>
-            <path d="M60,450 l-3.5,-10 h7 z" fill="var(--mid)" stroke="none" pathLength="1"/></g>
-          <text class="tl fd" style="animation-delay:1.33s" x="42" y="245" transform="rotate(-90 42 245)" text-anchor="middle">4 COMPONENTS</text>
-        </svg>
+      <div class="assembly" role="group" aria-label="Identity assembly: four components">
+        <div class="assembly-axis" aria-hidden="true"></div>
+        <div class="assembly-dimension" aria-hidden="true"><span>4 COMPONENTS</span></div>
+        <div class="assembly-tabs" role="tablist" aria-label="Identity components" aria-orientation="vertical">
+          <button class="part" id="tab-background" type="button" role="tab"
+            aria-selected="false" tabindex="-1" aria-controls="specpanel" data-part="background">
+            <span class="part-no">01</span>
+            <span class="part-body"><span class="part-name">Background</span>
+              <span class="part-desc">Malaysia &middot; INTI &middot; San Francisco</span></span>
+            <span class="part-ref">A-002</span>
+          </button>
+          <button class="part" id="tab-now" type="button" role="tab"
+            aria-selected="true" tabindex="0" aria-controls="specpanel" data-part="now">
+            <span class="part-no">02</span>
+            <span class="part-body"><span class="part-name">Now</span>
+              <span class="part-desc">Computer Science &middot; aquatics</span></span>
+            <span class="part-ref">A-003</span>
+          </button>
+          <button class="part" id="tab-engineering" type="button" role="tab"
+            aria-selected="false" tabindex="-1" aria-controls="specpanel" data-part="engineering">
+            <span class="part-no">03</span>
+            <span class="part-body"><span class="part-name">Engineering</span>
+              <span class="part-desc">Systems &middot; software &middot; physical operations</span></span>
+            <span class="part-ref">A-004</span>
+          </button>
+          <button class="part" id="tab-athletics" type="button" role="tab"
+            aria-selected="false" tabindex="-1" aria-controls="specpanel" data-part="athletics">
+            <span class="part-no">04</span>
+            <span class="part-body"><span class="part-name">Athletics</span>
+              <span class="part-desc">Competitive swimming &middot; aquatics</span></span>
+            <span class="part-ref">A-002</span>
+          </button>
+        </div>
+        <div class="assembly-axis-label" aria-hidden="true">ASSEMBLY AXIS A&ndash;A</div>
       </div>
       <div>
-        <div class="spec" id="specpanel" style="margin-top:0" role="tabpanel" tabindex="0" aria-labelledby="tab-engineering">
+        <div class="spec" id="specpanel" style="margin-top:0" role="tabpanel"
+          tabindex="0" aria-labelledby="tab-now">
           <h3 class="sk" id="spec-h">Component Specification</h3>
-          <p class="sh" id="spec-t">Engineering</p>
-          <p id="spec-p">Most of what I build sits between software and something physical: roadside equipment, thermal printers, CAD drawings, race timing. The interesting part is usually making something complicated operable by whoever has to use it.</p>
-          <dl id="spec-d"><dt>Ref drawing</dt><dd>A-004</dd><dt>Projects</dt><dd>6</dd><dt>Public</dt><dd>4</dd></dl>
+          <p class="sh" id="spec-t">Now</p>
+          <p id="spec-p">I am studying Computer Science at San Francisco State and working as a Student Lead in Aquatics, with software engineering experience across systems, interfaces and physical operations.</p>
+          <dl id="spec-d"><dt>Studying</dt><dd>B.S. Computer Science</dd><dt>Current</dt><dd>Student Lead, Aquatics</dd><dt>Seeking</dt><dd>Summer 2027 software engineering internship</dd></dl>
         </div>
         <div class="ident an" style="animation-delay:1.3s">
-          <p>Computer Science at <b>San Francisco State</b>, from Malaysia. I spend most of my
-            time on systems that touch the physical world, and most of the problems turn out to
-            be about making something complicated usable by whoever is on shift.</p>
+          <h3 class="sk">Overview</h3>
+          <p>From Malaysia to San Francisco, I am studying Computer Science at San Francisco State while working as a Student Lead in Aquatics. My software work spans systems, interfaces and physical operations, with a focus on making complicated tools usable by the people who depend on them.</p>
           <dl class="idm">
-            <dt>Status</dt><dd>Software Engineering Intern &middot; available Summer 2027</dd>
             <dt>Location</dt><dd>San Francisco, CA &middot; relocatable</dd>
+            <dt>Availability</dt><dd>Summer 2027</dd>
             <dt>Contact</dt><dd><a href="mailto:ashleysumtzele04@gmail.com">ashleysumtzele04@gmail.com</a> &middot;
               <a href="https://github.com/ashleytzele"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> GitHub</a> &middot;
               <a href="https://www.linkedin.com/in/ashley-sum"><svg class="ico" aria-hidden="true"><use href="#i-linkedin"/></svg> LinkedIn</a> &middot;

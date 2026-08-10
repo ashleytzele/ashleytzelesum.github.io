@@ -93,10 +93,12 @@ test('scrollable regions are keyboard reachable and labelled', () => {
   }
 });
 
-test('interactive SVG is not inside a presentational role', () => {
-  // role="img" collapses its subtree, hiding every control in it.
+test('A-001 assembly exposes one semantic component control set', () => {
   const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
-  assert.ok(a001.includes('role="group"'), 'assembly svg must be role=group');
+  assert.equal((a001.match(/role="tablist"/g) || []).length, 1);
+  assert.equal((a001.match(/role="tab"/g) || []).length, 4);
+  assert.equal((a001.match(/role="tabpanel"/g) || []).length, 1);
+  assert.ok(a001.includes('class="assembly"'));
   assert.ok(!/role="img"[\s\S]{0,4000}role="tab"/.test(a001));
 });
 
@@ -112,29 +114,43 @@ test('component group uses tab semantics, not aria-pressed', () => {
   assert.equal((a001.match(/role="tabpanel"/g) || []).length, 1);
 });
 
-test('component count moves as one unit: tab count, SPEC records, and the dimension label all agree', () => {
-  // The spec calls the balloon numbers, the "n components" dimension label
-  // and the specification records "one unit" — changing the count means
-  // updating all three together. A hardcoded "4" here would silently drift
-  // the moment a fifth (or sixth) component is added without touching this
-  // test, so every side is derived instead of asserted against a literal.
+test('A-001 component controls, SPEC records, default state and dimension agree', () => {
   const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
-  const tabCount = (a001.match(/role="tab"/g) || []).length;
+  const tabs = [...a001.matchAll(/<button[^>]*role="tab"[^>]*data-part="([a-z]+)"[^>]*>/g)];
+  const dataParts = tabs.map(m => m[1]);
+  assert.deepEqual(dataParts, ['background', 'now', 'engineering', 'athletics']);
+
+  const selected = tabs.filter(m => m[0].includes('aria-selected="true"'));
+  assert.equal(selected.length, 1);
+  assert.equal(selected[0][1], 'now');
+  assert.ok(selected[0][0].includes('tabindex="0"'));
 
   const specBlock = /var SPEC=\{([\s\S]*?)\n  \};/.exec(js);
   assert.ok(specBlock, 'expected a SPEC object in blueprint.js');
   const specKeys = [...specBlock[1].matchAll(/^\s*([a-zA-Z]+):\{/gm)].map(m => m[1]);
-  assert.equal(specKeys.length, tabCount,
-    `${specKeys.length} SPEC records but ${tabCount} tabs`);
+  assert.deepEqual(specKeys, dataParts);
 
   const label = /(\d+)\s+COMPONENTS</.exec(a001);
-  assert.ok(label, 'expected an "N COMPONENTS" dimension label on the assembly drawing');
-  assert.equal(Number(label[1]), tabCount,
-    `dimension label says ${label[1]} components but there are ${tabCount} tabs`);
+  assert.ok(label);
+  assert.equal(Number(label[1]), dataParts.length);
+  assert.match(a001, /id="specpanel"[\s\S]*aria-labelledby="tab-now"/);
+});
 
-  // Every tab's data-part must have a matching SPEC record, and vice versa.
-  const dataParts = [...a001.matchAll(/data-part="([a-z]+)"/g)].map(m => m[1]);
-  assert.deepEqual([...dataParts].sort(), [...specKeys].sort());
+test('A-001 states background, present activity, direction and availability without interaction', () => {
+  const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
+  assert.match(a001, /class="ident[^>]*>[\s\S]*Overview/);
+  assert.match(a001, /From Malaysia to San Francisco/);
+  assert.match(a001, /Student Lead in Aquatics/);
+  assert.match(a001, /systems, interfaces and physical operations/);
+  assert.match(a001, /<dt>Availability<\/dt><dd>Summer 2027<\/dd>/);
+  assert.doesNotMatch(a001, /<dt>Status<\/dt>/);
+  assert.doesNotMatch(a001, /Software Engineering Intern\s*&middot;\s*available/);
+});
+
+test('A-001 assembly does not inherit the panning drawing contract', () => {
+  const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
+  assert.ok(!a001.includes('class="dwgbox"'));
+  assert.doesNotMatch(css, /#a001\s+\.dwgbox\s+svg/);
 });
 
 test('theme toggle is a real button with an accessible name that says what it does', () => {
@@ -251,20 +267,13 @@ test('every video declares an aspect-ratio, to prevent layout shift on metadata 
   }
 });
 
-test('claimed public-project count matches distinct project source links', () => {
-  // The count used to sit on the assembly drawing as an "N public" balloon. After
-  // the A-001 restructure the components describe who he is rather than what the
-  // site contains, so the claim now lives only in SPEC.engineering. The thing
-  // worth testing is unchanged: a number claimed anywhere must match reality.
-  const a005 = html.slice(html.indexOf('id="a005"'), html.indexOf('id="a006"'));
-  const repos = new Set([...a005.matchAll(/href="https:\/\/github\.com\/[^"]+"/g)].map(m => m[0]));
-  const specPublic = /\['Public','(\d+)'\]/.exec(js);
-  assert.ok(specPublic, 'expected a Public field in SPEC.engineering');
-  assert.equal(Number(specPublic[1]), repos.size,
-    `SPEC.engineering claims ${specPublic[1]} public, but ${repos.size} distinct GitHub repo links are on the projects sheet`);
-  // If a balloon ever states the count again, it must agree too.
-  const balloon = /(\d+)\s+public/.exec(html);
-  if (balloon) assert.equal(Number(balloon[1]), repos.size, 'balloon disagrees with the projects sheet');
+test('A-001 keeps project inventory claims on the projects sheet', () => {
+  const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
+  const engineering = /engineering:\{([^}]*)\}/.exec(js);
+  assert.ok(engineering, 'expected an engineering record in SPEC');
+  assert.doesNotMatch(a001, /<dt>(?:Projects|Public)<\/dt>/);
+  assert.doesNotMatch(a001, /\d+\s+public/i);
+  assert.doesNotMatch(engineering[1], /\['(?:Projects|Public)'/);
 });
 
 test('test/ contains no browser-only scripts', () => {
