@@ -530,6 +530,46 @@ test('A-001 keeps project inventory claims on the projects sheet', () => {
   assert.doesNotMatch(engineering[1], /\['(?:Projects|Public)'/);
 });
 
+test('A-003 draws two extensible vertical tracks and stacks them on narrow screens', () => {
+  assert.match(css, /#a003\s+\.experience-tracks\s*\{[^}]*display:\s*grid[^}]*grid-template-columns:\s*repeat\(2,minmax\(0,1fr\)\)/);
+  assert.match(css, /#a003\s+\.experience-track-list::before\s*\{[^}]*border-left:/);
+  assert.match(css, /#a003\s+\.experience-step:not\(:last-child\)::after\s*\{/);
+  assert.doesNotMatch(css, /#a003[^}]*nth-child\(/);
+  assert.doesNotMatch(css, /#a003[^}]*overflow-x:\s*auto/);
+  assert.match(css, /@media\(max-width:860px\)[\s\S]*#a003\s+\.experience-tracks\s*\{[^}]*grid-template-columns:\s*minmax\(0,1fr\)/);
+});
+
+test('A-003 role widgets keep readable factual text and visible current state', () => {
+  for (const selector of ['experience-meta', 'experience-org', 'experience-evidence', 'experience-detail-label', 'experience-concurrent', 'experience-caption']) {
+    const rule = new RegExp(`#a003\\s+\\.${selector}[^}]*\\{([^}]*)\\}`).exec(css);
+    assert.ok(rule, `missing ${selector} rule`);
+    const size = /font-size:\s*([\d.]+)px/.exec(rule[1]);
+    assert.ok(size && Number(size[1]) >= 8.5, `${selector} below 8.5px`);
+    assert.doesNotMatch(rule[1], /color:\s*var\(--(?:refdec|line)\)/);
+  }
+  assert.match(css, /#a003\s+\.experience-role-current\s*\{[^}]*border-width:\s*2px/);
+  assert.match(html, /EXP-04 &middot; Current/);
+});
+
+test('A-003 reveal is decorative only and completes for reduced motion and print', () => {
+  assert.doesNotMatch(css, /\.runtime-ready\s+#a003\s+\.experience-(?:role|summary|detail|more)[^{]*\{[^}]*opacity:\s*0/);
+  assert.match(css, /\.runtime-ready\s+#a003\s+\.experience-track-list::before\s*\{[^}]*transform:/);
+  assert.match(css, /#a003\.drawn\s+\.experience-track-list::before\s*\{[^}]*animation:/);
+  assert.match(css, /@media\(prefers-reduced-motion:reduce\)[\s\S]*#a003\s+\.experience-track-list::before[^}]*transform:\s*none/);
+  assert.match(css, /@media print[\s\S]*#a003\s+\.experience-track-list::before[^}]*transform:\s*none/);
+  assert.match(css, /@media print[\s\S]*#a003\s+\.experience-detail[^}]*display:\s*block!important/);
+  assert.match(css, /@media print[\s\S]*#a003\s+\.experience-more[^}]*display:\s*none!important/);
+});
+
+test('A-003 track grammar accepts a third role structurally', () => {
+  assert.match(css, /#a003\s+\.experience-step:not\(:last-child\)::after/);
+  assert.doesNotMatch(css, /#a003\s+\.experience-step:nth-(?:child|of-type)/);
+  assert.doesNotMatch(css, /#a003\s+\.experience-track-list\s*\{[^}]*grid-template-columns/);
+  const a003 = section('id="a003"', 'id="a004"');
+  const template = /<li class="experience-step">[\s\S]*?<\/li>/.exec(a003);
+  assert.ok(template, 'role list needs one repeatable list-item template');
+});
+
 test('test/ contains no browser-only scripts', () => {
   // Node's runner sweeps every .js/.mjs under a directory named test/, whatever
   // it is called. A browser-only script placed here throws on `document` and
