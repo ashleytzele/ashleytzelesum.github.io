@@ -533,7 +533,7 @@ test('A-001 keeps project inventory claims on the projects sheet', () => {
 test('A-003 draws two extensible vertical tracks and stacks them on narrow screens', () => {
   assert.match(css, /#a003\s+\.experience-tracks\s*\{[^}]*display:\s*grid[^}]*grid-template-columns:\s*repeat\(2,minmax\(0,1fr\)\)/);
   assert.match(css, /#a003\s+\.experience-track-list::before\s*\{[^}]*border-left:/);
-  assert.match(css, /#a003\s+\.experience-step:not\(:last-child\)::after\s*\{/);
+  assert.match(css, /#a003\s+\.experience-step\s*\{[^}]*position:\s*relative/);
   assert.doesNotMatch(css, /#a003[^}]*nth-child\(/);
   assert.doesNotMatch(css, /#a003[^}]*overflow-x:\s*auto/);
   assert.match(css, /@media\(max-width:860px\)[\s\S]*#a003\s+\.experience-tracks\s*\{[^}]*grid-template-columns:\s*minmax\(0,1fr\)/);
@@ -562,7 +562,7 @@ test('A-003 reveal is decorative only and completes for reduced motion and print
 });
 
 test('A-003 track grammar accepts a third role structurally', () => {
-  assert.match(css, /#a003\s+\.experience-step:not\(:last-child\)::after/);
+  assert.match(css, /#a003\s+\.experience-step\s*\{/);
   assert.doesNotMatch(css, /#a003\s+\.experience-step:nth-(?:child|of-type)/);
   assert.doesNotMatch(css, /#a003\s+\.experience-track-list\s*\{[^}]*grid-template-columns/);
   const a003 = section('id="a003"', 'id="a004"');
@@ -570,18 +570,9 @@ test('A-003 track grammar accepts a third role structurally', () => {
   assert.ok(template, 'role list needs one repeatable list-item template');
 });
 
-test('A-003 inter-role arrow is a rail-aligned solid triangle', () => {
-  const rule = /#a003\s+\.experience-step:not\(:last-child\)::after\s*\{([^}]*)\}/.exec(css);
-  assert.ok(rule, 'missing inter-role arrow rule');
-  assert.match(rule[1], /content:\s*''/);
-  assert.match(rule[1], /left:\s*-23px/);
-  assert.match(rule[1], /width:\s*0/);
-  assert.match(rule[1], /height:\s*0/);
-  assert.match(rule[1], /border-left:\s*3px solid transparent/);
-  assert.match(rule[1], /border-right:\s*3px solid transparent/);
-  assert.match(rule[1], /border-top:\s*6px solid var\(--ink\)/);
-  assert.doesNotMatch(rule[1], /transform:/);
-  assert.doesNotMatch(rule[1], /(?:font|padding|background|animation):/);
+test('A-003 inter-role rail has no arrow decoration', () => {
+  assert.doesNotMatch(css, /#a003\s+\.experience-step:not\(:last-child\)::after\s*\{/);
+  assert.doesNotMatch(css, /#a003\s+\.experience-step:not\(:last-child\)::after[\s\S]*?(?:\\2193|border-top:\s*6px solid var\(--ink\))/);
 });
 
 test('test/ contains no browser-only scripts', () => {
