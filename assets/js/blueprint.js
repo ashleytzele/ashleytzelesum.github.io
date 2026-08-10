@@ -54,7 +54,7 @@
       background:{t:'Background',p:'From Malaysia, through INTI International College, to San Francisco State, where I am pursuing a B.S. in Computer Science.',d:[['Ref drawing','A-002'],['From','Malaysia'],['Previous','INTI International College']]},
       now:{t:'Now',p:'I am studying Computer Science at San Francisco State and working as a Student Lead in Aquatics, with software engineering experience across systems, interfaces and physical operations.',d:[['Studying','B.S. Computer Science'],['Current','Student Lead, Aquatics'],['Seeking','Summer 2027 software engineering internship']]},
       engineering:{t:'Engineering',p:'I am interested in software that connects systems, interfaces and physical operations, with a focus on making complicated tools usable by the people who depend on them.',d:[['Ref drawings','A-004 · A-005'],['Experience','Backend · full stack · mobile'],['Focus','Systems · operability']]},
-      athletics:{t:'Athletics',p:'Competitive swimming provides the domain knowledge behind SplitWise, while lifeguarding and aquatics work bring a different kind of operational responsibility outside software.',d:[['Ref drawing','A-002'],['Discipline','Swimming'],['Applied in','SplitWise · 05.6']]}
+      athletics:{t:'Athletics',p:'Competitive swimming provides the domain knowledge behind SplitWise, while lifeguarding and aquatics work bring a different kind of operational responsibility outside software.',d:[['Ref drawings','A-003 · 05.6'],['Discipline','Swimming'],['Applied in','SplitWise · 05.6']]}
     };
     var tablist=document.querySelector('#a001 .assembly-tabs'),
         parts=[].slice.call(document.querySelectorAll('#a001 .part')),

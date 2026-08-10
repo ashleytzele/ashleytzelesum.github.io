@@ -160,9 +160,71 @@ test('every A-001 SPEC record matches the approved title, paragraph and fields',
     athletics: {
       t: 'Athletics',
       p: 'Competitive swimming provides the domain knowledge behind SplitWise, while lifeguarding and aquatics work bring a different kind of operational responsibility outside software.',
-      d: [['Ref drawing', 'A-002'], ['Discipline', 'Swimming'], ['Applied in', 'SplitWise · 05.6']],
+      d: [['Ref drawings', 'A-003 · 05.6'], ['Discipline', 'Swimming'], ['Applied in', 'SplitWise · 05.6']],
     },
   });
+});
+
+const section = (start, end) => html.slice(html.indexOf(start), html.indexOf(end));
+
+test('A-002 is consistently named Education while preserving its drawing identity', () => {
+  const a002 = section('id="a002"', 'id="a003"');
+  assert.match(html, /identity, education, experience, engineering, projects and contact/i);
+  assert.match(html, /<a href="#a002">[\s\S]*<span class="t">Education<\/span>/);
+  assert.match(a002, /<b>Drawing A-002<\/b>[\s\S]*<span>Education<\/span>/);
+  assert.match(a002, /<h2>Education<\/h2>/);
+  assert.doesNotMatch(a002, />Journey/);
+  assert.match(a002, /id="a002"/);
+});
+
+test('A-002 contains exactly the approved ordered education route', () => {
+  const a002 = section('id="a002"', 'id="a003"');
+  assert.equal((a002.match(/<article[^>]*class="education-node/g) || []).length, 2);
+  assert.ok(a002.indexOf('data-education="edu-01"') < a002.indexOf('data-education="edu-02"'));
+  for (const value of [
+    'INTI International College Subang',
+    'Subang Jaya, Malaysia',
+    'Aug 2023&ndash;Dec 2024',
+    'American Degree Transfer Program, Applied Science',
+    'Programme completed before transfer to San Francisco State University.',
+    'Transferred',
+    'Dec 2024',
+    'Jan 2025',
+    'San Francisco State University',
+    'San Francisco, California',
+    'Jan 2025&ndash;Present',
+    'Bachelor of Science, Computer Science',
+    'Fig. A-002.1 &mdash; Academic transition',
+    'Professional experience',
+    'A-003',
+  ]) assert.ok(a002.includes(value), `missing approved A-002 copy: ${value}`);
+});
+
+test('A-002 stays education-only and ships one noninteractive semantic record set', () => {
+  const a002 = section('id="a002"', 'id="a003"');
+  assert.equal((a002.match(/data-education=/g) || []).length, 2);
+  assert.equal((a002.match(/class="education-route/g) || []).length, 1);
+  assert.match(a002, /<article[^>]*class="education-node/);
+  assert.doesNotMatch(a002, /role="(?:tab|tabpanel|button)"|<button|tabindex=/);
+  assert.doesNotMatch(a002, /Dean|GPA|graduat|coursework|Data Structures|Lifeguard|Student Lead|Zengo|OSPIT|swimming/i);
+});
+
+test('A-002 essential records are not hidden by the runtime gate', () => {
+  assert.doesNotMatch(css, /\.runtime-ready\s+#a002\s+\.education-node\s*\{[^}]*opacity:\s*0/);
+  assert.doesNotMatch(css, /\.runtime-ready\s+#a002\s+\.education-transfer\s*\{[^}]*opacity:\s*0/);
+});
+
+test('A-001 Athletics points to the sheets that now own aquatics and swimming evidence', () => {
+  const a001 = section('id="a001"', 'id="a002"');
+  const athletics = /<div[^>]*data-part="athletics"[\s\S]*?<\/div>/.exec(a001);
+  assert.ok(athletics && athletics[0].includes('<span class="part-ref">A-003</span>'));
+  const specBlock = /var SPEC=(\{[\s\S]*?\n\s*\});/.exec(js);
+  const spec = new Function(`return ${specBlock[1]}`)();
+  assert.deepEqual(spec.athletics.d, [
+    ['Ref drawings', 'A-003 · 05.6'],
+    ['Discipline', 'Swimming'],
+    ['Applied in', 'SplitWise · 05.6'],
+  ]);
 });
 
 test('A-001 descriptor hover meets light-theme text contrast', () => {

@@ -14,7 +14,7 @@ A-001 is the orientation sheet for Ashley Sum. A recruiter who reads only this d
 4. the role swimming and aquatics play in Ashley's identity; and
 5. what Ashley is seeking next.
 
-The sheet is an overview, not a replacement for A-002 Journey, A-003 Experience, A-004 Engineering, A-005 Projects, or A-006 Contact. It introduces those subjects and points forward to their detailed drawings.
+The sheet is an overview, not a replacement for A-002 Education, A-003 Experience, A-004 Engineering, A-005 Projects, or A-006 Contact. It introduces those subjects and points forward to their detailed drawings.
 
 ## 2. Design Principles
 
