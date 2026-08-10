@@ -96,41 +96,36 @@
       <div class="assembly" role="group" aria-label="Identity assembly: four components">
         <div class="assembly-axis" aria-hidden="true"></div>
         <div class="assembly-dimension" aria-hidden="true"><span>4 COMPONENTS</span></div>
-        <div class="assembly-tabs" role="tablist" aria-label="Identity components" aria-orientation="vertical">
-          <button class="part" id="tab-background" type="button" role="tab"
-            aria-selected="false" tabindex="-1" aria-controls="specpanel" data-part="background">
+        <div class="assembly-tabs" aria-label="Identity components">
+          <div class="part" id="tab-background" data-part="background" data-selected="false">
             <span class="part-no">01</span>
             <span class="part-body"><span class="part-name">Background</span>
               <span class="part-desc">Malaysia &middot; INTI &middot; San Francisco</span></span>
             <span class="part-ref">A-002</span>
-          </button>
-          <button class="part" id="tab-now" type="button" role="tab"
-            aria-selected="true" tabindex="0" aria-controls="specpanel" data-part="now">
+          </div>
+          <div class="part" id="tab-now" data-part="now" data-selected="true">
             <span class="part-no">02</span>
             <span class="part-body"><span class="part-name">Now</span>
               <span class="part-desc">Computer Science &middot; aquatics</span></span>
             <span class="part-ref">A-003</span>
-          </button>
-          <button class="part" id="tab-engineering" type="button" role="tab"
-            aria-selected="false" tabindex="-1" aria-controls="specpanel" data-part="engineering">
+          </div>
+          <div class="part" id="tab-engineering" data-part="engineering" data-selected="false">
             <span class="part-no">03</span>
             <span class="part-body"><span class="part-name">Engineering</span>
               <span class="part-desc">Systems &middot; software &middot; physical operations</span></span>
             <span class="part-ref">A-004</span>
-          </button>
-          <button class="part" id="tab-athletics" type="button" role="tab"
-            aria-selected="false" tabindex="-1" aria-controls="specpanel" data-part="athletics">
+          </div>
+          <div class="part" id="tab-athletics" data-part="athletics" data-selected="false">
             <span class="part-no">04</span>
             <span class="part-body"><span class="part-name">Athletics</span>
               <span class="part-desc">Competitive swimming &middot; aquatics</span></span>
             <span class="part-ref">A-002</span>
-          </button>
+          </div>
         </div>
         <div class="assembly-axis-label" aria-hidden="true">ASSEMBLY AXIS A&ndash;A</div>
       </div>
       <div>
-        <div class="spec" id="specpanel" style="margin-top:0" role="tabpanel"
-          tabindex="0" aria-labelledby="tab-now">
+        <div class="spec" id="specpanel" style="margin-top:0">
           <h3 class="sk" id="spec-h">Component Specification</h3>
           <p class="sh" id="spec-t">Now</p>
           <p id="spec-p">I am studying Computer Science at San Francisco State and working as a Student Lead in Aquatics, with software engineering experience across systems, interfaces and physical operations.</p>
@@ -745,6 +740,6 @@
   </div>
 </section>
 </main>
-<script src="assets/js/blueprint.js" onerror="document.documentElement.classList.remove('js')"></script>
+<script src="assets/js/blueprint.js" onerror="document.documentElement.classList.remove('runtime-ready','js')"></script>
 </body>
 </html>

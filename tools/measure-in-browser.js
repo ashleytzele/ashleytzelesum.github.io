@@ -12,7 +12,9 @@
   // colours that never actually render.
   const kill = document.createElement('style');
   kill.textContent = '*,*::before,*::after{transition:none!important;animation:none!important}' +
-    '.js .an,.js .dwg .fd{opacity:1!important}.detail{display:block!important}';
+    '.runtime-ready .an,.runtime-ready .dwg .fd,#a001 .part-desc,#a001 .part-ref{opacity:1!important}' +
+    '#a001 .part-body::before{transform:none!important}#a001 .part-body::after{clip-path:none!important}' +
+    '.detail{display:block!important}';
   document.body.appendChild(kill);
 
   const lum = c => {
@@ -58,20 +60,47 @@
   document.documentElement.removeAttribute('data-theme');
   kill.remove();
 
-  // Reveal must not gate content.
-  document.documentElement.classList.remove('js');
-  R.withoutJS = {
-    hidden: [...document.querySelectorAll('.an,.dwg .fd')].filter(e => getComputedStyle(e).opacity === '0').length,
+  const revealState = () => ({
+    hidden: [...document.querySelectorAll('.an,.dwg .fd,#a001 .part-desc,#a001 .part-ref')]
+      .filter(e => getComputedStyle(e).opacity === '0').length,
     undrawn: [...document.querySelectorAll('.dwg .ln')].filter(e => {
       const d = getComputedStyle(e).strokeDashoffset; return d !== '0px' && d !== 'none';
     }).length,
+    undrawnOutlines: [...document.querySelectorAll('#a001 .part-body')]
+      .filter(e => getComputedStyle(e, '::after').clipPath !== 'none').length,
+    collapsedLeaders: [...document.querySelectorAll('#a001 .part-body')]
+      .filter(e => !['none', 'matrix(1, 0, 0, 1, 0, 0)'].includes(getComputedStyle(e, '::before').transform)).length,
+    collapsedAxes: [...document.querySelectorAll('.dwg .axis,#a001 .assembly-axis')]
+      .filter(e => !['none', 'matrix(1, 0, 0, 1, 0, 0)'].includes(getComputedStyle(e).transform)).length,
+  });
+
+  // Removing the earned gate models the static/no-JS CSS state. Include the
+  // A-001 parts and construction marks, not only the legacy SVG drawing marks.
+  const hadRuntime = document.documentElement.classList.contains('runtime-ready');
+  document.documentElement.classList.remove('runtime-ready');
+  const staticParts = [...document.querySelectorAll('#a001 .part')];
+  R.withoutJS = {
+    ...revealState(),
+    parts: staticParts.length,
+    names: staticParts.map(t => t.querySelector('.part-name').textContent.trim()),
   };
-  document.documentElement.classList.add('js');
+  if (hadRuntime) document.documentElement.classList.add('runtime-ready');
+
+  // This is a real environment measurement, not a forced CSS approximation.
+  // Run once with the OS/browser preference set to Reduce Motion to populate
+  // `completed`; otherwise null truthfully records that it was not exercised.
+  const reducedMatches = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reducedState = reducedMatches ? revealState() : null;
+  R.reducedMotion = {
+    matches: reducedMatches,
+    completed: reducedState ? Object.values(reducedState).every(value => value === 0) : null,
+    state: reducedState,
+  };
 
   // Headings must not change when the page is used.
   const outline = () => [...document.querySelectorAll('h1,h2,h3,h4,h5,h6')].map(h => h.tagName).join();
   const before = outline();
-  document.querySelectorAll('[role=tab]').forEach(t => t.dispatchEvent(new MouseEvent('click', { bubbles: true })));
+  document.querySelectorAll('#a001 .part[role=tab]').forEach(t => t.dispatchEvent(new MouseEvent('click', { bubbles: true })));
   R.headingsStable = outline() === before;
 
   // Keyboard: roving tabindex, arrows, Home/End.
@@ -119,20 +148,27 @@
       // out by the height>0 guard below, so the gate never sees the controls a
       // visitor reaches by clicking "Open detail".
       d.querySelectorAll('.more').forEach(b => b.click());
-      const tg = [...d.querySelectorAll('a[href],button,[role=tab]')]
-        .filter(e => e.getBoundingClientRect().height > 0);
+      const visible = e => {
+        const r = e.getBoundingClientRect();
+        if (!(r.width > 0 && r.height > 0)) return false;
+        for (let n = e; n; n = n.parentElement) {
+          const style = f.contentWindow.getComputedStyle(n);
+          if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return false;
+        }
+        return true;
+      };
+      const tg = [...d.querySelectorAll('a[href],button,#a001 .part')].filter(visible);
       const small = tg.filter(e => { const r = e.getBoundingClientRect(); return r.width < 44 || r.height < 44; });
       const sz = t => { const s = t.ownerSVGElement; return parseFloat(f.contentWindow.getComputedStyle(t).fontSize) * (s.getBoundingClientRect().width / s.viewBox.baseVal.width); };
       const text = [...d.querySelectorAll('.dwg text')].map(sz).sort((a, b) => a - b);
       const assembly = d.querySelector('#a001 .assembly');
-      const a001Tabs = [...d.querySelectorAll('#a001 [role=tab]')];
+      const a001Tabs = [...d.querySelectorAll('#a001 .part')];
       const a001Names = a001Tabs.map(t => t.querySelector('.part-name').textContent.trim());
       const a001VisibleTogether = a001Tabs.every(t => {
-        const style = f.contentWindow.getComputedStyle(t);
         const r = t.getBoundingClientRect();
         const a = assembly.getBoundingClientRect();
-        return style.display !== 'none' && style.visibility !== 'hidden' &&
-          Number(style.opacity) > 0 && r.left >= a.left - 1 && r.right <= a.right + 1;
+        return visible(t) && r.left >= a.left - 1 && r.right <= a.right + 1 &&
+          r.top >= a.top - 1 && r.bottom <= a.bottom + 1;
       });
       res({
         px,

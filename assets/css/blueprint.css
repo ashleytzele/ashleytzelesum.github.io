@@ -12,8 +12,8 @@
 :root[data-theme="light"]{--paper:#FFFFFF;--ink:#111111;--sec:#666666;--line:#D9D9D9;
   --ref:#767676;--refdec:#999999;--hair:#EDEDED;--mid:#B8B8B8}
 
-/* Content is hidden for reveal ONLY when JS is present to reveal it. Without JS,
-   in a background tab, or if the observer never fires, everything renders. */
+/* Reveal is hidden only after the fetched runtime initializes successfully.
+   Before that gate is earned, disabled JS and runtime failures stay fail-open. */
 *{box-sizing:border-box}
 img,svg{max-width:100%;height:auto;display:block}
 html{scroll-behavior:smooth}
@@ -126,36 +126,44 @@ p{margin:0;color:var(--sec)}
 .dwg .dm{stroke:var(--mid);stroke-width:.75;fill:none}
 /* pathLength="1" normalises every path, so dash length can never drift
    out of sync with real geometry when a shape is resized. */
-.js .dwg .ln{stroke-dasharray:1;stroke-dashoffset:1}
+.runtime-ready .dwg .ln{stroke-dasharray:1;stroke-dashoffset:1}
 .drawn .dwg .ln{animation:ln 1.1s cubic-bezier(.37,0,.28,1) forwards}
-.js .dwg .axis{transform:scaleY(0);transform-origin:50% 24px}
+.runtime-ready .dwg .axis{transform:scaleY(0);transform-origin:50% 24px}
 .drawn .dwg .axis{animation:ax .9s cubic-bezier(.37,0,.28,1) forwards}
-.js .dwg .fd{opacity:0}
+.runtime-ready .dwg .fd{opacity:0}
 .drawn .dwg .fd{animation:fd .55s linear forwards}
-.js .an{opacity:0}
+.runtime-ready .an{opacity:0}
 .drawn .an{animation:fd .5s linear forwards}
 @keyframes ln{to{stroke-dashoffset:0}}
 @keyframes ax{to{transform:scaleY(1)}}
 @keyframes fd{to{opacity:1}}
+@keyframes partline{to{clip-path:inset(0)}}
+@keyframes leader{to{transform:scaleX(1)}}
 
 /* A-001 assembly */
 .sysgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
   gap:calc(var(--u)*5);margin-top:calc(var(--u)*5);align-items:start}
 #a001 .assembly{position:relative;min-width:0;padding:calc(var(--u)*2) calc(var(--u)*2) calc(var(--u)*3) calc(var(--u)*8);border:1px solid var(--line);overflow:hidden}
 #a001 .assembly-tabs{position:relative;display:grid;gap:calc(var(--u)*2.5);z-index:1}
-#a001 .part{display:grid;grid-template-columns:38px minmax(0,1fr) 46px;gap:calc(var(--u)*1.5);align-items:center;width:100%;min-height:72px;padding:0;border:0;background:none;color:var(--ink);text-align:left;cursor:pointer;font:inherit}
+#a001 .part{display:grid;grid-template-columns:38px minmax(0,1fr) 46px;gap:calc(var(--u)*1.5);align-items:center;width:100%;min-height:72px;padding:0;color:var(--ink);text-align:left;font:inherit}
+.runtime-ready #a001 .part{cursor:pointer}
 #a001 .part-no{display:grid;place-items:center;width:30px;height:30px;border:1.25px solid var(--ink);border-radius:50%;background:var(--paper);font-family:'MN',monospace;font-size:8.5px;letter-spacing:.1em}
 #a001 .part-body{position:relative;min-width:0;border:1.25px solid var(--ink);padding:calc(var(--u)*1.25) calc(var(--u)*2);transition:background .2s linear,color .2s linear}
-#a001 .part-body::before{content:'';position:absolute;right:100%;top:50%;width:calc(var(--u)*6);height:1px;background:var(--line);pointer-events:none}
+#a001 .part-body::before{content:'';position:absolute;right:100%;top:50%;width:calc(var(--u)*6);height:1px;background:var(--line);pointer-events:none;transform-origin:right}
+#a001 .part-body::after{content:'';position:absolute;inset:-1.25px;border:1.25px solid var(--ink);pointer-events:none}
 #a001 .part-name{display:block;font-size:.94rem;font-weight:600;letter-spacing:-.015em}
 #a001 .part-desc,#a001 .part-ref{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.08em;color:var(--ref)}
 #a001 .part-desc{display:block;margin-top:4px;overflow-wrap:anywhere}
 #a001 .part-ref{text-transform:uppercase}
-#a001 .part:hover:not([aria-selected="true"]) .part-body{background:var(--hair)}
-#a001 .part[aria-selected="true"] .part-body{background:var(--ink);color:var(--paper)}
-#a001 .part[aria-selected="true"] .part-desc{color:var(--paper)}
+#a001 .part[data-selected="true"] .part-body,#a001 .part[aria-selected="true"] .part-body{background:var(--ink);color:var(--paper)}
+#a001 .part[data-selected="true"] .part-desc,#a001 .part[aria-selected="true"] .part-desc{color:var(--paper)}
+.runtime-ready #a001 .part:hover:not([aria-selected="true"]) .part-body{background:var(--hair)}
+#a001 .part:hover:not([aria-selected="true"]) .part-desc{color:var(--ink)}
 #a001 .part:focus{outline:none}
 #a001 .part:focus-visible .part-body{outline:2px solid var(--ink);outline-offset:3px}
+#a001 .part:focus-visible .part-desc,#a001 .part:focus-visible .part-ref{opacity:1;animation:none}
+#a001 .part:focus-visible .part-body::before{transform:scaleX(1);animation:none}
+#a001 .part:focus-visible .part-body::after{clip-path:none;animation:none}
 #a001 .assembly-axis{position:absolute;top:calc(var(--u)*2);bottom:calc(var(--u)*5);left:56%;border-left:1px dashed var(--line);pointer-events:none}
 #a001 .assembly-dimension{position:absolute;top:calc(var(--u)*4);bottom:calc(var(--u)*7);left:calc(var(--u)*3);border-left:1px solid var(--mid);pointer-events:none}
 #a001 .assembly-dimension::before,#a001 .assembly-dimension::after{content:'';position:absolute;left:-6px;width:12px;border-top:1px solid var(--mid)}
@@ -163,13 +171,18 @@ p{margin:0;color:var(--sec)}
 #a001 .assembly-dimension::after{bottom:0}
 #a001 .assembly-dimension span{position:absolute;top:50%;left:-39px;width:78px;transform:rotate(-90deg);font-family:'MN',monospace;font-size:8px;letter-spacing:.14em;color:var(--ref);white-space:nowrap}
 #a001 .assembly-axis-label{margin-top:calc(var(--u)*2);text-align:center;font-family:'MN',monospace;font-size:8px;letter-spacing:.14em;color:var(--ref)}
-.js #a001 .part{opacity:0}
-#a001.drawn .part{animation:fd .45s linear forwards}
-#a001.drawn .part:nth-child(1){animation-delay:.20s}
-#a001.drawn .part:nth-child(2){animation-delay:.32s}
-#a001.drawn .part:nth-child(3){animation-delay:.44s}
-#a001.drawn .part:nth-child(4){animation-delay:.56s}
-.js #a001 .assembly-axis{transform:scaleY(0);transform-origin:top}
+.runtime-ready #a001 .part-body{border-color:var(--line)}
+.runtime-ready #a001 .part-body::before{transform:scaleX(0)}
+.runtime-ready #a001 .part-body::after{clip-path:inset(0 100% 0 0)}
+.runtime-ready #a001 .part-desc,.runtime-ready #a001 .part-ref{opacity:0}
+#a001.drawn .part-body::before{animation:leader .5s cubic-bezier(.37,0,.28,1) forwards}
+#a001.drawn .part-body::after{animation:partline .55s cubic-bezier(.37,0,.28,1) forwards}
+#a001.drawn .part-desc,#a001.drawn .part-ref{animation:fd .45s linear forwards}
+#a001.drawn .part:nth-child(1) .part-desc,#a001.drawn .part:nth-child(1) .part-ref{animation-delay:.20s}
+#a001.drawn .part:nth-child(2) .part-desc,#a001.drawn .part:nth-child(2) .part-ref{animation-delay:.32s}
+#a001.drawn .part:nth-child(3) .part-desc,#a001.drawn .part:nth-child(3) .part-ref{animation-delay:.44s}
+#a001.drawn .part:nth-child(4) .part-desc,#a001.drawn .part:nth-child(4) .part-ref{animation-delay:.56s}
+.runtime-ready #a001 .assembly-axis{transform:scaleY(0);transform-origin:top}
 #a001.drawn .assembly-axis{animation:ax .9s cubic-bezier(.37,0,.28,1) forwards}
 @media(max-width:900px){
   .sysgrid{grid-template-columns:minmax(0,1fr)}
@@ -295,7 +308,9 @@ p{margin:0;color:var(--sec)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}
   .dwg .ln{stroke-dashoffset:0;animation:none}.dwg .axis{transform:scaleY(1);animation:none}
   .dwg .fd,.an{opacity:1;animation:none}
-  #a001 .part{opacity:1;animation:none}
+  #a001 .part-desc,#a001 .part-ref{opacity:1;animation:none}
+  #a001 .part-body::before{transform:scaleX(1);animation:none}
+  #a001 .part-body::after{clip-path:none;animation:none}
   #a001 .assembly-axis{transform:scaleY(1);animation:none}
   *{animation-duration:.001ms!important;transition-duration:.001ms!important}}
 @media print{@page{size:A3 landscape;margin:8mm}
@@ -306,6 +321,10 @@ p{margin:0;color:var(--sec)}
   .detail{display:block!important}.more{display:none}
   .dwg .ln{stroke-dashoffset:0;animation:none}.dwg .axis{transform:scaleY(1);animation:none}
   .dwg .fd,.an{opacity:1;animation:none}
+  #a001 .part-desc,#a001 .part-ref{opacity:1!important;animation:none!important}
+  #a001 .part-body::before{transform:scaleX(1);animation:none}
+  #a001 .part-body::after{clip-path:none;animation:none}
+  #a001 .assembly-axis{transform:scaleY(1);animation:none}
   .rec,.proj{break-inside:avoid}}
 
 /* Media slot: every form is held at the sheet's 1000px figure width inside the

@@ -33,6 +33,13 @@ responsive/touch-target measurements are unaffected by this; the
 `anims` section and anything depending on scroll-triggered reveal are not
 reliable if the tab is hidden while the script runs.
 
+`reducedMotion.completed` is deliberately `null` unless the browser's real
+`(prefers-reduced-motion: reduce)` query matches. To produce reduced-motion
+evidence, enable Reduce Motion in the OS/browser, reload with a fresh query
+string, and rerun the harness; a completed reveal reports `true` with every
+counter in `reducedMotion.state` at zero. The historical baselines below were
+not rewritten because this revised check has not yet been run in that mode.
+
 ### Baseline — 2026-08-10 (A-001 responsive identity assembly)
 
 Measured in a foreground browser against
@@ -87,8 +94,10 @@ the activated component at 1440px, 768px and 390px.
 
 Evidence caveat: the harness now force-refreshes linked blueprint CSS inside
 each responsive iframe and puts A-001 into its completed `drawn` state before
-measurement. `visibleTogether` also requires computed display, visibility and
-opacity in addition to geometric containment.
+measurement. The current harness additionally requires every tab and ancestor
+to have computed visibility and nonzero dimensions, then checks both horizontal
+and vertical containment. The JSON above predates those stronger checks and is
+kept as historical evidence rather than presented as a fresh run.
 
 **Result: all required measured and manual A-001, responsive, keyboard,
 no-JavaScript and animation-budget checks pass.**

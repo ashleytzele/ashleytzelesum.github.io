@@ -77,16 +77,22 @@ test('no emoji anywhere', () => {
   assert.doesNotMatch(html, /[\u{1F300}-\u{1FAFF}\u{2700}-\u{27BF}]/u);
 });
 
-test('reveal is js-guarded and has a noscript fallback', () => {
-  // Without this, content sits at opacity 0 forever when JS is off.
-  assert.match(css, /\.js\s+\.an\s*\{[^}]*opacity:\s*0/);
+test('reveal is gated only after successful runtime initialization', () => {
+  // The early `js` marker is only safe for optional controls. Reveal gating is
+  // earned later, after the fetched runtime has initialized successfully.
+  assert.match(css, /\.runtime-ready\s+\.an\s*\{[^}]*opacity:\s*0/);
+  assert.doesNotMatch(css, /\.js\s+\.an\s*\{[^}]*opacity:\s*0/);
   assert.match(html, /<noscript>/);
   assert.match(html, /document\.documentElement\.className\s*\+=\s*" js"/);
 });
 
-test('A-001 reveal selectors match the drawn state on the section itself', () => {
-  assert.match(css, /#a001\.drawn\s+\.part\{/);
+test('A-001 reveal keeps controls visible and draws only construction details', () => {
+  assert.doesNotMatch(css, /(?:\.js|\.runtime-ready)\s+#a001\s+\.part\s*\{[^}]*opacity:\s*0/);
+  assert.match(css, /\.runtime-ready\s+#a001\s+\.part-body::after\s*\{[^}]*clip-path:/);
+  assert.match(css, /#a001\.drawn\s+\.part-body::after\s*\{[^}]*animation:/);
+  assert.match(css, /#a001\.drawn\s+\.part-body::before\s*\{[^}]*animation:/);
   assert.match(css, /#a001\.drawn\s+\.assembly-axis\{/);
+  assert.match(css, /#a001\s+\.part:focus-visible\s+\.part-desc[^}]*opacity:\s*1/);
   assert.doesNotMatch(css, /\.drawn\s+#a001/);
 });
 
@@ -99,39 +105,28 @@ test('scrollable regions are keyboard reachable and labelled', () => {
   }
 });
 
-test('A-001 assembly exposes one semantic component control set', () => {
+test('A-001 ships one static component set for progressive enhancement', () => {
   const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
-  assert.equal((a001.match(/role="tablist"/g) || []).length, 1);
-  assert.equal((a001.match(/role="tab"/g) || []).length, 4);
-  assert.equal((a001.match(/role="tabpanel"/g) || []).length, 1);
+  assert.equal((a001.match(/class="assembly-tabs"/g) || []).length, 1);
+  assert.equal((a001.match(/class="part(?:\s|\")/g) || []).length, 4);
   assert.ok(a001.includes('class="assembly"'));
-  assert.ok(!/role="img"[\s\S]{0,4000}role="tab"/.test(a001));
-});
-
-test('component group uses tab semantics, not aria-pressed', () => {
-  // Scoped to the A-001 assembly, not the whole document: the theme toggle
-  // elsewhere on the page legitimately uses aria-pressed (it is a two-state
-  // toggle button, not a single-select group), so a document-wide ban would
-  // be checking the wrong thing.
-  const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
-  assert.ok(!a001.includes('aria-pressed'), 'single-select group must not use aria-pressed');
-  assert.equal((a001.match(/role="tablist"/g) || []).length, 1);
-  assert.ok((a001.match(/role="tab"/g) || []).length >= 1);
-  assert.equal((a001.match(/role="tabpanel"/g) || []).length, 1);
+  assert.doesNotMatch(a001, /role="(?:tablist|tab|tabpanel)"/,
+    'no-JS markup must not advertise a tab widget with no controller');
+  assert.doesNotMatch(a001, /\btabindex="-?\d+"/,
+    'tab stops are added atomically by the runtime');
 });
 
 test('A-001 component controls, SPEC records, default state and dimension agree', () => {
   const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
-  const tabs = [...a001.matchAll(/<button[^>]*role="tab"[^>]*data-part="([a-z]+)"[^>]*>/g)];
+  const tabs = [...a001.matchAll(/<div[^>]*class="part(?:\s[^\"]*)?"[^>]*data-part="([a-z]+)"[^>]*>/g)];
   const dataParts = tabs.map(m => m[1]);
   assert.deepEqual(dataParts, ['background', 'now', 'engineering', 'athletics']);
 
-  const selected = tabs.filter(m => m[0].includes('aria-selected="true"'));
+  const selected = tabs.filter(m => m[0].includes('data-selected="true"'));
   assert.equal(selected.length, 1);
   assert.equal(selected[0][1], 'now');
-  assert.ok(selected[0][0].includes('tabindex="0"'));
 
-  const specBlock = /var SPEC=\{([\s\S]*?)\n  \};/.exec(js);
+  const specBlock = /var SPEC=\{([\s\S]*?)\n\s*\};/.exec(js);
   assert.ok(specBlock, 'expected a SPEC object in blueprint.js');
   const specKeys = [...specBlock[1].matchAll(/^\s*([a-zA-Z]+):\{/gm)].map(m => m[1]);
   assert.deepEqual(specKeys, dataParts);
@@ -139,7 +134,58 @@ test('A-001 component controls, SPEC records, default state and dimension agree'
   const label = /(\d+)\s+COMPONENTS</.exec(a001);
   assert.ok(label);
   assert.equal(Number(label[1]), dataParts.length);
-  assert.match(a001, /id="specpanel"[\s\S]*aria-labelledby="tab-now"/);
+  assert.match(a001, /id="specpanel"/);
+});
+
+test('every A-001 SPEC record matches the approved title, paragraph and fields', () => {
+  const block = /var SPEC=(\{[\s\S]*?\n\s*\});/.exec(js);
+  assert.ok(block, 'expected a SPEC object in blueprint.js');
+  const actual = new Function(`return ${block[1]}`)();
+  assert.deepEqual(actual, {
+    background: {
+      t: 'Background',
+      p: 'From Malaysia, through INTI International College, to San Francisco State, where I am pursuing a B.S. in Computer Science.',
+      d: [['Ref drawing', 'A-002'], ['From', 'Malaysia'], ['Previous', 'INTI International College']],
+    },
+    now: {
+      t: 'Now',
+      p: 'I am studying Computer Science at San Francisco State and working as a Student Lead in Aquatics, with software engineering experience across systems, interfaces and physical operations.',
+      d: [['Studying', 'B.S. Computer Science'], ['Current', 'Student Lead, Aquatics'], ['Seeking', 'Summer 2027 software engineering internship']],
+    },
+    engineering: {
+      t: 'Engineering',
+      p: 'I am interested in software that connects systems, interfaces and physical operations, with a focus on making complicated tools usable by the people who depend on them.',
+      d: [['Ref drawings', 'A-004 · A-005'], ['Experience', 'Backend · full stack · mobile'], ['Focus', 'Systems · operability']],
+    },
+    athletics: {
+      t: 'Athletics',
+      p: 'Competitive swimming provides the domain knowledge behind SplitWise, while lifeguarding and aquatics work bring a different kind of operational responsibility outside software.',
+      d: [['Ref drawing', 'A-002'], ['Discipline', 'Swimming'], ['Applied in', 'SplitWise · 05.6']],
+    },
+  });
+});
+
+test('A-001 descriptor hover meets light-theme text contrast', () => {
+  const vars = Object.fromEntries([.../:root\s*\{([^}]*)\}/.exec(css)[1]
+    .matchAll(/--([a-z]+):\s*(#[0-9A-Fa-f]{6})/g)].map(m => [m[1], m[2]]));
+  const luminance = hex => {
+    const channels = hex.slice(1).match(/../g).map(v => parseInt(v, 16) / 255)
+      .map(v => v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4);
+    return .2126 * channels[0] + .7152 * channels[1] + .0722 * channels[2];
+  };
+  const values = [luminance(vars.ink), luminance(vars.hair)].sort((a, b) => b - a);
+  assert.ok((values[0] + .05) / (values[1] + .05) >= 4.5);
+  assert.match(css,
+    /#a001\s+\.part:hover:not\(\[aria-selected="true"\]\)\s+\.part-desc[^}]*color:\s*var\(--ink\)/,
+    'hovered descriptor must use the verified high-contrast ink colour');
+});
+
+test('print forces A-001 reveal details into their completed state', () => {
+  const print = /@media print\{([\s\S]*?)\n\}/.exec(css);
+  assert.ok(print, 'expected print styles');
+  assert.match(print[1], /#a001\s+\.part-desc[^}]*opacity:\s*1/);
+  assert.match(print[1], /#a001\s+\.part-body::after[^}]*clip-path:\s*none/);
+  assert.match(print[1], /#a001\s+\.assembly-axis[^}]*transform:\s*scaleY\(1\)/);
 });
 
 test('A-001 states background, present activity, direction and availability without interaction', () => {
@@ -242,14 +288,10 @@ test('behaviour script has no dependencies and parses', () => {
   new Function(js); // throws on a syntax error
 });
 
-test('a failed script load cannot leave content hidden', () => {
-  // The `js` class is set by an inline script that always runs, but the behaviour
-  // script is a separate request. If it 404s or is blocked, nothing would remove
-  // the reveal state and 15 blocks would stay at opacity 0 forever — and <noscript>
-  // would not fire, because JS is enabled. The onerror handler is the only guard.
+test('a failed script load clears only the earned runtime gate', () => {
   const tag = /<script[^>]*src="assets\/js\/blueprint\.js"[^>]*>/.exec(html);
   assert.ok(tag, 'behaviour script tag not found');
-  assert.match(tag[0], /onerror="[^"]*classList\.remove\('js'\)[^"]*"/);
+  assert.match(tag[0], /onerror="[^"]*classList\.remove\('runtime-ready'(?:,'js')?\)[^"]*"/);
 });
 
 test('no .figbox media rule (img/video) uses a min-width floor', () => {
@@ -308,6 +350,20 @@ test('responsive browser measurements put A-001 in its drawn state before measur
   assert.match(measure,
     /stylesheet\.href = url\.href;[\s\S]*?\}\);[\s\S]*?d\.querySelector\('#a001'\)\.classList\.add\('drawn'\);[\s\S]*?await new Promise\(r => setTimeout\(r, 1800\)\);/,
     'hidden responsive iframes must not depend on IntersectionObserver to reveal A-001');
+});
+
+test('browser measurements cover static A-001, visible ancestors and reduced motion', () => {
+  const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
+  assert.match(measure, /querySelectorAll\('#a001 \.part'\)/,
+    'no-JS/static A-001 parts must be measured before role enhancement');
+  assert.match(measure, /for \(let n = e; n; n = n\.parentElement\)/,
+    'visibility must account for every ancestor');
+  assert.match(measure, /r\.width\s*>\s*0[\s\S]*r\.height\s*>\s*0/,
+    'visibleTogether must reject zero-sized controls');
+  assert.match(measure, /prefers-reduced-motion:\s*reduce/,
+    'the report must state and measure the real reduced-motion environment');
+  assert.match(measure, /reducedMotion[\s\S]*completed/,
+    'the reduced-motion result must report whether reveal is complete');
 });
 
 test('no client-identifying term appears in any tracked file', () => {

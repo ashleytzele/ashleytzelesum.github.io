@@ -109,7 +109,7 @@ them. Renumbering is a whole-site change, not a local one.
 | Sheet | Name | Contains |
 |---|---|---|
 | — | Cover | Title block. **Frozen — see §6.** |
-| A-001 | Identity | Assembly drawing; four clickable components: Engineering, Athlete, Leadership, Background |
+| A-001 | Identity | Assembly drawing; four components: Background, Now, Engineering, Athletics |
 | A-002 | Journey | Education and route: SFSU (current), INTI International College |
 | A-003 | Experience | Four roles + internship workstreams |
 | A-004 | Engineering | System stack by layer, with modules that name the drawings they appear in |
@@ -308,7 +308,9 @@ Do not copy any of these into the repo.
 
 ## 10. Current state
 
-Last commit: `cc40e74`. `node --test` → **37 pass, 0 fail**.
+Current focused suite: `node --test test/contracts.test.mjs test/runtime.test.mjs`
+exercises the structural contracts and runtime success/failure paths. Run bare
+`node --test` for the authoritative full count and result.
 
 **Nothing has been pushed yet.** Deploy is the one unstarted task from the
 original plan (Task 7: deploy and verify live).
