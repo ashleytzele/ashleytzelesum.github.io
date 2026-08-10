@@ -73,7 +73,7 @@ Use these component labels and visible descriptors:
 | 01 | Background | Malaysia · INTI · San Francisco | A-002 |
 | 02 | Now | Computer Science · aquatics | A-003 |
 | 03 | Engineering | Systems · software · physical operations | A-004 |
-| 04 | Athletics | Competitive swimming · aquatics | A-002 |
+| 04 | Athletics | Competitive swimming · aquatics | A-003 |
 
 Primary references stay short enough to read as drawing annotations. Additional references belong in the specification panel rather than being compressed into the assembly.
 
@@ -142,7 +142,7 @@ This describes the pattern supported by Ashley's work without declaring an unsup
 
 **Fields:**
 
-- Ref drawing: A-002
+- Ref drawings: A-003 · 05.6
 - Discipline: Swimming
 - Applied in: SplitWise · 05.6
 

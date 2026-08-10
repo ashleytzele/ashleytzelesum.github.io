@@ -227,12 +227,18 @@ Allowed production changes:
 
 Frozen unless a direct naming reference requires correction:
 
-- A-001 visual design, content, and interaction;
+- A-001 visual design, interaction, and content other than the approved Athletics reference correction;
 - A-003 through A-006 markup and behaviour;
 - A-003 experience records and details;
 - cover composition;
 - drawing numbers, anchors, and cross-references; and
 - global visual tokens and typography.
+
+Because A-002 no longer contains swimming or aquatics, correct the existing A-001 Athletics cross-reference at the same time:
+
+- visible Athletics reference: `A-003`;
+- specification field: `Ref drawings: A-003 · 05.6`; and
+- keep `Applied in: SplitWise · 05.6` unchanged.
 
 ## 12. Verification Contract
 
@@ -243,6 +249,7 @@ Automated contracts must prove:
 - exactly two education records exist in EDU-01 then EDU-02 order;
 - institution, location, date, programme, and transfer copy match this specification exactly;
 - excluded coursework, honours, employment, GPA, and graduation content are absent from A-002;
+- A-001 Athletics points to A-003 and 05.6 rather than A-002;
 - A-003 through A-006 remain byte-identical;
 - no duplicate desktop/mobile education markup exists;
 - factual label sizes and contrast tokens meet the stated floor;
