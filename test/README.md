@@ -41,6 +41,39 @@ counter in `reducedMotion.state` at zero. The embedded baseline below is the
 standard, non-reduced-motion run, so its completion fields are `null`; the
 separate confirmed reduced-motion result follows immediately after it.
 
+### A-003 evidence — 2026-08-10
+
+```json
+{
+  "automated": {
+    "browserHarnessContract": "pass",
+    "syntax": "pass",
+    "fullSuite": "pass (71 tests)",
+    "diffCheck": "pass"
+  },
+  "server": {
+    "url": "http://localhost:8119/?cb=a003-experience-final",
+    "status": 200
+  },
+  "browser": {
+    "status": "not exercised",
+    "reason": "The required browser-client runtime was not available in this execution environment."
+  },
+  "reducedMotion": {
+    "status": "not exercised",
+    "reason": "No real matching reduced-motion browser environment was available."
+  }
+}
+```
+
+Manual checklist: not exercised in this environment. This includes responsive
+track order and overflow at 390px, 768px, 1024px and 1440px; two-open and
+focus-retention disclosure behaviour; 200% zoom; colour-independent current
+state; disabled JavaScript and synchronous script-failure fallbacks; reduced
+motion; print preview; and regression checks for A-001, A-002, A-004 and
+A-005. Run the foreground harness in a visible browser before representing
+these states as verified.
+
 ### Baseline — 2026-08-10 (A-002 education route, final harness)
 
 Measured by the user in a fresh standard-motion foreground page with the final

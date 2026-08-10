@@ -15,6 +15,7 @@
     '.runtime-ready .an,.runtime-ready .dwg .fd,#a001 .part-desc,#a001 .part-ref{opacity:1!important}' +
     '#a001 .part-body::before{transform:none!important}#a001 .part-body::after{clip-path:none!important}' +
     '#a002 .education-route::before,#a002 .education-node::before,#a002 .education-node::after{transform:none!important}' +
+    '#a003 .experience-track-list::before,#a003 .experience-role::before{transform:none!important}' +
     '.detail{display:block!important}';
   document.body.appendChild(kill);
 
@@ -78,6 +79,11 @@
         const style = getComputedStyle(e, pseudo);
         return !['none', 'matrix(1, 0, 0, 1, 0, 0)'].includes(style.transform);
       })).length,
+    a003CollapsedTracks: [...document.querySelectorAll('#a003 .experience-track-list,#a003 .experience-role')]
+      .filter(e => ['::before'].some(pseudo => {
+        const style = getComputedStyle(e, pseudo);
+        return !['none', 'matrix(1, 0, 0, 1, 0, 0)'].includes(style.transform);
+      })).length,
   });
 
   const visibleIn = (e, view = window) => {
@@ -98,6 +104,9 @@
   const staticParts = [...document.querySelectorAll('#a001 .part')];
   const staticA002Essentials = [...document.querySelectorAll(
     '#a002 .education-node,#a002 .education-node-meta span,#a002 .education-node h3,#a002 .education-place,#a002 .education-programme,#a002 .education-programme p,#a002 .education-transfer,#a002 .education-transfer strong,#a002 .education-transfer>span,#a002 .education-caption span')];
+  const staticA003Roles = [...document.querySelectorAll('#a003 .experience-role')];
+  const staticA003Details = [...document.querySelectorAll('#a003 .experience-detail')];
+  const staticA003Controls = [...document.querySelectorAll('#a003 .experience-more')];
   R.withoutJS = {
     ...revealState(),
     parts: staticParts.length,
@@ -106,6 +115,13 @@
       nodes: document.querySelectorAll('#a002 .education-node').length,
       transfer: document.querySelector('#a002 .education-transfer')?.textContent.trim(),
       essentialVisible: staticA002Essentials.every(e => visibleIn(e)),
+    },
+    a003: {
+      tracks: document.querySelectorAll('#a003 .experience-track').length,
+      roles: staticA003Roles.length,
+      order: staticA003Roles.map(role => role.dataset.experience),
+      detailsVisible: staticA003Details.every(detail => visibleIn(detail)),
+      controlsHidden: staticA003Controls.every(control => !visibleIn(control)),
     },
   };
   if (hadRuntime) document.documentElement.classList.add('runtime-ready');
@@ -119,6 +135,7 @@
     matches: reducedMatches,
     completed: reducedState ? Object.values(reducedState).every(value => value === 0) : null,
     a002Completed: reducedState ? reducedState.a002CollapsedDetails === 0 : null,
+    a003Completed: reducedState ? reducedState.a003CollapsedTracks === 0 : null,
     state: reducedState,
   };
 
@@ -139,6 +156,25 @@
   };
   key(document.activeElement, 'End');
   R.keyboard.endGoesLast = document.activeElement === tabs[tabs.length - 1];
+
+  const experienceButtons = [...document.querySelectorAll('#a003 .experience-more')];
+  const experienceDetails = [...document.querySelectorAll('#a003 .experience-detail')];
+  const detailsOwned = experienceButtons.every(button => {
+    const role = button.closest('.experience-role');
+    const detail = document.getElementById(button.getAttribute('aria-controls'));
+    return role && detail && detail.closest('.experience-role') === role;
+  });
+  experienceButtons.slice(0, 2).forEach(button => button.click());
+  R.enhanced = {
+    ...(R.enhanced || {}),
+    a003: {
+      controls: experienceButtons.length,
+      detailsOwned,
+      twoOpen: experienceDetails.filter(detail => detail.dataset.open === 'true').length >= 2,
+      labelsFollowState: experienceButtons.every(button =>
+        button.textContent.trim().startsWith(button.getAttribute('aria-expanded') === 'true' ? 'Close details' : 'Open details')),
+    },
+  };
 
   function auditAnimations(animations) {
     const frameMetadata = new Set(['offset', 'computedOffset', 'easing', 'composite']);
@@ -172,6 +208,7 @@
   await new Promise(requestAnimationFrame);
   const anims = document.getAnimations();
   const a002Animations = document.querySelector('#a002').getAnimations({ subtree: true });
+  const a003Animations = document.querySelector('#a003').getAnimations({ subtree: true });
   const animationDetails = auditAnimations(anims);
   R.anims = {
     total: animationDetails.total,
@@ -180,7 +217,9 @@
     properties: animationDetails.properties,
     details: animationDetails.details,
     a002: auditAnimations(a002Animations),
+    a003: auditAnimations(a003Animations),
   };
+  // anims.a003 is the dedicated A-003 reveal-animation audit.
 
   // Overflow and touch targets, measured in real iframes so media queries fire.
   const at = px => new Promise(res => {
@@ -199,12 +238,14 @@
       });
       d.querySelector('#a001').classList.add('drawn');
       d.querySelector('#a002').classList.add('drawn');
+      d.querySelector('#a003').classList.add('drawn');
       await new Promise(r => setTimeout(r, 1800));
       // Open every disclosure panel before measuring. Otherwise every control
       // inside `.detail` is display:none (closed by default) and gets filtered
       // out by the height>0 guard below, so the gate never sees the controls a
       // visitor reaches by clicking "Open detail".
       d.querySelectorAll('.more').forEach(b => b.click());
+      d.querySelectorAll('#a003 .experience-more').forEach(button => button.click());
       const visible = e => visibleIn(e, f.contentWindow);
       const tg = [...d.querySelectorAll('a[href],button,#a001 .part')].filter(visible);
       const small = tg.filter(e => { const r = e.getBoundingClientRect(); return r.width < 44 || r.height < 44; });
@@ -229,6 +270,16 @@
       const routeOverflow = route.scrollWidth > route.clientWidth + 1;
       const educationTextFloor = Math.min(...educationText.map(e =>
         parseFloat(f.contentWindow.getComputedStyle(e).fontSize)));
+      const experienceTracks = [...d.querySelectorAll('#a003 .experience-track')];
+      const experienceRoles = [...d.querySelectorAll('#a003 .experience-role')];
+      const experienceDetails = [...d.querySelectorAll('#a003 .experience-detail')];
+      const experienceGrid = d.querySelector('#a003 .experience-tracks');
+      const experienceGridStyle = f.contentWindow.getComputedStyle(experienceGrid);
+      const experienceColumns = experienceGridStyle.gridTemplateColumns.split(' ').filter(Boolean).length;
+      const experienceText = [...d.querySelectorAll(
+        '#a003 .experience-meta,#a003 .experience-org,#a003 .experience-evidence,#a003 .experience-detail-label,#a003 .experience-concurrent,#a003 .experience-caption')];
+      const experienceTextFloor = Math.min(...experienceText.map(element =>
+        parseFloat(f.contentWindow.getComputedStyle(element).fontSize)));
       res({
         px,
         overflow: d.documentElement.scrollWidth > px + 1,
@@ -248,6 +299,17 @@
           routeDirection,
           routeOverflow,
           educationTextFloor: +educationTextFloor.toFixed(1),
+        },
+        a003: {
+          tracks: experienceTracks.length,
+          trackNames: experienceTracks.map(track => track.querySelector('.experience-track-title').textContent.trim()),
+          roles: experienceRoles.length,
+          order: experienceRoles.map(role => role.dataset.experience),
+          visible: experienceRoles.every(visible) && experienceDetails.every(visible),
+          trackLayout: experienceColumns === 1 ? 'stacked' : 'parallel',
+          trackOverflow: experienceGrid.scrollWidth > experienceGrid.clientWidth + 1,
+          detailsOwned: experienceDetails.every(detail => detail.closest('.experience-role')),
+          experienceTextFloor: +experienceTextFloor.toFixed(1),
         },
       });
       f.remove();

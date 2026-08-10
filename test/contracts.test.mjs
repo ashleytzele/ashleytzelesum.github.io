@@ -622,6 +622,15 @@ test('browser measurements cover the A-002 education route in every required mod
   assert.match(measure, /educationTextFloor/);
 });
 
+test('browser measurements cover A-003 tracks, owned details and failure states', () => {
+  const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
+  for (const token of [
+    '#a003 .experience-track', '#a003 .experience-role', 'experience-detail',
+    'detailsOwned', 'twoOpen', 'trackLayout', 'trackOverflow',
+    'experienceTextFloor', 'a003Completed', 'anims.a003',
+  ]) assert.ok(measure.includes(token), `missing A-003 measurement: ${token}`);
+});
+
 test('browser animation audit samples live reveal animations and reports their timing and properties', () => {
   const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
   assert.match(measure,
