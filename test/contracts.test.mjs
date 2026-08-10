@@ -678,10 +678,35 @@ test('browser animation audit flags infinite and layout-property animations', ()
   ]);
 });
 
+test('browser report compacts animation details without dropping audit summaries', () => {
+  const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
+  const start = measure.indexOf('function animationSummary');
+  const end = measure.indexOf('// ANIMATION_SUMMARY_END');
+  assert.ok(start >= 0 && end > start, 'expected extractable animation summary helper');
+  const animationSummary = new Function(`${measure.slice(start, end)}\nreturn animationSummary;`)();
+  const audit = {
+    total: 3,
+    infinite: 0,
+    layoutProps: [],
+    properties: ['transform'],
+    details: [{ name: 'experience-rail', iterations: 1, properties: ['transform'] }],
+  };
+
+  assert.deepEqual(animationSummary(audit), {
+    total: 3,
+    infinite: 0,
+    layoutProps: [],
+    properties: ['transform'],
+  });
+  assert.match(measure,
+    /anims:\s*\{[\s\S]*?\.\.\.animationSummary\(R\.anims\)[\s\S]*?a002:\s*animationSummary\(R\.anims\.a002\)[\s\S]*?a003:\s*animationSummary\(R\.anims\.a003\)/,
+    'printed reports must retain compact global, A-002 and A-003 animation summaries');
+});
+
 test('browser measurement prints one JSON report and still returns it', () => {
   const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
   assert.match(measure,
-    /const report = JSON\.stringify\(R, null, 1\);\s*console\.log\(report\);\s*return report;/,
+    /const report = JSON\.stringify\(serializable, null, 1\);\s*console\.log\(report\);\s*return report;/,
     'Snippets need an explicit log while DevTools Console keeps the Promise result');
   assert.equal((measure.match(/console\.(?:log|info|warn|error)\s*\(/g) || []).length, 1,
     'the harness must print exactly one report with no console noise');

@@ -199,6 +199,11 @@
   }
   // ANIMATION_AUDIT_END
 
+  function animationSummary({ total, infinite, layoutProps, properties }) {
+    return { total, infinite, layoutProps, properties };
+  }
+  // ANIMATION_SUMMARY_END
+
   // Restart the reveal state and sample on the next frame, while A-002's finite
   // animations are observable. Waiting for completion made a zero result vacuous.
   const draws = [...document.querySelectorAll('[data-draw]')];
@@ -319,7 +324,15 @@
   R.responsive = [];
   for (const px of [320, 390, 768, 1024, 1440]) R.responsive.push(await at(px));
 
-  const report = JSON.stringify(R, null, 1);
+  const serializable = {
+    ...R,
+    anims: {
+      ...animationSummary(R.anims),
+      a002: animationSummary(R.anims.a002),
+      a003: animationSummary(R.anims.a003),
+    },
+  };
+  const report = JSON.stringify(serializable, null, 1);
   console.log(report);
   return report;
 })();
