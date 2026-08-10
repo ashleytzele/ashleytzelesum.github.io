@@ -114,12 +114,26 @@
       const small = tg.filter(e => { const r = e.getBoundingClientRect(); return r.width < 44 || r.height < 44; });
       const sz = t => { const s = t.ownerSVGElement; return parseFloat(f.contentWindow.getComputedStyle(t).fontSize) * (s.getBoundingClientRect().width / s.viewBox.baseVal.width); };
       const text = [...d.querySelectorAll('.dwg text')].map(sz).sort((a, b) => a - b);
+      const assembly = d.querySelector('#a001 .assembly');
+      const a001Tabs = [...d.querySelectorAll('#a001 [role=tab]')];
+      const a001Names = a001Tabs.map(t => t.querySelector('.part-name').textContent.trim());
+      const a001VisibleTogether = a001Tabs.every(t => {
+        const r = t.getBoundingClientRect();
+        const a = assembly.getBoundingClientRect();
+        return r.left >= a.left - 1 && r.right <= a.right + 1;
+      });
       res({
         px,
         overflow: d.documentElement.scrollWidth > px + 1,
         targets: tg.length,
         under44: small.map(e => e.textContent.trim().slice(0, 14)),
         minDrawnText: +text[0].toFixed(1),
+        a001: {
+          tabs: a001Tabs.length,
+          names: a001Names,
+          visibleTogether: a001VisibleTogether,
+          assemblyOverflow: assembly.scrollWidth > assembly.clientWidth + 1,
+        },
       });
       f.remove();
     }, 1800);
