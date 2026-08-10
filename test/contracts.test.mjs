@@ -239,6 +239,34 @@ test('A-002 essential records are not hidden by the runtime gate', () => {
   assert.doesNotMatch(css, /\.runtime-ready\s+#a002\s+\.education-transfer\s*\{[^}]*opacity:\s*0/);
 });
 
+test('A-002 uses one responsive route with attached drawing nodes', () => {
+  assert.match(css, /#a002\s+\.education-route\s*\{[^}]*display:\s*grid/);
+  assert.match(css, /#a002\s+\.education-route::before\s*\{[^}]*border-top:/);
+  assert.match(css, /#a002\s+\.education-node-current\s*\{[^}]*border-width:\s*2px/);
+  assert.match(css, /@media\(max-width:720px\)[\s\S]*#a002\s+\.education-route\s*\{[^}]*grid-template-columns:\s*minmax\(0,1fr\)/);
+  assert.match(css, /@media\(max-width:720px\)[\s\S]*#a002\s+\.education-route::before\s*\{[^}]*border-left:/);
+  assert.doesNotMatch(css, /#a002[^}]*overflow-x:\s*auto/);
+});
+
+test('A-002 factual labels use the readable mono floor and factual tokens', () => {
+  for (const selector of ['education-node-meta', 'education-place', 'education-transfer', 'education-caption']) {
+    const rule = new RegExp(`#a002\\s+\\.${selector}[^}]*\\{([^}]*)\\}`).exec(css);
+    assert.ok(rule, `missing ${selector} rule`);
+    const size = /font-size:\s*([\d.]+)px/.exec(rule[1]);
+    assert.ok(size && Number(size[1]) >= 8.5, `${selector} below 8.5px`);
+    assert.doesNotMatch(rule[1], /color:\s*var\(--(?:refdec|line)\)/,
+      `${selector} must not use a decorative low-contrast token`);
+  }
+});
+
+test('A-002 reveal animates decoration only and completes for reduced motion and print', () => {
+  assert.doesNotMatch(css, /\.runtime-ready\s+#a002\s+\.education-node\s*\{[^}]*opacity:\s*0/);
+  assert.match(css, /\.runtime-ready\s+#a002\s+\.education-route::before\s*\{[^}]*transform:/);
+  assert.match(css, /#a002\.drawn\s+\.education-route::before\s*\{[^}]*animation:/);
+  assert.match(css, /@media\(prefers-reduced-motion:reduce\)[\s\S]*#a002\s+\.education-route::before[^}]*transform:\s*none/);
+  assert.match(css, /@media print[\s\S]*#a002\s+\.education-route::before[^}]*transform:\s*none/);
+});
+
 test('A-001 Athletics points to the sheets that now own aquatics and swimming evidence', () => {
   const a001 = section('id="a001"', 'id="a002"');
   const athletics = /<div[^>]*data-part="athletics"[\s\S]*?<\/div>/.exec(a001);
