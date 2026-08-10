@@ -39,7 +39,7 @@
   var parts=[].slice.call(document.querySelectorAll('#a001 .part')),
       st=document.getElementById('spec-t'),
       sp=document.getElementById('spec-p'),
-      sd=document.getElementById('spec-d');
+      sd=document.getElementById('spec-d'),
       panel=document.getElementById('specpanel');
   if(parts.length&&st&&sp&&sd&&panel){
     function show(k,focus){var s=SPEC[k];if(!s)return;

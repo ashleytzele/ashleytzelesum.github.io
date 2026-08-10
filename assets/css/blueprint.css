@@ -141,14 +141,51 @@ p{margin:0;color:var(--sec)}
 /* A-001 assembly */
 .sysgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
   gap:calc(var(--u)*5);margin-top:calc(var(--u)*5);align-items:start}
-@media(max-width:900px){.sysgrid{grid-template-columns:minmax(0,1fr)}}
-.part{cursor:pointer}
-.part rect{transition:fill .2s linear}
-.part:hover .k rect,.part[aria-selected="true"] .k rect{fill:var(--ink)}
-.part:hover .tn,.part:hover .ts,.part[aria-selected="true"] .tn,.part[aria-selected="true"] .ts{fill:var(--paper)}
-.part .tn,.part .ts{transition:fill .2s linear}
-.part:focus{outline:none}
-.part:focus-visible .k rect{stroke-width:2.75}
+#a001 .assembly{position:relative;min-width:0;padding:calc(var(--u)*2) calc(var(--u)*2) calc(var(--u)*3) calc(var(--u)*8);border:1px solid var(--line);overflow:hidden}
+#a001 .assembly-tabs{position:relative;display:grid;gap:calc(var(--u)*2.5);z-index:1}
+#a001 .part{display:grid;grid-template-columns:38px minmax(0,1fr) 46px;gap:calc(var(--u)*1.5);align-items:center;width:100%;min-height:72px;padding:0;border:0;background:none;color:var(--ink);text-align:left;cursor:pointer;font:inherit}
+#a001 .part-no{display:grid;place-items:center;width:30px;height:30px;border:1.25px solid var(--ink);border-radius:50%;background:var(--paper);font-family:'MN',monospace;font-size:8.5px;letter-spacing:.1em}
+#a001 .part-body{position:relative;min-width:0;border:1.25px solid var(--ink);padding:calc(var(--u)*1.25) calc(var(--u)*2);transition:background .2s linear,color .2s linear}
+#a001 .part-body::before{content:'';position:absolute;right:100%;top:50%;width:calc(var(--u)*6);height:1px;background:var(--line);pointer-events:none}
+#a001 .part-name{display:block;font-size:.94rem;font-weight:600;letter-spacing:-.015em}
+#a001 .part-desc,#a001 .part-ref{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.08em;color:var(--ref)}
+#a001 .part-desc{display:block;margin-top:4px;overflow-wrap:anywhere}
+#a001 .part-ref{text-transform:uppercase}
+#a001 .part:hover:not([aria-selected="true"]) .part-body{background:var(--hair)}
+#a001 .part[aria-selected="true"] .part-body{background:var(--ink);color:var(--paper)}
+#a001 .part[aria-selected="true"] .part-desc{color:var(--paper)}
+#a001 .part:focus{outline:none}
+#a001 .part:focus-visible .part-body{outline:2px solid var(--ink);outline-offset:3px}
+#a001 .assembly-axis{position:absolute;top:calc(var(--u)*2);bottom:calc(var(--u)*5);left:56%;border-left:1px dashed var(--line);pointer-events:none}
+#a001 .assembly-dimension{position:absolute;top:calc(var(--u)*4);bottom:calc(var(--u)*7);left:calc(var(--u)*3);border-left:1px solid var(--mid);pointer-events:none}
+#a001 .assembly-dimension::before,#a001 .assembly-dimension::after{content:'';position:absolute;left:-6px;width:12px;border-top:1px solid var(--mid)}
+#a001 .assembly-dimension::before{top:0}
+#a001 .assembly-dimension::after{bottom:0}
+#a001 .assembly-dimension span{position:absolute;top:50%;left:-39px;width:78px;transform:rotate(-90deg);font-family:'MN',monospace;font-size:8px;letter-spacing:.14em;color:var(--ref);white-space:nowrap}
+#a001 .assembly-axis-label{margin-top:calc(var(--u)*2);text-align:center;font-family:'MN',monospace;font-size:8px;letter-spacing:.14em;color:var(--ref)}
+.js #a001 .part{opacity:0}
+.drawn #a001 .part{animation:fd .45s linear forwards}
+.drawn #a001 .part:nth-child(1){animation-delay:.20s}
+.drawn #a001 .part:nth-child(2){animation-delay:.32s}
+.drawn #a001 .part:nth-child(3){animation-delay:.44s}
+.drawn #a001 .part:nth-child(4){animation-delay:.56s}
+.js #a001 .assembly-axis{transform:scaleY(0);transform-origin:top}
+.drawn #a001 .assembly-axis{animation:ax .9s cubic-bezier(.37,0,.28,1) forwards}
+@media(max-width:900px){
+  .sysgrid{grid-template-columns:minmax(0,1fr)}
+  #a001 .assembly{max-width:620px;width:100%;margin-inline:auto}
+}
+@media(max-width:600px){
+  #a001 .assembly{padding:calc(var(--u)*1.5) 0;border-left:0;border-right:0;overflow:visible}
+  #a001 .assembly-axis,#a001 .assembly-dimension,#a001 .assembly-axis-label{display:none}
+  #a001 .assembly-tabs{gap:calc(var(--u))}
+  #a001 .part{grid-template-columns:34px minmax(0,1fr) 40px;gap:calc(var(--u));min-height:58px}
+  #a001 .part-no{width:28px;height:28px}
+  #a001 .part-body{padding:calc(var(--u)) calc(var(--u)*1.25)}
+  #a001 .part-body::before{display:none}
+  #a001 .part-name{font-size:.9rem}
+  #a001 .part-desc,#a001 .part-ref{font-size:8px}
+}
 .spec{border-top:1px solid var(--ink);padding-top:calc(var(--u)*2);margin-top:calc(var(--u)*4)}
 .spec .sk{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ref)}
 .spec .sh{margin:calc(var(--u)*1) 0;font-size:1.05rem;font-weight:600;color:var(--ink)}
@@ -203,7 +240,7 @@ p{margin:0;color:var(--sec)}
    them shrink to the viewport — at 390px a 660px floor rendered 5.3px labels. */
 .figbox svg{min-width:1000px;max-width:none}
 .dwgbox{overflow-x:auto}
-@media(max-width:1040px){.figbox::after,.dwgbox::after{content:"\2190 scroll to pan \2192";display:block;
+@media(max-width:1040px){.figbox::after,#a004 .dwgbox::after{content:"\2190 scroll to pan \2192";display:block;
   font-family:'MN',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--ref);margin-top:calc(var(--u)*1.5);position:sticky;left:0}}
 #a004 .dwgbox svg{min-width:1000px;max-width:none}
@@ -258,6 +295,8 @@ p{margin:0;color:var(--sec)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}
   .dwg .ln{stroke-dashoffset:0;animation:none}.dwg .axis{transform:scaleY(1);animation:none}
   .dwg .fd,.an{opacity:1;animation:none}
+  #a001 .part{opacity:1;animation:none}
+  #a001 .assembly-axis{transform:scaleY(1);animation:none}
   *{animation-duration:.001ms!important;transition-duration:.001ms!important}}
 @media print{@page{size:A3 landscape;margin:8mm}
   :root{--paper:#fff;--ink:#000;--sec:#333;--ref:#555;--refdec:#777;--line:#CCC;--hair:#E5E5E5;--mid:#999}
