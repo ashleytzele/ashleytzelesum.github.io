@@ -570,16 +570,17 @@ test('A-003 track grammar accepts a third role structurally', () => {
   assert.ok(template, 'role list needs one repeatable list-item template');
 });
 
-test('A-003 inter-role chevron is rail-aligned and font independent', () => {
+test('A-003 inter-role arrow is a rail-aligned solid triangle', () => {
   const rule = /#a003\s+\.experience-step:not\(:last-child\)::after\s*\{([^}]*)\}/.exec(css);
-  assert.ok(rule, 'missing inter-role chevron rule');
+  assert.ok(rule, 'missing inter-role arrow rule');
   assert.match(rule[1], /content:\s*''/);
-  assert.match(rule[1], /left:\s*-26px/);
-  assert.match(rule[1], /width:\s*6px/);
-  assert.match(rule[1], /height:\s*6px/);
-  assert.match(rule[1], /border-right:\s*1px solid var\(--ink\)/);
-  assert.match(rule[1], /border-bottom:\s*1px solid var\(--ink\)/);
-  assert.match(rule[1], /transform:\s*rotate\(45deg\)/);
+  assert.match(rule[1], /left:\s*-23px/);
+  assert.match(rule[1], /width:\s*0/);
+  assert.match(rule[1], /height:\s*0/);
+  assert.match(rule[1], /border-left:\s*3px solid transparent/);
+  assert.match(rule[1], /border-right:\s*3px solid transparent/);
+  assert.match(rule[1], /border-top:\s*6px solid var\(--ink\)/);
+  assert.doesNotMatch(rule[1], /transform:/);
   assert.doesNotMatch(rule[1], /(?:font|padding|background|animation):/);
 });
 
