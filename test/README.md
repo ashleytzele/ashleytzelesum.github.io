@@ -92,8 +92,10 @@ route overflow, and a 9px education text floor; phones use the vertical route
 while 768px and wider use the horizontal route; animations are finite and do
 not animate layout properties.
 
-Reduced motion remains **unverified**: the real media query did not match, so
-`completed`, `a002Completed`, and `state` correctly remain `null`.
+The baseline JSON above was captured without the reduced-motion preference, so
+its completion fields correctly remain `null`. In a separate real-environment
+reduced-motion run, the user confirmed `matches: true`, `completed: true`, and
+`a002Completed: true`. No additional state fields were reported.
 
 The user confirmed the mandatory manual checks pass: at 390px the vertical
 route/destination connector is correct and both records read in normal scroll;
@@ -103,8 +105,8 @@ introduces no overlap; light and dark visual hierarchy is correct; essential
 content remains visible with JavaScript disabled and with synchronous script
 failure; and the A-001 tabs and A-003 interactions still work.
 
-Real-environment reduced motion and print preview remain **unverified**. No
-pass is claimed for either mode.
+The user also confirmed print preview shows the completed route with no clipped
+content.
 
 ### Baseline — 2026-08-10 (A-001 responsive identity assembly)
 
