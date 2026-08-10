@@ -118,9 +118,11 @@
       const a001Tabs = [...d.querySelectorAll('#a001 [role=tab]')];
       const a001Names = a001Tabs.map(t => t.querySelector('.part-name').textContent.trim());
       const a001VisibleTogether = a001Tabs.every(t => {
+        const style = f.contentWindow.getComputedStyle(t);
         const r = t.getBoundingClientRect();
         const a = assembly.getBoundingClientRect();
-        return r.left >= a.left - 1 && r.right <= a.right + 1;
+        return style.display !== 'none' && style.visibility !== 'hidden' &&
+          Number(style.opacity) > 0 && r.left >= a.left - 1 && r.right <= a.right + 1;
       });
       res({
         px,

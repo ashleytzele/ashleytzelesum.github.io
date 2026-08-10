@@ -84,6 +84,12 @@ test('reveal is js-guarded and has a noscript fallback', () => {
   assert.match(html, /document\.documentElement\.className\s*\+=\s*" js"/);
 });
 
+test('A-001 reveal selectors match the drawn state on the section itself', () => {
+  assert.match(css, /#a001\.drawn\s+\.part\{/);
+  assert.match(css, /#a001\.drawn\s+\.assembly-axis\{/);
+  assert.doesNotMatch(css, /\.drawn\s+#a001/);
+});
+
 test('scrollable regions are keyboard reachable and labelled', () => {
   const boxes = html.match(/<div class="(figbox|dwgbox)"[^>]*>/g) || [];
   assert.ok(boxes.length > 0, 'expected scrollable figure regions');
