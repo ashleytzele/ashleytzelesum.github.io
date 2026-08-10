@@ -40,12 +40,10 @@ string, and rerun the harness; a completed reveal reports `true` with every
 counter in `reducedMotion.state` at zero. The historical baselines below were
 not rewritten because this revised check has not yet been run in that mode.
 
-### Stale baseline — 2026-08-10 (A-002 education route, before static visibility check)
+### Baseline — 2026-08-10 (A-002 education route, updated harness)
 
-Measured by the user in a foreground browser against
-`http://localhost:8118/?cb=a002-education-final`. This historical JSON predates
-the ancestor-aware `withoutJS.a002.essentialVisible` measurement and is not
-current acceptance evidence.
+Measured by the user in a fresh foreground page with the updated harness after
+the mobile transfer-alignment fix.
 
 ```json
 {
@@ -60,7 +58,7 @@ current acceptance evidence.
     "a002CollapsedDetails": 0,
     "parts": 4,
     "names": ["Background", "Now", "Engineering", "Athletics"],
-    "a002": { "nodes": 2, "transfer": "TransferredDec 2024 → Jan 2025" }
+    "a002": { "nodes": 2, "transfer": "TransferredDec 2024 → Jan 2025", "essentialVisible": true }
   },
   "reducedMotion": {
     "matches": false,
@@ -86,27 +84,22 @@ current acceptance evidence.
 }
 ```
 
-At the time of this run, the recorded fields met their targets: both themes had
-no contrast failures; the static/no-JavaScript model contained both A-002
-records and the transfer; every width had the correct node order, visible
-content, no page or route overflow, and a 9px education text floor; phones used
-the vertical route while 768px and wider used the horizontal route; animations
-were finite and did not animate layout properties. A fresh foreground run is
-required because this output does not prove the static records and their
-factual descendants were visually visible.
+The automated measurements meet their required targets: both themes have no
+contrast failures; the static/no-JavaScript model contains both A-002 records
+and the transfer, and all essential facts are visually visible through every
+ancestor; every width has the correct node order, visible content, no page or
+route overflow, and a 9px education text floor; phones use the vertical route
+while 768px and wider use the horizontal route; animations are finite and do
+not animate layout properties.
 
 Reduced motion remains **unverified**: the real media query did not match, so
 `completed`, `a002Completed`, and `state` correctly remain `null`.
 
-Fresh automated evidence is **pending**. Rerun the current harness with a new
-cache-busting query string and record the full JSON, including
-`withoutJS.a002.essentialVisible: true`.
-
-Mandatory manual checks remain **unverified**: the 390px arrow/destination tick and normal
-scroll, 768px spacing, 1440px transfer hierarchy and non-colour current state,
-200% zoom, light/dark visual hierarchy, JavaScript disabled, injected
-synchronous script failure, reduced motion, print preview, and A-001/A-003
-interaction regressions have not been claimed as passed.
+Mandatory manual checks remain **unverified**: the 390px arrow/destination tick
+and normal scroll, 768px spacing, 1440px transfer hierarchy and non-colour
+current state, 200% zoom, light/dark visual hierarchy, JavaScript disabled,
+injected synchronous script failure, reduced motion, print preview, and
+A-001/A-003 interaction regressions have not been claimed as passed.
 
 ### Baseline — 2026-08-10 (A-001 responsive identity assembly)
 
