@@ -502,6 +502,18 @@ test('browser measurements cover the A-002 education route in every required mod
   assert.match(measure, /educationTextFloor/);
 });
 
+test('static A-002 measurement requires every essential record detail to be visually visible', () => {
+  const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
+  assert.match(measure,
+    /const visibleIn = \(e, view = window\) => \{[\s\S]*?for \(let n = e; n; n = n\.parentElement\)/,
+    'static visibility must reject a hidden or transparent ancestor');
+  assert.match(measure,
+    /#a002 \.education-node,#a002 \.education-node-meta span,#a002 \.education-node h3,#a002 \.education-place,#a002 \.education-programme,#a002 \.education-programme p,#a002 \.education-transfer,#a002 \.education-transfer strong,#a002 \.education-transfer>span,#a002 \.education-caption span/,
+    'static visibility must cover both records, transfer, and factual descendants');
+  assert.match(measure, /essentialVisible:\s*staticA002Essentials\.every\(e => visibleIn\(e\)\)/,
+    'the no-JavaScript report must expose the aggregate visibility result');
+});
+
 test('no client-identifying term appears in any tracked file', () => {
   // The terms live in .confidential-terms, which is gitignored. They are NOT
   // listed here on purpose: writing them into a tracked file is precisely the

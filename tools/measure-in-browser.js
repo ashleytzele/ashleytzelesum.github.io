@@ -80,11 +80,24 @@
       })).length,
   });
 
+  const visibleIn = (e, view = window) => {
+    if (!e) return false;
+    const r = e.getBoundingClientRect();
+    if (!(r.width > 0 && r.height > 0)) return false;
+    for (let n = e; n; n = n.parentElement) {
+      const style = view.getComputedStyle(n);
+      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return false;
+    }
+    return true;
+  };
+
   // Removing the earned gate models the static/no-JS CSS state. Include the
   // A-001 parts and construction marks, not only the legacy SVG drawing marks.
   const hadRuntime = document.documentElement.classList.contains('runtime-ready');
   document.documentElement.classList.remove('runtime-ready');
   const staticParts = [...document.querySelectorAll('#a001 .part')];
+  const staticA002Essentials = [...document.querySelectorAll(
+    '#a002 .education-node,#a002 .education-node-meta span,#a002 .education-node h3,#a002 .education-place,#a002 .education-programme,#a002 .education-programme p,#a002 .education-transfer,#a002 .education-transfer strong,#a002 .education-transfer>span,#a002 .education-caption span')];
   R.withoutJS = {
     ...revealState(),
     parts: staticParts.length,
@@ -92,6 +105,7 @@
     a002: {
       nodes: document.querySelectorAll('#a002 .education-node').length,
       transfer: document.querySelector('#a002 .education-transfer')?.textContent.trim(),
+      essentialVisible: staticA002Essentials.every(e => visibleIn(e)),
     },
   };
   if (hadRuntime) document.documentElement.classList.add('runtime-ready');
@@ -160,15 +174,7 @@
       // out by the height>0 guard below, so the gate never sees the controls a
       // visitor reaches by clicking "Open detail".
       d.querySelectorAll('.more').forEach(b => b.click());
-      const visible = e => {
-        const r = e.getBoundingClientRect();
-        if (!(r.width > 0 && r.height > 0)) return false;
-        for (let n = e; n; n = n.parentElement) {
-          const style = f.contentWindow.getComputedStyle(n);
-          if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return false;
-        }
-        return true;
-      };
+      const visible = e => visibleIn(e, f.contentWindow);
       const tg = [...d.querySelectorAll('a[href],button,#a001 .part')].filter(visible);
       const small = tg.filter(e => { const r = e.getBoundingClientRect(); return r.width < 44 || r.height < 44; });
       const sz = t => { const s = t.ownerSVGElement; return parseFloat(f.contentWindow.getComputedStyle(t).fontSize) * (s.getBoundingClientRect().width / s.viewBox.baseVal.width); };
