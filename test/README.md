@@ -37,8 +37,9 @@ reliable if the tab is hidden while the script runs.
 `(prefers-reduced-motion: reduce)` query matches. To produce reduced-motion
 evidence, enable Reduce Motion in the OS/browser, reload with a fresh query
 string, and rerun the harness; a completed reveal reports `true` with every
-counter in `reducedMotion.state` at zero. The historical baselines below were
-not rewritten because this revised check has not yet been run in that mode.
+counter in `reducedMotion.state` at zero. The embedded baseline below is the
+standard, non-reduced-motion run, so its completion fields are `null`; the
+separate confirmed reduced-motion result follows immediately after it.
 
 ### Baseline — 2026-08-10 (A-002 education route, updated harness)
 
@@ -84,13 +85,19 @@ the mobile transfer-alignment fix.
 }
 ```
 
-The automated measurements meet their required targets: both themes have no
+The non-animation measurements meet their required targets: both themes have no
 contrast failures; the static/no-JavaScript model contains both A-002 records
 and the transfer, and all essential facts are visually visible through every
 ancestor; every width has the correct node order, visible content, no page or
 route overflow, and a 9px education text floor; phones use the vertical route
-while 768px and wider use the horizontal route; animations are finite and do
-not animate layout properties.
+while 768px and wider use the horizontal route.
+
+The embedded `anims` object is stale: it was produced by the former harness,
+which sampled only after finite animations had ended. Run the revised harness
+once in a fresh foreground page and replace only that object with its
+non-vacuous `details`, `properties`, and `a002` results. The confirmed
+reduced-motion and print-preview checks below are unaffected and do not need to
+be repeated.
 
 The baseline JSON above was captured without the reduced-motion preference, so
 its completion fields correctly remain `null`. In a separate real-environment

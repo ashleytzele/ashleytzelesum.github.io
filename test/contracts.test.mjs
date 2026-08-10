@@ -212,8 +212,9 @@ test('A-002 contains exactly the approved ordered education route', () => {
 
 test('A-002 route accessible description covers both records and the transfer interval', () => {
   const a002 = section('id="a002"', 'id="a003"');
-  const route = /<div class="education-route" aria-label="([^"]+)">/.exec(a002);
-  assert.ok(route, 'education route needs an accessible description');
+  const route = /<div class="education-route" role="group" aria-label="([^"]+)">/.exec(a002);
+  assert.ok(route, 'education route needs an accessible group name');
+  assert.equal(route[1], 'Academic route: INTI International College Subang, Aug 2023&ndash;Dec 2024, American Degree Transfer Program, Applied Science; transferred Dec 2024&ndash;Jan 2025; San Francisco State University, Jan 2025&ndash;Present, Bachelor of Science, Computer Science.');
   for (const value of [
     'INTI International College Subang',
     'Aug 2023&ndash;Dec 2024',
@@ -518,6 +519,48 @@ test('browser measurements cover the A-002 education route in every required mod
   assert.match(measure, /routeDirection/);
   assert.match(measure, /routeOverflow/);
   assert.match(measure, /educationTextFloor/);
+});
+
+test('browser animation audit samples live reveal animations and reports their timing and properties', () => {
+  const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
+  assert.match(measure,
+    /querySelectorAll\('\[data-draw\]'\)[\s\S]*?classList\.remove\('drawn'\)[\s\S]*?offsetWidth[\s\S]*?classList\.add\('drawn'\)[\s\S]*?requestAnimationFrame/,
+    'the harness must restart and sample finite reveal animations before they finish');
+  assert.match(measure, /getAnimations\(\{\s*subtree:\s*true\s*\}\)/,
+    'the harness must explicitly sample the A-002 animation subtree');
+  assert.match(measure, /getTiming\(\)[\s\S]*?timing\.iterations/);
+  assert.match(measure, /getKeyframes\(\)/);
+  assert.match(measure, /details:\s*animationDetails/);
+  assert.match(measure, /a002:\s*auditAnimations\(a002Animations\)/);
+});
+
+test('browser animation audit flags infinite and layout-property animations', () => {
+  const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
+  const start = measure.indexOf('function auditAnimations');
+  const end = measure.indexOf('// ANIMATION_AUDIT_END');
+  assert.ok(start >= 0 && end > start, 'expected extractable animation audit helper');
+  const auditAnimations = new Function(`${measure.slice(start, end)}\nreturn auditAnimations;`)();
+  const animation = (name, iterations, keyframes) => ({
+    animationName: name,
+    effect: {
+      getTiming: () => ({ iterations }),
+      getKeyframes: () => keyframes,
+    },
+  });
+
+  const result = auditAnimations([
+    animation('education-line', 1, [{ transform: 'scaleX(0)' }, { transform: 'none' }]),
+    animation('bad-loop', Infinity, [{ width: '0px' }, { width: '100px' }]),
+  ]);
+
+  assert.equal(result.total, 2);
+  assert.equal(result.infinite, 1);
+  assert.deepEqual(result.layoutProps, ['width']);
+  assert.deepEqual(result.properties, ['transform', 'width']);
+  assert.deepEqual(result.details.map(({ name, iterations }) => ({ name, iterations })), [
+    { name: 'education-line', iterations: 1 },
+    { name: 'bad-loop', iterations: 'infinite' },
+  ]);
 });
 
 test('static A-002 measurement requires every essential record detail to be visually visible', () => {

@@ -140,15 +140,46 @@
   key(document.activeElement, 'End');
   R.keyboard.endGoesLast = document.activeElement === tabs[tabs.length - 1];
 
-  // Animation budget.
-  window.scrollTo(0, document.body.scrollHeight); window.scrollTo(0, 0);
-  await new Promise(r => setTimeout(r, 2500));
+  function auditAnimations(animations) {
+    const frameMetadata = new Set(['offset', 'computedOffset', 'easing', 'composite']);
+    const details = animations.map(animation => {
+      const timing = animation.effect.getTiming();
+      const properties = [...new Set(animation.effect.getKeyframes()
+        .flatMap(Object.keys).filter(property => !frameMetadata.has(property)))].sort();
+      return {
+        name: animation.animationName || '(unnamed)',
+        iterations: timing.iterations === Infinity ? 'infinite' : timing.iterations,
+        properties,
+      };
+    });
+    const properties = [...new Set(details.flatMap(animation => animation.properties))].sort();
+    return {
+      total: details.length,
+      infinite: details.filter(animation => animation.iterations === 'infinite').length,
+      layoutProps: properties.filter(property => /^(width|height|top|left|right|bottom|margin|padding)/.test(property)),
+      properties,
+      details,
+    };
+  }
+  // ANIMATION_AUDIT_END
+
+  // Restart the reveal state and sample on the next frame, while A-002's finite
+  // animations are observable. Waiting for completion made a zero result vacuous.
+  const draws = [...document.querySelectorAll('[data-draw]')];
+  draws.forEach(draw => draw.classList.remove('drawn'));
+  void document.body.offsetWidth;
+  draws.forEach(draw => draw.classList.add('drawn'));
+  await new Promise(requestAnimationFrame);
   const anims = document.getAnimations();
+  const a002Animations = document.querySelector('#a002').getAnimations({ subtree: true });
+  const animationDetails = auditAnimations(anims);
   R.anims = {
-    total: anims.length,
-    infinite: anims.filter(a => { try { return a.effect.getTiming().iterations === Infinity; } catch { return false; } }).length,
-    layoutProps: [...new Set(anims.flatMap(a => { try { return a.effect.getKeyframes().flatMap(Object.keys); } catch { return []; } }))]
-      .filter(p => /^(width|height|top|left|right|bottom|margin|padding)/.test(p)),
+    total: animationDetails.total,
+    infinite: animationDetails.infinite,
+    layoutProps: animationDetails.layoutProps,
+    properties: animationDetails.properties,
+    details: animationDetails.details,
+    a002: auditAnimations(a002Animations),
   };
 
   // Overflow and touch targets, measured in real iframes so media queries fire.
