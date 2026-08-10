@@ -5,6 +5,7 @@
 .codegraph/
 .superpowers/
 .impeccable/
+.worktrees/
 node_modules/
 package-lock.json
 
