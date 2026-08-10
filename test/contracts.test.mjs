@@ -248,6 +248,24 @@ test('A-002 uses one responsive route with attached drawing nodes', () => {
   assert.doesNotMatch(css, /#a002[^}]*overflow-x:\s*auto/);
 });
 
+test('A-002 phone transfer annotation shares the datum geometry', () => {
+  const phone = /@media\(max-width:720px\)\{([\s\S]*?)\n\}/.exec(css);
+  assert.ok(phone, 'expected A-002 phone styles');
+  const transfer = /#a002\s+\.education-transfer\s*\{([^}]*)\}/.exec(phone[1]);
+  const tick = /#a002\s+\.education-transfer::before\s*\{([^}]*)\}/.exec(phone[1]);
+  const arrow = /#a002\s+\.education-transfer::after\s*\{([^}]*)\}/.exec(phone[1]);
+  assert.ok(transfer && tick && arrow, 'expected transfer annotation, tick and arrow rules');
+  assert.match(transfer[1], /justify-self:\s*stretch/);
+  assert.match(transfer[1], /margin-left:\s*0/);
+  assert.match(transfer[1], /padding:\s*calc\(var\(--u\)\*2\)\s+10px/);
+  assert.match(tick[1], /left:\s*-25px/);
+  assert.match(tick[1], /width:\s*25px/);
+  assert.match(tick[1], /border-top:\s*1px\s+solid\s+var\(--ink\)/);
+  assert.match(arrow[1], /left:\s*-29px/);
+  assert.match(arrow[1], /border-top:\s*8px\s+solid\s+var\(--ink\)/);
+  assert.doesNotMatch(transfer[1], /margin-left:\s*-/);
+});
+
 test('A-002 factual labels use the readable mono floor and factual tokens', () => {
   for (const selector of ['education-node-meta', 'education-place', 'education-transfer', 'education-caption']) {
     const rule = new RegExp(`#a002\\s+\\.${selector}[^}]*\\{([^}]*)\\}`).exec(css);

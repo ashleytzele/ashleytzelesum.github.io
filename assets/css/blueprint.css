@@ -248,10 +248,13 @@ p{margin:0;color:var(--sec)}
     top:30px;width:25px}
   #a002 .education-node::after{display:none}
   #a002 .education-node-meta{flex-direction:column;gap:2px}
-  #a002 .education-transfer{justify-self:start;text-align:left;margin-left:-24px;
-    padding:calc(var(--u)*4) 10px calc(var(--u)*4) 40px}
-  #a002 .education-transfer::after{right:auto;left:4px;top:auto;bottom:4px;
-    transform:rotate(90deg)}
+  #a002 .education-transfer{justify-self:stretch;text-align:left;margin-left:0;
+    padding:calc(var(--u)*2) 10px}
+  #a002 .education-transfer::before{content:'';position:absolute;left:-25px;top:50%;
+    width:25px;border-top:1px solid var(--ink)}
+  #a002 .education-transfer::after{right:auto;left:-29px;top:auto;bottom:4px;
+    transform:none;border-left:4px solid transparent;border-right:4px solid transparent;
+    border-top:8px solid var(--ink);border-bottom:0}
   #a002 .education-caption{display:grid;gap:4px}
 }
 
