@@ -176,16 +176,20 @@ test('A-001 descriptor hover meets light-theme text contrast', () => {
   const values = [luminance(vars.ink), luminance(vars.hair)].sort((a, b) => b - a);
   assert.ok((values[0] + .05) / (values[1] + .05) >= 4.5);
   assert.match(css,
-    /#a001\s+\.part:hover:not\(\[aria-selected="true"\]\)\s+\.part-desc[^}]*color:\s*var\(--ink\)/,
+    /#a001\s+\.part:hover:not\(\[aria-selected="true"\]\):not\(\[data-selected="true"\]\)\s+\.part-desc[^}]*color:\s*var\(--ink\)/,
     'hovered descriptor must use the verified high-contrast ink colour');
+  assert.match(css,
+    /\.runtime-ready\s+#a001\s+\.part:hover:not\(\[aria-selected="true"\]\):not\(\[data-selected="true"\]\)\s+\.part-body/,
+    'hover must not override either the enhanced or static selected state');
 });
 
 test('print forces A-001 reveal details into their completed state', () => {
   const print = /@media print\{([\s\S]*?)\n\}/.exec(css);
   assert.ok(print, 'expected print styles');
   assert.match(print[1], /#a001\s+\.part-desc[^}]*opacity:\s*1/);
-  assert.match(print[1], /#a001\s+\.part-body::after[^}]*clip-path:\s*none/);
-  assert.match(print[1], /#a001\s+\.assembly-axis[^}]*transform:\s*scaleY\(1\)/);
+  assert.match(print[1], /\.runtime-ready\s+#a001\s+\.part-body::before[^}]*transform:\s*scaleX\(1\)/);
+  assert.match(print[1], /\.runtime-ready\s+#a001\s+\.part-body::after[^}]*clip-path:\s*none/);
+  assert.match(print[1], /\.runtime-ready\s+#a001\s+\.assembly-axis[^}]*transform:\s*scaleY\(1\)/);
 });
 
 test('A-001 states background, present activity, direction and availability without interaction', () => {
