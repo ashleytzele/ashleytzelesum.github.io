@@ -49,6 +49,23 @@
       });
     });
 
+    /* A-003 role details: static HTML is complete; successful runtime earns collapse. */
+    var experienceButtons=[].slice.call(document.querySelectorAll('#a003 .experience-more'));
+    var setExperienceOpen=function(button,detail,open){
+      detail.setAttribute('data-open',String(open));
+      button.setAttribute('aria-expanded',String(open));
+      button.textContent=(open?'Close details \u2014 ':'Open details \u2014 ')+button.dataset.label;
+    };
+    experienceButtons.forEach(function(button){
+      var detail=document.getElementById(button.getAttribute('aria-controls'));
+      if(!detail)throw new Error('Missing A-003 detail for '+button.dataset.label);
+      setExperienceOpen(button,detail,false);
+      button.addEventListener('click',function(){
+        try{setExperienceOpen(button,detail,detail.getAttribute('data-open')!=='true')}
+        catch(error){resetA001();throw error}
+      });
+    });
+
     /* A-001 component specifications */
     var SPEC={
       background:{t:'Background',p:'From Malaysia, through INTI International College, to San Francisco State, where I am pursuing a B.S. in Computer Science.',d:[['Ref drawing','A-002'],['From','Malaysia'],['Previous','INTI International College']]},

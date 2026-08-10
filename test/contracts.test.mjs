@@ -293,6 +293,67 @@ test('A-002 reveal animates decoration only and completes for reduced motion and
     'print must complete the A-002 datum and both node ports');
 });
 
+test('A-003 contains the approved builder and operator tracks in reading order', () => {
+  const a003 = section('id="a003"', 'id="a004"');
+  assert.match(a003, /<h2>Experience<\/h2>/);
+  assert.ok(a003.includes('Building technical systems and operating real environments&mdash;across software, facilities, safety, and team coordination.'));
+  assert.equal((a003.match(/class="experience-track"/g) || []).length, 2);
+  assert.equal((a003.match(/class="experience-track-list"/g) || []).length, 2);
+  assert.equal((a003.match(/class="experience-role/g) || []).length, 4);
+  const order = ['Software / Systems', 'exp-01', 'exp-02', 'Operations / Aquatics', 'exp-03', 'exp-04']
+    .map(value => a003.indexOf(value));
+  order.forEach((value, index) => assert.notEqual(value, -1, `missing A-003 item ${index}`));
+  assert.deepEqual(order, [...order].sort((a, b) => a - b));
+  assert.equal((a003.match(/<ol class="experience-track-list">/g) || []).length, 2);
+  assert.equal((a003.match(/<h3 class="experience-track-title">/g) || []).length, 2);
+  assert.equal((a003.match(/<h4>/g) || []).length, 4);
+});
+
+test('A-003 contains exactly the approved role facts and handoffs', () => {
+  const a003 = section('id="a003"', 'id="a004"');
+  for (const value of [
+    'EXP-01 &middot; Previous', 'Jun&ndash;Sep 2024', 'IT Support', 'Zengo Corporation', 'Malaysia',
+    'Supported internal users and enterprise systems, and built an inventory application that automated stock calculations.',
+    'Inventory tracking &middot; Support + troubleshooting', 'Scope &amp; output',
+    'EXP-02 &middot; Internship', 'Jun&ndash;Aug 2026', 'Software Engineering Intern', 'OSPIT Mobility',
+    'Technical / R&amp;D', 'Solved five software and systems-integration problems spanning equipment identity, offline maps, printing, and mobile applications.',
+    '5 workstreams &middot; Drawings 05.1&ndash;05.3', 'Project evidence &rarr; A-005', 'Scope &amp; results',
+    'EXP-03 &middot; Previous', 'Aug 2025&ndash;Mar 2026', 'Lifeguard', 'Mashouf Wellness Center',
+    'San Francisco, California', 'Protected patron safety through active surveillance, facility checks, and emergency readiness on the pool deck.',
+    'Lifeguarding &middot; CPR &middot; AED &middot; First Aid', 'Operational responsibility',
+    'EXP-04 &middot; Current', 'Apr 2026&ndash;Present', 'Student Lead, Aquatics', 'SFSU Campus Recreation',
+    'Coordinates student staff and daily aquatics operations while supporting facility management and enforcing safety standards.',
+    'Staff &middot; Safety &middot; Facility operations', 'Leadership &amp; operations',
+    'Concurrent responsibility', 'Student Lead + OSPIT &middot; Jun&ndash;Aug 2026',
+    'Fig. A-003.1 &mdash; Builder + operator tracks', 'Engineering &rarr; A-004', 'Projects &rarr; A-005',
+  ]) assert.ok(a003.includes(value), `missing approved A-003 copy: ${value}`);
+  assert.doesNotMatch(a003, /\bPromoted\b/i);
+  assert.doesNotMatch(a003, /role="(?:tablist|tab|tabpanel)"/);
+  assert.doesNotMatch(a003, /<svg|class="figbox"/);
+});
+
+test('every A-003 role owns exactly one native fail-open detail', () => {
+  const a003 = section('id="a003"', 'id="a004"');
+  assert.equal((a003.match(/class="experience-more"/g) || []).length, 4);
+  assert.equal((a003.match(/class="experience-detail"/g) || []).length, 4);
+  for (const id of ['exp-01', 'exp-02', 'exp-03', 'exp-04']) {
+    const role = new RegExp(`<article[^>]*data-experience="${id}"[\\s\\S]*?<button[^>]*class="experience-more"[^>]*aria-controls="${id}-detail"[^>]*aria-expanded="true"[\\s\\S]*?<div[^>]*class="experience-detail"[^>]*id="${id}-detail"[^>]*data-open="true"`).exec(a003);
+    assert.ok(role, `${id} must own its matching visible detail and control`);
+  }
+  assert.equal((a003.match(/aria-controls="exp-0[1-4]-detail"/g) || []).length, 4);
+});
+
+test('A-003 defaults complete and earns collapsed details only after runtime success', () => {
+  assert.match(css, /#a003\s+\.experience-more\s*\{[^}]*display:\s*none/);
+  assert.match(css, /#a003\s+\.experience-detail\s*\{[^}]*display:\s*block/);
+  assert.match(css, /\.runtime-ready\s+#a003\s+\.experience-more\s*\{[^}]*display:\s*flex/);
+  assert.match(css, /\.runtime-ready\s+#a003\s+\.experience-detail\s*\{[^}]*display:\s*none/);
+  assert.match(css, /\.runtime-ready\s+#a003\s+\.experience-detail\[data-open="true"\]\s*\{[^}]*display:\s*block/);
+  assert.match(js, /querySelectorAll\('#a003 \.experience-more'\)/);
+  assert.match(js, /setAttribute\('aria-expanded',String\(open\)\)/);
+  assert.match(js, /root\.classList\.add\('runtime-ready'\)/);
+});
+
 test('A-001 Athletics points to the sheets that now own aquatics and swimming evidence', () => {
   const a001 = section('id="a001"', 'id="a002"');
   const athletics = /<div[^>]*data-part="athletics"[\s\S]*?<\/div>/.exec(a001);

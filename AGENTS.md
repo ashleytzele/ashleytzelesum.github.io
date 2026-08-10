@@ -111,7 +111,7 @@ them. Renumbering is a whole-site change, not a local one.
 | — | Cover | Title block. **Frozen — see §6.** |
 | A-001 | Identity | Assembly drawing; four components: Background, Now, Engineering, Athletics |
 | A-002 | Education | Academic transition: INTI International College Subang to SFSU |
-| A-003 | Experience | Four roles + internship workstreams |
+| A-003 | Experience | Builder + operator: vertical Software / Systems and Operations / Aquatics tracks with role-owned details |
 | A-004 | Engineering | System stack by layer, with modules that name the drawings they appear in |
 | A-005 | Projects | Six projects, 05.1–05.6 |
 | A-006 | Contact | Contact fields, document footer, end marker |
