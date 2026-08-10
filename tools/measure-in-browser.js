@@ -112,6 +112,7 @@
         url.searchParams.set('cb', `${Date.now()}-${px}`);
         stylesheet.href = url.href;
       });
+      d.querySelector('#a001').classList.add('drawn');
       await new Promise(r => setTimeout(r, 1800));
       // Open every disclosure panel before measuring. Otherwise every control
       // inside `.detail` is display:none (closed by default) and gets filtered

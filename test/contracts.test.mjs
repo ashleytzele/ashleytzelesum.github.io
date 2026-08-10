@@ -303,6 +303,13 @@ test('responsive browser measurements reload blueprint CSS before measuring', ()
     'measurement delay must begin only after a uniquely cache-busted stylesheet reload completes');
 });
 
+test('responsive browser measurements put A-001 in its drawn state before measuring', () => {
+  const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
+  assert.match(measure,
+    /stylesheet\.href = url\.href;[\s\S]*?\}\);[\s\S]*?d\.querySelector\('#a001'\)\.classList\.add\('drawn'\);[\s\S]*?await new Promise\(r => setTimeout\(r, 1800\)\);/,
+    'hidden responsive iframes must not depend on IntersectionObserver to reveal A-001');
+});
+
 test('no client-identifying term appears in any tracked file', () => {
   // The terms live in .confidential-terms, which is gitignored. They are NOT
   // listed here on purpose: writing them into a tracked file is precisely the
