@@ -41,10 +41,10 @@ counter in `reducedMotion.state` at zero. The embedded baseline below is the
 standard, non-reduced-motion run, so its completion fields are `null`; the
 separate confirmed reduced-motion result follows immediately after it.
 
-### Baseline — 2026-08-10 (A-002 education route, updated harness)
+### Baseline — 2026-08-10 (A-002 education route, final harness)
 
-Measured by the user in a fresh foreground page with the updated harness after
-the mobile transfer-alignment fix.
+Measured by the user in a fresh standard-motion foreground page with the final
+harness after the animation-audit and output fixes.
 
 ```json
 {
@@ -74,10 +74,26 @@ the mobile transfer-alignment fix.
     "panelFollows": true,
     "endGoesLast": true
   },
-  "anims": { "total": 0, "infinite": 0, "layoutProps": [] },
+  "anims": {
+    "total": 71,
+    "infinite": 0,
+    "layoutProps": [],
+    "properties": ["clipPath", "opacity", "strokeDashoffset", "transform"],
+    "a002": {
+      "total": 3,
+      "infinite": 0,
+      "layoutProps": [],
+      "properties": ["transform"],
+      "details": [
+        { "name": "education-line", "iterations": 1, "properties": ["transform"] },
+        { "name": "education-port", "iterations": 1, "properties": ["transform"] },
+        { "name": "education-port", "iterations": 1, "properties": ["transform"] }
+      ]
+    }
+  },
   "responsive": [
     { "px": 320, "overflow": false, "targets": 20, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false }, "a002": { "nodes": 2, "order": ["edu-01", "edu-02"], "visible": true, "routeDirection": "vertical", "routeOverflow": false, "educationTextFloor": 9 } },
-    { "px": 390, "overflow": false, "targets": 20, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false }, "a002": { "nodes": 2, "order": ["edu-01", "edu-02"], "visible": true, "routeDirection": "vertical", "routeOverflow": false, "educationTextFloor": 9 } },
+    { "px": 390, "overflow": false, "targets": 16, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false }, "a002": { "nodes": 2, "order": ["edu-01", "edu-02"], "visible": true, "routeDirection": "vertical", "routeOverflow": false, "educationTextFloor": 9 } },
     { "px": 768, "overflow": false, "targets": 20, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false }, "a002": { "nodes": 2, "order": ["edu-01", "edu-02"], "visible": true, "routeDirection": "horizontal", "routeOverflow": false, "educationTextFloor": 9 } },
     { "px": 1024, "overflow": false, "targets": 20, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false }, "a002": { "nodes": 2, "order": ["edu-01", "edu-02"], "visible": true, "routeDirection": "horizontal", "routeOverflow": false, "educationTextFloor": 9 } },
     { "px": 1440, "overflow": false, "targets": 20, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false }, "a002": { "nodes": 2, "order": ["edu-01", "edu-02"], "visible": true, "routeDirection": "horizontal", "routeOverflow": false, "educationTextFloor": 9 } }
@@ -85,19 +101,21 @@ the mobile transfer-alignment fix.
 }
 ```
 
-The non-animation measurements meet their required targets: both themes have no
+The measurements meet their required targets: both themes have no
 contrast failures; the static/no-JavaScript model contains both A-002 records
 and the transfer, and all essential facts are visually visible through every
 ancestor; every width has the correct node order, visible content, no page or
 route overflow, and a 9px education text floor; phones use the vertical route
-while 768px and wider use the horizontal route.
+while 768px and wider use the horizontal route. The responsive target count is
+16 at 390px and 20 at the other measured widths; every width reports
+`under44: []`.
 
-The embedded `anims` object is stale: it was produced by the former harness,
-which sampled only after finite animations had ended. Run the revised harness
-once in a fresh foreground page and replace only that object with its
-non-vacuous `details`, `properties`, and `a002` results. The confirmed
-reduced-motion and print-preview checks below are unaffected and do not need to
-be repeated.
+The full animation report contains 71 detail records: 4 `partline`, 52 `fd`,
+1 `education-line`, 2 `education-port`, and 12 `ln`. Every detail reports
+`iterations: 1`. The global property set is limited to `clipPath`, `opacity`,
+`strokeDashoffset`, and `transform`, with zero infinite animations and no
+layout properties. A-002 contributes exactly the three transform-only finite
+animations recorded above.
 
 The baseline JSON above was captured without the reduced-motion preference, so
 its completion fields correctly remain `null`. In a separate real-environment
