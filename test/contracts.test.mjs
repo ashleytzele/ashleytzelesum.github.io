@@ -570,6 +570,19 @@ test('A-003 track grammar accepts a third role structurally', () => {
   assert.ok(template, 'role list needs one repeatable list-item template');
 });
 
+test('A-003 inter-role chevron is rail-aligned and font independent', () => {
+  const rule = /#a003\s+\.experience-step:not\(:last-child\)::after\s*\{([^}]*)\}/.exec(css);
+  assert.ok(rule, 'missing inter-role chevron rule');
+  assert.match(rule[1], /content:\s*''/);
+  assert.match(rule[1], /left:\s*-26px/);
+  assert.match(rule[1], /width:\s*6px/);
+  assert.match(rule[1], /height:\s*6px/);
+  assert.match(rule[1], /border-right:\s*1px solid var\(--ink\)/);
+  assert.match(rule[1], /border-bottom:\s*1px solid var\(--ink\)/);
+  assert.match(rule[1], /transform:\s*rotate\(45deg\)/);
+  assert.doesNotMatch(rule[1], /(?:font|padding|background|animation):/);
+});
+
 test('test/ contains no browser-only scripts', () => {
   // Node's runner sweeps every .js/.mjs under a directory named test/, whatever
   // it is called. A browser-only script placed here throws on `document` and
