@@ -33,6 +33,51 @@ responsive/touch-target measurements are unaffected by this; the
 `anims` section and anything depending on scroll-triggered reveal are not
 reliable if the tab is hidden while the script runs.
 
+### Baseline — 2026-08-10 (A-001 responsive identity assembly)
+
+Measured in a foreground browser against
+`http://localhost:8118/?cb=a001-fix-3232307`; `document.visibilityState` was
+`"visible"`. All four A-001 components were visibly showing on the main page.
+
+```json
+{
+  "url": "http://localhost:8118/?cb=a001-fix-3232307",
+  "visibilityState": "visible",
+  "humanConfirmation": "All four A-001 components are visibly showing on the main page.",
+  "light": { "combos": 66, "fails": [] },
+  "dark": { "combos": 66, "fails": [] },
+  "withoutJS": { "hidden": 0, "undrawn": 0 },
+  "headingsStable": true,
+  "keyboard": {
+    "rovingTabindex": 1,
+    "arrowMovesFocus": true,
+    "panelFollows": true,
+    "endGoesLast": true
+  },
+  "anims": { "total": 47, "infinite": 0, "layoutProps": [] },
+  "responsive": [
+    { "px": 320, "overflow": false, "targets": 63, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false } },
+    { "px": 390, "overflow": false, "targets": 63, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false } },
+    { "px": 768, "overflow": false, "targets": 63, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false } },
+    { "px": 1024, "overflow": false, "targets": 63, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false } },
+    { "px": 1440, "overflow": false, "targets": 63, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false } }
+  ]
+}
+```
+
+Manual checks confirmed the 1440px assembly and specification panel sit side
+by side; at 768px the assembly sits above the specification panel; and at
+390px all four compact component rows are present, the axis and dimension are
+absent, and no horizontal panning is needed.
+
+Evidence caveat: the harness now force-refreshes linked blueprint CSS inside
+each responsive iframe and puts A-001 into its completed `drawn` state before
+measurement. `visibleTogether` also requires computed display, visibility and
+opacity in addition to geometric containment.
+
+**Result: all required measured A-001, responsive, keyboard, no-JavaScript and
+animation-budget values pass.**
+
 ### Baseline — 2026-08-09 (A-005 tiered: three case studies renumbered to lead, `targets` baseline corrected)
 
 Measured via `mcp__claude-in-chrome`, a backgrounded MCP automation tab, so
