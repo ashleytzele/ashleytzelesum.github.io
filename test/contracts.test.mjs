@@ -304,9 +304,24 @@ test('A-003 contains the approved builder and operator tracks in reading order',
     .map(value => a003.indexOf(value));
   order.forEach((value, index) => assert.notEqual(value, -1, `missing A-003 item ${index}`));
   assert.deepEqual(order, [...order].sort((a, b) => a - b));
-  assert.equal((a003.match(/<ol class="experience-track-list">/g) || []).length, 2);
-  assert.equal((a003.match(/<h3 class="experience-track-title">/g) || []).length, 2);
+  assert.equal((a003.match(/<ol class="experience-track-list" role="list">/g) || []).length, 2);
+  assert.equal((a003.match(/<h3 class="experience-track-title" id="(?:software|operations)-track-title">/g) || []).length, 2);
   assert.equal((a003.match(/<h4>/g) || []).length, 4);
+});
+
+test('A-003 tracks retain explicit list semantics and title-only accessible names', () => {
+  const a003 = section('id="a003"', 'id="a004"');
+  const lists = [...a003.matchAll(/<ol class="experience-track-list"([^>]*)>/g)];
+  assert.equal(lists.length, 2);
+  assert.deepEqual(lists.map(list => list[1].trim()), ['role="list"', 'role="list"']);
+
+  for (const [id, title, label] of [
+    ['software-track-title', 'Software / Systems', 'Builder track'],
+    ['operations-track-title', 'Operations / Aquatics', 'Operator track'],
+  ]) {
+    assert.match(a003, new RegExp(`<section class="experience-track" aria-labelledby="${id}">\\s*<div class="experience-track-head"><h3 class="experience-track-title" id="${id}">${title}</h3><span>${label}</span>`));
+    assert.doesNotMatch(a003, new RegExp(`<div class="experience-track-head" id="${id}">`));
+  }
 });
 
 test('A-003 contains exactly the approved role facts and handoffs', () => {
