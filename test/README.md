@@ -43,36 +43,65 @@ separate confirmed reduced-motion result follows immediately after it.
 
 ### A-003 evidence — 2026-08-10
 
+User-supplied final standard-motion harness JSON after the compact-output and
+idempotent-disclosure fixes. The harness observed the following results:
+
 ```json
 {
-  "automated": {
-    "browserHarnessContract": "pass",
-    "syntax": "pass",
-    "fullSuite": "pass (71 tests)",
-    "diffCheck": "pass"
+  "light": { "combos": 79, "fails": [] },
+  "dark": { "combos": 79, "fails": [] },
+  "withoutJS": {
+    "a003": {
+      "tracks": 2,
+      "roles": 4,
+      "order": ["exp-01", "exp-02", "exp-03", "exp-04"],
+      "detailsVisible": true,
+      "controlsHidden": true
+    }
   },
-  "server": {
-    "url": "http://localhost:8119/?cb=a003-experience-final",
-    "status": 200
+  "enhanced": {
+    "a003": {
+      "controls": 4,
+      "detailsOwned": true,
+      "twoOpen": true,
+      "labelsFollowState": true
+    }
   },
-  "browser": {
-    "status": "not exercised",
-    "reason": "The required browser-client runtime was not available in this execution environment."
+  "anims": {
+    "a003": {
+      "total": 6,
+      "infinite": 0,
+      "layoutProps": [],
+      "properties": ["transform"]
+    }
   },
+  "responsive": [
+    { "px": 320, "overflow": false, "under44": [], "a003": { "tracks": 2, "roles": 4, "visible": true, "trackLayout": "stacked", "trackOverflow": false, "detailsOwned": true, "experienceTextFloor": 8.5 } },
+    { "px": 390, "overflow": false, "under44": [], "a003": { "tracks": 2, "roles": 4, "visible": true, "trackLayout": "stacked", "trackOverflow": false, "detailsOwned": true, "experienceTextFloor": 8.5 } },
+    { "px": 768, "overflow": false, "under44": [], "a003": { "tracks": 2, "roles": 4, "visible": true, "trackLayout": "stacked", "trackOverflow": false, "detailsOwned": true, "experienceTextFloor": 8.5 } },
+    { "px": 1024, "overflow": false, "under44": [], "a003": { "tracks": 2, "roles": 4, "visible": true, "trackLayout": "parallel", "trackOverflow": false, "detailsOwned": true, "experienceTextFloor": 8.5 } },
+    { "px": 1440, "overflow": false, "under44": [], "a003": { "tracks": 2, "roles": 4, "visible": true, "trackLayout": "parallel", "trackOverflow": false, "detailsOwned": true, "experienceTextFloor": 8.5 } }
+  ],
+  "regressions": { "a001": "clean", "a002": "clean" },
   "reducedMotion": {
-    "status": "not exercised",
-    "reason": "No real matching reduced-motion browser environment was available."
+    "matches": false,
+    "completed": null,
+    "a002Completed": null,
+    "a003Completed": null,
+    "status": "not exercised"
   }
 }
 ```
 
-Manual checklist: not exercised in this environment. This includes responsive
-track order and overflow at 390px, 768px, 1024px and 1440px; two-open and
-focus-retention disclosure behaviour; 200% zoom; colour-independent current
-state; disabled JavaScript and synchronous script-failure fallbacks; reduced
-motion; print preview; and regression checks for A-001, A-002, A-004 and
-A-005. Run the foreground harness in a visible browser before representing
-these states as verified.
+At every width, the track names were `Software / Systems` then `Operations /
+Aquatics`, and the role order was `exp-01` through `exp-04`. The A-001 and
+A-002 measurements in the supplied report were clean. The user visually
+approved the no-arrow track design.
+
+Reduced motion was not exercised: the real query reported `matches: false`,
+and all completion fields were `null`. No reduced-motion completion claim is
+made. Print, zoom, JavaScript-failure and other unsupplied manual checks are
+also not recorded as verified.
 
 ### Baseline — 2026-08-10 (A-002 education route, final harness)
 
