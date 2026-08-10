@@ -50,6 +50,7 @@ Measured in a foreground browser against
     "390": "Four compact rows are visible with no axis/dimension line and no horizontal panning; layout is correct."
   },
   "manualInteractionConfirmation": "At 1440px, 768px, and 390px: clicking all four components updates the specification; Arrow keys and Home/End move selection; selected state is stronger than hover; keyboard focus is visible; the specification follows selection.",
+  "manualFinalConfirmation": "At 1440px the drawing coordinate A is visible. At 768px the sticky navigation shows drawing numbers only. At 1440px, 768px, and 390px Enter and Space activate the focused component and the specification panel follows the activated component.",
   "light": { "combos": 66, "fails": [] },
   "dark": { "combos": 66, "fails": [] },
   "withoutJS": { "hidden": 0, "undrawn": 0 },
@@ -80,13 +81,17 @@ At all three widths, clicking each component updated the specification; Arrow
 keys and Home/End moved selection; selected state was stronger than hover;
 keyboard focus remained visible; and the specification followed selection.
 
+Final checks confirmed coordinate A at 1440px, number-only sticky navigation
+at 768px, and Enter/Space activation with the specification panel following
+the activated component at 1440px, 768px and 390px.
+
 Evidence caveat: the harness now force-refreshes linked blueprint CSS inside
 each responsive iframe and puts A-001 into its completed `drawn` state before
 measurement. `visibleTogether` also requires computed display, visibility and
 opacity in addition to geometric containment.
 
-**Result: all required measured A-001, responsive, keyboard, no-JavaScript and
-animation-budget values pass.**
+**Result: all required measured and manual A-001, responsive, keyboard,
+no-JavaScript and animation-budget checks pass.**
 
 ### Baseline — 2026-08-09 (A-005 tiered: three case studies renumbered to lead, `targets` baseline corrected)
 
