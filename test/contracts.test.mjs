@@ -636,6 +636,29 @@ test('browser measurements cover A-003 tracks, owned details and failure states'
   ]) assert.ok(measure.includes(token), `missing A-003 measurement: ${token}`);
 });
 
+test('browser measurement opens the first A-003 details idempotently', () => {
+  const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
+  const start = measure.indexOf('function openCollapsedDetails');
+  const end = measure.indexOf('// DISCLOSURE_OPEN_END');
+  assert.ok(start >= 0 && end > start, 'expected extractable idempotent disclosure helper');
+  const openCollapsedDetails = new Function(`${measure.slice(start, end)}\nreturn openCollapsedDetails;`)();
+  const button = expanded => ({
+    state: { expanded },
+    clicks: 0,
+    getAttribute(name) { return name === 'aria-expanded' ? this.state.expanded : null; },
+    click() { this.clicks++; this.state.expanded = 'true'; },
+  });
+  const closed = button('false');
+  const alreadyOpen = button('true');
+
+  openCollapsedDetails([closed, alreadyOpen]);
+
+  assert.equal(closed.clicks, 1, 'a collapsed detail is opened');
+  assert.equal(alreadyOpen.clicks, 0, 'an open detail is never toggled closed');
+  assert.equal(closed.getAttribute('aria-expanded'), 'true');
+  assert.equal(alreadyOpen.getAttribute('aria-expanded'), 'true');
+});
+
 test('browser animation audit samples live reveal animations and reports their timing and properties', () => {
   const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
   assert.match(measure,

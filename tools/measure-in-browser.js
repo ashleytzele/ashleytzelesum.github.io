@@ -164,7 +164,11 @@
     const detail = document.getElementById(button.getAttribute('aria-controls'));
     return role && detail && detail.closest('.experience-role') === role;
   });
-  experienceButtons.slice(0, 2).forEach(button => button.click());
+  function openCollapsedDetails(buttons) {
+    buttons.filter(button => button.getAttribute('aria-expanded') !== 'true').forEach(button => button.click());
+  }
+  // DISCLOSURE_OPEN_END
+  openCollapsedDetails(experienceButtons.slice(0, 2));
   R.enhanced = {
     ...(R.enhanced || {}),
     a003: {
