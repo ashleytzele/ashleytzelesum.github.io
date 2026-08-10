@@ -2,7 +2,7 @@
 
 Personal portfolio for Ashley Sum, presented as an engineering drawing set:
 a cover with a title block, then six numbered sheets — A-001 Identity,
-A-002 Journey, A-003 Experience, A-004 Engineering, A-005 Projects,
+A-002 Education, A-003 Experience, A-004 Engineering, A-005 Projects,
 A-006 Contact.
 
 Static site on GitHub Pages. No build step, no dependencies, no framework.

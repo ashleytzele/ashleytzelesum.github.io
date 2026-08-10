@@ -169,18 +169,27 @@ const section = (start, end) => html.slice(html.indexOf(start), html.indexOf(end
 
 test('A-002 is consistently named Education while preserving its drawing identity', () => {
   const a002 = section('id="a002"', 'id="a003"');
+  const readme = readFileSync('README.md', 'utf8');
   assert.match(html, /identity, education, experience, engineering, projects and contact/i);
   assert.match(html, /<a href="#a002">[\s\S]*<span class="t">Education<\/span>/);
   assert.match(a002, /<b>Drawing A-002<\/b>[\s\S]*<span>Education<\/span>/);
   assert.match(a002, /<h2>Education<\/h2>/);
   assert.doesNotMatch(a002, />Journey/);
+  assert.match(readme, /A-002 Education/);
+  assert.doesNotMatch(readme, /A-002 Journey/);
   assert.match(a002, /id="a002"/);
 });
 
 test('A-002 contains exactly the approved ordered education route', () => {
   const a002 = section('id="a002"', 'id="a003"');
   assert.equal((a002.match(/<article[^>]*class="education-node/g) || []).length, 2);
-  assert.ok(a002.indexOf('data-education="edu-01"') < a002.indexOf('data-education="edu-02"'));
+  const edu01 = a002.indexOf('data-education="edu-01"');
+  const edu02 = a002.indexOf('data-education="edu-02"');
+  assert.notEqual(edu01, -1, 'EDU-01 record is required');
+  assert.notEqual(edu02, -1, 'EDU-02 record is required');
+  assert.ok(edu01 < edu02, 'EDU-01 must precede EDU-02');
+  assert.match(a002, /<article[^>]*data-education="edu-01"[^>]*>[\s\S]*?<span>EDU-01 &middot; Previous<\/span>/);
+  assert.match(a002, /<article[^>]*data-education="edu-02"[^>]*>[\s\S]*?<span>EDU-02 &middot; Current<\/span>/);
   for (const value of [
     'INTI International College Subang',
     'Subang Jaya, Malaysia',
@@ -198,6 +207,22 @@ test('A-002 contains exactly the approved ordered education route', () => {
     'Professional experience',
     'A-003',
   ]) assert.ok(a002.includes(value), `missing approved A-002 copy: ${value}`);
+  assert.match(a002, /<div class="education-transfer">\s*<strong>Transferred<\/strong><span>Dec 2024 <span aria-hidden="true">&rarr;<\/span> Jan 2025<\/span>\s*<\/div>/);
+});
+
+test('A-002 route accessible description covers both records and the transfer interval', () => {
+  const a002 = section('id="a002"', 'id="a003"');
+  const route = /<div class="education-route" aria-label="([^"]+)">/.exec(a002);
+  assert.ok(route, 'education route needs an accessible description');
+  for (const value of [
+    'INTI International College Subang',
+    'Aug 2023&ndash;Dec 2024',
+    'American Degree Transfer Program, Applied Science',
+    'Dec 2024&ndash;Jan 2025',
+    'San Francisco State University',
+    'Jan 2025&ndash;Present',
+    'Bachelor of Science, Computer Science',
+  ]) assert.ok(route[1].includes(value), `accessible description missing: ${value}`);
 });
 
 test('A-002 stays education-only and ships one noninteractive semantic record set', () => {
