@@ -95,11 +95,16 @@ not animate layout properties.
 Reduced motion remains **unverified**: the real media query did not match, so
 `completed`, `a002Completed`, and `state` correctly remain `null`.
 
-Mandatory manual checks remain **unverified**: the 390px arrow/destination tick
-and normal scroll, 768px spacing, 1440px transfer hierarchy and non-colour
-current state, 200% zoom, light/dark visual hierarchy, JavaScript disabled,
-injected synchronous script failure, reduced motion, print preview, and
-A-001/A-003 interaction regressions have not been claimed as passed.
+The user confirmed the mandatory manual checks pass: at 390px the vertical
+route/destination connector is correct and both records read in normal scroll;
+at 768px the route is readable and uncramped; at 1440px the transfer remains
+subordinate and EDU-02 reads as current without relying on colour; 200% zoom
+introduces no overlap; light and dark visual hierarchy is correct; essential
+content remains visible with JavaScript disabled and with synchronous script
+failure; and the A-001 tabs and A-003 interactions still work.
+
+Real-environment reduced motion and print preview remain **unverified**. No
+pass is claimed for either mode.
 
 ### Baseline — 2026-08-10 (A-001 responsive identity assembly)
 
