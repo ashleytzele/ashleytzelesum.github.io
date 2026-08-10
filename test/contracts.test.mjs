@@ -293,6 +293,16 @@ test('test/ contains no browser-only scripts', () => {
   assert.deepEqual(stray, [], 'browser-only scripts belong in tools/, not test/');
 });
 
+test('responsive browser measurements reload blueprint CSS before measuring', () => {
+  const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
+  assert.match(measure,
+    /querySelector\('link\[rel="stylesheet"\]\[href\*="assets\/css\/blueprint\.css"\]'\)/,
+    'measurement iframe must locate the local blueprint stylesheet');
+  assert.match(measure,
+    /await new Promise\(done => \{[\s\S]*?addEventListener\('load', done,[\s\S]*?addEventListener\('error', done,[\s\S]*?searchParams\.set\('cb', `\$\{Date\.now\(\)\}-\$\{px\}`\)[\s\S]*?\.href = [^;]+;[\s\S]*?\}\);[\s\S]*?await new Promise\(r => setTimeout\(r, 1800\)\);/,
+    'measurement delay must begin only after a uniquely cache-busted stylesheet reload completes');
+});
+
 test('no client-identifying term appears in any tracked file', () => {
   // The terms live in .confidential-terms, which is gitignored. They are NOT
   // listed here on purpose: writing them into a tracked file is precisely the

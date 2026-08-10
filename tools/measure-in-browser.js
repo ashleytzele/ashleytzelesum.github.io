@@ -102,8 +102,17 @@
     const f = document.createElement('iframe');
     f.style.cssText = `position:fixed;left:-99999px;width:${px}px;height:900px;border:0`;
     f.src = location.pathname + '?cb=' + px;
-    f.onload = () => setTimeout(() => {
+    f.onload = async () => {
       const d = f.contentDocument;
+      const stylesheet = d.querySelector('link[rel="stylesheet"][href*="assets/css/blueprint.css"]');
+      await new Promise(done => {
+        stylesheet.addEventListener('load', done, { once: true });
+        stylesheet.addEventListener('error', done, { once: true });
+        const url = new URL(stylesheet.href);
+        url.searchParams.set('cb', `${Date.now()}-${px}`);
+        stylesheet.href = url.href;
+      });
+      await new Promise(r => setTimeout(r, 1800));
       // Open every disclosure panel before measuring. Otherwise every control
       // inside `.detail` is display:none (closed by default) and gets filtered
       // out by the height>0 guard below, so the gate never sees the controls a
@@ -138,7 +147,7 @@
         },
       });
       f.remove();
-    }, 1800);
+    };
     document.body.appendChild(f);
   });
   R.responsive = [];
