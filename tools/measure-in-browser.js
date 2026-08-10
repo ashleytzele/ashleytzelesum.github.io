@@ -14,6 +14,7 @@
   kill.textContent = '*,*::before,*::after{transition:none!important;animation:none!important}' +
     '.runtime-ready .an,.runtime-ready .dwg .fd,#a001 .part-desc,#a001 .part-ref{opacity:1!important}' +
     '#a001 .part-body::before{transform:none!important}#a001 .part-body::after{clip-path:none!important}' +
+    '#a002 .education-route::before,#a002 .education-node::before,#a002 .education-node::after{transform:none!important}' +
     '.detail{display:block!important}';
   document.body.appendChild(kill);
 
@@ -72,6 +73,11 @@
       .filter(e => !['none', 'matrix(1, 0, 0, 1, 0, 0)'].includes(getComputedStyle(e, '::before').transform)).length,
     collapsedAxes: [...document.querySelectorAll('.dwg .axis,#a001 .assembly-axis')]
       .filter(e => !['none', 'matrix(1, 0, 0, 1, 0, 0)'].includes(getComputedStyle(e).transform)).length,
+    a002CollapsedDetails: [...document.querySelectorAll('#a002 .education-route,#a002 .education-node')]
+      .filter(e => ['::before', '::after'].some(pseudo => {
+        const style = getComputedStyle(e, pseudo);
+        return !['none', 'matrix(1, 0, 0, 1, 0, 0)'].includes(style.transform);
+      })).length,
   });
 
   // Removing the earned gate models the static/no-JS CSS state. Include the
@@ -83,6 +89,10 @@
     ...revealState(),
     parts: staticParts.length,
     names: staticParts.map(t => t.querySelector('.part-name').textContent.trim()),
+    a002: {
+      nodes: document.querySelectorAll('#a002 .education-node').length,
+      transfer: document.querySelector('#a002 .education-transfer')?.textContent.trim(),
+    },
   };
   if (hadRuntime) document.documentElement.classList.add('runtime-ready');
 
@@ -94,6 +104,7 @@
   R.reducedMotion = {
     matches: reducedMatches,
     completed: reducedState ? Object.values(reducedState).every(value => value === 0) : null,
+    a002Completed: reducedState ? reducedState.a002CollapsedDetails === 0 : null,
     state: reducedState,
   };
 
@@ -142,6 +153,7 @@
         stylesheet.href = url.href;
       });
       d.querySelector('#a001').classList.add('drawn');
+      d.querySelector('#a002').classList.add('drawn');
       await new Promise(r => setTimeout(r, 1800));
       // Open every disclosure panel before measuring. Otherwise every control
       // inside `.detail` is display:none (closed by default) and gets filtered
@@ -170,6 +182,16 @@
         return visible(t) && r.left >= a.left - 1 && r.right <= a.right + 1 &&
           r.top >= a.top - 1 && r.bottom <= a.bottom + 1;
       });
+      const route = d.querySelector('#a002 .education-route');
+      const educationNodes = [...d.querySelectorAll('#a002 .education-node')];
+      const transfer = d.querySelector('#a002 .education-transfer');
+      const routeStyle = f.contentWindow.getComputedStyle(route);
+      const educationText = [...d.querySelectorAll(
+        '#a002 .education-node-meta,#a002 .education-place,#a002 .education-programme p,#a002 .education-transfer,#a002 .education-caption')];
+      const routeDirection = routeStyle.gridTemplateColumns.split(' ').length === 1 ? 'vertical' : 'horizontal';
+      const routeOverflow = route.scrollWidth > route.clientWidth + 1;
+      const educationTextFloor = Math.min(...educationText.map(e =>
+        parseFloat(f.contentWindow.getComputedStyle(e).fontSize)));
       res({
         px,
         overflow: d.documentElement.scrollWidth > px + 1,
@@ -181,6 +203,14 @@
           names: a001Names,
           visibleTogether: a001VisibleTogether,
           assemblyOverflow: assembly.scrollWidth > assembly.clientWidth + 1,
+        },
+        a002: {
+          nodes: educationNodes.length,
+          order: educationNodes.map(n => n.dataset.education),
+          visible: educationNodes.every(visible) && visible(transfer),
+          routeDirection,
+          routeOverflow,
+          educationTextFloor: +educationTextFloor.toFixed(1),
         },
       });
       f.remove();

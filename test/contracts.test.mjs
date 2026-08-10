@@ -263,8 +263,15 @@ test('A-002 reveal animates decoration only and completes for reduced motion and
   assert.doesNotMatch(css, /\.runtime-ready\s+#a002\s+\.education-node\s*\{[^}]*opacity:\s*0/);
   assert.match(css, /\.runtime-ready\s+#a002\s+\.education-route::before\s*\{[^}]*transform:/);
   assert.match(css, /#a002\.drawn\s+\.education-route::before\s*\{[^}]*animation:/);
-  assert.match(css, /@media\(prefers-reduced-motion:reduce\)[\s\S]*#a002\s+\.education-route::before[^}]*transform:\s*none/);
-  assert.match(css, /@media print[\s\S]*#a002\s+\.education-route::before[^}]*transform:\s*none/);
+  const completedDecoration = /\.runtime-ready\s+#a002\s+\.education-route::before,\s*\.runtime-ready\s+#a002\s+\.education-node::before,\s*\.runtime-ready\s+#a002\s+\.education-node::after\s*\{[^}]*transform:\s*none[^}]*animation:\s*none/;
+  const reduced = /@media\(prefers-reduced-motion:reduce\)\{([\s\S]*?)\n\}/.exec(css);
+  const print = /@media print\{([\s\S]*?)\n\}/.exec(css);
+  assert.ok(reduced, 'expected reduced-motion styles');
+  assert.ok(print, 'expected print styles');
+  assert.match(reduced[1], completedDecoration,
+    'reduced motion must complete the A-002 datum and both node ports');
+  assert.match(print[1], completedDecoration,
+    'print must complete the A-002 datum and both node ports');
 });
 
 test('A-001 Athletics points to the sheets that now own aquatics and swimming evidence', () => {
@@ -483,6 +490,16 @@ test('browser measurements cover static A-001, visible ancestors and reduced mot
     'the report must state and measure the real reduced-motion environment');
   assert.match(measure, /reducedMotion[\s\S]*completed/,
     'the reduced-motion result must report whether reveal is complete');
+});
+
+test('browser measurements cover the A-002 education route in every required mode', () => {
+  const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
+  assert.match(measure, /#a002\s+\.education-node/);
+  assert.match(measure, /education-transfer/);
+  assert.match(measure, /a002Completed/);
+  assert.match(measure, /routeDirection/);
+  assert.match(measure, /routeOverflow/);
+  assert.match(measure, /educationTextFloor/);
 });
 
 test('no client-identifying term appears in any tracked file', () => {

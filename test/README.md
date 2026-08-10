@@ -40,6 +40,66 @@ string, and rerun the harness; a completed reveal reports `true` with every
 counter in `reducedMotion.state` at zero. The historical baselines below were
 not rewritten because this revised check has not yet been run in that mode.
 
+### Baseline — 2026-08-10 (A-002 education route, automated evidence)
+
+Measured by the user in a foreground browser against
+`http://localhost:8118/?cb=a002-education-final`.
+
+```json
+{
+  "light": { "combos": 73, "fails": [] },
+  "dark": { "combos": 73, "fails": [] },
+  "withoutJS": {
+    "hidden": 0,
+    "undrawn": 0,
+    "undrawnOutlines": 0,
+    "collapsedLeaders": 0,
+    "collapsedAxes": 0,
+    "a002CollapsedDetails": 0,
+    "parts": 4,
+    "names": ["Background", "Now", "Engineering", "Athletics"],
+    "a002": { "nodes": 2, "transfer": "TransferredDec 2024 → Jan 2025" }
+  },
+  "reducedMotion": {
+    "matches": false,
+    "completed": null,
+    "a002Completed": null,
+    "state": null
+  },
+  "headingsStable": true,
+  "keyboard": {
+    "rovingTabindex": 1,
+    "arrowMovesFocus": true,
+    "panelFollows": true,
+    "endGoesLast": true
+  },
+  "anims": { "total": 0, "infinite": 0, "layoutProps": [] },
+  "responsive": [
+    { "px": 320, "overflow": false, "targets": 20, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false }, "a002": { "nodes": 2, "order": ["edu-01", "edu-02"], "visible": true, "routeDirection": "vertical", "routeOverflow": false, "educationTextFloor": 9 } },
+    { "px": 390, "overflow": false, "targets": 20, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false }, "a002": { "nodes": 2, "order": ["edu-01", "edu-02"], "visible": true, "routeDirection": "vertical", "routeOverflow": false, "educationTextFloor": 9 } },
+    { "px": 768, "overflow": false, "targets": 20, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false }, "a002": { "nodes": 2, "order": ["edu-01", "edu-02"], "visible": true, "routeDirection": "horizontal", "routeOverflow": false, "educationTextFloor": 9 } },
+    { "px": 1024, "overflow": false, "targets": 20, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false }, "a002": { "nodes": 2, "order": ["edu-01", "edu-02"], "visible": true, "routeDirection": "horizontal", "routeOverflow": false, "educationTextFloor": 9 } },
+    { "px": 1440, "overflow": false, "targets": 20, "under44": [], "minDrawnText": 10.5, "a001": { "tabs": 4, "names": ["Background", "Now", "Engineering", "Athletics"], "visibleTogether": true, "assemblyOverflow": false }, "a002": { "nodes": 2, "order": ["edu-01", "edu-02"], "visible": true, "routeDirection": "horizontal", "routeOverflow": false, "educationTextFloor": 9 } }
+  ]
+}
+```
+
+The automated measurements pass their required targets: both themes have no
+contrast failures; the static/no-JavaScript model contains both A-002 records
+and the transfer; every width has the correct node order, visible content, no
+page or route overflow, and a 9px education text floor; phones use the vertical
+route while 768px and wider use the horizontal route; animations are finite and
+do not animate layout properties.
+
+Reduced motion remains **unverified**: the real media query did not match, so
+`completed`, `a002Completed`, and `state` correctly remain `null`.
+
+Manual checks remain **unverified**: the 390px arrow/destination tick and normal
+scroll, 768px spacing, 1440px transfer hierarchy and non-colour current state,
+200% zoom, light/dark visual hierarchy, JavaScript disabled, injected
+synchronous script failure, reduced motion, print preview, and A-001/A-003
+interaction regressions have not been claimed as passed.
+
 ### Baseline — 2026-08-10 (A-001 responsive identity assembly)
 
 Measured in a foreground browser against
