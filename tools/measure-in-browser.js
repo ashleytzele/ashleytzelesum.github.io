@@ -257,5 +257,7 @@
   R.responsive = [];
   for (const px of [320, 390, 768, 1024, 1440]) R.responsive.push(await at(px));
 
-  return JSON.stringify(R, null, 1);
+  const report = JSON.stringify(R, null, 1);
+  console.log(report);
+  return report;
 })();

@@ -563,6 +563,15 @@ test('browser animation audit flags infinite and layout-property animations', ()
   ]);
 });
 
+test('browser measurement prints one JSON report and still returns it', () => {
+  const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
+  assert.match(measure,
+    /const report = JSON\.stringify\(R, null, 1\);\s*console\.log\(report\);\s*return report;/,
+    'Snippets need an explicit log while DevTools Console keeps the Promise result');
+  assert.equal((measure.match(/console\.(?:log|info|warn|error)\s*\(/g) || []).length, 1,
+    'the harness must print exactly one report with no console noise');
+});
+
 test('static A-002 measurement requires every essential record detail to be visually visible', () => {
   const measure = readFileSync('tools/measure-in-browser.js', 'utf8');
   assert.match(measure,
