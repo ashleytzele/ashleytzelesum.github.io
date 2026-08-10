@@ -541,7 +541,7 @@ test('A-003 draws two extensible vertical tracks and stacks them on narrow scree
 
 test('A-003 role widgets keep readable factual text and visible current state', () => {
   for (const selector of ['experience-meta', 'experience-org', 'experience-evidence', 'experience-detail-label', 'experience-concurrent', 'experience-caption']) {
-    const rule = new RegExp(`#a003\\s+\\.${selector}[^}]*\\{([^}]*)\\}`).exec(css);
+    const rule = new RegExp(`#a003\\s+\\.${selector}\\s*\\{([^}]*)\\}`).exec(css);
     assert.ok(rule, `missing ${selector} rule`);
     const size = /font-size:\s*([\d.]+)px/.exec(rule[1]);
     assert.ok(size && Number(size[1]) >= 8.5, `${selector} below 8.5px`);
@@ -549,6 +549,14 @@ test('A-003 role widgets keep readable factual text and visible current state', 
   }
   assert.match(css, /#a003\s+\.experience-role-current\s*\{[^}]*border-width:\s*2px/);
   assert.match(html, /EXP-04 &middot; Current/);
+});
+
+test('A-003 evidence and caption links expose 44px targets without changing their labels', () => {
+  assert.match(css, /#a003\s+\.experience-evidence a,#a003\s+\.experience-caption a\s*\{[^}]*display:\s*inline-flex[^}]*align-items:\s*center[^}]*min-height:\s*44px/);
+  const a003 = section('id="a003"', 'id="a004"');
+  assert.match(a003, /<a href="#a005">Project evidence &rarr; A-005<\/a>/);
+  assert.match(a003, /<a href="#a004">Engineering &rarr; A-004<\/a>/);
+  assert.match(a003, /<a href="#a005">Projects &rarr; A-005<\/a>/);
 });
 
 test('A-003 reveal is decorative only and completes for reduced motion and print', () => {

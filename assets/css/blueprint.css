@@ -371,6 +371,7 @@ p{margin:0;color:var(--sec)}
   padding-top:calc(var(--u)*1.5);font-family:'MN',monospace;font-size:9px;line-height:1.65;
   letter-spacing:.05em;text-transform:uppercase;color:var(--sec)}
 #a003 .experience-evidence a{text-underline-offset:3px}
+#a003 .experience-evidence a,#a003 .experience-caption a{display:inline-flex;align-items:center;min-height:44px}
 #a003 .experience-more{width:100%;min-height:44px;align-items:center;justify-content:space-between;
   border:0;border-top:1px solid var(--ink);background:none;color:inherit;padding:10px calc(var(--u)*2);
   cursor:pointer;text-align:left;font-family:'MN',monospace;font-size:9px;line-height:1.5;
