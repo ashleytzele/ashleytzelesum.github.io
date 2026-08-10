@@ -44,6 +44,12 @@ Measured in a foreground browser against
   "url": "http://localhost:8118/?cb=a001-fix-3232307",
   "visibilityState": "visible",
   "humanConfirmation": "All four A-001 components are visibly showing on the main page.",
+  "manualResponsiveConfirmation": {
+    "1440": "Assembly and specification are side by side; layout is correct.",
+    "768": "Assembly is above the specification; layout is correct.",
+    "390": "Four compact rows are visible with no axis/dimension line and no horizontal panning; layout is correct."
+  },
+  "manualInteractionConfirmation": "At 1440px, 768px, and 390px: clicking all four components updates the specification; Arrow keys and Home/End move selection; selected state is stronger than hover; keyboard focus is visible; the specification follows selection.",
   "light": { "combos": 66, "fails": [] },
   "dark": { "combos": 66, "fails": [] },
   "withoutJS": { "hidden": 0, "undrawn": 0 },
@@ -69,6 +75,10 @@ Manual checks confirmed the 1440px assembly and specification panel sit side
 by side; at 768px the assembly sits above the specification panel; and at
 390px all four compact component rows are present, the axis and dimension are
 absent, and no horizontal panning is needed.
+
+At all three widths, clicking each component updated the specification; Arrow
+keys and Home/End moved selection; selected state was stronger than hover;
+keyboard focus remained visible; and the specification followed selection.
 
 Evidence caveat: the harness now force-refreshes linked blueprint CSS inside
 each responsive iframe and puts A-001 into its completed `drawn` state before
