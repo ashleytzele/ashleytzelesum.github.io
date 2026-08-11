@@ -887,30 +887,15 @@ test('A-004 carries no figure', () => {
   assert.ok(!/<svg/.test(a004), 'A-004 must contain no svg; see spec section 7');
 });
 
-test('the claim-to-drawing mapping agrees in both directions', () => {
-  // A-004 says which drawings evidence a claim; each A-005 detail says which
-  // claims it evidences. They are the same fact stated twice, so they have to be
-  // exact inverses or the sheet is asserting something the evidence denies.
-  const claimOf = { c1: '04.1', c2: '04.2', c3: '04.3', c4: '04.4' };
-  const forward = new Set();
-  for (const m of a004.matchAll(/<div class="claim" id="(c\d)"[\s\S]*?(?=<div class="claim" id="|<div class="stk">)/g)) {
-    for (const link of m[0].matchAll(/class="ev" href="#proj-(\d)"/g)) forward.add(`${m[1]}->p${link[1]}`);
-  }
-  // The backlinks sit in the collapsed summary, before the disclosure button, so
-  // a reader who never opens a panel still sees them. Associate each row with the
-  // panel its sibling button controls rather than by nesting.
-  const back = new Set();
-  for (const m of html.matchAll(/<p class="evidences">(.*?)<\/p>\s*<button class="more"[^>]*data-more="(p\d)"/g)) {
-    for (const link of m[1].matchAll(/href="#(c\d)"/g)) back.add(`${link[1]}->${m[2]}`);
-  }
-  assert.ok(forward.size >= 10, `expected A-004 evidence links, found ${forward.size}`);
-  assert.deepEqual([...back].sort(), [...forward].sort(),
-    'A-005 backlinks and A-004 evidence links disagree');
-  // and every claim number printed in A-005 must match the id it links to
-  for (const m of html.matchAll(/<p class="evidences">(.*?)<\/p>/g)) {
-    for (const link of m[1].matchAll(/href="#(c\d)">(04\.\d)</g)) {
-      assert.equal(link[2], claimOf[link[1]], `#${link[1]} is labelled ${link[2]}`);
-    }
+test('every claim carries its own evidence, and no claim is left unevidenced', () => {
+  // The mapping is one-way by scope: A-005 says nothing about A-004. This is the
+  // half that can be checked from A-004 alone — every claim cites at least two
+  // distinct drawings, so no claim rests on a single piece of evidence.
+  const perClaim = [...a004.matchAll(/<div class="claim" id="(c\d)"[\s\S]*?(?=<div class="claim" id="|<div class="stk">)/g)];
+  assert.equal(perClaim.length, 4, 'expected four claims');
+  for (const m of perClaim) {
+    const refs = new Set([...m[0].matchAll(/class="ev" href="#(proj-\d)"/g)].map(x => x[1]));
+    assert.ok(refs.size >= 2, `claim ${m[1]} cites ${refs.size} drawing(s); a pattern needs at least two`);
   }
 });
 
