@@ -14,3 +14,13 @@ package-lock.json
 
 # Client-identifying terms used by the confidentiality test — must never be committed
 .confidential-terms
+
+# Disposable design prototypes and their scratch assets — the spec and plan carry
+# the record; these are working files that should never reach the published site.
+prototype-*.html
+proto-assets/
+
+# Raw media awaiting a decision. Source captures and un-encoded recordings live
+# outside the repo until they are cropped, re-encoded and actually referenced.
+CAD *.png
+CAD-MAP *.mov

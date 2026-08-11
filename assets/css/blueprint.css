@@ -118,8 +118,6 @@ p{margin:0;color:var(--sec)}
    out of sync with real geometry when a shape is resized. */
 .runtime-ready .dwg .ln{stroke-dasharray:1;stroke-dashoffset:1}
 .drawn .dwg .ln{animation:ln 1.1s cubic-bezier(.37,0,.28,1) forwards}
-.runtime-ready .dwg .axis{transform:scaleY(0);transform-origin:50% 24px}
-.drawn .dwg .axis{animation:ax .9s cubic-bezier(.37,0,.28,1) forwards}
 .runtime-ready .dwg .fd{opacity:0}
 .drawn .dwg .fd{animation:fd .55s linear forwards}
 .runtime-ready .an{opacity:0}
@@ -273,23 +271,6 @@ p{margin:0;color:var(--sec)}
 /* WCAG 2.5.5 AAA: text links carry their own 44px block so the row grows with them. */
 .idm dd a,.v a,.mn a,.refs a,.stk .practice a{display:inline-block;padding-block:calc(var(--u)*1.75);line-height:1.4}
 
-/* records */
-.rec{display:grid;grid-template-columns:9.5rem minmax(0,1fr) minmax(0,.8fr);gap:calc(var(--u)*3);
-  padding:calc(var(--u)*2.5) 0;border-bottom:1px solid var(--hair);align-items:start}
-.rec:first-of-type{border-top:1px solid var(--ink)}
-.job{border-bottom:1px solid var(--hair)}
-.job:first-of-type{border-top:1px solid var(--ink)}
-.job .rec{border-bottom:0}.job .rec:first-of-type{border-top:0}
-.job .more{margin:0 0 calc(var(--u)*2.5) 9.5rem}
-.job .detail{margin:0 0 calc(var(--u)*3) 9.5rem;border-top:1px dashed var(--line);padding-top:calc(var(--u)*2.5)}
-@media(max-width:860px){.job .more,.job .detail{margin-left:0}}
-.rec .w{font-family:'MN',monospace;font-size:.72rem;color:var(--ref);padding-top:2px}
-.rec .o{color:var(--sec);font-size:.9rem;margin-top:3px}
-.rec .x{color:var(--sec);font-size:.92rem;margin-top:10px;max-width:58ch}
-.rec .s{font-family:'MN',monospace;font-size:.7rem;color:var(--ref);line-height:2}
-@media(max-width:860px){.rec{grid-template-columns:minmax(0,1fr);gap:6px}
-  .rec .s{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}}
-
 /* module + list grids */
 
 /* A-005 project index + expand */
@@ -303,7 +284,7 @@ p{margin:0;color:var(--sec)}
 .pb .side{font-family:'MN',monospace;font-size:.68rem;color:var(--ref);line-height:1.9}
 .pdesc{font-size:.94rem;max-width:60ch}
 .figbox{border:1px solid var(--line);padding:calc(var(--u)*2);margin-top:calc(var(--u)*2.5);overflow-x:auto}
-.figbox .dwg .tl,.figbox .dwg .ts,.dwgbox .dwg .tl,.dwgbox .dwg .ts{font-size:10.5px}
+.figbox .dwg .tl,.figbox .dwg .ts{font-size:10.5px}
 /* img,svg{max-width:100%} above would shrink drawings to ~2px type on a phone;
    give them a floor and let the container pan instead. */
 /* Figures are drawn at viewBox 1000 wide. Hold them at 1:1 rather than letting
@@ -457,7 +438,6 @@ p{margin:0;color:var(--sec)}
      animation-duration override below forced the forwards animations to finish.
      The print block solves the same clash the same way. */
   .dwg .ln{stroke-dashoffset:0!important;animation:none}
-  .dwg .axis{transform:scaleY(1)!important;animation:none}
   .dwg .fd,.an{opacity:1!important;animation:none}
   #a001 .part-desc,#a001 .part-ref{opacity:1!important;animation:none}
   .runtime-ready #a001 .part-body::before{transform:scaleX(1);animation:none}
@@ -480,7 +460,7 @@ p{margin:0;color:var(--sec)}
   .sheet{break-after:page}.sheet:last-child{break-after:auto}
   .cover .pane{min-height:auto}.rule{display:none}
   .detail{display:block!important}.more{display:none}
-  .dwg .ln{stroke-dashoffset:0;animation:none}.dwg .axis{transform:scaleY(1);animation:none}
+  .dwg .ln{stroke-dashoffset:0;animation:none}
   .dwg .fd,.an{opacity:1;animation:none}
   #a001 .part-desc,#a001 .part-ref{opacity:1!important;animation:none!important}
   .runtime-ready #a001 .part-body::before{transform:scaleX(1);animation:none}
@@ -496,7 +476,7 @@ p{margin:0;color:var(--sec)}
   #a003 .experience-role{break-inside:auto}
   #a003 .experience-summary{break-inside:avoid}
   #a003 .experience-detail-label{break-after:avoid}
-  .rec,.proj{break-inside:avoid}
+  .proj{break-inside:avoid}
   /* A claim must not be separated from the evidence that supports it. */
   #a004 .claim,#a004 .stk{break-inside:avoid}
   #a004 .claim h3{break-after:avoid}}

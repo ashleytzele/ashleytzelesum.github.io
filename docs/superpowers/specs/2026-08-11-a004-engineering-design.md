@@ -209,9 +209,11 @@ If the unattachment is to be fixed, the order is: A-005 gains the technology nam
 
 Immediately below the list, one sentence:
 
-> **Practice** — I work with coding agents daily, and design around what they get wrong — see 04.2.
+> I work with coding agents daily, and design around what they get wrong — see 04.2, on putting the rule where it cannot be skipped.
 
-`04.2` links to `#c2`.
+The link points at `#c2`, and its text names the claim rather than being a bare code, so it is self-describing in a screen-reader links list like every other reference on the sheet.
+
+**No label.** An earlier revision opened with a `Practice` label set in the same tracked mono as the category rows above. Sharing their column made it read as a fifth row of the technology list — the tool-badge framing this section exists to avoid — and it was a sixth uppercase tracked label on a sheet §12 caps at one. The sentence carries itself.
 
 This exists because the honest version of the AI question belongs on this sheet, but not as a tool badge. 04.2 already carries the strongest available evidence of AI judgement — *"asking a language model to be careful about accuracy did not hold, so it now only ever sees what a tool returned"* — which demonstrates understanding of how models fail. The line makes that discoverable to a recruiter screening for AI fluency, states practice rather than proficiency, and points at evidence rather than asserting a skill.
 

@@ -791,10 +791,15 @@ test('no client-identifying term appears in any tracked file', () => {
   const tracked = execSync('git ls-files', { encoding: 'utf8' }).split('\n').filter(Boolean);
   const hits = [];
   for (const file of tracked) {
-    if (/\.(png|jpe?g|gif|mp4|woff2?|pdf|ico)$/i.test(file)) continue; // binaries: byte runs give false positives
-    let text;
-    try { text = readFileSync(file, 'utf8'); } catch { continue; }
-    const lower = text.toLowerCase();
+    // Binaries: a short term matches random byte runs, and in a large media file
+    // it matches with near certainty. A 3-character term hit a 38MB .mov, which
+    // this list did not cover — extensions are the wrong axis, so fall back to
+    // sniffing for a NUL byte, which text does not contain and binaries do.
+    if (/\.(png|jpe?g|gif|svgz?|webp|avif|mp4|mov|m4v|webm|avi|mp3|wav|woff2?|ttf|otf|pdf|ico|zip|gz)$/i.test(file)) continue;
+    let buf;
+    try { buf = readFileSync(file); } catch { continue; }
+    if (buf.includes(0)) continue;                       // a NUL byte means binary, whatever it is called
+    const lower = buf.toString('utf8').toLowerCase();
     for (const term of terms) {
       if (lower.includes(term.toLowerCase())) hits.push(`${file} contains a listed term`);
     }
