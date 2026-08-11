@@ -49,15 +49,24 @@ A-005's project detail panels are `display:none` (`assets/css/blueprint.css:411`
 
 Consequence: with JavaScript enabled and working — the majority case — every A-004 evidence link scrolls to an element with no layout box. Nothing appears to happen, and the failure is silent. The `<noscript>` block at `index.html:32` covers the JavaScript-disabled case only.
 
-**Required change**, one declaration, added adjacent to `:412`:
+**Required changes.** `:target` resolves before layout, so the panel opens and the browser scrolls to it with or without JavaScript, and also when JavaScript is enabled but fails. Four declarations, not one — the first alone is a trap:
 
 ```css
 .detail:target{display:block}
+/* an explicit close must beat :target, or the panel can never be closed */
+.detail[data-open="false"]{display:none}
+/* evidence links target the project, not the panel inside it */
+.proj:target .detail{display:block}
+.proj:target .detail[data-open="false"]{display:none}
 ```
 
-`:target` resolves before layout, so the panel opens and the browser scrolls to it with or without JavaScript, and also when JavaScript is enabled but fails.
+**Two things were learned the hard way here, and are recorded so they are not undone.**
 
-**Optional companion**, not required for correctness: on `hashchange`, sync the matching `.more` button's `aria-expanded` and label so the control does not contradict the visible state. If omitted, the link still works and the button label is merely stale until clicked.
+*An explicit close must outrank `:target`.* `.detail:target` and `.detail[data-open="true"]` are both specificity (0,2,0). With only the first rule, following an evidence link and then pressing Close set `data-open="false"`, relabelled the button to "Open detail", and left the panel on screen — the control was inert and contradicted the page. The `.proj:target` pair carries explicit specificity (0,3,0) and (0,4,0) rather than relying on source order.
+
+*Evidence links must target the project, not the panel.* `#p1` is the detail panel, which sits below the project title, figure and description, so a reader arrived in the middle of an open disclosure with no idea which project they were in. Each project article carries an `id="proj-N"`; the links target that, and `.proj:target` opens the panel inside it. `.detail:target` is retained so any `#pN` URL already shared still resolves.
+
+**Runtime companion — required, not optional.** An earlier draft of this spec called this "optional, not required for correctness" and that judgement was wrong. `syncTargetedDetail()` runs on load and on `hashchange`, setting the targeted panel's `data-open`, `aria-expanded` and button label, so the control never announces "Open detail" over open content. Closing a panel that is the current target also releases the hash, or following the same evidence link a second time fires no `hashchange` and appears to do nothing.
 
 ## 4. Exact Visible Introduction
 
@@ -91,13 +100,13 @@ Copy is verbatim. Reference numbers are `04.1`–`04.4` and are load-bearing: th
 
 **Note:**
 
-> Ruling out a tile server forced the whole map, routing included, to ship as one self-contained file. Being unable to touch the point-of-sale is what turned a driver problem into a protocol one. The constraint is usually where the interesting decision is.
+> Ruling out a tile server forced the whole map, routing included, to ship as one self-contained file. Being unable to touch the point-of-sale is what turned a driver problem into a protocol one.
 
 **Evidence:** `05.1 cad-to-map` · `05.2 Asset Management System` · `05.3 ePOS Simulator`
 
 ### 04.2 — `id="c2"`
 
-**Heading:** I put the guarantee in the structure, not in the caller
+**Heading:** I put the rule where it cannot be skipped
 
 **Body:**
 
@@ -117,7 +126,7 @@ Evidence order matches the order the body introduces each system. This is a requ
 
 **Body:**
 
-> 80 Python tests and 21 routing checks guard a converter running unattended at six sites. 73 more run with no network at all, every external call fixtured. A throw-injection test raises deliberately at 12 points inside one function, because that is how a graph corruption was found: the snap step wrote a node into the shared graph before registering it for cleanup, and left it welded in at 10 of those 12 points.
+> 80 Python tests and 21 routing checks guard a converter running unattended at 6 sites. 73 more run with no network at all, every external call fixtured. A throw-injection test raises deliberately at 12 points inside one function, because that is how a graph corruption was found: the snap step wrote a node into the shared graph before registering it for cleanup, and left it welded in at 10 of those 12 points.
 
 **Note:** none. This claim carries the densest technical material on the sheet and sits third, past the point a scanning reader is still reading paragraphs. It does not also get a closing line.
 
@@ -131,9 +140,7 @@ Evidence order matches the order the body introduces each system. This is a requ
 
 > I swim competitively, so I already knew which numbers mattered — and deciding what a race is actually made of took far longer than building the charts. Equipment identity split the same way: position and role are known at procurement, before a device physically exists, while its address and credentials only exist once it is commissioned, so no single system could own the whole record.
 
-**Note:**
-
-> Getting the model of the thing right is most of the design work. The interface is what is left over once you know what you are describing.
+**Note:** none. Deleted with the other closing maxims — the body already carries the mechanism, and a rule about engineering is the one gesture this voice does not make.
 
 **Evidence:** `05.6 SplitWise Swimming Analytics` · `05.2 Asset Management System`
 
@@ -143,14 +150,14 @@ Evidence order matches the order the body introduces each system. This is a requ
 
 - Numerals, never words. `391 devices`, not `three hundred and ninety-one`. This is a drawing set.
 - Project names match A-005 exactly, including `Asset Management System` and `SplitWise Swimming Analytics` in full.
-- At most two of the four claims carry a closing note. Four notes each ending on a maxim reads as a manifesto and violates the "understated" register in `PRODUCT.md`.
-- Every factual instance must be traceable to A-005's own text. Where A-005 does not yet say it, either A-005 gains it in phase two or A-004 drops the claim.
+- At most two of the four claims carry a closing note, and **no note may end on a maxim**. The count was cut from four to two and it was not enough: what breaks the register is the move itself, generalising from the work into a rule about engineering, not how often it happens. A note ends on the mechanism.
+- Every factual instance must be traceable to A-005's own text. Where A-005 does not yet say it, either A-005 gains it in phase two or A-004 drops the claim. **This binds the stack listing too** — per-row drawing codes were added and removed twice, and the second time they cited drawings that do not contain the technologies named. See §8.
 
 ## 6. Evidence Reference Model
 
 Each reference is a link carrying both the drawing number and the project name, so it is unambiguous in a screen-reader links list and requires no recall.
 
-- Target `#p1`–`#p6`, matching 05.1–05.6 in order. These ids already exist in `index.html`.
+- Target `#proj-1`–`#proj-6`, the project articles, matching 05.1–05.6 in order. **Not** `#p1`–`#p6`: those are the detail panels, and linking to one lands the reader below the project title, figure and description, in the middle of an open disclosure. The `proj-N` ids are the only change this work makes to A-005, and they are invisible.
 - Minimum target size 44×44, including `min-width`, so a shortened label can never fall under the floor.
 - Adjacent targets separated by at least 12px.
 - The resting-state border must clear 3:1 against `--paper` in both themes. `--line` is 1.41:1 and **must not** be used: with no underline and no other affordance, that border is the only signal these are controls, which WCAG 1.4.11 covers with no text-alternative exemption. `--ref` is 4.54:1 light and 5.93:1 dark and is the correct token.
@@ -184,6 +191,10 @@ Closes the sheet. Label: `Built with`. A `<dl>` in two columns: category, techno
 | Data | PostgreSQL · SQLite · Supabase |
 
 Four rows, down from seven. The per-row drawing codes an earlier revision carried are gone: they made the strip longer than its importance justified. The trade is recorded in §19.
+
+**Do not add drawing codes back to these rows.** They were tried twice. The second attempt was a response to a review finding that the strip is the only unattached content on a sheet whose thesis is attachment — a fair criticism. The codes added to answer it were checked afterwards against A-005's actual text and were substantially false: `MQTT`, `ESC/POS`, `ePOS-Print`, `TLS`, `GeoJSON`, `ezdxf`, `Shapely`, `MapLibre GL`, `Kotlin`, `SQLite` and `Android` appear nowhere in A-005, and the rows that did resolve cited the wrong drawings. A citation that does not resolve is worse than an honest gap: it converts a known weakness into a claim the evidence contradicts.
+
+If the unattachment is to be fixed, the order is: A-005 gains the technology names first, then A-004 may cite it. Not the reverse.
 
 **Rules.**
 
@@ -318,12 +329,13 @@ Particular attention: `sprite has no dead symbols and no dangling references` (�
 ### New tests required
 
 1. **A-004 contains no script dependency.** No `<script>`, no `data-` hook consumed by `blueprint.js`, no class the runtime toggles within `#a004`.
-2. **Every A-004 evidence link targets an id that exists** and resolves to one of `#p1`–`#p6`.
-3. **`.detail:target` exists in the stylesheet.** Without it every evidence link is silently dead; this is the blocking defect and deserves a regression guard.
+2. **Every A-004 evidence link targets a project that exists** — one of `#proj-1`–`#proj-6`, each of which still contains its `#pN` panel — and no link points straight at a panel.
+3. **`.detail:target` exists, and `.detail[data-open="false"]` comes after it.** Without the first, every evidence link is silently dead. Without the second, the panel it opens can never be closed. Order is asserted because both are (0,2,0).
 4. **Claim count moves as one unit** — the number of `.claim` blocks and the number of claim ids agree. Modelled on the existing A-001 component-count test.
 5. **Every claim heading contains its reference number.**
 6. **No proficiency-rating markup** — no element whose class or content implies a level, bar or percentage.
 7. **A-004 contains no `<svg>`**, per §7. This is the guard that stops a figure creeping back in without the schedule decision being revisited.
+8. **Every claim cites at least two distinct drawings**, so no claim rests on a single piece of evidence. This replaces the bidirectional mapping test, which was removed with the A-005 backlinks.
 
 ### Manual browser gate
 
