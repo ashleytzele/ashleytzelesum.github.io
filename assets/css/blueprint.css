@@ -474,7 +474,10 @@ p{margin:0;color:var(--sec)}
   #a003 .experience-role{break-inside:auto}
   #a003 .experience-summary{break-inside:avoid}
   #a003 .experience-detail-label{break-after:avoid}
-  .rec,.proj{break-inside:avoid}}
+  .rec,.proj{break-inside:avoid}
+  /* A claim must not be separated from the evidence that supports it. */
+  #a004 .claim,#a004 .stk{break-inside:avoid}
+  #a004 .claim h3{break-after:avoid}}
 
 /* Media slot: every form is held at the sheet's 1000px figure width inside the
    scroll region, so a narrow viewport pans rather than shrinking the figure
@@ -550,3 +553,14 @@ p{margin:0;color:var(--sec)}
 .handoff{margin-top:calc(var(--u)*5);padding-top:calc(var(--u)*2.5);border-top:1px solid var(--hair);
   display:flex;align-items:center;gap:calc(var(--u)*2);flex-wrap:wrap}
 .handoff p{font-size:.9rem;max-width:46ch}
+/* One column at every width — there is no figure to place, so the sheet never
+   needs a second track. Below 640 the reference number moves above its heading
+   and the claim body loses its indent, which is what buys the measure back on a
+   390px screen. */
+@media(max-width:640px){
+  .claim h3{display:block}
+  .claim h3 .n{display:block;margin-bottom:4px}
+  .claim-b{margin-left:0}
+  .stk dl{grid-template-columns:minmax(0,1fr);gap:2px}
+  .stk dt{margin-top:calc(var(--u)*2)}
+}
