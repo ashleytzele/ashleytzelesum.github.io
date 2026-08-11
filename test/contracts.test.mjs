@@ -823,3 +823,12 @@ test('the cover Updated date matches the last change to the site', () => {
   assert.equal(shown[1], last,
     `cover says Updated ${shown[1]}, but the site last changed on ${last}`);
 });
+
+test('a linked project detail opens without script', () => {
+  // A-005's panels are display:none until the runtime sets data-open, and none of
+  // them ship that attribute. Without a :target rule, every cross-sheet evidence
+  // link scrolls to an element with no layout box and fails silently — which is
+  // the majority case, since <noscript> only covers script being disabled.
+  assert.match(css, /\.detail:target\s*\{[^}]*display\s*:\s*block/,
+    'expected .detail:target{display:block} so #p1-#p6 are reachable by link');
+});

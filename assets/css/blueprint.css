@@ -410,6 +410,11 @@ p{margin:0;color:var(--sec)}
 .more:hover{background:var(--ink);color:var(--paper)}
 .detail{display:none;margin-top:calc(var(--u)*3);border-top:1px dashed var(--line);padding-top:calc(var(--u)*2.5)}
 .detail[data-open="true"]{display:block}
+/* A fragment link into a project detail opens it. :target resolves before layout,
+   so a link to #p1-#p6 works with script, without script, and when script is
+   enabled but fails. Without this the browser scrolls to a display:none element
+   and nothing appears to happen. */
+.detail:target{display:block}
 .dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:calc(var(--u)*3) calc(var(--u)*4)}
 .fld .k{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ref);
   display:block;padding-bottom:6px;border-bottom:1px solid var(--hair);margin-bottom:8px}
