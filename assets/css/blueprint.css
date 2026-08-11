@@ -519,7 +519,11 @@ p{margin:0;color:var(--sec)}
    names the claim. */
 .claim h3{font-size:clamp(1.05rem,2.1vw,1.26rem);font-weight:600;letter-spacing:-.022em;
   display:flex;gap:calc(var(--u)*2);align-items:baseline;text-wrap:balance}
-.claim h3 .n{font-family:'MN',monospace;font-size:.76rem;font-weight:400;color:var(--ref);flex:none}
+/* width matches the indent on .claim-b below, so the heading text and the body
+   text start on the same vertical. Content-sized, the number is about 31px and
+   the heading would sit 23px left of everything under it. */
+.claim h3 .n{font-family:'MN',monospace;font-size:.76rem;font-weight:400;color:var(--ref);
+  flex:none;width:3.4rem}
 .claim-b{margin-left:calc(3.4rem + var(--u)*2)}
 .claim-b p{font-size:.94rem;margin-top:calc(var(--u)*1.5);max-width:60ch;text-wrap:pretty}
 .claim-b .how{color:var(--sec);font-size:.9rem}
@@ -545,9 +549,15 @@ p{margin:0;color:var(--sec)}
   color:var(--ref)}
 .stk dd{margin:0;font-size:.85rem;color:var(--sec);line-height:1.9}
 /* Practice, not proficiency: a statement about how the work is done, pointing at
-   the claim that evidences it, rather than a badge asserting a skill. */
-.stk .practice{font-size:.85rem;color:var(--sec);margin-top:calc(var(--u)*3);max-width:62ch}
-.stk .practice .k{display:inline;margin:0 8px 0 0}
+   the claim that evidences it, rather than a badge asserting a skill. Shares the
+   label column with the dl above, so "Practice" aligns with the categories rather
+   than running into its own sentence. .stk>.k is direct-child only and does not
+   reach this label, so the type is set here. */
+.stk .practice{display:grid;grid-template-columns:6.5rem minmax(0,1fr);
+  gap:calc(var(--u)*1.5) calc(var(--u)*2.5);align-items:baseline;max-width:760px;
+  margin-top:calc(var(--u)*3);font-size:.85rem;color:var(--sec)}
+.stk .practice .k{font-family:'MN',monospace;font-size:8px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ref);margin:0}
 .stk .practice a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ref)}
 .stk .practice a:hover{border-bottom-color:var(--ink)}
 .handoff{margin-top:calc(var(--u)*5);padding-top:calc(var(--u)*2.5);border-top:1px solid var(--hair);
@@ -559,8 +569,8 @@ p{margin:0;color:var(--sec)}
    390px screen. */
 @media(max-width:640px){
   .claim h3{display:block}
-  .claim h3 .n{display:block;margin-bottom:4px}
+  .claim h3 .n{display:block;width:auto;margin-bottom:4px}
   .claim-b{margin-left:0}
-  .stk dl{grid-template-columns:minmax(0,1fr);gap:2px}
-  .stk dt{margin-top:calc(var(--u)*2)}
+  .stk dl,.stk .practice{grid-template-columns:minmax(0,1fr);gap:2px}
+  .stk dt,.stk .practice .k{margin-top:calc(var(--u)*2)}
 }
