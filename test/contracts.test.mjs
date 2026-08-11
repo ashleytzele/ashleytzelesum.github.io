@@ -924,3 +924,18 @@ test('A-004 claims no proficiency level', () => {
   assert.ok(!/(proficien|skill-level|\blevel-\d|\d{1,3}\s*%|★|expert|advanced|intermediate)/i.test(a004),
     'A-004 must not imply a proficiency rating');
 });
+
+test('a photographic figure fits its column', () => {
+  // The 1000px floor is right for drawn SVGs, whose 8px labels go illegible when
+  // scaled, and wrong for rasters and video, which have no such labels. Applied to
+  // both, it forced sideways panning at every viewport under about 1100px and put
+  // SplitWise's play button roughly 700px off-screen at 390px.
+  const rule = /\.figbox img,\.figbox video\{([^}]*)\}/.exec(css);
+  assert.ok(rule, 'expected a .figbox img,.figbox video rule');
+  assert.doesNotMatch(rule[1], /width\s*:\s*\d+px/,
+    'a photographic figure must not be given a fixed pixel width');
+  assert.match(rule[1], /max-width\s*:\s*100%/, 'it must be allowed to shrink to its column');
+  // the drawn floor stays: this is the rule that must NOT change
+  assert.match(css, /\.figbox svg\{[^}]*min-width\s*:\s*1000px/,
+    'drawn figures keep their floor; their labels need it');
+});

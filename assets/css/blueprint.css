@@ -481,12 +481,12 @@ p{margin:0;color:var(--sec)}
   #a004 .claim,#a004 .stk{break-inside:avoid}
   #a004 .claim h3{break-after:avoid}}
 
-/* Media slot: every form is held at the sheet's 1000px figure width inside the
-   scroll region, so a narrow viewport pans rather than shrinking the figure
-   illegibly. `width`, not `min-width`: an SVG's intrinsic width is its viewBox
-   (1000, so a floor sufficed) but a raster or a video carries its true pixel
-   size, and an uncapped max-width rendered this 2916px video at 2916px. */
-.figbox img,.figbox video{width:1000px;max-width:none;height:auto;display:block;
+/* Media slot: the 1000px floor now applies only to .figbox svg, below, so a
+   drawing's 8px labels never get scaled illegible. A raster or a video has no
+   such labels, so it instead shrinks to its column: `width` and `max-width`
+   both percentage, not the fixed 1000px this rule used to hold, which forced a
+   sideways pan on every viewport under about 1100px. */
+.figbox img,.figbox video{width:100%;max-width:100%;height:auto;display:block;
   border:1px solid var(--hair)}
 .figbox video{object-fit:contain;background:var(--paper)}
 
