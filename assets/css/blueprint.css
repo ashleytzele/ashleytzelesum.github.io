@@ -393,7 +393,7 @@ p{margin:0;color:var(--sec)}
    source order. */
 .proj:target .detail{display:block}
 .proj:target .detail[data-open="false"]{display:none}
-.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:calc(var(--u)*3) calc(var(--u)*4)}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:calc(var(--u)*3) calc(var(--u)*4)}
 .fld .k{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ref);
   display:block;padding-bottom:6px;border-bottom:1px solid var(--hair);margin-bottom:8px}
 .fld p{font-size:.9rem;max-width:46ch}
