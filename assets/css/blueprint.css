@@ -451,9 +451,15 @@ p{margin:0;color:var(--sec)}
 .sig .r{font-family:'MN',monospace;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ref);margin-top:6px}
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}
-  .dwg .ln{stroke-dashoffset:0;animation:none}.dwg .axis{transform:scaleY(1);animation:none}
-  .dwg .fd,.an{opacity:1;animation:none}
-  #a001 .part-desc,#a001 .part-ref{opacity:1;animation:none}
+  /* !important because each of these has to beat a .runtime-ready rule that hides
+     the element, and those carry one more class. Without it the still states never
+     applied and reduced-motion visitors saw content only because the blanket
+     animation-duration override below forced the forwards animations to finish.
+     The print block solves the same clash the same way. */
+  .dwg .ln{stroke-dashoffset:0!important;animation:none}
+  .dwg .axis{transform:scaleY(1)!important;animation:none}
+  .dwg .fd,.an{opacity:1!important;animation:none}
+  #a001 .part-desc,#a001 .part-ref{opacity:1!important;animation:none}
   .runtime-ready #a001 .part-body::before{transform:scaleX(1);animation:none}
   .runtime-ready #a001 .part-body::after{clip-path:none;animation:none}
   .runtime-ready #a001 .assembly-axis{transform:scaleY(1);animation:none}
@@ -464,7 +470,12 @@ p{margin:0;color:var(--sec)}
   .runtime-ready #a003 .experience-role::before{transform:none;animation:none}
   *{animation-duration:.001ms!important;transition-duration:.001ms!important}}
 @media print{@page{size:A3 landscape;margin:8mm}
-  :root{--paper:#fff;--ink:#000;--sec:#333;--ref:#555;--refdec:#777;--line:#CCC;--hair:#E5E5E5;--mid:#999}
+  /* :root[data-theme] as well as :root. A media query adds no specificity, so a
+     bare :root here is (0,1,0) and loses to :root[data-theme="dark"] at (0,2,0).
+     Anyone who has ever used the theme toggle carries data-theme in localStorage,
+     so without this the print tokens never applied and the page printed as
+     #F2F2F2 on white — 1.12:1, effectively blank. */
+  :root,:root[data-theme]{--paper:#fff;--ink:#000;--sec:#333;--ref:#555;--refdec:#777;--line:#CCC;--hair:#E5E5E5;--mid:#999}
   body{font-size:9pt}.index{display:none}.doc{margin-left:0}
   .sheet{break-after:page}.sheet:last-child{break-after:auto}
   .cover .pane{min-height:auto}.rule{display:none}

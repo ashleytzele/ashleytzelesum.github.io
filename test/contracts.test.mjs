@@ -880,6 +880,21 @@ test('A-004 depends on no script of its own', () => {
   }
 });
 
+test('print and reduced-motion overrides outrank the theme and reveal rules', () => {
+  // Both blocks were written with too little specificity to win, and both failed
+  // silently: print inherited the dark tokens for anyone who had used the theme
+  // toggle, and the reduced-motion still states never applied at all.
+  const printBlock = /@media print\{[\s\S]*?\n\}/.exec(css)?.[0] ?? css.slice(css.indexOf('@media print'));
+  assert.match(printBlock, /:root,\s*:root\[data-theme\]\s*\{/,
+    'print tokens must also match :root[data-theme], or a stored dark theme wins');
+  const rm = /@media\(prefers-reduced-motion:reduce\)\{[\s\S]*?\n\}/.exec(css)?.[0] ?? '';
+  assert.notEqual(rm, '', 'expected a prefers-reduced-motion block');
+  for (const decl of ['stroke-dashoffset:0!important', 'opacity:1!important']) {
+    assert.ok(rm.includes(decl),
+      `reduced-motion still state "${decl}" must be !important to beat .runtime-ready`);
+  }
+});
+
 test('A-004 carries no figure', () => {
   // Spec section 7: the key plan was cut because its hand-computed geometry made
   // every future project a redraw. If a figure ever returns it must be a table, so
