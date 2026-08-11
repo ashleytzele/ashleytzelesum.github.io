@@ -124,7 +124,7 @@ them. Renumbering is a whole-site change, not a local one.
 | 05.2 | Asset Management System | Console layout, reconstructed with sample data |
 | 05.3 | ePOS Simulator | Print path (drawn — real media pending) |
 | 05.4 | ScoutMini | Real CLI output, verbatim |
-| 05.5 | MeeTeam | Meeting flow (drawn — real media pending) |
+| 05.5 | Quorum | Meeting flow (drawn — real media pending) |
 | 05.6 | SplitWise Swimming Analytics | Performance dashboard, recorded |
 
 ### The slot contract
@@ -332,9 +332,14 @@ original plan (Task 7: deploy and verify live).
 
 ### Pending media
 
-05.3 (ePOS Simulator) and 05.5 (MeeTeam) hold interim drawn figures. Ashley is
+05.3 (ePOS Simulator) and 05.5 (Quorum) hold interim drawn figures. Ashley is
 supplying real captures. Because of the slot contract, those swaps are
 figure-local and must not become a redesign.
+
+**05.5 was called MeeTeam until 2026-08-11.** The repository was renamed to
+`ashleytzele/Quorum` and the project grew from a meeting tool into three
+cooperating pieces. Older entries in `test/README.md` name MeeTeam because they
+are dated measurement records — that log is history and is not rewritten.
 
 ---
 

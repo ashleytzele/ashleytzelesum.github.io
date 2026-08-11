@@ -1,5 +1,11 @@
 # Tests
 
+> **Naming note.** Drawing 05.5 was called **MeeTeam** until 2026-08-11, when the
+> repository was renamed to `ashleytzele/Quorum` and the project grew from a
+> meeting tool into three cooperating pieces. The dated measurement records below
+> still say MeeTeam, deliberately: they describe what was measured at the time,
+> and a log that gets rewritten to match the present is no longer evidence.
+
 ## Contract tests — automatic
 
     node --test
