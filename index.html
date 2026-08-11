@@ -289,7 +289,7 @@
 <section class="sheet" id="a004" data-draw>
   <div class="pane">
     <div class="hdr"><div class="d"><b>Drawing A-004</b> &nbsp;<span>Engineering</span></div>
-      <div class="m">Sheet 4 of 6 &nbsp;&middot;&nbsp; Rev 3.0 &nbsp;&middot;&nbsp; Notes &mdash; no drawing</div></div>
+      <div class="m">Sheet 4 of 6 &nbsp;&middot;&nbsp; Rev 3.0 &nbsp;&middot;&nbsp; Notes &mdash; no drawing &nbsp;&middot;&nbsp; Active</div></div>
     <div style="margin-top:calc(var(--u)*5)"><h2>Engineering</h2></div>
     <p class="a4-lead">Four things I do consistently, and the drawings where each one is on the
       record. This sheet is the claim; the next one is the evidence.</p>
@@ -370,14 +370,10 @@
     <div class="stk">
       <span class="k">Built with</span>
       <dl>
-        <dt>Languages</dt><dd>Python &middot; JavaScript &middot; Java &middot; Kotlin &middot; SQL &middot; HTML &middot; CSS
-          <span class="src">05.1&ndash;05.6</span></dd>
-        <dt>Frameworks</dt><dd>Flask &middot; SQLAlchemy &middot; Android &middot; Bootstrap &middot; Chart.js &middot; ezdxf &middot; Shapely &middot; MapLibre GL
-          <span class="src">05.1 &middot; 05.6</span></dd>
-        <dt>Systems</dt><dd>REST &middot; MQTT &middot; ESC/POS &middot; ePOS-Print &middot; TLS &middot; GeoJSON
-          <span class="src">05.2 &middot; 05.3</span></dd>
-        <dt>Data</dt><dd>PostgreSQL &middot; SQLite &middot; Supabase
-          <span class="src">05.2 &middot; 05.5</span></dd>
+        <dt>Languages</dt><dd>Python &middot; JavaScript &middot; Java &middot; Kotlin &middot; SQL &middot; HTML &middot; CSS</dd>
+        <dt>Frameworks</dt><dd>Flask &middot; SQLAlchemy &middot; Android &middot; Bootstrap &middot; Chart.js &middot; ezdxf &middot; Shapely &middot; MapLibre GL</dd>
+        <dt>Systems</dt><dd>REST &middot; MQTT &middot; ESC/POS &middot; ePOS-Print &middot; TLS &middot; GeoJSON</dd>
+        <dt>Data</dt><dd>PostgreSQL &middot; SQLite &middot; Supabase</dd>
       </dl>
       <p class="practice">I work with coding agents daily, and design around what they get
         wrong &mdash; see <a href="#c2">04.2, on putting the rule where it cannot be skipped</a>.</p>
@@ -415,6 +411,7 @@
               alt="3D map viewer built by cad-to-map from a DXF site plan, in dark mode, showing the tool&rsquo;s own demo site rather than client work. Extruded building volumes sit among marked parking bays, a walkable path network and directional arrows. Category pins mark parking, toilets, food, fuel, prayer facilities, accessible routes and first aid; a red &ldquo;You Are Here&rdquo; marker shows the kiosk position. An amenity search box sits top left, and 2D and light-mode controls top right.">
             <div class="figcap"><span>Fig. 05.1 &mdash; Demo site viewer, captured</span><span>cad-to-map demo &mdash; not client work</span></div>
           </div>
+          <p class="evidences"><span class="k">Evidences</span><a href="#c1">04.1 <span class="nm">constraints I do not control</span></a><a href="#c3">04.3 <span class="nm">verify what I will not watch</span></a></p>
           <button class="more" type="button" data-more="p1" aria-controls="p1" data-label="05.1" aria-expanded="false">Open detail &mdash; 05.1</button>
           <div class="detail" id="p1">
             <div class="dgrid">
@@ -426,7 +423,6 @@
               <div class="fld"><span class="k">Result</span><p>Six kiosk sites were built from it, one with a complete handover package. The public repository carries 80 Python tests and 21 routing checks, and it also ships as an installable agent skill, so the same converter runs inside a coding agent as well as from the command line.</p></div>
               <div class="fld"><span class="k">What I learned</span><p>Almost none of the difficulty was in the conversion logic itself. Nearly all of it was in absorbing what real architectural drawings actually do in practice, which no file format specification tells you.</p></div>
             </div>
-            <p class="evidences"><span class="k">Evidences</span><a href="#c1">04.1</a> &middot; <a href="#c3">04.3</a></p>
             <div class="refs"><a href="https://github.com/ashleytzele/cad-to-map"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
           </div>
         </div></div>
@@ -447,6 +443,7 @@
               alt="Reconstruction with sample data, not a production screenshot: an operations console showing a single field device, a panel listing that device&rsquo;s four different identifiers across four systems of record with one flagged as drifted, availability and temperature readings, a fault list, and a reconciliation run summary.">
             <div class="figcap"><span>Fig. 05.2 &mdash; Console layout, reconstructed with sample data</span><span>Sample data &mdash; not production</span></div>
           </div>
+          <p class="evidences"><span class="k">Evidences</span><a href="#c1">04.1 <span class="nm">constraints I do not control</span></a><a href="#c2">04.2 <span class="nm">the rule where it cannot be skipped</span></a><a href="#c4">04.4 <span class="nm">what the thing actually is</span></a></p>
           <button class="more" type="button" data-more="p2" aria-controls="p2" data-label="05.2" aria-expanded="false">Open detail &mdash; 05.2</button>
           <div class="detail" id="p2">
             <div class="dgrid">
@@ -458,7 +455,6 @@
               <div class="fld"><span class="k">Result</span><p>The identity layer is running with its uniqueness constraint deployed and verified. The fault-to-ticket pipeline is proven in staging but was never installed to production, blocked on a production credential that was refused, and a financial cost register was deliberately left unbuilt, since an estate with no purchase orders on file would just produce empty reports that read as broken.</p></div>
               <div class="fld"><span class="k">What I learned</span><p>The hard part was never moving data between systems. It was deciding which one was telling the truth when they disagreed about the same device, and being willing to say unknown instead of guessing.</p></div>
             </div>
-            <p class="evidences"><span class="k">Evidences</span><a href="#c1">04.1</a> &middot; <a href="#c2">04.2</a> &middot; <a href="#c4">04.4</a></p>
             <div class="refs"><span>Client work &mdash; not published</span></div>
           </div>
         </div></div>
@@ -493,6 +489,7 @@
             </svg>
             <div class="figcap"><span>Fig. 05.3 &mdash; Print path</span><span>Not to scale</span></div>
           </div>
+          <p class="evidences"><span class="k">Evidences</span><a href="#c1">04.1 <span class="nm">constraints I do not control</span></a><a href="#c3">04.3 <span class="nm">verify what I will not watch</span></a></p>
           <button class="more" type="button" data-more="p3" aria-controls="p3" data-label="05.3" aria-expanded="false">Open detail &mdash; 05.3</button>
           <div class="detail" id="p3">
             <div class="dgrid">
@@ -504,7 +501,6 @@
               <div class="fld"><span class="k">Result</span><p>It ran production print traffic on the store&rsquo;s own machine, confirmed on paper by a manager who added a printer and watched a job route live. One issue is still open, not fixed: the printer&rsquo;s connection handling can wedge under a specific kind of half-open network client, currently held off only by an external watchdog.</p></div>
               <div class="fld"><span class="k">What I learned</span><p>Comparing printer models directly got me nowhere. Once I stopped treating the hardware as the problem and targeted the shared protocol instead, picking a printer became a purchasing decision, not an engineering one.</p></div>
             </div>
-            <p class="evidences"><span class="k">Evidences</span><a href="#c1">04.1</a> &middot; <a href="#c3">04.3</a></p>
             <div class="refs"><span>Client work &mdash; not published</span></div>
           </div>
         </div></div>
@@ -537,6 +533,7 @@
             </svg>
             <div class="figcap"><span>Fig. 05.4 &mdash; Real CLI output, verbatim</span><span>FastF1 timing data</span></div>
           </div>
+          <p class="evidences"><span class="k">Evidences</span><a href="#c2">04.2 <span class="nm">the rule where it cannot be skipped</span></a><a href="#c3">04.3 <span class="nm">verify what I will not watch</span></a></p>
           <button class="more" type="button" data-more="p4" aria-controls="p4" data-label="05.4" aria-expanded="false">Open detail &mdash; 05.4</button>
           <div class="detail" id="p4">
             <div class="dgrid">
@@ -550,7 +547,6 @@
               <div class="fld"><span class="k">Delivered</span><p>73 tests, all offline; every external call fixtured.</p></div>
               <div class="fld"><span class="k">Lessons learned</span><p>I built it so the model never answers from memory: it only ever sees what a tool returned, and every report prints its sources. Prompting it to be careful did not hold; only the structure did.</p></div>
             </div>
-            <p class="evidences"><span class="k">Evidences</span><a href="#c2">04.2</a> &middot; <a href="#c3">04.3</a></p>
             <div class="refs"><a href="https://github.com/ashleytzele/scoutmini"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
           </div>
         </div></div>
@@ -595,6 +591,7 @@
             </svg>
             <div class="figcap"><span>Fig. 05.5 &mdash; Meeting flow</span><span>Interim drawing &mdash; media pending</span></div>
           </div>
+          <p class="evidences"><span class="k">Evidences</span><a href="#c2">04.2 <span class="nm">the rule where it cannot be skipped</span></a></p>
           <button class="more" type="button" data-more="p5" aria-controls="p5" data-label="05.5" aria-expanded="false">Open detail &mdash; 05.5</button>
           <div class="detail" id="p5">
             <div class="dgrid">
@@ -605,7 +602,6 @@
                 <p>JavaScript &middot; Supabase &middot; PostgreSQL &middot; row-level security &middot; OKLCH design tokens</p></div>
               <div class="fld"><span class="k">Lessons learned</span><p>Getting row-level security right was harder than building the features it protects. A policy that queried the same table it guarded recursed forever, and the fix was to move the lookup into a definer-rights function.</p></div>
             </div>
-            <p class="evidences"><span class="k">Evidences</span><a href="#c2">04.2</a></p>
             <div class="refs"><a href="https://github.com/ashleytzele/MeeTeam"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
           </div>
         </div></div>
@@ -628,6 +624,7 @@
               aria-label="Screen recording of SplitWise Swim: a race is loaded, split times are entered, and the velocity and stroke-rate charts redraw to compare each split against the target pace."></video>
             <div class="figcap"><span>Fig. 05.6 &mdash; Performance dashboard, recorded</span><span>Live application</span></div>
           </div>
+          <p class="evidences"><span class="k">Evidences</span><a href="#c4">04.4 <span class="nm">what the thing actually is</span></a></p>
           <button class="more" type="button" data-more="p6" aria-controls="p6" data-label="05.6" aria-expanded="false">Open detail &mdash; 05.6</button>
           <div class="detail" id="p6">
             <div class="dgrid">
@@ -639,7 +636,6 @@
                 <p>Flask &middot; SQLAlchemy &middot; Bootstrap &middot; Chart.js &middot; Python &middot; HTML &middot; CSS &middot; JavaScript</p></div>
               <div class="fld"><span class="k">Lessons learned</span><p>I swim the sport, so I already knew which numbers mattered, and that turned out to be most of the design work. Deciding what a race is actually made of took far longer than building the charts.</p></div>
             </div>
-            <p class="evidences"><span class="k">Evidences</span><a href="#c4">04.4</a></p>
             <div class="refs"><a href="https://splitwise-mo3y.onrender.com">Live application</a>
               <a href="https://github.com/ashleytzele/SplitWise-Swim"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
           </div>

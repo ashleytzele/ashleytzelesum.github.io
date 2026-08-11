@@ -48,7 +48,15 @@
     moreButtons.forEach(function(b){
       b.addEventListener('click',function(){
         var d=document.getElementById(b.dataset.more);
-        setDetailOpen(b,d,d.getAttribute('data-open')!=='true');
+        var open=d.getAttribute('data-open')!=='true';
+        setDetailOpen(b,d,open);
+        /* Closing a panel that is the current :target has to release the hash, or
+           following the same evidence link again fires no hashchange and appears
+           to do nothing. */
+        if(!open&&typeof location!=='undefined'&&location.hash==='#'+b.dataset.more
+           &&typeof history!=='undefined'&&history.replaceState){
+          history.replaceState(null,'',location.pathname+location.search);
+        }
       });
     });
     /* A cross-sheet evidence link opens a panel through :target. Without this the

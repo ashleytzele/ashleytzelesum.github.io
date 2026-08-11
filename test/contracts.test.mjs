@@ -887,9 +887,12 @@ test('the claim-to-drawing mapping agrees in both directions', () => {
   for (const m of a004.matchAll(/<div class="claim" id="(c\d)"[\s\S]*?(?=<div class="claim" id="|<div class="stk">)/g)) {
     for (const link of m[0].matchAll(/class="ev" href="#(p\d)"/g)) forward.add(`${m[1]}->${link[1]}`);
   }
+  // The backlinks sit in the collapsed summary, before the disclosure button, so
+  // a reader who never opens a panel still sees them. Associate each row with the
+  // panel its sibling button controls rather than by nesting.
   const back = new Set();
-  for (const m of html.matchAll(/<div class="detail" id="(p\d)">[\s\S]*?<p class="evidences">(.*?)<\/p>/g)) {
-    for (const link of m[2].matchAll(/href="#(c\d)"/g)) back.add(`${link[1]}->${m[1]}`);
+  for (const m of html.matchAll(/<p class="evidences">(.*?)<\/p>\s*<button class="more"[^>]*data-more="(p\d)"/g)) {
+    for (const link of m[1].matchAll(/href="#(c\d)"/g)) back.add(`${link[1]}->${m[2]}`);
   }
   assert.ok(forward.size >= 10, `expected A-004 evidence links, found ${forward.size}`);
   assert.deepEqual([...back].sort(), [...forward].sort(),
