@@ -271,7 +271,7 @@ p{margin:0;color:var(--sec)}
 .idm dt{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ref);padding-top:3px}
 .idm dd{margin:0;color:var(--sec);font-size:.9rem;overflow-wrap:anywhere}
 /* WCAG 2.5.5 AAA: text links carry their own 44px block so the row grows with them. */
-.idm dd a,.v a,.mn a,.refs a{display:inline-block;padding-block:calc(var(--u)*1.75);line-height:1.4}
+.idm dd a,.v a,.mn a,.refs a,.stk .practice a{display:inline-block;padding-block:calc(var(--u)*1.75);line-height:1.4}
 
 /* records */
 .rec{display:grid;grid-template-columns:9.5rem minmax(0,1fr) minmax(0,.8fr);gap:calc(var(--u)*3);
@@ -401,6 +401,10 @@ p{margin:0;color:var(--sec)}
    enabled but fails. Without this the browser scrolls to a display:none element
    and nothing appears to happen. */
 .detail:target{display:block}
+/* An explicit close must beat :target, or a panel reached from an A-004 evidence
+   link can never be closed and its button contradicts what is on screen. Same
+   specificity as :target, so this has to stay below it. */
+.detail[data-open="false"]{display:none}
 .dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:calc(var(--u)*3) calc(var(--u)*4)}
 .fld .k{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ref);
   display:block;padding-bottom:6px;border-bottom:1px solid var(--hair);margin-bottom:8px}
@@ -549,15 +553,13 @@ p{margin:0;color:var(--sec)}
   color:var(--ref)}
 .stk dd{margin:0;font-size:.85rem;color:var(--sec);line-height:1.9}
 /* Practice, not proficiency: a statement about how the work is done, pointing at
-   the claim that evidences it, rather than a badge asserting a skill. Shares the
-   label column with the dl above, so "Practice" aligns with the categories rather
-   than running into its own sentence. .stk>.k is direct-child only and does not
-   reach this label, so the type is set here. */
-.stk .practice{display:grid;grid-template-columns:6.5rem minmax(0,1fr);
-  gap:calc(var(--u)*1.5) calc(var(--u)*2.5);align-items:baseline;max-width:760px;
-  margin-top:calc(var(--u)*3);font-size:.85rem;color:var(--sec)}
-.stk .practice .k{font-family:'MN',monospace;font-size:8px;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--ref);margin:0}
+   the claim that evidences it. Deliberately NOT given a category label — set in
+   the same tracked mono as Languages/Frameworks it read as a fifth row of the
+   technology list, which is the tool-badge framing this sheet exists to retire.
+   A plain sentence, indented to the content column, says it without claiming it. */
+.stk .practice{margin-top:calc(var(--u)*3.5);max-width:62ch;font-size:.85rem;
+  color:var(--sec);padding-left:calc(6.5rem + var(--u)*2.5)}
+@media(max-width:640px){.stk .practice{padding-left:0}}
 .stk .practice a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ref)}
 .stk .practice a:hover{border-bottom-color:var(--ink)}
 .handoff{margin-top:calc(var(--u)*5);padding-top:calc(var(--u)*2.5);border-top:1px solid var(--hair);

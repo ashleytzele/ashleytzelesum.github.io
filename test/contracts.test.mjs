@@ -831,6 +831,13 @@ test('a linked project detail opens without script', () => {
   // the majority case, since <noscript> only covers script being disabled.
   assert.match(css, /\.detail:target\s*\{[^}]*display\s*:\s*block/,
     'expected .detail:target{display:block} so #p1-#p6 are reachable by link');
+  // ...and an explicit close has to beat it, or a panel opened from an evidence
+  // link can never be closed and its button contradicts what is on screen. Same
+  // specificity, so order decides: the close rule must come after :target.
+  const targetAt = css.indexOf('.detail:target');
+  const closeAt = css.indexOf('.detail[data-open="false"]');
+  assert.ok(closeAt !== -1, 'expected .detail[data-open="false"]{display:none}');
+  assert.ok(closeAt > targetAt, '.detail[data-open="false"] must come after .detail:target to win the tie');
 });
 
 const a004 = /<section class="sheet" id="a004"[\s\S]*?<\/section>/.exec(html)?.[0] ?? '';

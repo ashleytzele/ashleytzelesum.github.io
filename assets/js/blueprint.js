@@ -38,16 +38,35 @@
     }
 
     /* project details expand in place */
-    [].slice.call(document.querySelectorAll('.more')).forEach(function(b){
+    var setDetailOpen=function(b,d,open){
+      d.setAttribute('data-open',String(open));
+      b.setAttribute('aria-expanded',String(open));
+      var lab=b.dataset.label||b.dataset.more.replace('p','05.');
+      b.textContent=(open?'Close detail \u2014 ':'Open detail \u2014 ')+lab;
+    };
+    var moreButtons=[].slice.call(document.querySelectorAll('.more'));
+    moreButtons.forEach(function(b){
       b.addEventListener('click',function(){
         var d=document.getElementById(b.dataset.more);
-        var isOpen=d.getAttribute('data-open')==='true';
-        d.setAttribute('data-open',String(!isOpen));
-        b.setAttribute('aria-expanded',String(!isOpen));
-        var lab=b.dataset.label||b.dataset.more.replace('p','05.');
-        b.textContent=(isOpen?'Open detail \u2014 ':'Close detail \u2014 ')+lab;
+        setDetailOpen(b,d,d.getAttribute('data-open')!=='true');
       });
     });
+    /* A cross-sheet evidence link opens a panel through :target. Without this the
+       control would still announce "Open detail" over an open panel, and the first
+       click would appear to do nothing. */
+    var syncTargetedDetail=function(){
+      var hash=(typeof location!=='undefined'&&location.hash)||'';
+      if(!hash)return;
+      moreButtons.forEach(function(b){
+        if(b.dataset.more!==hash.slice(1))return;
+        var d=document.getElementById(b.dataset.more);
+        if(d)setDetailOpen(b,d,true);
+      });
+    };
+    syncTargetedDetail();
+    if(typeof window!=='undefined'&&window.addEventListener){
+      window.addEventListener('hashchange',syncTargetedDetail);
+    }
 
     /* A-003 role details: static HTML is complete; successful runtime earns collapse. */
     var experienceButtons=[].slice.call(document.querySelectorAll('#a003 .experience-more'));
