@@ -132,30 +132,6 @@
       });
     }
 
-    /* A-004 module-to-drawing lookup. */
-    var mods=[].slice.call(document.querySelectorAll('.mod')),
-        out=document.getElementById('modout-body');
-    if(mods.length&&out){
-      var PROJ={'05.1':'cad-to-map','05.2':'Asset Management','05.3':'ePOS Simulator',
-                '05.4':'ScoutMini','05.5':'MeeTeam','05.6':'SplitWise'};
-      var IDLE='Select a module above to see which drawings use it.';
-      var label=function(ref){
-        if(ref.charAt(0)==='A')return '<a href="#a003">'+ref+' Experience</a>';
-        return '<a href="#a005">'+ref+' '+(PROJ[ref]||'')+'</a>';
-      };
-      mods.forEach(function(b){
-        b.addEventListener('click',function(){
-          var wasOn=b.getAttribute('aria-pressed')==='true';
-          mods.forEach(function(m){m.setAttribute('aria-pressed','false')});
-          if(wasOn){out.textContent=IDLE;return}
-          b.setAttribute('aria-pressed','true');
-          var refs=(b.getAttribute('data-refs')||'').split(' ').filter(Boolean);
-          if(!refs.length){out.textContent='Used across the whole set rather than in one drawing.';return}
-          out.innerHTML=refs.map(label).join(' &nbsp;&middot;&nbsp; ');
-        });
-      });
-    }
-
     root.classList.add('runtime-ready');
   }catch(error){
     resetA001();

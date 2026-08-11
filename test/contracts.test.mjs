@@ -832,3 +832,47 @@ test('a linked project detail opens without script', () => {
   assert.match(css, /\.detail:target\s*\{[^}]*display\s*:\s*block/,
     'expected .detail:target{display:block} so #p1-#p6 are reachable by link');
 });
+
+const a004 = /<section class="sheet" id="a004"[\s\S]*?<\/section>/.exec(html)?.[0] ?? '';
+
+test('A-004 has four claims and each carries its reference number in the heading', () => {
+  assert.notEqual(a004, '', 'expected an #a004 section');
+  const ids = [...a004.matchAll(/<div class="claim" id="(c\d)"/g)].map(m => m[1]);
+  assert.deepEqual(ids, ['c1', 'c2', 'c3', 'c4']);
+  // A headings-list navigation must return four numbered headings, not four
+  // unnumbered ones: the number is how every cross-reference names the claim.
+  const headings = [...a004.matchAll(/<h3><span class="n">(04\.\d)<\/span>/g)].map(m => m[1]);
+  assert.deepEqual(headings, ['04.1', '04.2', '04.3', '04.4']);
+});
+
+test('every A-004 evidence link targets a project detail that exists', () => {
+  const targets = [...a004.matchAll(/class="ev" href="#(p\d)"/g)].map(m => m[1]);
+  assert.ok(targets.length >= 10, `expected the evidence links, found ${targets.length}`);
+  for (const t of new Set(targets)) {
+    assert.ok(html.includes(`<div class="detail" id="${t}">`),
+      `evidence link points at #${t}, which does not exist`);
+  }
+});
+
+test('A-004 depends on no script of its own', () => {
+  assert.ok(!/<script/.test(a004), 'A-004 must contain no script');
+  for (const hook of ['aria-pressed', 'aria-live', 'role="status"', 'data-more', 'data-refs']) {
+    assert.ok(!a004.includes(hook), `A-004 must not use ${hook}: the sheet is static`);
+  }
+  for (const gone of ['#a004', 'modout', '.mod']) {
+    assert.ok(!js.includes(gone), `blueprint.js still references ${gone}`);
+  }
+});
+
+test('A-004 carries no figure', () => {
+  // Spec section 7: the key plan was cut because its hand-computed geometry made
+  // every future project a redraw. If a figure ever returns it must be a table, so
+  // this guard forces that decision to be made rather than drifted into.
+  assert.ok(!/<svg/.test(a004), 'A-004 must contain no svg; see spec section 7');
+});
+
+test('A-004 claims no proficiency level', () => {
+  // A rating is unfalsifiable, and was the failure of the sheet this replaces.
+  assert.ok(!/(proficien|skill-level|\blevel-\d|\d{1,3}\s*%|★|expert|advanced|intermediate)/i.test(a004),
+    'A-004 must not imply a proficiency rating');
+});

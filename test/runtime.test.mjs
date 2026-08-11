@@ -32,7 +32,7 @@ class FakeNode {
   }
 }
 
-function fixture({ failSelector } = {}) {
+function fixture({ failSelector, failId } = {}) {
   const root = new FakeNode('root');
   const sheet = new FakeNode('a001');
   const tablist = new FakeNode('assembly-tabs');
@@ -50,7 +50,10 @@ function fixture({ failSelector } = {}) {
   const document = {
     activeElement: null,
     documentElement: root,
-    getElementById: id => ids.get(id) ?? null,
+    getElementById(id) {
+      if (id === failId) throw new Error(`forced failure at #${id}`);
+      return ids.get(id) ?? null;
+    },
     querySelector: selector => selector === '#a001 .assembly-tabs' ? tablist : null,
     querySelectorAll(selector) {
       if (selector === failSelector) throw new Error(`forced failure at ${selector}`);
@@ -73,8 +76,15 @@ function fixture({ failSelector } = {}) {
 }
 
 test('runtime failure never earns the reveal gate', () => {
-  const f = fixture({ failSelector: '.mod' });
-  assert.throws(() => vm.runInNewContext(source, f.context), /forced failure/);
+  // The injection point has to sit AFTER A-001's tablist enhancement, or the
+  // assertions below pass trivially — the parts would never have been given roles
+  // for resetA001 to strip. This used to be '.mod'; A-004 no longer has a runtime,
+  // so #themeToggle is now the last thing queried before the gate is earned.
+  const f = fixture({ failId: 'themeToggle' });
+  // Matching the exact point, not just /forced failure/: if the runtime stops
+  // querying #themeToggle the injection would silently never fire, and the
+  // assertions below would pass for the wrong reason.
+  assert.throws(() => vm.runInNewContext(source, f.context), /forced failure at #themeToggle/);
   assert.equal(f.root.classList.contains('runtime-ready'), false);
   assert.deepEqual(f.parts.map(part => part.getAttribute('role')), [null, null, null, null]);
   assert.equal(f.panel.getAttribute('role'), null);

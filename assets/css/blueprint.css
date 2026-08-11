@@ -26,16 +26,6 @@ a{color:inherit}
 .skip:focus{left:1rem;top:1rem;z-index:99;background:var(--ink);color:var(--paper);padding:.6rem 1rem}
 .lab{font-family:'MN',ui-monospace,monospace;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--ref)}
 .ico{width:1em;height:1em;fill:currentColor;display:inline-block;vertical-align:-.13em;flex:none}
-.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));border:1px solid var(--line);margin-top:calc(var(--u)*4)}
-.lgcol{padding:calc(var(--u)*2);border-right:1px solid var(--line)}
-.lgcol:last-child{border-right:0}
-.lgcol .k{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ref);
-  display:block;padding-bottom:8px;border-bottom:1px solid var(--hair);margin-bottom:calc(var(--u)*1.5)}
-.lgcol ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
-.lgcol li{display:flex;align-items:center;gap:10px;font-size:.86rem}
-.lgcol li .ico{font-size:1.05rem;color:var(--sec)}
-.lgcol li .no{width:1.05em;height:1.05em;flex:none;border:1px dashed var(--line);border-radius:2px}
-@media(max-width:900px){.lgcol{border-right:0;border-bottom:1px solid var(--line)}.lgcol:last-child{border-bottom:0}}
 .mn{font-family:'MN',ui-monospace,monospace;font-variant-numeric:tabular-nums}
 
 /* index */
@@ -301,8 +291,6 @@ p{margin:0;color:var(--sec)}
   .rec .s{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}}
 
 /* module + list grids */
-.tags{display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:calc(var(--u)*1.5)}
-.tag{font-family:'MN',monospace;font-size:.72rem;color:var(--sec)}
 
 /* A-005 project index + expand */
 .proj{border-top:1px solid var(--ink);padding-top:calc(var(--u)*2.5);margin-top:calc(var(--u)*3.5)}
@@ -321,12 +309,10 @@ p{margin:0;color:var(--sec)}
 /* Figures are drawn at viewBox 1000 wide. Hold them at 1:1 rather than letting
    them shrink to the viewport — at 390px a 660px floor rendered 5.3px labels. */
 .figbox svg{min-width:1000px;max-width:none}
-.dwgbox{overflow-x:auto}
-@media(max-width:1040px){.figbox::after,#a004 .dwgbox::after{content:"\2190 scroll to pan \2192";display:block;
+@media(max-width:1040px){.figbox::after{content:"\2190 scroll to pan \2192";display:block;
   font-family:'MN',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--ref);margin-top:calc(var(--u)*1.5);position:sticky;left:0}}
-#a004 .dwgbox svg{min-width:1000px;max-width:none}
-.figbox:focus-visible,.dwgbox:focus-visible{outline:1.5px solid var(--ink);outline-offset:3px}
+.figbox:focus-visible{outline:1.5px solid var(--ink);outline-offset:3px}
 .figcap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:'MN',monospace;
   font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ref);
   border-top:1px solid var(--hair);margin-top:calc(var(--u)*1.5);padding-top:8px}
@@ -499,24 +485,6 @@ p{margin:0;color:var(--sec)}
   border:1px solid var(--hair)}
 .figbox video{object-fit:contain;background:var(--paper)}
 
-/* A-004 module index: each module is a control that names the drawings using it,
-   so the cross-references are navigable rather than decorative. Styled to match
-   the legend rows it replaces; selection inverts like a selected assembly part. */
-.legend .mod{display:flex;align-items:center;gap:calc(var(--u));width:100%;min-height:44px;
-  padding:calc(var(--u)*.75) calc(var(--u));background:none;border:1px solid transparent;
-  font:inherit;font-size:.86rem;color:var(--ink);text-align:left;cursor:pointer}
-.legend .mod:hover{border-color:var(--line)}
-.legend .mod[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.legend .mod[aria-pressed="true"] .ico{color:var(--paper)}
-.legend .mod:focus-visible{outline:1.5px solid var(--ink);outline-offset:2px}
-.modout{margin-top:calc(var(--u)*3);border-top:1px solid var(--ink);padding-top:calc(var(--u)*2)}
-.modout .k{font-family:'MN',monospace;font-size:8px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--ref);display:block;margin-bottom:calc(var(--u))}
-.modout #modout-body{font-size:.92rem;color:var(--sec);line-height:1.9}
-.modout a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);
-  display:inline-block;padding-block:calc(var(--u)*1.25)}
-.modout a:hover{border-bottom-color:var(--ink)}
-
 /* Cover drawing frame, responsive. Registration marks are document notation, not
    interface: .rule is absolutely positioned with pointer-events:none, so it never
    takes layout space, never reduces usable width and cannot be clicked. Below
@@ -531,3 +499,54 @@ p{margin:0;color:var(--sec)}
 @media(max-width:759px){
   .cover .rule .cx{display:none}   /* column numbers crowd a phone; the four corners carry it alone */
 }
+
+/* A-004 Engineering. A claim sheet: four authored claims, each linking to the
+   drawings that evidence it. No script participates beyond the site-wide reveal,
+   and there is no figure — the mapping lives only in the evidence links, so
+   adding a project is adding one link. */
+.a4-lead{font-size:clamp(.95rem,1.7vw,1.1rem);color:var(--sec);max-width:54ch;
+  margin-top:calc(var(--u)*2);text-wrap:pretty}
+/* One measure. With no figure competing for width, the claims hold a comfortable
+   line length instead of stretching across the pane. */
+.claims{margin-top:calc(var(--u)*5);max-width:760px}
+.claim{padding:calc(var(--u)*4) 0;border-top:1px solid var(--line)}
+.claim:first-child{border-top:1px solid var(--ink);padding-top:calc(var(--u)*3)}
+/* The reference number sits INSIDE the heading so a headings-list navigation
+   returns "04.1 I work inside constraints...", which is how every cross-reference
+   names the claim. */
+.claim h3{font-size:clamp(1.05rem,2.1vw,1.26rem);font-weight:600;letter-spacing:-.022em;
+  display:flex;gap:calc(var(--u)*2);align-items:baseline;text-wrap:balance}
+.claim h3 .n{font-family:'MN',monospace;font-size:.76rem;font-weight:400;color:var(--ref);flex:none}
+.claim-b{margin-left:calc(3.4rem + var(--u)*2)}
+.claim-b p{font-size:.94rem;margin-top:calc(var(--u)*1.5);max-width:60ch;text-wrap:pretty}
+.claim-b .how{color:var(--sec);font-size:.9rem}
+/* Evidence references. The border is --ref, not --line: at 1px it is the only
+   resting-state signal that these are controls, so it has to clear 3:1 per WCAG
+   1.4.11, and --line is 1.41:1. min-width holds the target if a label is ever
+   shortened to a bare drawing code. */
+.evrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:calc(var(--u)*2.5)}
+.ev{display:inline-flex;align-items:center;gap:7px;min-height:44px;min-width:44px;padding:0 13px;
+  font-family:'MN',monospace;font-size:.76rem;letter-spacing:.04em;color:var(--ink);
+  text-decoration:none;border:1px solid var(--ref)}
+.ev:hover{border-color:var(--ink);background:var(--hair)}
+.ev .nm{font-family:'PS',sans-serif;font-size:.8rem;color:var(--sec);letter-spacing:0}
+.ev:hover .nm{color:var(--ink)}
+/* Stack as a description list, not <br> + <em>: the categories survive wrapping
+   at 286px, and <em> was carrying styling rather than emphasis. */
+.stk{border-top:1px solid var(--ink);margin-top:calc(var(--u)*6);padding-top:calc(var(--u)*2.5)}
+.stk>.k{font-family:'MN',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ref);display:block;margin-bottom:calc(var(--u)*2)}
+.stk dl{display:grid;grid-template-columns:6.5rem minmax(0,1fr);
+  gap:calc(var(--u)*1.5) calc(var(--u)*2.5);margin:0;align-items:baseline;max-width:760px}
+.stk dt{font-family:'MN',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ref)}
+.stk dd{margin:0;font-size:.85rem;color:var(--sec);line-height:1.9}
+/* Practice, not proficiency: a statement about how the work is done, pointing at
+   the claim that evidences it, rather than a badge asserting a skill. */
+.stk .practice{font-size:.85rem;color:var(--sec);margin-top:calc(var(--u)*3);max-width:62ch}
+.stk .practice .k{display:inline;margin:0 8px 0 0}
+.stk .practice a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ref)}
+.stk .practice a:hover{border-bottom-color:var(--ink)}
+.handoff{margin-top:calc(var(--u)*5);padding-top:calc(var(--u)*2.5);border-top:1px solid var(--hair);
+  display:flex;align-items:center;gap:calc(var(--u)*2);flex-wrap:wrap}
+.handoff p{font-size:.9rem;max-width:46ch}
