@@ -61,32 +61,6 @@
         }
       });
     });
-    /* The panels ship open so a runtime that loads and then fails leaves them
-       readable. Reaching here means initialisation succeeded, so collapse them —
-       except one already opened by a cross-sheet evidence link, which
-       syncTargetedDetail below re-opens anyway. */
-    moreButtons.forEach(function(b){
-      var d=document.getElementById(b.dataset.more);
-      if(d)setDetailOpen(b,d,false);
-    });
-    /* A cross-sheet evidence link opens a panel through :target. Without this the
-       control would still announce "Open detail" over an open panel, and the first
-       click would appear to do nothing. */
-    var syncTargetedDetail=function(){
-      var hash=(typeof location!=='undefined'&&location.hash)||'';
-      if(!hash)return;
-      var want=hash.slice(1);
-      moreButtons.forEach(function(b){
-        if(b.dataset.more!==want&&panelToProject(b.dataset.more)!==want)return;
-        var d=document.getElementById(b.dataset.more);
-        if(d)setDetailOpen(b,d,true);
-      });
-    };
-    syncTargetedDetail();
-    if(typeof window!=='undefined'&&window.addEventListener){
-      window.addEventListener('hashchange',syncTargetedDetail);
-    }
-
     /* A-003 role details: static HTML is complete; successful runtime earns collapse. */
     var experienceButtons=[].slice.call(document.querySelectorAll('#a003 .experience-more'));
     var setExperienceOpen=function(button,detail,open){
@@ -168,6 +142,32 @@
         try{localStorage.setItem('theme',next)}catch(e){}
         syncThemeBtn(next);
       });
+    }
+
+    /* The panels ship open so a runtime that loads and then fails leaves them
+       readable. Reaching here means initialisation succeeded, so collapse them —
+       except one already opened by a cross-sheet evidence link, which
+       syncTargetedDetail below re-opens anyway. */
+    moreButtons.forEach(function(b){
+      var d=document.getElementById(b.dataset.more);
+      if(d)setDetailOpen(b,d,false);
+    });
+    /* A cross-sheet evidence link opens a panel through :target. Without this the
+       control would still announce "Open detail" over an open panel, and the first
+       click would appear to do nothing. */
+    var syncTargetedDetail=function(){
+      var hash=(typeof location!=='undefined'&&location.hash)||'';
+      if(!hash)return;
+      var want=hash.slice(1);
+      moreButtons.forEach(function(b){
+        if(b.dataset.more!==want&&panelToProject(b.dataset.more)!==want)return;
+        var d=document.getElementById(b.dataset.more);
+        if(d)setDetailOpen(b,d,true);
+      });
+    };
+    syncTargetedDetail();
+    if(typeof window!=='undefined'&&window.addEventListener){
+      window.addEventListener('hashchange',syncTargetedDetail);
     }
 
     root.classList.add('runtime-ready');
