@@ -395,7 +395,6 @@
       <p style="margin-top:calc(var(--u)*1.5);max-width:56ch">Six entries. Select any to open its
         detail drawing. Client work is drawn rather than screenshotted.</p></div>
 
-    <div class="lab" style="margin-top:calc(var(--u)*4)">Featured engineering work</div>
     <!-- 05.1 -->
     <article class="proj an" id="proj-1">
       <div class="ph"><div class="r">05.1</div><h3>cad-to-map</h3>
@@ -503,16 +502,16 @@
         </div></div>
     </article>
 
-    <div class="lab" style="margin-top:calc(var(--u)*5)">Other builds</div>
     <!-- 05.4 -->
     <article class="proj an" id="proj-4">
       <div class="ph"><div class="r">05.4</div><h3>ScoutMini</h3>
         <div class="tagline">AI Analysis CLI</div></div>
       <div class="pb"><div class="side">Personal<br>Public</div>
         <div>
-          <p class="pdesc">Answers Formula 1 questions from real timing data instead of model
-            memory. It fetches the numbers first, then has a language model write a short report
-            citing only those numbers, so it cannot invent a statistic.</p>
+          <p class="pdesc">An assistant for someone new to a sport, who wants to know who a
+            player is or why a result mattered and has no way to tell a real answer from an
+            invented one. It answers only from real data and prints its sources. Built against
+            Formula 1 timing data.</p>
           <div class="figbox" tabindex="0" role="group" aria-label="Figure 4, scrollable">
             <svg class="dwg" viewBox="0 0 1000 260" role="img"
               aria-label="Terminal transcript of running python -m scoutmini pace Leclerc Monaco, season 2024, against real FastF1 timing data: Charles Leclerc&rsquo;s fastest lap, median race pace and tyre strategy for the 2024 Monaco Grand Prix, with the data source printed as the final, emphasised line.">
@@ -533,15 +532,11 @@
           <button class="more" type="button" data-more="p4" aria-controls="p4" data-label="05.4" aria-expanded="true">Close detail &mdash; 05.4</button>
           <div class="detail" id="p4" data-open="true">
             <div class="dgrid">
-              <div class="fld"><span class="k">Features</span>
-                <ul><li>Plain-English questions</li>
-                  <li>An agent mode where the model chooses which data tools to call across multiple steps</li>
-                  <li>Driver season-form reports</li>
-                  <li>Pace and tyre-strategy analysis from official timing data</li>
-                  <li>Every report prints its sources</li></ul></div>
+              <div class="fld"><span class="k">Inspiration</span><p>Getting into a sport means asking questions with obvious answers to everyone but you: who drives for which team, who is number 11, why that lap mattered. Ask a chatbot and you get a fluent answer that may be entirely invented, which is worse than no answer when you have no way to check it. The idea was an assistant a newcomer could trust, because it answers only from real data and shows where each number came from.</p></div>
+              <div class="fld"><span class="k">Approach</span><p>Fetch the numbers first, then let the model write only from what a tool returned. It never answers from memory, and every report prints its source. An agent mode lets it choose which data tools to call across several steps. It is built against Formula 1 timing data, and the shape is deliberately sport-agnostic: the model never touches the data source directly, so another sport is another set of tools rather than a rewrite.</p></div>
+              <div class="fld"><span class="k">Result</span><p>73 tests, all offline, with every external call fixtured, so the suite runs anywhere without a network or an API key.</p></div>
+              <div class="fld"><span class="k">What I learned</span><p>I built it so the model never answers from memory: it only ever sees what a tool returned, and every report prints its sources. Prompting it to be careful did not hold; only the structure did.</p></div>
               <div class="fld"><span class="k">Technology</span><p>Python &middot; OpenAI function calling &middot; Typer &middot; FastF1 &middot; pytest</p></div>
-              <div class="fld"><span class="k">Delivered</span><p>73 tests, all offline; every external call fixtured.</p></div>
-              <div class="fld"><span class="k">Lessons learned</span><p>I built it so the model never answers from memory: it only ever sees what a tool returned, and every report prints its sources. Prompting it to be careful did not hold; only the structure did.</p></div>
             </div>
             <div class="refs"><a href="https://github.com/ashleytzele/scoutmini"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
           </div>

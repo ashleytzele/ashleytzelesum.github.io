@@ -960,3 +960,11 @@ test('project panels are readable when the runtime fails', () => {
   assert.match(js, /collapseProjectDetails|setDetailOpen\(b,\s*d,\s*false\)/,
     'the runtime must collapse the panels once it has initialised');
 });
+
+test('A-005 asserts no ranking between its projects', () => {
+  const a005 = /<section class="sheet" id="a005"[\s\S]*?\n<\/section>/.exec(html)?.[0] ?? '';
+  for (const gone of ['Featured engineering work', 'Other builds']) {
+    assert.ok(!a005.includes(gone),
+      `"${gone}" marks the three most verifiable projects as the lesser three`);
+  }
+});
