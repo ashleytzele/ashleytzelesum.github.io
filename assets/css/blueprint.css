@@ -552,6 +552,20 @@ p{margin:0;color:var(--sec)}
 .stk dt{font-family:'MN',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--ref)}
 .stk dd{margin:0;font-size:.85rem;color:var(--sec);line-height:1.9}
+/* Each row names the drawings it is evidenced in. On a sheet whose thesis is
+   attachment, an unattached list is the one thing that cannot stay. */
+.stk dd .src{font-family:'MN',monospace;font-size:.72rem;color:var(--ref);white-space:nowrap}
+/* A-005 -> A-004. Without this the claim-to-drawing mapping is asserted from one
+   side only, and a visitor who follows an evidence link has no route back to the
+   claim it was evidence for. */
+.evidences{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;
+  margin-top:calc(var(--u)*3);font-family:'MN',monospace;font-size:.76rem}
+.evidences .k{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--ref);
+  margin-right:4px}
+.evidences a{display:inline-flex;align-items:center;min-height:44px;min-width:44px;
+  justify-content:center;padding:0 12px;color:var(--ink);text-decoration:none;
+  border:1px solid var(--ref)}
+.evidences a:hover{border-color:var(--ink);background:var(--hair)}
 /* Practice, not proficiency: a statement about how the work is done, pointing at
    the claim that evidences it. Deliberately NOT given a category label — set in
    the same tracked mono as Languages/Frameworks it read as a fifth row of the

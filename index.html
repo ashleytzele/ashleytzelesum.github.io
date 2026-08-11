@@ -289,7 +289,7 @@
 <section class="sheet" id="a004" data-draw>
   <div class="pane">
     <div class="hdr"><div class="d"><b>Drawing A-004</b> &nbsp;<span>Engineering</span></div>
-      <div class="m">Sheet 4 of 6 &nbsp;&middot;&nbsp; Rev 3.0 &nbsp;&middot;&nbsp; Active</div></div>
+      <div class="m">Sheet 4 of 6 &nbsp;&middot;&nbsp; Rev 3.0 &nbsp;&middot;&nbsp; Notes &mdash; no drawing</div></div>
     <div style="margin-top:calc(var(--u)*5)"><h2>Engineering</h2></div>
     <p class="a4-lead">Four things I do consistently, and the drawings where each one is on the
       record. This sheet is the claim; the next one is the evidence.</p>
@@ -305,8 +305,7 @@
             procedures, so renaming them was rejected outright.</p>
           <p class="how">Ruling out a tile server forced the whole map, routing included, to ship
             as one self-contained file. Being unable to touch the point-of-sale is what turned a
-            driver problem into a protocol one. The constraint is usually where the interesting
-            decision is.</p>
+            driver problem into a protocol one.</p>
           <div class="evrow">
             <a class="ev" href="#p1">05.1 <span class="nm">cad-to-map</span></a>
             <a class="ev" href="#p2">05.2 <span class="nm">Asset Management System</span></a>
@@ -316,7 +315,7 @@
       </div>
 
       <div class="claim" id="c2">
-        <h3><span class="n">04.2</span> I put the guarantee in the structure, not in the caller</h3>
+        <h3><span class="n">04.2</span> I put the rule where it cannot be skipped</h3>
         <div class="claim-b">
           <p>Asking a language model to be careful about accuracy did not hold, so it now only
             ever sees what a tool returned and cannot cite a number nobody gave it. Access rules
@@ -337,7 +336,7 @@
       <div class="claim" id="c3">
         <h3><span class="n">04.3</span> I verify what I will not be there to watch</h3>
         <div class="claim-b">
-          <p>80 Python tests and 21 routing checks guard a converter running unattended at six
+          <p>80 Python tests and 21 routing checks guard a converter running unattended at 6
             sites. 73 more run with no network at all, every external call fixtured. A
             throw-injection test raises deliberately at 12 points inside one function, because
             that is how a graph corruption was found: the snap step wrote a node into the shared
@@ -359,8 +358,6 @@
             identity split the same way: position and role are known at procurement, before a
             device physically exists, while its address and credentials only exist once it is
             commissioned, so no single system could own the whole record.</p>
-          <p class="how">Getting the model of the thing right is most of the design work. The
-            interface is what is left over once you know what you are describing.</p>
           <div class="evrow">
             <a class="ev" href="#p6">05.6 <span class="nm">SplitWise Swimming Analytics</span></a>
             <a class="ev" href="#p2">05.2 <span class="nm">Asset Management System</span></a>
@@ -373,13 +370,17 @@
     <div class="stk">
       <span class="k">Built with</span>
       <dl>
-        <dt>Languages</dt><dd>Python &middot; JavaScript &middot; Java &middot; Kotlin &middot; SQL &middot; HTML &middot; CSS</dd>
-        <dt>Frameworks</dt><dd>Flask &middot; SQLAlchemy &middot; Android &middot; Bootstrap &middot; Chart.js &middot; ezdxf &middot; Shapely &middot; MapLibre GL</dd>
-        <dt>Systems</dt><dd>REST &middot; MQTT &middot; ESC/POS &middot; ePOS-Print &middot; TLS &middot; GeoJSON</dd>
-        <dt>Data</dt><dd>PostgreSQL &middot; SQLite &middot; Supabase</dd>
+        <dt>Languages</dt><dd>Python &middot; JavaScript &middot; Java &middot; Kotlin &middot; SQL &middot; HTML &middot; CSS
+          <span class="src">05.1&ndash;05.6</span></dd>
+        <dt>Frameworks</dt><dd>Flask &middot; SQLAlchemy &middot; Android &middot; Bootstrap &middot; Chart.js &middot; ezdxf &middot; Shapely &middot; MapLibre GL
+          <span class="src">05.1 &middot; 05.6</span></dd>
+        <dt>Systems</dt><dd>REST &middot; MQTT &middot; ESC/POS &middot; ePOS-Print &middot; TLS &middot; GeoJSON
+          <span class="src">05.2 &middot; 05.3</span></dd>
+        <dt>Data</dt><dd>PostgreSQL &middot; SQLite &middot; Supabase
+          <span class="src">05.2 &middot; 05.5</span></dd>
       </dl>
       <p class="practice">I work with coding agents daily, and design around what they get
-        wrong &mdash; see <a href="#c2">04.2</a>.</p>
+        wrong &mdash; see <a href="#c2">04.2, on putting the rule where it cannot be skipped</a>.</p>
     </div>
 
     <div class="handoff">
@@ -425,6 +426,7 @@
               <div class="fld"><span class="k">Result</span><p>Six kiosk sites were built from it, one with a complete handover package. The public repository carries 80 Python tests and 21 routing checks, and it also ships as an installable agent skill, so the same converter runs inside a coding agent as well as from the command line.</p></div>
               <div class="fld"><span class="k">What I learned</span><p>Almost none of the difficulty was in the conversion logic itself. Nearly all of it was in absorbing what real architectural drawings actually do in practice, which no file format specification tells you.</p></div>
             </div>
+            <p class="evidences"><span class="k">Evidences</span><a href="#c1">04.1</a> &middot; <a href="#c3">04.3</a></p>
             <div class="refs"><a href="https://github.com/ashleytzele/cad-to-map"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
           </div>
         </div></div>
@@ -456,6 +458,7 @@
               <div class="fld"><span class="k">Result</span><p>The identity layer is running with its uniqueness constraint deployed and verified. The fault-to-ticket pipeline is proven in staging but was never installed to production, blocked on a production credential that was refused, and a financial cost register was deliberately left unbuilt, since an estate with no purchase orders on file would just produce empty reports that read as broken.</p></div>
               <div class="fld"><span class="k">What I learned</span><p>The hard part was never moving data between systems. It was deciding which one was telling the truth when they disagreed about the same device, and being willing to say unknown instead of guessing.</p></div>
             </div>
+            <p class="evidences"><span class="k">Evidences</span><a href="#c1">04.1</a> &middot; <a href="#c2">04.2</a> &middot; <a href="#c4">04.4</a></p>
             <div class="refs"><span>Client work &mdash; not published</span></div>
           </div>
         </div></div>
@@ -501,6 +504,7 @@
               <div class="fld"><span class="k">Result</span><p>It ran production print traffic on the store&rsquo;s own machine, confirmed on paper by a manager who added a printer and watched a job route live. One issue is still open, not fixed: the printer&rsquo;s connection handling can wedge under a specific kind of half-open network client, currently held off only by an external watchdog.</p></div>
               <div class="fld"><span class="k">What I learned</span><p>Comparing printer models directly got me nowhere. Once I stopped treating the hardware as the problem and targeted the shared protocol instead, picking a printer became a purchasing decision, not an engineering one.</p></div>
             </div>
+            <p class="evidences"><span class="k">Evidences</span><a href="#c1">04.1</a> &middot; <a href="#c3">04.3</a></p>
             <div class="refs"><span>Client work &mdash; not published</span></div>
           </div>
         </div></div>
@@ -546,6 +550,7 @@
               <div class="fld"><span class="k">Delivered</span><p>73 tests, all offline; every external call fixtured.</p></div>
               <div class="fld"><span class="k">Lessons learned</span><p>I built it so the model never answers from memory: it only ever sees what a tool returned, and every report prints its sources. Prompting it to be careful did not hold; only the structure did.</p></div>
             </div>
+            <p class="evidences"><span class="k">Evidences</span><a href="#c2">04.2</a> &middot; <a href="#c3">04.3</a></p>
             <div class="refs"><a href="https://github.com/ashleytzele/scoutmini"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
           </div>
         </div></div>
@@ -600,6 +605,7 @@
                 <p>JavaScript &middot; Supabase &middot; PostgreSQL &middot; row-level security &middot; OKLCH design tokens</p></div>
               <div class="fld"><span class="k">Lessons learned</span><p>Getting row-level security right was harder than building the features it protects. A policy that queried the same table it guarded recursed forever, and the fix was to move the lookup into a definer-rights function.</p></div>
             </div>
+            <p class="evidences"><span class="k">Evidences</span><a href="#c2">04.2</a></p>
             <div class="refs"><a href="https://github.com/ashleytzele/MeeTeam"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
           </div>
         </div></div>
@@ -633,6 +639,7 @@
                 <p>Flask &middot; SQLAlchemy &middot; Bootstrap &middot; Chart.js &middot; Python &middot; HTML &middot; CSS &middot; JavaScript</p></div>
               <div class="fld"><span class="k">Lessons learned</span><p>I swim the sport, so I already knew which numbers mattered, and that turned out to be most of the design work. Deciding what a race is actually made of took far longer than building the charts.</p></div>
             </div>
+            <p class="evidences"><span class="k">Evidences</span><a href="#c4">04.4</a></p>
             <div class="refs"><a href="https://splitwise-mo3y.onrender.com">Live application</a>
               <a href="https://github.com/ashleytzele/SplitWise-Swim"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
           </div>

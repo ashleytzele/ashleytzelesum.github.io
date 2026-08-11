@@ -878,6 +878,30 @@ test('A-004 carries no figure', () => {
   assert.ok(!/<svg/.test(a004), 'A-004 must contain no svg; see spec section 7');
 });
 
+test('the claim-to-drawing mapping agrees in both directions', () => {
+  // A-004 says which drawings evidence a claim; each A-005 detail says which
+  // claims it evidences. They are the same fact stated twice, so they have to be
+  // exact inverses or the sheet is asserting something the evidence denies.
+  const claimOf = { c1: '04.1', c2: '04.2', c3: '04.3', c4: '04.4' };
+  const forward = new Set();
+  for (const m of a004.matchAll(/<div class="claim" id="(c\d)"[\s\S]*?(?=<div class="claim" id="|<div class="stk">)/g)) {
+    for (const link of m[0].matchAll(/class="ev" href="#(p\d)"/g)) forward.add(`${m[1]}->${link[1]}`);
+  }
+  const back = new Set();
+  for (const m of html.matchAll(/<div class="detail" id="(p\d)">[\s\S]*?<p class="evidences">(.*?)<\/p>/g)) {
+    for (const link of m[2].matchAll(/href="#(c\d)"/g)) back.add(`${link[1]}->${m[1]}`);
+  }
+  assert.ok(forward.size >= 10, `expected A-004 evidence links, found ${forward.size}`);
+  assert.deepEqual([...back].sort(), [...forward].sort(),
+    'A-005 backlinks and A-004 evidence links disagree');
+  // and every claim number printed in A-005 must match the id it links to
+  for (const m of html.matchAll(/<p class="evidences">(.*?)<\/p>/g)) {
+    for (const link of m[1].matchAll(/href="#(c\d)">(04\.\d)</g)) {
+      assert.equal(link[2], claimOf[link[1]], `#${link[1]} is labelled ${link[2]}`);
+    }
+  }
+});
+
 test('A-004 claims no proficiency level', () => {
   // A rating is unfalsifiable, and was the failure of the sheet this replaces.
   assert.ok(!/(proficien|skill-level|\blevel-\d|\d{1,3}\s*%|★|expert|advanced|intermediate)/i.test(a004),
