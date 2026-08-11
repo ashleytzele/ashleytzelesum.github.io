@@ -969,16 +969,19 @@ test('A-005 asserts no ranking between its projects', () => {
   }
 });
 
-test('05.6 names no database until the contradiction is settled', () => {
-  // The site once said MongoDB, the code uses Flask-SQLAlchemy, and the Procfile
-  // launches a CSV/JSON/SQLite path. Until someone reads the deployment and
-  // decides, naming any of them puts a false claim on the sheet.
+test('05.6 names SQLite, the database the deployed app actually uses', () => {
+  // The site once said MongoDB, but the Procfile runs `python app.py`, and
+  // app.py imports sqlite3 and calls sqlite3.connect() throughout - it never
+  // imports models.py or database_manager.py, the two Flask-SQLAlchemy
+  // modules that exist in the repo but the running app doesn't use. SQLite is
+  // the database the deployed code actually talks to.
   const a005 = /<section class="sheet" id="a005"[\s\S]*?\n<\/section>/.exec(html)?.[0] ?? '';
   const entry = /<article class="proj an" id="proj-6">[\s\S]*?<\/article>/.exec(a005)?.[0] ?? '';
   assert.notEqual(entry, '', 'expected the 05.6 entry');
-  for (const db of ['MongoDB', 'Mongo', 'SQLite', 'PostgreSQL', 'Postgres', 'MySQL']) {
+  assert.ok(/\bSQLite\b/.test(entry), '05.6 should name SQLite, the database the running app uses');
+  for (const db of ['MongoDB', 'Mongo', 'PostgreSQL', 'Postgres', 'MySQL']) {
     assert.ok(!new RegExp(`\\b${db}\\b`, 'i').test(entry),
-      `05.6 names ${db}; three sources disagree about which is true`);
+      `05.6 names ${db}; the deployed app does not use it`);
   }
 });
 
