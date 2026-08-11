@@ -869,7 +869,7 @@ test('every A-004 evidence link targets a project that exists', () => {
     // and the article must still contain the panel that :target opens
     const n = t.split('-')[1];
     const article = html.slice(html.indexOf(`id="${t}"`));
-    assert.ok(article.slice(0, article.indexOf('</article>')).includes(`<div class="detail" id="p${n}">`),
+    assert.match(article.slice(0, article.indexOf('</article>')), new RegExp(`<div class="detail" id="p${n}"[ >]`),
       `#${t} does not contain detail panel #p${n}`);
   }
   assert.ok(!/class="ev" href="#p\d"/.test(a004), 'an evidence link still points straight at a panel');
@@ -938,4 +938,25 @@ test('a photographic figure fits its column', () => {
   // the drawn floor stays: this is the rule that must NOT change
   assert.match(css, /\.figbox svg\{[^}]*min-width\s*:\s*1000px/,
     'drawn figures keep their floor; their labels need it');
+});
+
+test('project panels are readable when the runtime fails', () => {
+  // <noscript> covers script being disabled. It does not cover script being
+  // enabled and then failing, which left six buttons that do nothing and content
+  // reachable only by typing a fragment. A-003 already ships its details open and
+  // lets a successful runtime collapse them; this brings A-005 into line.
+  const a005 = /<section class="sheet" id="a005"[\s\S]*?\n<\/section>/.exec(html)?.[0] ?? '';
+  assert.notEqual(a005, '', 'expected an #a005 section');
+  const panels = [...a005.matchAll(/<div class="detail" id="(p\d)"([^>]*)>/g)];
+  assert.equal(panels.length, 6, `expected six panels, found ${panels.length}`);
+  for (const [, id, attrs] of panels) {
+    assert.match(attrs, /data-open="true"/, `#${id} must ship open`);
+  }
+  const buttons = [...a005.matchAll(/<button class="more"[^>]*aria-expanded="([^"]+)"/g)];
+  assert.equal(buttons.length, 6, 'expected six disclosure buttons');
+  for (const [, state] of buttons) {
+    assert.equal(state, 'true', 'a button must not announce collapsed over open content');
+  }
+  assert.match(js, /collapseProjectDetails|setDetailOpen\(b,\s*d,\s*false\)/,
+    'the runtime must collapse the panels once it has initialised');
 });

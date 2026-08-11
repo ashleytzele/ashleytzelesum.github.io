@@ -411,8 +411,8 @@
               alt="3D map viewer built by cad-to-map from a DXF site plan, in dark mode, showing the tool&rsquo;s own demo site rather than client work. Extruded building volumes sit among marked parking bays, a walkable path network and directional arrows. Category pins mark parking, toilets, food, fuel, prayer facilities, accessible routes and first aid; a red &ldquo;You Are Here&rdquo; marker shows the kiosk position. An amenity search box sits top left, and 2D and light-mode controls top right.">
             <div class="figcap"><span>Fig. 05.1 &mdash; Demo site viewer, captured</span><span>cad-to-map demo &mdash; not client work</span></div>
           </div>
-          <button class="more" type="button" data-more="p1" aria-controls="p1" data-label="05.1" aria-expanded="false">Open detail &mdash; 05.1</button>
-          <div class="detail" id="p1">
+          <button class="more" type="button" data-more="p1" aria-controls="p1" data-label="05.1" aria-expanded="true">Close detail &mdash; 05.1</button>
+          <div class="detail" id="p1" data-open="true">
             <div class="dgrid">
               <div class="fld"><span class="k">Problem</span><p>CAD site plans are the authoritative geometry for kiosk wayfinding, but real exports from a drafting office are broken in specific, repeatable ways: outlines that don&rsquo;t close, labels sitting on the wrong layer or trapped inside hidden blocks, blocks nested inside other blocks, and facilities that are labelled on the plan but never actually drawn. A converter that assumes clean CAD fails differently on every one of these.</p></div>
               <div class="fld"><span class="k">Constraints</span><p>The kiosk has no network connection at runtime, so the whole map, routing included, had to ship as one self-contained file with no server and no tile fetches. That ruled out any framework or bundler beyond a build script that inlines everything ahead of time.</p></div>
@@ -442,8 +442,8 @@
               alt="Reconstruction with sample data, not a production screenshot: an operations console showing a single field device, a panel listing that device&rsquo;s four different identifiers across four systems of record with one flagged as drifted, availability and temperature readings, a fault list, and a reconciliation run summary.">
             <div class="figcap"><span>Fig. 05.2 &mdash; Console layout, reconstructed with sample data</span><span>Sample data &mdash; not production</span></div>
           </div>
-          <button class="more" type="button" data-more="p2" aria-controls="p2" data-label="05.2" aria-expanded="false">Open detail &mdash; 05.2</button>
-          <div class="detail" id="p2">
+          <button class="more" type="button" data-more="p2" aria-controls="p2" data-label="05.2" aria-expanded="true">Close detail &mdash; 05.2</button>
+          <div class="detail" id="p2" data-open="true">
             <div class="dgrid">
               <div class="fld"><span class="k">Problem</span><p>Four separate systems, an asset register, a control system, a field sensing platform and a network monitor, each named the same physical device differently: a structured code in one, a UUID in another, a bare node number in a third. Without a shared identity, a fault raised in the control system couldn&rsquo;t be linked to that device&rsquo;s maintenance history, and the outage queue held 43,703 unacknowledged events, almost all from devices that simply weren&rsquo;t connected yet rather than actually broken.</p></div>
               <div class="fld"><span class="k">Constraints</span><p>Renaming the estate&rsquo;s 391 devices to one clean scheme was rejected outright: those codes are printed on cabinet labels and buried in saved views and procedures, and changing them breaks every one. The four existing, mutually incompatible naming conventions had to be reconciled as they stood.</p></div>
@@ -487,8 +487,8 @@
             </svg>
             <div class="figcap"><span>Fig. 05.3 &mdash; Print path</span><span>Not to scale</span></div>
           </div>
-          <button class="more" type="button" data-more="p3" aria-controls="p3" data-label="05.3" aria-expanded="false">Open detail &mdash; 05.3</button>
-          <div class="detail" id="p3">
+          <button class="more" type="button" data-more="p3" aria-controls="p3" data-label="05.3" aria-expanded="true">Close detail &mdash; 05.3</button>
+          <div class="detail" id="p3" data-open="true">
             <div class="dgrid">
               <div class="fld"><span class="k">Problem</span><p>A cloud point-of-sale system could talk to exactly one printer protocol, a single manufacturer&rsquo;s dialect, and a printer that didn&rsquo;t speak it failed badly rather than cleanly: it printed raw markup as receipt text instead of an actual receipt. The printers already mounted on site were not going to be replaced to fix that.</p></div>
               <div class="fld"><span class="k">Constraints</span><p>The manufacturer&rsquo;s own compatible printer box wasn&rsquo;t available on the software edition the client was licensed for, and upgrading wasn&rsquo;t offered. A custom server-side module was ruled out because the hosting platform&rsquo;s own installer refuses that kind of code with no file access to the server, and a VPN tunnel was rejected too, since it meant managing encryption keys and an always-on connection for something this narrow.</p></div>
@@ -530,8 +530,8 @@
             </svg>
             <div class="figcap"><span>Fig. 05.4 &mdash; Real CLI output, verbatim</span><span>FastF1 timing data</span></div>
           </div>
-          <button class="more" type="button" data-more="p4" aria-controls="p4" data-label="05.4" aria-expanded="false">Open detail &mdash; 05.4</button>
-          <div class="detail" id="p4">
+          <button class="more" type="button" data-more="p4" aria-controls="p4" data-label="05.4" aria-expanded="true">Close detail &mdash; 05.4</button>
+          <div class="detail" id="p4" data-open="true">
             <div class="dgrid">
               <div class="fld"><span class="k">Features</span>
                 <ul><li>Plain-English questions</li>
@@ -587,8 +587,8 @@
             </svg>
             <div class="figcap"><span>Fig. 05.5 &mdash; Meeting flow</span><span>Interim drawing &mdash; media pending</span></div>
           </div>
-          <button class="more" type="button" data-more="p5" aria-controls="p5" data-label="05.5" aria-expanded="false">Open detail &mdash; 05.5</button>
-          <div class="detail" id="p5">
+          <button class="more" type="button" data-more="p5" aria-controls="p5" data-label="05.5" aria-expanded="true">Close detail &mdash; 05.5</button>
+          <div class="detail" id="p5" data-open="true">
             <div class="dgrid">
               <div class="fld"><span class="k">Features</span>
                 <ul><li>Pre-meeting submissions with attachments</li><li>Live presentation mode</li>
@@ -619,8 +619,8 @@
               aria-label="Screen recording of SplitWise Swim: a race is loaded, split times are entered, and the velocity and stroke-rate charts redraw to compare each split against the target pace."></video>
             <div class="figcap"><span>Fig. 05.6 &mdash; Performance dashboard, recorded</span><span>Live application</span></div>
           </div>
-          <button class="more" type="button" data-more="p6" aria-controls="p6" data-label="05.6" aria-expanded="false">Open detail &mdash; 05.6</button>
-          <div class="detail" id="p6">
+          <button class="more" type="button" data-more="p6" aria-controls="p6" data-label="05.6" aria-expanded="true">Close detail &mdash; 05.6</button>
+          <div class="detail" id="p6" data-open="true">
             <div class="dgrid">
               <div class="fld"><span class="k">Features</span>
                 <ul><li>Race &amp; split analysis</li><li>Stroke rate analysis</li><li>Velocity charts</li>

@@ -61,6 +61,14 @@
         }
       });
     });
+    /* The panels ship open so a runtime that loads and then fails leaves them
+       readable. Reaching here means initialisation succeeded, so collapse them —
+       except one already opened by a cross-sheet evidence link, which
+       syncTargetedDetail below re-opens anyway. */
+    moreButtons.forEach(function(b){
+      var d=document.getElementById(b.dataset.more);
+      if(d)setDetailOpen(b,d,false);
+    });
     /* A cross-sheet evidence link opens a panel through :target. Without this the
        control would still announce "Open detail" over an open panel, and the first
        click would appear to do nothing. */
