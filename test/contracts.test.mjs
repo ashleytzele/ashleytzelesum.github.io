@@ -968,3 +968,40 @@ test('A-005 asserts no ranking between its projects', () => {
       `"${gone}" marks the three most verifiable projects as the lesser three`);
   }
 });
+
+test('05.6 names no database until the contradiction is settled', () => {
+  // The site once said MongoDB, the code uses Flask-SQLAlchemy, and the Procfile
+  // launches a CSV/JSON/SQLite path. Until someone reads the deployment and
+  // decides, naming any of them puts a false claim on the sheet.
+  const a005 = /<section class="sheet" id="a005"[\s\S]*?\n<\/section>/.exec(html)?.[0] ?? '';
+  const entry = /<article class="proj an" id="proj-6">[\s\S]*?<\/article>/.exec(a005)?.[0] ?? '';
+  assert.notEqual(entry, '', 'expected the 05.6 entry');
+  for (const db of ['MongoDB', 'Mongo', 'SQLite', 'PostgreSQL', 'Postgres', 'MySQL']) {
+    assert.ok(!new RegExp(`\\b${db}\\b`, 'i').test(entry),
+      `05.6 names ${db}; three sources disagree about which is true`);
+  }
+});
+
+const PERMITTED = ['Problem', 'Inspiration', 'Constraints', 'Approach',
+  'Architecture', 'What went wrong', 'Result', 'What I learned', 'Technology'];
+
+test('every project panel opens on a context field and shares one spine', () => {
+  const a005 = /<section class="sheet" id="a005"[\s\S]*?\n<\/section>/.exec(html)?.[0] ?? '';
+  const panels = [...a005.matchAll(/<div class="detail" id="p(\d)"[\s\S]*?<div class="refs">/g)];
+  assert.equal(panels.length, 6, `expected six panels, found ${panels.length}`);
+  for (const p of panels) {
+    const ref = `05.${p[1]}`;
+    const fields = [...p[0].matchAll(/<div class="fld"><span class="k">([^<]+)<\/span>/g)].map(m => m[1]);
+    assert.ok(fields.length >= 4, `${ref} has ${fields.length} fields; the spine is four`);
+    assert.ok(['Problem', 'Inspiration'].includes(fields[0]),
+      `${ref} opens on "${fields[0]}"; it must open on Problem or Inspiration`);
+    assert.equal(fields.filter(f => f === 'Problem' || f === 'Inspiration').length, 1,
+      `${ref} has more than one context field`);
+    const spine = fields.filter(f => ['Approach', 'Result', 'What I learned'].includes(f));
+    assert.deepEqual(spine, ['Approach', 'Result', 'What I learned'],
+      `${ref} is missing a spine field or has them out of order`);
+    for (const f of fields) {
+      assert.ok(PERMITTED.includes(f), `${ref} has an unpermitted field "${f}"`);
+    }
+  }
+});

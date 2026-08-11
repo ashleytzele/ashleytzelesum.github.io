@@ -604,9 +604,9 @@
         <div class="tagline">Full Stack Web Application</div></div>
       <div class="pb"><div class="side">Personal<br>Deployed</div>
         <div>
-          <p class="pdesc">A performance analytics platform for competitive swimming: race and
-            split analysis, stroke rate, velocity charts, personal best tracking and improvement
-            trends over a swimmer&rsquo;s history.</p>
+          <p class="pdesc">Swim analysis without a subscription or a sensor rig. It works from the
+            numbers any swimmer can record at the pool, and turns them into the few that show
+            whether a race went well.</p>
           <div class="figbox" tabindex="0" role="group" aria-label="Figure 6, scrollable">
             <video class="fig" width="2916" height="1656" style="aspect-ratio:2916/1656"
               poster="assets/images/splitwise-dashboard.jpg"
@@ -618,13 +618,11 @@
           <button class="more" type="button" data-more="p6" aria-controls="p6" data-label="05.6" aria-expanded="true">Close detail &mdash; 05.6</button>
           <div class="detail" id="p6" data-open="true">
             <div class="dgrid">
-              <div class="fld"><span class="k">Features</span>
-                <ul><li>Race &amp; split analysis</li><li>Stroke rate analysis</li><li>Velocity charts</li>
-                  <li>Personal best tracking</li><li>Improvement trends</li>
-                  <li>Swim comparison &amp; historical records</li></ul></div>
-              <div class="fld"><span class="k">Technology</span>
-                <p>Flask &middot; SQLAlchemy &middot; Bootstrap &middot; Chart.js &middot; Python &middot; HTML &middot; CSS &middot; JavaScript</p></div>
-              <div class="fld"><span class="k">Lessons learned</span><p>I swim the sport, so I already knew which numbers mattered, and that turned out to be most of the design work. Deciding what a race is actually made of took far longer than building the charts.</p></div>
+              <div class="fld"><span class="k">Inspiration</span><p>Swim analysis tools want a subscription and a level of detail most swimmers cannot easily produce: sensors, stroke telemetry, somebody entering all of it. I swim, so I knew which numbers actually matter and which ones anyone can get with a stopwatch and a lane. The question was how much useful insight you can reach from only the easily measurable ones.</p></div>
+              <div class="fld"><span class="k">Approach</span><p>The only numbers it needs are the times at 15m, 25m, 35m and 50m. Every 50m pool already marks those &mdash; the 15m line at each end and the midpoint &mdash; so anyone on the side can capture them with a stopwatch. No sensors, no telemetry, nobody entering data a swimmer cannot produce. From those four times it derives each split and the velocity between marks, and compares a swim against a target pace and against previous swims. Stroke rate needs a stroke count entered alongside them.</p></div>
+              <div class="fld"><span class="k">Result</span><p>Deployed and running, with a recorded demo. I use it on my own swims.</p></div>
+              <div class="fld"><span class="k">What I learned</span><p>I swim the sport, so I already knew which numbers mattered, and that turned out to be most of the design work. Deciding what a race is actually made of took far longer than building the charts.</p></div>
+              <div class="fld"><span class="k">Technology</span><p>Flask &middot; SQLAlchemy &middot; Bootstrap &middot; Chart.js &middot; Python</p></div>
             </div>
             <div class="refs"><a href="https://splitwise-mo3y.onrender.com">Live application</a>
               <a href="https://github.com/ashleytzele/SplitWise-Swim"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>
