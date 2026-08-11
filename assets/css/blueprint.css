@@ -405,6 +405,13 @@ p{margin:0;color:var(--sec)}
    link can never be closed and its button contradicts what is on screen. Same
    specificity as :target, so this has to stay below it. */
 .detail[data-open="false"]{display:none}
+/* Evidence links target the project, not the panel inside it: linking straight to
+   #pN scrolled past the title, figure and description and landed the reader in the
+   middle of a disclosure. Targeting the article lands at the top of the project and
+   still opens its detail. Specificity is explicit here so neither rule depends on
+   source order. */
+.proj:target .detail{display:block}
+.proj:target .detail[data-open="false"]{display:none}
 .dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:calc(var(--u)*3) calc(var(--u)*4)}
 .fld .k{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ref);
   display:block;padding-bottom:6px;border-bottom:1px solid var(--hair);margin-bottom:8px}

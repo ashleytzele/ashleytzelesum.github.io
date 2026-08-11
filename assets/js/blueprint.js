@@ -38,6 +38,7 @@
     }
 
     /* project details expand in place */
+    var panelToProject=function(id){return id.replace(/^p(\d)$/,'proj-$1')};
     var setDetailOpen=function(b,d,open){
       d.setAttribute('data-open',String(open));
       b.setAttribute('aria-expanded',String(open));
@@ -52,8 +53,9 @@
         setDetailOpen(b,d,open);
         /* Closing a panel that is the current :target has to release the hash, or
            following the same evidence link again fires no hashchange and appears
-           to do nothing. */
-        if(!open&&typeof location!=='undefined'&&location.hash==='#'+b.dataset.more
+           to do nothing. The hash may name the panel or the project around it. */
+        var h=(typeof location!=='undefined'&&location.hash)||'';
+        if(!open&&(h==='#'+b.dataset.more||h==='#'+panelToProject(b.dataset.more))
            &&typeof history!=='undefined'&&history.replaceState){
           history.replaceState(null,'',location.pathname+location.search);
         }
@@ -65,8 +67,9 @@
     var syncTargetedDetail=function(){
       var hash=(typeof location!=='undefined'&&location.hash)||'';
       if(!hash)return;
+      var want=hash.slice(1);
       moreButtons.forEach(function(b){
-        if(b.dataset.more!==hash.slice(1))return;
+        if(b.dataset.more!==want&&panelToProject(b.dataset.more)!==want)return;
         var d=document.getElementById(b.dataset.more);
         if(d)setDetailOpen(b,d,true);
       });

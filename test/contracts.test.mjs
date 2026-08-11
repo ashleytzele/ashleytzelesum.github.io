@@ -852,13 +852,22 @@ test('A-004 has four claims and each carries its reference number in the heading
   assert.deepEqual(headings, ['04.1', '04.2', '04.3', '04.4']);
 });
 
-test('every A-004 evidence link targets a project detail that exists', () => {
-  const targets = [...a004.matchAll(/class="ev" href="#(p\d)"/g)].map(m => m[1]);
+test('every A-004 evidence link targets a project that exists', () => {
+  // The link targets the project article, not the detail panel inside it: linking
+  // straight to #pN scrolls past the title, figure and description and lands the
+  // reader mid-disclosure.
+  const targets = [...a004.matchAll(/class="ev" href="#(proj-\d)"/g)].map(m => m[1]);
   assert.ok(targets.length >= 10, `expected the evidence links, found ${targets.length}`);
   for (const t of new Set(targets)) {
-    assert.ok(html.includes(`<div class="detail" id="${t}">`),
+    assert.ok(html.includes(`<article class="proj an" id="${t}">`),
       `evidence link points at #${t}, which does not exist`);
+    // and the article must still contain the panel that :target opens
+    const n = t.split('-')[1];
+    const article = html.slice(html.indexOf(`id="${t}"`));
+    assert.ok(article.slice(0, article.indexOf('</article>')).includes(`<div class="detail" id="p${n}">`),
+      `#${t} does not contain detail panel #p${n}`);
   }
+  assert.ok(!/class="ev" href="#p\d"/.test(a004), 'an evidence link still points straight at a panel');
 });
 
 test('A-004 depends on no script of its own', () => {
@@ -885,7 +894,7 @@ test('the claim-to-drawing mapping agrees in both directions', () => {
   const claimOf = { c1: '04.1', c2: '04.2', c3: '04.3', c4: '04.4' };
   const forward = new Set();
   for (const m of a004.matchAll(/<div class="claim" id="(c\d)"[\s\S]*?(?=<div class="claim" id="|<div class="stk">)/g)) {
-    for (const link of m[0].matchAll(/class="ev" href="#(p\d)"/g)) forward.add(`${m[1]}->${link[1]}`);
+    for (const link of m[0].matchAll(/class="ev" href="#proj-(\d)"/g)) forward.add(`${m[1]}->p${link[1]}`);
   }
   // The backlinks sit in the collapsed summary, before the disclosure button, so
   // a reader who never opens a panel still sees them. Associate each row with the
