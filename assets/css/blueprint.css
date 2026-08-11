@@ -375,6 +375,12 @@ p{margin:0;color:var(--sec)}
   font-family:'MN',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
   color:inherit;padding:9px 16px;transition:background .2s linear,color .2s linear}
 .more:hover{background:var(--ink);color:var(--paper)}
+/* A control that cannot run must not be shown (see the theme toggle above): a
+   runtime that loads and then fails must never leave a "Close detail" button
+   on screen with no listener behind it. Shown state is inline-block, matching
+   the UA default .more otherwise renders at unstyled. */
+.more{display:none}
+.runtime-ready .more{display:inline-block}
 .detail{display:none;margin-top:calc(var(--u)*3);border-top:1px dashed var(--line);padding-top:calc(var(--u)*2.5)}
 .detail[data-open="true"]{display:block}
 /* A fragment link into a project detail opens it. :target resolves before layout,
