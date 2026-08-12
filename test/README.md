@@ -47,6 +47,29 @@ counter in `reducedMotion.state` at zero. The embedded baseline below is the
 standard, non-reduced-motion run, so its completion fields are `null`; the
 separate confirmed reduced-motion result follows immediately after it.
 
+### Correction — 2026-08-11 (SplitWise's database is SQLite)
+
+The 2026-08-07 entry below records the SplitWise `Technology` field being
+corrected from `MongoDB` to `SQLAlchemy`. That correction was itself wrong,
+and it stood for four days.
+
+`Procfile` runs `web: python app.py`. `app.py` does `import sqlite3` and
+`sqlite3.connect(DB_PATH)`, and contains **zero** references to `models.py`.
+The Flask-SQLAlchemy layer in `models.py` is real code Ashley wrote, but it is
+not wired to the process that serves the site. The database is **SQLite**.
+
+The general trap, worth more than the specific fact: **the 2026-08-07 check
+read what the repository contains, not what the running process executes.**
+A dependency in the tree, an import in an unreferenced module, or a model
+definition nobody instantiates all look like evidence and are not. Start from
+the entry point the deploy config names, and follow the imports forward.
+
+05.6 now reads `SQLite`, and the guard test asserts that positively rather
+than forbidding all database names — it went from "name nothing" to "name the
+right one", which is only possible once the evidence settles the question.
+A-004's `Frameworks` row dropped `SQLAlchemy` in the same pass; the string now
+appears nowhere on the site.
+
 ### A-003 evidence — 2026-08-10
 
 User-supplied final standard-motion harness JSON after the compact-output and
@@ -374,7 +397,8 @@ added, `Purpose`/`Constraint` fields retired); MeeTeam added as a new entry
 with an interim five-stage drawn SVG (`viewBox 0 0 1000 210`); SplitWise kept
 unchanged except its `Technology` field corrected from `MongoDB` to
 `SQLAlchemy` (the code uses Flask-SQLAlchemy against a relational database,
-not `pymongo`); the two client projects replaced entirely — Asset Management
+not `pymongo`) &mdash; **corrected again 2026-08-11 to `SQLite`; see the note
+below**; the two client projects replaced entirely — Asset Management
 System (new `<img>` figure, `assets/images/asset-console-reconstruction.jpg`,
 1491&times;812) and ePOS Simulator (new interim drawn SVG showing the printer
 shim); and the old client Android entry deleted outright, not
