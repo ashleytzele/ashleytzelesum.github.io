@@ -156,7 +156,7 @@
       <div class="m">Sheet 2 of 6 &nbsp;&middot;&nbsp; Rev 3.0 &nbsp;&middot;&nbsp; Active</div></div>
     <div class="education-heading">
       <h2>Education</h2>
-      <p>From a degree-transfer programme in Malaysia to a Computer Science degree in San Francisco.</p>
+      <p>From a degree-transfer program in Malaysia to a Computer Science degree in San Francisco.</p>
     </div>
 
     <div class="education-route" role="group" aria-label="Academic route: INTI International College Subang, Aug 2023&ndash;Dec 2024, American Degree Transfer Program, Applied Science; transferred Dec 2024&ndash;Jan 2025; San Francisco State University, Jan 2025&ndash;Present, Bachelor of Science, Computer Science.">
@@ -165,7 +165,7 @@
         <h3>INTI International College Subang</h3>
         <p class="education-place">Subang Jaya, Malaysia</p>
         <div class="education-programme">American Degree Transfer Program, Applied Science
-          <p>Programme completed before transfer to San Francisco State University.</p></div>
+          <p>Completed before transferring to San Francisco State University.</p></div>
       </article>
 
       <div class="education-transfer">
@@ -192,7 +192,7 @@
       <div class="m">Sheet 3 of 6 &nbsp;&middot;&nbsp; Rev 3.0 &nbsp;&middot;&nbsp; Active</div></div>
     <div class="experience-heading">
       <h2>Experience</h2>
-      <p>Building technical systems and operating real environments&mdash;across software, facilities, safety, and team coordination.</p>
+      <p>Professional experience developing software systems and coordinating safety-critical facility operations.</p>
     </div>
 
     <div class="experience-tracks">
@@ -205,14 +205,14 @@
                 <div class="experience-meta"><span>EXP-01 &middot; Previous</span><span>Jun&ndash;Sep 2024</span></div>
                 <h4>IT Support</h4>
                 <p class="experience-org">Zengo Corporation &middot; Malaysia</p>
-                <p class="experience-scope">Supported internal users and enterprise systems, and built an inventory application that automated stock calculations.</p>
+                <p class="experience-scope">Developed an inventory application that automated stock calculations, and supported internal users and enterprise systems.</p>
                 <p class="experience-evidence">Inventory tracking &middot; Support + troubleshooting</p>
               </div>
               <button class="experience-more" type="button" aria-controls="exp-01-detail" aria-expanded="true" data-label="IT Support">Close details &mdash; IT Support</button>
               <div class="experience-detail" id="exp-01-detail" data-open="true"><div class="experience-detail-inner">
                 <span class="experience-detail-label">Scope &amp; output</span>
-                <ul><li>Built an inventory tracking application that automated stock calculations.</li>
-                  <li>Provided technical support and troubleshooting for internal users and enterprise systems.</li></ul>
+                <ul><li>Developed an inventory tracking application that automated stock calculations.</li>
+                  <li>Diagnosed technical issues affecting internal users and enterprise systems.</li></ul>
               </div></div>
             </article>
           </li>
@@ -228,11 +228,11 @@
               <button class="experience-more" type="button" aria-controls="exp-02-detail" aria-expanded="true" data-label="OSPIT">Close details &mdash; OSPIT</button>
               <div class="experience-detail" id="exp-02-detail" data-open="true"><div class="experience-detail-inner">
                 <span class="experience-detail-label">Scope &amp; results</span>
-                <ul><li>Reconciled equipment identity across four systems that each named the same device differently.</li>
-                  <li>Built a CAD-to-map pipeline delivered to six touchscreen kiosk sites.</li>
-                  <li>Originated a service that lets a cloud point-of-sale print to any thermal printer.</li>
-                  <li>Added a consent flow and fixed production defects in a live Android app.</li>
-                  <li>Repointed a native mobile app to a different backend, then pivoted it to a WebView.</li></ul>
+                <ul><li>Integrated equipment identity across four operational platforms that each named the same device differently.</li>
+                  <li>Developed a CAD-to-map pipeline deployed across six touchscreen kiosk sites.</li>
+                  <li>Designed a printer-integration service that lets a cloud point-of-sale reach multiple thermal-printer models through its one supported protocol.</li>
+                  <li>Implemented a consent flow and resolved production defects in a live Android application.</li>
+                  <li>Migrated a native mobile application to a different backend, then to a WebView interface.</li></ul>
               </div></div>
             </article>
           </li>
@@ -338,7 +338,8 @@
         <h3><span class="n">04.3</span> If I will not be there to watch it, it has to prove itself</h3>
         <div class="claim-b">
           <p>80 Python tests and 21 routing checks guard a converter running unattended at 6
-            sites. 73 more run with no network at all, every external call fixtured. A
+            sites. A separate 73 cover the sports assistant, every external call fixtured so the
+            suite runs with no network at all. A
             throw-injection test raises deliberately at 12 points inside one function, because
             that is how a graph corruption was found: the snap step wrote a node into the shared
             graph before registering it for cleanup, and left it welded in at 10 of those 12
@@ -415,9 +416,9 @@
           <button class="more" type="button" data-more="p1" aria-controls="p1" data-label="05.1" aria-expanded="true">Close detail &mdash; 05.1</button>
           <div class="detail" id="p1" data-open="true">
             <div class="dgrid">
-              <div class="fld"><span class="k">Problem</span><p>CAD site plans are the authoritative geometry for kiosk wayfinding, but real exports from a drafting office are broken in specific, repeatable ways: outlines that don&rsquo;t close, labels sitting on the wrong layer or trapped inside hidden blocks, blocks nested inside other blocks, and facilities that are labelled on the plan but never actually drawn. A converter that assumes clean CAD fails differently on every one of these.</p></div>
+              <div class="fld"><span class="k">Problem</span><p>CAD site plans are the authoritative geometry for kiosk wayfinding, but real exports from a drafting office are broken in specific, repeatable ways: outlines that don&rsquo;t close, labels sitting on the wrong layer or trapped inside hidden blocks, blocks nested inside other blocks, and facilities that are labeled on the plan but never actually drawn. A converter that assumes clean CAD fails differently on every one of these.</p></div>
               <div class="fld"><span class="k">Constraints</span><p>The kiosk has no network connection at runtime, so the whole map, routing included, had to ship as one self-contained file with no server and no tile fetches. That ruled out any framework or bundler beyond a build script that inlines everything ahead of time.</p></div>
-              <div class="fld"><span class="k">Approach</span><p>The pipeline walks the CAD file honouring the layer panel&rsquo;s actual visibility, closes and repairs broken outlines, resolves nested blocks, then binds labels to structures in two passes, first by containment, then by a distance-and-size score. Where a facility is labelled but never drawn, a sibling structure of the same type is cloned to its label position and logged loudly as synthesised, never silently.</p></div>
+              <div class="fld"><span class="k">Approach</span><p>The pipeline walks the CAD file honouring the layer panel&rsquo;s actual visibility, closes and repairs broken outlines, resolves nested blocks, then binds labels to structures in two passes, first by containment, then by a distance-and-size score. Where a facility is labeled but never drawn, a sibling structure of the same type is cloned to its label position and logged loudly as synthesised, never silently.</p></div>
               <div class="fld"><span class="k">Architecture</span><p>Routing runs Dijkstra over an undirected graph built by welding nearby path vertices onto a snap grid, with edges split for points that start or end off the network. The graph and the map geometry are inlined into a single HTML file at build time, so the kiosk needs nothing at runtime beyond a browser.</p></div>
               <div class="fld"><span class="k">What went wrong</span><p>The snap step wrote a new node into the shared graph before registering it for cleanup, so an exception partway through could weld a bad node in permanently with nothing to signal it. A throw-injection test that deliberately raises at twelve points in that function caught it: before the fix it left the graph corrupted at ten of them, and the same test now guards against a regression.</p></div>
               <div class="fld"><span class="k">Result</span><p>Six kiosk sites were built from it, one with a complete handover package. The public repository carries 80 Python tests and 21 routing checks, and it also ships as an installable agent skill, so the same converter runs inside a coding agent as well as from the command line.</p></div>
@@ -572,7 +573,7 @@
               <div class="fld"><span class="k">Problem</span><p>A cloud point-of-sale system could talk to exactly one printer protocol, a single manufacturer&rsquo;s dialect, and a printer that didn&rsquo;t speak it failed badly rather than cleanly: it printed raw markup as receipt text instead of an actual receipt. The printers already mounted on site were not going to be replaced to fix that.</p></div>
               <div class="fld"><span class="k">Constraints</span><p>The manufacturer&rsquo;s own compatible printer box wasn&rsquo;t available to this deployment, and upgrading wasn&rsquo;t on the table. A custom server-side module was ruled out because the hosting platform&rsquo;s own installer refuses that kind of code with no file access to the server, and a VPN tunnel was rejected too, since it meant managing encryption keys and an always-on connection for something this narrow.</p></div>
               <div class="fld"><span class="k">Approach</span><p>The point-of-sale software already renders every receipt to a bitmap in the browser and posts it, unauthenticated, to whatever address is configured for its one supported printer. The service impersonates that printer: it takes the address, decodes the bitmap it receives, and forwards it to whichever real thermal printers the site actually has, routed by a path in the destination URL since the platform hardcodes one printer identity for every destination.</p></div>
-              <div class="fld"><span class="k">Architecture</span><p>Because the point-of-sale never re-draws the receipt for this path, whatever comes out of a printer is the same bitmap the screen showed, which makes drift between what a cashier sees and what prints structurally impossible rather than merely tested against. Each destination printer gets its own delivery queue, so one stuck printer can never block deliveries to a healthy one.</p></div>
+              <div class="fld"><span class="k">Architecture</span><p>Because the point-of-sale never re-draws the receipt for this path, whatever comes out of a printer is the same bitmap the screen showed, so drift between what a cashier sees and what prints is designed out of the path rather than merely tested against. Each destination printer gets its own delivery queue, so one stuck printer can never block deliveries to a healthy one.</p></div>
               <div class="fld"><span class="k">What went wrong</span><p>Two tills sharing one print head once produced eight jobs that all reported success. Diagnosing it meant reading the height of the printed page rather than trusting a hash of the job. Two documents at different heights, one document printed twice at the same height, and a literal resend all looked identical by hash, but each needed a different explanation, and hashing them together would have quietly overridden a setting someone had deliberately configured.</p></div>
               <div class="fld"><span class="k">Result</span><p>It ran production print traffic on the store&rsquo;s own machine, confirmed on paper by a manager who added a printer and watched a job route live. One issue remains open rather than fixed: a connection-handling edge case that is mitigated for now rather than properly resolved.</p></div>
               <div class="fld"><span class="k">What I learned</span><p>Comparing printer models directly got me nowhere. Once I stopped treating the hardware as the problem and targeted the shared protocol instead, picking a printer became a purchasing decision, not an engineering one.</p></div>
@@ -670,7 +671,7 @@
             whether a race went well.</p>
           <div class="figbox" tabindex="0" role="group" aria-label="Figure 6, scrollable">
             <img class="fig" width="1920" height="960" src="assets/images/splitwise-split-analysis.png"
-              alt="SplitWise Swim analysing one real 50m freestyle swim. A breakdown table gives each of the four split distances &mdash; 15m, 25m, 35m and 50m &mdash; its cumulative time, split time, velocity, cumulative stroke count and stroke rate, finishing at 24.10 seconds and 40 strokes. Below it a velocity chart plots those four splits against a dashed average of 2.134 metres per second: 2.83 off the dive, down to 1.79, recovering to 2.17, then 1.74 into the finish.">
+              alt="SplitWise Swim analysing one real 50m freestyle swim. A breakdown table gives each of the four split distances &mdash; 15m, 25m, 35m and 50m &mdash; its cumulative time, split time, velocity, cumulative stroke count and stroke rate, finishing at 24.10 seconds and 40 strokes. Below it a velocity chart plots those four splits against a dashed average of 2.134 meters per second: 2.83 off the dive, down to 1.79, recovering to 2.17, then 1.74 into the finish.">
             <div class="figcap"><span>Fig. 05.6 &mdash; Split analysis, captured</span><span>Live application</span></div>
           </div>
           <button class="more" type="button" data-more="p6" aria-controls="p6" data-label="05.6" aria-expanded="true">Close detail &mdash; 05.6</button>
@@ -711,7 +712,7 @@
       <div class="c-drawn">
         <span class="k">Drawn by</span>
         <div class="v">Ashley Sum</div>
-        <span class="s">Software Engineer</span>
+        <span class="s">Computer Science student &middot; software engineering intern candidate</span>
         <a class="mail" href="mailto:ashleysumtzele04@gmail.com">ashleysumtzele04@gmail.com</a>
       </div>
 

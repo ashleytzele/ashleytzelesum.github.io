@@ -195,7 +195,9 @@ test('A-002 contains exactly the approved ordered education route', () => {
     'Subang Jaya, Malaysia',
     'Aug 2023&ndash;Dec 2024',
     'American Degree Transfer Program, Applied Science',
-    'Programme completed before transfer to San Francisco State University.',
+    // reworded 2026-08-13: "Programme completed" could be read by a US reader as
+    // a *degree* completed, and the spelling was British on a US-facing site
+    'Completed before transferring to San Francisco State University.',
     'Transferred',
     'Dec 2024',
     'Jan 2025',
@@ -296,7 +298,8 @@ test('A-002 reveal animates decoration only and completes for reduced motion and
 test('A-003 contains the approved builder and operator tracks in reading order', () => {
   const a003 = section('id="a003"', 'id="a004"');
   assert.match(a003, /<h2>Experience<\/h2>/);
-  assert.ok(a003.includes('Building technical systems and operating real environments&mdash;across software, facilities, safety, and team coordination.'));
+  // reworded 2026-08-13: the original was abstract where a recruiter scans first
+  assert.ok(a003.includes('Professional experience developing software systems and coordinating safety-critical facility operations.'));
   assert.equal((a003.match(/class="experience-track"/g) || []).length, 2);
   assert.equal((a003.match(/class="experience-track-list"/g) || []).length, 2);
   assert.equal((a003.match(/class="experience-role/g) || []).length, 4);
@@ -328,7 +331,8 @@ test('A-003 contains exactly the approved role facts and handoffs', () => {
   const a003 = section('id="a003"', 'id="a004"');
   for (const value of [
     'EXP-01 &middot; Previous', 'Jun&ndash;Sep 2024', 'IT Support', 'Zengo Corporation', 'Malaysia',
-    'Supported internal users and enterprise systems, and built an inventory application that automated stock calculations.',
+    // reworded 2026-08-13 into résumé voice, engineering work first
+    'Developed an inventory application that automated stock calculations, and supported internal users and enterprise systems.',
     'Inventory tracking &middot; Support + troubleshooting', 'Scope &amp; output',
     'EXP-02 &middot; Internship', 'Jun&ndash;Aug 2026', 'Software Engineering Intern', 'OSPIT Mobility',
     'Technical / R&amp;D', 'Solved five software and systems-integration problems spanning equipment identity, offline maps, printing, and mobile applications.',
