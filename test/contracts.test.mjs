@@ -476,6 +476,56 @@ test('every media element declares intrinsic size and a text alternative', () =>
   }
 });
 
+// Reads the intrinsic size out of a PNG or JPEG header. Node ships no image
+// decoder and this repo takes no dependencies, but both headers put the
+// dimensions somewhere findable, which is all this needs.
+function intrinsicSize(path) {
+  const b = readFileSync(path);
+  if (b.length > 24 && b.readUInt32BE(0) === 0x89504e47) {     // PNG: IHDR is first
+    return { w: b.readUInt32BE(16), h: b.readUInt32BE(20) };
+  }
+  if (b.length > 4 && b[0] === 0xff && b[1] === 0xd8) {        // JPEG: walk to a SOF
+    let i = 2;
+    while (i < b.length - 9) {
+      if (b[i] !== 0xff) { i++; continue; }
+      const m = b[i + 1];
+      const isSOF = (m >= 0xc0 && m <= 0xcf) && m !== 0xc4 && m !== 0xc8 && m !== 0xcc;
+      if (isSOF) return { h: b.readUInt16BE(i + 5), w: b.readUInt16BE(i + 7) };
+      i += 2 + b.readUInt16BE(i + 2);
+    }
+  }
+  return null;
+}
+
+test('every A-005 figure is 2:1, and says the same size the file is', () => {
+  // Six figures at one ratio is the sheet's whole visual argument — a drawing
+  // set reads as a set because the frames match. A raster is also declared
+  // twice, in the markup and in the file, and `.figbox img{height:auto}` means
+  // the browser reserves space from the attributes and then re-lays-out to the
+  // file's real ratio. Disagreement is a visible jump on load, so both the
+  // ratio and the agreement are asserted here.
+  const sheet = html.slice(html.indexOf('id="a005"'), html.indexOf('id="a006"'));
+  const parts = sheet.split(/<!-- 05\.\d -->/).slice(1);
+  assert.equal(parts.length, 6, 'expected six project articles on A-005');
+
+  for (const [i, body] of parts.entries()) {
+    const label = `05.${i + 1}`;
+    const raster = /<(?:img|video) class="fig" width="(\d+)" height="(\d+)" src="([^"]+)"/.exec(body);
+    const drawn = /<svg class="dwg" viewBox="0 0 (\d+) (\d+)"/.exec(body);
+    assert.ok(raster || drawn, `${label} carries no figure`);
+
+    const [w, h] = raster ? [+raster[1], +raster[2]] : [+drawn[1], +drawn[2]];
+    assert.ok(Math.abs(w / h - 2) < 0.005, `${label} is ${(w / h).toFixed(3)}:1, not 2:1`);
+
+    if (raster) {
+      const real = intrinsicSize(raster[3]);
+      assert.ok(real, `${label}: could not read the size of ${raster[3]}`);
+      assert.deepEqual({ w: real.w, h: real.h }, { w, h },
+        `${label} declares ${w}x${h} but ${raster[3]} is ${real.w}x${real.h}`);
+    }
+  }
+});
+
 // The sheet currently ships no video — 05.6 moved from a screen recording to a
 // still. These two checks deliberately do NOT require one to exist: that would
 // make the test dictate the design. They bind any video that is ever added
