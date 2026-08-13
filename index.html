@@ -301,7 +301,7 @@
         <div class="claim-b">
           <p>Each of these started with something fixed that I could not negotiate with. A kiosk
             with no network connection at runtime. A cloud point-of-sale that could not be
-            modified. 391 devices whose codes were printed on cabinet labels and buried in saved
+            modified. Several hundred devices whose codes were printed on cabinet labels and buried in saved
             procedures, so renaming them was rejected outright.</p>
           <p class="how">Ruling out a tile server forced the whole map, routing included, to ship
             as one self-contained file. Being unable to touch the point-of-sale is what turned a
@@ -437,18 +437,69 @@
             network monitor, so one physical device carries one identity everywhere.
             Includes a hub backend and an operations console for device state and fault reports.</p>
           <div class="figbox" tabindex="0" role="group" aria-label="Figure 2, scrollable">
-            <img class="fig" width="1491" height="812" src="assets/images/asset-console-reconstruction.jpg"
-              alt="Reconstruction with sample data, not a production screenshot: an operations console showing a single field device, a panel listing that device&rsquo;s four different identifiers across four systems of record with one flagged as drifted, availability and temperature readings, a fault list, and a reconciliation run summary.">
-            <div class="figcap"><span>Fig. 05.2 &mdash; Console layout, reconstructed with sample data</span><span>Sample data &mdash; not production</span></div>
+            <svg class="dwg" viewBox="0 0 1000 563" role="img"
+              aria-label="Four systems of record each name the same physical device differently: the asset register uses a structured code, the control system a UUID, the sensor platform a bare node number and the network monitor a host name. All four feed a correlation step that resolves them to one device identity, which publishes onto a shared event bus. Off that bus, every fault becomes a report rather than a work order; a person signs before anything is dispatched, and only then does a work order open. Cost, parts and photographs land in an evidence archive.">
+              <text class="tl fd" style="animation-delay:.1s" x="40" y="34">FOUR SYSTEMS &middot; FOUR NAMES FOR ONE DEVICE</text>
+
+              <g class="fd" style="animation-delay:.25s"><rect class="f" x="40" y="54" width="210" height="50" pathLength="1"/>
+                <text class="tn" x="145" y="76" text-anchor="middle">Asset register</text>
+                <text class="ts" x="145" y="92" text-anchor="middle">structured code</text></g>
+              <g class="fd" style="animation-delay:.32s"><rect class="f" x="270" y="54" width="210" height="50" pathLength="1"/>
+                <text class="tn" x="375" y="76" text-anchor="middle">Control system</text>
+                <text class="ts" x="375" y="92" text-anchor="middle">UUID</text></g>
+              <g class="fd" style="animation-delay:.39s"><rect class="f" x="500" y="54" width="210" height="50" pathLength="1"/>
+                <text class="tn" x="605" y="76" text-anchor="middle">Sensor platform</text>
+                <text class="ts" x="605" y="92" text-anchor="middle">node number</text></g>
+              <g class="fd" style="animation-delay:.46s"><rect class="f" x="730" y="54" width="230" height="50" pathLength="1"/>
+                <text class="tn" x="845" y="76" text-anchor="middle">Network monitor</text>
+                <text class="ts" x="845" y="92" text-anchor="middle">host name</text></g>
+
+              <g class="c ln" style="animation-delay:.55s"><path
+                d="M145,104 V145 M375,104 V145 M605,104 V145 M845,104 V145 M145,145 H845 M500,145 V175" pathLength="1"/></g>
+
+              <g class="fd" style="animation-delay:.95s"><path d="M500,175 l-4,-10 h8 z" fill="var(--ink)" pathLength="1"/>
+                <rect class="f" x="330" y="175" width="340" height="62" pathLength="1"/>
+                <text class="tn" x="500" y="201" text-anchor="middle">Correlation</text>
+                <text class="ts" x="500" y="220" text-anchor="middle">one device, one identity</text></g>
+
+              <g class="k ln" style="animation-delay:.75s"><path d="M500,237 V300 M60,300 H940" pathLength="1"/></g>
+              <text class="tl fd" style="animation-delay:1.05s" x="60" y="292">EVENT BUS &middot; SAID ONCE, HEARD BY ALL</text>
+
+              <g class="c ln" style="animation-delay:1.1s"><path d="M165,300 V350 M820,300 V350" pathLength="1"/></g>
+
+              <g class="fd" style="animation-delay:1.3s"><path d="M165,350 l-4,-10 h8 z" fill="var(--ink)" pathLength="1"/>
+                <rect class="f" x="60" y="350" width="210" height="62" pathLength="1"/>
+                <text class="tn" x="165" y="376" text-anchor="middle">Fault report</text>
+                <text class="ts" x="165" y="395" text-anchor="middle">never a work order yet</text></g>
+              <g class="fd" style="animation-delay:1.4s"><rect class="f" x="350" y="350" width="210" height="62" pathLength="1"/>
+                <text class="tn" x="455" y="376" text-anchor="middle">Human gate</text>
+                <text class="ts" x="455" y="395" text-anchor="middle">a person signs</text></g>
+              <g class="fd" style="animation-delay:1.35s"><path d="M820,350 l-4,-10 h8 z" fill="var(--ink)" pathLength="1"/>
+                <rect class="f" x="700" y="350" width="240" height="62" pathLength="1"/>
+                <text class="tn" x="820" y="376" text-anchor="middle">Evidence archive</text>
+                <text class="ts" x="820" y="395" text-anchor="middle">what happened, provably</text></g>
+
+              <g class="k ln" style="animation-delay:1.5s"><path d="M270,381 H350 M455,412 V470" pathLength="1"/></g>
+              <g class="fd" style="animation-delay:1.75s"><path d="M350,381 l-10,-4 v8 z" fill="var(--ink)" pathLength="1"/>
+                <path d="M455,470 l-4,-10 h8 z" fill="var(--ink)" pathLength="1"/>
+                <rect class="f" x="350" y="470" width="210" height="58" pathLength="1"/>
+                <text class="tn" x="455" y="494" text-anchor="middle">Work order</text>
+                <text class="ts" x="455" y="512" text-anchor="middle">owner &middot; cost &middot; parts</text></g>
+
+              <g class="c ln" style="animation-delay:1.85s"><path d="M560,499 H820 V412" pathLength="1"/></g>
+
+              <text class="tl fd" style="animation-delay:2s" x="40" y="552">ONE DEVICE &middot; ONE IDENTITY &middot; NOTHING DISPATCHED UNATTENDED</text>
+            </svg>
+            <div class="figcap"><span>Fig. 05.2 &mdash; Identity and the fault path</span><span>Client work &mdash; systems shown by role</span></div>
           </div>
           <button class="more" type="button" data-more="p2" aria-controls="p2" data-label="05.2" aria-expanded="true">Close detail &mdash; 05.2</button>
           <div class="detail" id="p2" data-open="true">
             <div class="dgrid">
-              <div class="fld"><span class="k">Problem</span><p>Four separate systems, an asset register, a control system, a field sensing platform and a network monitor, each named the same physical device differently: a structured code in one, a UUID in another, a bare node number in a third. Without a shared identity, a fault raised in the control system couldn&rsquo;t be linked to that device&rsquo;s maintenance history, and the outage queue held 43,703 unacknowledged events, almost all from devices that simply weren&rsquo;t connected yet rather than actually broken.</p></div>
-              <div class="fld"><span class="k">Constraints</span><p>Renaming the estate&rsquo;s 391 devices to one clean scheme was rejected outright: those codes are printed on cabinet labels and buried in saved views and procedures, and changing them breaks every one. The four existing, mutually incompatible naming conventions had to be reconciled as they stood.</p></div>
+              <div class="fld"><span class="k">Problem</span><p>Four separate systems, an asset register, a control system, a field sensing platform and a network monitor, each named the same physical device differently: a structured code in one, a UUID in another, a bare node number in a third. Without a shared identity, a fault raised in the control system couldn&rsquo;t be linked to that device&rsquo;s maintenance history, and the outage queue held tens of thousands of unacknowledged events, almost all from devices that simply weren&rsquo;t connected yet rather than actually broken.</p></div>
+              <div class="fld"><span class="k">Constraints</span><p>Renaming the estate&rsquo;s several hundred devices to one clean scheme was rejected outright: those codes are printed on cabinet labels and buried in saved views and procedures, and changing them breaks every one. The four existing, mutually incompatible naming conventions had to be reconciled as they stood.</p></div>
               <div class="fld"><span class="k">Approach</span><p>Identity was split by who actually knows each field: position and role are known at procurement, before a device physically exists, while IP address and credentials only exist once it&rsquo;s commissioned, so no single system could own the whole record. Every fault becomes a report first; nothing is ever dispatched as a work order unattended.</p></div>
               <div class="fld"><span class="k">Architecture</span><p>A shared core holds one authoritative reading of the device-code convention, a pure correlation function with no I/O, and an enumeration of every legitimate source of a work order that fails loudly on anything else. A standalone process reads correlated events off a message bus independently of the in-process path, and was verified to reach the identical count against the same sample.</p></div>
-              <div class="fld"><span class="k">What went wrong</span><p>The reconciliation tool that compared records across systems never checked one boolean field: whether a device was active. Roughly half of two device categories had been switched off in the control system while the register still listed them as live, and every diff run stayed silent about it until that one field was added to the comparison, which surfaced 182 devices at once.</p></div>
+              <div class="fld"><span class="k">What went wrong</span><p>The reconciliation tool that compared records across systems never checked one boolean field: whether a device was active. Roughly half of two device categories had been switched off in the control system while the register still listed them as live, and every diff run stayed silent about it until that one field was added to the comparison, which surfaced every one of them in a single run.</p></div>
               <div class="fld"><span class="k">Result</span><p>The identity layer is running with its uniqueness constraint deployed and verified. The fault-to-ticket pipeline is proven in staging but was never installed to production, blocked on a production credential that was refused, and a financial cost register was deliberately left unbuilt, since an estate with no purchase orders on file would just produce empty reports that read as broken.</p></div>
               <div class="fld"><span class="k">What I learned</span><p>The hard part was never moving data between systems. It was deciding which one was telling the truth when they disagreed about the same device, and being willing to say unknown instead of guessing.</p></div>
             </div>
@@ -468,33 +519,60 @@
             that printer: it presents the interface the point-of-sale already speaks, then
             forwards each job to whatever thermal printers the restaurant actually owns.</p>
           <div class="figbox" tabindex="0" role="group" aria-label="Figure 3, scrollable">
-            <svg class="dwg" viewBox="0 0 1000 230" role="img"
-              aria-label="A point-of-sale sends a print job to what it believes is a single network printer; a shim impersonates that printer and forwards the job to whichever real thermal printers the site has, such as the front desk and the kitchen.">
-              <g class="fd" style="animation-delay:.6s"><rect class="f" x="40" y="80" width="170" height="70" pathLength="1"/>
-                <text class="tn" x="125" y="112" text-anchor="middle">Point-of-Sale</text>
-                <text class="ts" x="125" y="130" text-anchor="middle">sends a print job</text></g>
-              <g class="k ln" style="animation-delay:.2s"><path d="M210,115 H330" pathLength="1"/></g>
-              <g class="fd" style="animation-delay:.8s"><path d="M330,115 l-10,-4 v8 z" fill="var(--ink)" pathLength="1"/>
-                <rect class="f" x="330" y="80" width="180" height="70" pathLength="1"/>
-                <text class="tn" x="420" y="112" text-anchor="middle">Shim</text>
-                <text class="ts" x="420" y="130" text-anchor="middle">poses as the printer</text></g>
-              <g class="c ln" style="animation-delay:.35s">
-                <path d="M510,115 H580 M580,90 V140 M580,90 H660 M580,140 H660" pathLength="1"/></g>
-              <g class="ts fd" style="animation-delay:.95s" fill="var(--ink)" font-size="10">
-                <text x="670" y="94">Front Desk</text><text x="670" y="144">Kitchen</text></g>
-              <text class="tl fd" style="animation-delay:1s" x="20" y="220">ONE INTERFACE &middot; MANY REAL PRINTERS</text>
+            <svg class="dwg" viewBox="0 0 1000 563" role="img"
+              aria-label="The point-of-sale renders each receipt to a bitmap and posts it, unauthenticated, to the one printer address it is configured for. A shim answers at that address, so the point-of-sale believes it is talking to a single network printer. The shim decodes the bitmap and forwards it, routed by a path in the destination URL, into one delivery queue per real printer, so a stuck printer blocks only itself; here the front desk and the kitchen. Because nothing re-renders the receipt along the way, the bitmap that prints is the same bitmap the screen showed.">
+              <text class="tl fd" style="animation-delay:.1s" x="40" y="32">ONE INTERFACE &middot; MANY REAL PRINTERS</text>
+
+              <g class="fd" style="animation-delay:.3s"><rect class="f" x="40" y="190" width="230" height="80" pathLength="1"/>
+                <text class="tn" x="155" y="224" text-anchor="middle">Point-of-Sale</text>
+                <text class="ts" x="155" y="244" text-anchor="middle">renders a bitmap</text></g>
+
+              <text class="ts fd" style="animation-delay:.5s" x="350" y="170" text-anchor="middle">posts it, unauthenticated</text>
+              <g class="k ln" style="animation-delay:.45s"><path d="M270,230 H430" pathLength="1"/></g>
+
+              <g class="fd" style="animation-delay:.75s"><rect class="dm" x="410" y="155" width="270" height="150"
+                  stroke-dasharray="5 4" pathLength="1"/>
+                <text class="tl" x="420" y="148">BELIEVED: ONE NETWORK PRINTER</text></g>
+
+              <g class="fd" style="animation-delay:.85s"><path d="M430,230 l-10,-4 v8 z" fill="var(--ink)" pathLength="1"/>
+                <rect class="f" x="430" y="190" width="230" height="80" pathLength="1"/>
+                <text class="tn" x="545" y="224" text-anchor="middle">Shim</text>
+                <text class="ts" x="545" y="244" text-anchor="middle">answers as that printer</text></g>
+
+              <g class="c ln" style="animation-delay:1s">
+                <path d="M660,230 H700 M700,150 V310 M700,150 H760 M700,310 H760" pathLength="1"/></g>
+              <text class="ts fd" style="animation-delay:1.15s" x="712" y="238">routed by URL path</text>
+
+              <g class="fd" style="animation-delay:1.3s"><rect class="f" x="760" y="124" width="100" height="52" pathLength="1"/>
+                <text class="tn" x="810" y="155" text-anchor="middle">Queue</text>
+                <rect class="f" x="760" y="284" width="100" height="52" pathLength="1"/>
+                <text class="tn" x="810" y="315" text-anchor="middle">Queue</text></g>
+
+              <g class="c ln" style="animation-delay:1.4s"><path d="M860,150 H880 M860,310 H880" pathLength="1"/></g>
+              <g class="fd" style="animation-delay:1.55s"><rect class="f" x="880" y="124" width="110" height="52" pathLength="1"/>
+                <text class="tn" x="935" y="155" text-anchor="middle">Front desk</text>
+                <rect class="f" x="880" y="284" width="110" height="52" pathLength="1"/>
+                <text class="tn" x="935" y="315" text-anchor="middle">Kitchen</text></g>
+
+              <text class="ts fd" style="animation-delay:1.65s" x="760" y="368">one queue per printer &mdash;</text>
+              <text class="ts fd" style="animation-delay:1.7s" x="760" y="384">a stuck printer blocks only itself</text>
+
+              <g class="dm fd" style="animation-delay:1.85s"><path d="M155,270 V460 H935 V336" pathLength="1"/></g>
+              <text class="tl fd" style="animation-delay:1.95s" x="545" y="450" text-anchor="middle">SAME BITMAP END TO END</text>
+
+              <text class="tl fd" style="animation-delay:2.1s" x="40" y="530">NOTHING RE-RENDERS THE RECEIPT &middot; SCREEN AND PAPER CANNOT DRIFT</text>
             </svg>
-            <div class="figcap"><span>Fig. 05.3 &mdash; Print path</span><span>Interim drawing &mdash; media pending</span></div>
+            <div class="figcap"><span>Fig. 05.3 &mdash; Print path</span><span>Client work &mdash; drawn, no capture available</span></div>
           </div>
           <button class="more" type="button" data-more="p3" aria-controls="p3" data-label="05.3" aria-expanded="true">Close detail &mdash; 05.3</button>
           <div class="detail" id="p3" data-open="true">
             <div class="dgrid">
               <div class="fld"><span class="k">Problem</span><p>A cloud point-of-sale system could talk to exactly one printer protocol, a single manufacturer&rsquo;s dialect, and a printer that didn&rsquo;t speak it failed badly rather than cleanly: it printed raw markup as receipt text instead of an actual receipt. The printers already mounted on site were not going to be replaced to fix that.</p></div>
-              <div class="fld"><span class="k">Constraints</span><p>The manufacturer&rsquo;s own compatible printer box wasn&rsquo;t available on the software edition the client was licensed for, and upgrading wasn&rsquo;t offered. A custom server-side module was ruled out because the hosting platform&rsquo;s own installer refuses that kind of code with no file access to the server, and a VPN tunnel was rejected too, since it meant managing encryption keys and an always-on connection for something this narrow.</p></div>
+              <div class="fld"><span class="k">Constraints</span><p>The manufacturer&rsquo;s own compatible printer box wasn&rsquo;t available to this deployment, and upgrading wasn&rsquo;t on the table. A custom server-side module was ruled out because the hosting platform&rsquo;s own installer refuses that kind of code with no file access to the server, and a VPN tunnel was rejected too, since it meant managing encryption keys and an always-on connection for something this narrow.</p></div>
               <div class="fld"><span class="k">Approach</span><p>The point-of-sale software already renders every receipt to a bitmap in the browser and posts it, unauthenticated, to whatever address is configured for its one supported printer. The service impersonates that printer: it takes the address, decodes the bitmap it receives, and forwards it to whichever real thermal printers the site actually has, routed by a path in the destination URL since the platform hardcodes one printer identity for every destination.</p></div>
               <div class="fld"><span class="k">Architecture</span><p>Because the point-of-sale never re-draws the receipt for this path, whatever comes out of a printer is the same bitmap the screen showed, which makes drift between what a cashier sees and what prints structurally impossible rather than merely tested against. Each destination printer gets its own delivery queue, so one stuck printer can never block deliveries to a healthy one.</p></div>
               <div class="fld"><span class="k">What went wrong</span><p>Two tills sharing one print head once produced eight jobs that all reported success. Diagnosing it meant reading the height of the printed page rather than trusting a hash of the job. Two documents at different heights, one document printed twice at the same height, and a literal resend all looked identical by hash, but each needed a different explanation, and hashing them together would have quietly overridden a setting someone had deliberately configured.</p></div>
-              <div class="fld"><span class="k">Result</span><p>It ran production print traffic on the store&rsquo;s own machine, confirmed on paper by a manager who added a printer and watched a job route live. One issue is still open, not fixed: the printer&rsquo;s connection handling can wedge under a specific kind of half-open network client, currently held off only by an external watchdog.</p></div>
+              <div class="fld"><span class="k">Result</span><p>It ran production print traffic on the store&rsquo;s own machine, confirmed on paper by a manager who added a printer and watched a job route live. One issue remains open rather than fixed: a connection-handling edge case that is mitigated for now rather than properly resolved.</p></div>
               <div class="fld"><span class="k">What I learned</span><p>Comparing printer models directly got me nowhere. Once I stopped treating the hardware as the problem and targeted the shared protocol instead, picking a printer became a purchasing decision, not an engineering one.</p></div>
             </div>
             <div class="refs"><span>Client work &mdash; not published</span></div>
