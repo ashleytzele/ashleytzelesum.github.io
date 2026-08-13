@@ -308,12 +308,38 @@ Do not copy any of these into the repo.
 
 ## 10. Current state
 
-Current focused suite: `node --test test/contracts.test.mjs test/runtime.test.mjs`
-exercises the structural contracts and runtime success/failure paths. Run bare
-`node --test` for the authoritative full count and result.
+**As of 2026-08-13, branch `a005-content`, 94 tests passing.** Run bare
+`node --test` from the repository root for the authoritative count — `node --test
+test/` does not work (Node resolves the directory as a module).
 
 **Nothing has been pushed yet.** Deploy is the one unstarted task from the
 original plan (Task 7: deploy and verify live).
+
+### What changed on 2026-08-13
+
+Read this before assuming anything below §10 is current.
+
+- **Every A-005 figure is 2:1.** The sheet had six figures spanning 1.29:1 to
+  4.76:1, which read as unfinished. 16:9 was tried first and rejected — it
+  rendered 546px tall in a 970px column, most of a laptop viewport per figure.
+  2:1 is the widest ratio the screenshots survive. A contract test enforces both
+  the ratio and that each raster declares the size its file actually has.
+- **Three A-005 figures were redrawn** at `viewBox 0 0 1000 500`: 05.2 (identity
+  across four systems of record, and the fault path through a human gate), 05.3
+  (the print path, with the believed printer identity as a dashed boundary), 05.4
+  (the CLI session, same output verbatim). 05.1, 05.5 and 05.6 are captures
+  Ashley supplied at 2:1; 05.6 stopped being a screen recording.
+- **A-006 is now the document's title block** — see the spec at
+  `docs/superpowers/specs/2026-08-13-a006-title-block-design.md`. `.dep`,
+  `.endpage`, `.endmeta` and `.sig` are deleted. Do not reintroduce them.
+- **The drawn-figure floor is 900px, not 1000px**, and the pan hint breakpoint is
+  1365px, not 1040px. Measured, not assumed: the figure column tops out at 970px,
+  so a 1000px floor could never be satisfied and the drawings panned silently at
+  every viewport including 1440. The test that pinned 1000px now asserts a range.
+- **Client disclosure was reduced** in five places — an event backlog, a device
+  count in two sheets, a reconciliation batch, the vendor licensing position, and
+  an open connection-handling weakness described in reproducible detail. The
+  engineering claims are intact; the client's numbers are not. §7 still governs.
 
 ### Open questions awaiting Ashley
 
@@ -322,23 +348,30 @@ original plan (Task 7: deploy and verify live).
 2. `ams-hub` attribution: project docs name "Ashley" and "Ivan" as two people,
    but the Ivan commits carry her email, and a different real Ivan exists on the
    team. Unresolved.
-3. **SplitWise's actual database.** Three sources disagree: the site once said
-   MongoDB, the code uses Flask-SQLAlchemy, and the `Procfile` launches a
-   CSV/JSON/SQLite path. The MongoDB claim was genuinely hers — but from the NBA
-   game, attributed to the wrong project. Do not restate a database for
-   SplitWise until this is settled.
+3. **The résumé contradicts the site.** `assets/documents/Ashley-Sum-Resume.pdf`
+   is dated 4 August and is linked from A-006. It names Odoo twice, Epson ePOS
+   and MQTT — systems the site deliberately abstracts — carries a client cost
+   figure and a site count, lists SplitWise as its only project, and its skills
+   list has drifted from A-004 (C++ against JavaScript/Kotlin/SQL; Tailwind
+   against Bootstrap). Ashley owns this; it is out of scope for design work.
 4. Swimming specifics — level, events, certifications — for the Athlete
    component.
 
-### Pending media
+### Settled since this file was first written
 
-05.3 (ePOS Simulator) and 05.5 (Quorum) hold interim drawn figures. Ashley is
-supplying real captures. Because of the slot contract, those swaps are
-figure-local and must not become a redesign.
+**SplitWise's database is SQLite.** The `Procfile` runs `web: python app.py`;
+`app.py` imports `sqlite3`, calls `sqlite3.connect(DB_PATH)`, and never imports
+`models.py`. The Flask-SQLAlchemy layer is real code but is not wired to the
+deployed application. An earlier entry in `test/README.md` "corrected" the field
+to SQLAlchemy and was itself wrong — it read what the repository contains rather
+than what the running process executes. That is the general trap; see §8.
+
+**Media is no longer pending.** 05.3 stays drawn permanently — it is client work
+with nothing shareable to capture, and its caption says so rather than promising
+a capture that will never arrive. 05.5 is a real Quorum capture.
 
 **05.5 was called MeeTeam until 2026-08-11.** The repository was renamed to
-`ashleytzele/Quorum` and the project grew from a meeting tool into three
-cooperating pieces. Older entries in `test/README.md` name MeeTeam because they
+`ashleytzele/Quorum`. Older entries in `test/README.md` name MeeTeam because they
 are dated measurement records — that log is history and is not rewritten.
 
 ---
