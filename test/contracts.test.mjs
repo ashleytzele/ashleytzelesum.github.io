@@ -335,7 +335,8 @@ test('A-003 contains exactly the approved role facts and handoffs', () => {
     'Developed an inventory application that automated stock calculations, and supported internal users and enterprise systems.',
     'Inventory tracking &middot; Support + troubleshooting', 'Scope &amp; output',
     'EXP-02 &middot; Internship', 'Jun&ndash;Aug 2026', 'Software Engineering Intern', 'OSPIT Mobility',
-    'Technical / R&amp;D', 'Solved five software and systems-integration problems spanning equipment identity, offline maps, printing, and mobile applications.',
+    // reworded 2026-08-13: the internship was one ecosystem, not five errands
+    'Technical / R&amp;D', 'Researched and developed a highway digitalization ecosystem spanning roadside equipment, network monitoring, traffic operations and enterprise maintenance, alongside offline mapping, point-of-sale printing and mobile work.',
     '5 workstreams &middot; Drawings 05.1&ndash;05.3', 'Project evidence &rarr; A-005', 'Scope &amp; results',
     'EXP-03 &middot; Previous', 'Aug 2025&ndash;Mar 2026', 'Lifeguard', 'Mashouf Wellness Center',
     'San Francisco, California', 'Protected patron safety through active surveillance, facility checks, and emergency readiness on the pool deck.',
@@ -702,7 +703,9 @@ test('test/ contains no browser-only scripts', () => {
   // Browser scripts live in tools/.
   const stray = readdirSync('test')
     .filter(f => /\.(js|cjs|mjs)$/.test(f))
-    .filter(f => /\bdocument\.|\bwindow\.|getComputedStyle\(/.test(readFileSync(`test/${f}`, 'utf8')));
+    // \w after the dot: a property access, not prose. The comment "reads as one
+    // document." in this very file matched the looser pattern and failed the check.
+    .filter(f => /\bdocument\.\w|\bwindow\.\w|getComputedStyle\(/.test(readFileSync(`test/${f}`, 'utf8')));
   assert.deepEqual(stray, [], 'browser-only scripts belong in tools/, not test/');
 });
 
@@ -1119,8 +1122,22 @@ test('05.6 names SQLite, the database the deployed app actually uses', () => {
   }
 });
 
-const PERMITTED = ['Problem', 'Inspiration', 'Constraints', 'Approach',
-  'Architecture', 'What went wrong', 'Result', 'What I learned', 'Technology'];
+// "What went wrong" became "Technical challenge" and "What I learned" became
+// "Key takeaway" across all six panels on 2026-08-13 — renamed everywhere rather
+// than on the one entry that prompted it, so the sheet still reads as one
+// document. "Research & discovery" and "Workflow design" were added for work
+// that began with reading live systems rather than with building.
+const PERMITTED = ['Problem', 'Inspiration', 'Constraints', 'Research &amp; discovery',
+  'Workflow design', 'Approach', 'Architecture', 'Technical challenge', 'Result',
+  'Key takeaway', 'Technology'];
+
+// The middle of a panel varies; its ends do not. A reader must always meet the
+// context first and the lesson last, with the outcome named in between.
+// Technology is a metadata footer rather than prose — three panels carry it
+// after the takeaway — so it is set aside before the ends are checked.
+const OPENERS = ['Problem', 'Inspiration'];
+const CLOSER = 'Key takeaway';
+const FOOTER = 'Technology';
 
 test('every project panel opens on a context field and shares one spine', () => {
   const a005 = /<section class="sheet" id="a005"[\s\S]*?\n<\/section>/.exec(html)?.[0] ?? '';
@@ -1130,13 +1147,25 @@ test('every project panel opens on a context field and shares one spine', () => 
     const ref = `05.${p[1]}`;
     const fields = [...p[0].matchAll(/<div class="fld"><span class="k">([^<]+)<\/span>/g)].map(m => m[1]);
     assert.ok(fields.length >= 4, `${ref} has ${fields.length} fields; the spine is four`);
-    assert.ok(['Problem', 'Inspiration'].includes(fields[0]),
-      `${ref} opens on "${fields[0]}"; it must open on Problem or Inspiration`);
-    assert.equal(fields.filter(f => f === 'Problem' || f === 'Inspiration').length, 1,
+    assert.ok(OPENERS.includes(fields[0]),
+      `${ref} opens on "${fields[0]}"; it must open on ${OPENERS.join(' or ')}`);
+    assert.equal(fields.filter(f => OPENERS.includes(f)).length, 1,
       `${ref} has more than one context field`);
-    const spine = fields.filter(f => ['Approach', 'Result', 'What I learned'].includes(f));
-    assert.deepEqual(spine, ['Approach', 'Result', 'What I learned'],
-      `${ref} is missing a spine field or has them out of order`);
+    const prose = fields.filter(f => f !== FOOTER);
+    assert.equal(prose[prose.length - 1], CLOSER,
+      `${ref} ends on "${prose[prose.length - 1]}"; it must end on ${CLOSER}`);
+    assert.equal(fields.filter(f => f === CLOSER).length, 1,
+      `${ref} has more than one ${CLOSER}`);
+    if (fields.includes(FOOTER)) {
+      assert.equal(fields[fields.length - 1], FOOTER,
+        `${ref} puts ${FOOTER} mid-panel; it is a footer or it is absent`);
+    }
+    // Result sits between the two ends. Its position is not pinned, because
+    // 05.2 reached it through research and workflow design where the others
+    // reach it through Approach — the ends are the contract, not the middle.
+    assert.ok(fields.includes('Result'), `${ref} never states a Result`);
+    assert.ok(fields.indexOf('Result') < fields.indexOf(CLOSER),
+      `${ref} states its Result after the takeaway`);
     for (const f of fields) {
       assert.ok(PERMITTED.includes(f), `${ref} has an unpermitted field "${f}"`);
     }
