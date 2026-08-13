@@ -47,6 +47,58 @@ counter in `reducedMotion.state` at zero. The embedded baseline below is the
 standard, non-reduced-motion run, so its completion fields are `null`; the
 separate confirmed reduced-motion result follows immediately after it.
 
+### Whole-document audit — 2026-08-13 (A-001 to A-006, all widths, both themes)
+
+Every sheet, seven widths, both themes. Clean, with one new trap found in the
+harness rather than in the site.
+
+**A new trap: a throttled tab freezes CSS transitions mid-flight, and
+`getComputedStyle` returns the frozen value.** The note above warns that a
+backgrounded automation tab throttles animations. It also throttles
+*transitions*, and that corrupts colour readings in a way that looks exactly
+like a real defect. Switching `data-theme` and immediately measuring reported
+`.part-name`, `.part-body` and `.more` at `rgb(17,17,17)` — the light theme's
+`--ink` on a `#0D0D0D` background, 1.03:1, apparently invisible text on A-001
+and A-005. All three carry `transition:color .2s`. Injecting
+`*{transition:none!important}` and forcing a reflow returned
+`rgb(242,242,242)`, the correct dark ink. The site was never wrong.
+
+**Anything measuring colour after a theme change must disable transitions
+first.** Waiting does not help — the tab is throttled, so the transition never
+finishes. The first sweep run without this reported three false failures and
+would have "fixed" code that was already correct.
+
+Re-run with transitions disabled: **zero contrast failures**, light and dark,
+across A-001 to A-006 and the index rail, checked against each element's own
+painted background with the 3:1 large-text allowance applied by computed font
+size and weight.
+
+**Layout**, seven widths from 320 to 1600: page overflow 0 at every width; no
+sheet scrolls sideways; no unclipped element wider than the viewport; no
+interactive element under 44px; no broken images.
+
+**Network:** 9 requests, all 200, all same-origin. The no-third-party rule holds
+in the browser, not just in the contract test. Favicon, résumé PDF and
+`sitemap.xml` all resolve 200.
+
+**Console:** no errors or exceptions.
+
+**Structure:** heading levels `1,2,3,3,2,3,3,2,3,4,4,3,4,4,2,3,3,3,3,2,3,3,3,3,3,3,2`
+— no skipped level. Every in-page anchor resolves; no dead `href="#…"`.
+
+**Behaviour**, exercised rather than inspected:
+
+| | result |
+|---|---|
+| A-005 disclosure | closed → open → closed round trip; `data-open`, `aria-expanded` and the button label all track |
+| A-004 evidence link | `#proj-1` lands on the article, not the panel, and the detail is visible after the jump |
+| A-001 tablist | ArrowRight moves focus, exactly one tab keeps `tabindex="0"`; selection follows explicit activation |
+| Theme toggle | light ⇄ dark both ways, `aria-pressed` tracks, background changes |
+
+Runtime state on load: `js` true, `runtime-ready` true, all six A-005 panels
+collapsed by the runtime. `drawn` was false throughout — the reveal never fires
+in a hidden tab, which is the known trap and why nothing above depends on it.
+
 ### Baseline — 2026-08-13 (A-006 title block, A-005 at 2:1, and the drawn floor corrected)
 
 Measured via `mcp__claude-in-chrome` against `http://localhost:8130` with a fresh
