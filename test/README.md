@@ -47,6 +47,105 @@ counter in `reducedMotion.state` at zero. The embedded baseline below is the
 standard, non-reduced-motion run, so its completion fields are `null`; the
 separate confirmed reduced-motion result follows immediately after it.
 
+### Baseline — 2026-08-13 (A-006 title block, A-005 at 2:1, and the drawn floor corrected)
+
+Measured via `mcp__claude-in-chrome` against `http://localhost:8130` with a fresh
+query string per run. `document.visibilityState` read `"hidden"` throughout — the
+known automation-tab trap — so nothing below depends on animation or reveal
+state; every figure is a layout measurement.
+
+**Chrome will not size a window below about 500px.** A `resize_window` to 390
+produced `innerWidth: 500`. Every sub-500 number here comes from an iframe of an
+explicit width, which is what the harness note above already recommends; a window
+resize was used only for 768 and above.
+
+**The defect this gate existed to find.** The drawn figures carried
+`min-width:1000px` while the figure column tops out at **970px**, so the floor
+could never be satisfied. Measured at a 1440px viewport: `figbox.clientWidth`
+1002, SVG rendered 1000, `scrollWidth - clientWidth` = **30px of pan**, and the
+`← scroll to pan →` hint absent because its breakpoint was `max-width:1040px`.
+The drawings panned silently at every viewport, worst at the widths most
+visitors use. Six months of static checks never saw it; one measurement did.
+
+Fixed by lowering the floor to **900px** — `.dwg` already carries `width:100%`,
+so a floor under the column width lets the drawing simply fit at desktop — and
+moving the hint breakpoint to `max-width:1365px`, the measured width at which
+the column reaches the floor.
+
+Verified after the fix, panning versus hint at twelve widths:
+
+| viewport | drawn figures pan | hint shown | agree |
+|---|---|---|---|
+| 1600 | no | no | ✓ |
+| 1440 | no | no | ✓ |
+| 1400 | no | no | ✓ |
+| 1366 | no | no | ✓ |
+| 1365 | yes | yes | ✓ |
+| 1364 | yes | yes | ✓ |
+| 1200 | yes | yes | ✓ |
+| 1040 | yes | yes | ✓ |
+| 768 | yes | yes | ✓ |
+| 600 | yes | yes | ✓ |
+| 390 | yes | yes | ✓ |
+| 320 | yes | yes | ✓ |
+
+Photographic figures never pan at any width, and `documentElement.scrollWidth -
+clientWidth` is 0 at every width — the page itself never scrolls sideways.
+
+**A-005 figures**, rendered widths and ratios:
+
+| viewport | raster | drawn |
+|---|---|---|
+| 1440 | 970×486, 1.996:1 | 970×485, 2:1 |
+| 768 | 533×268, 1.993:1 | 900 (floored), 2:1 |
+| 390 (iframe) | 252×127, 1.984:1 | 900 (floored), 2:1 |
+
+The raster ratios read 1.984–1.996 rather than a flat 2.000 because the rendered
+box is subpixel; the files are exactly 1920×960.
+
+**A-006 title block**, fold verified at the breakpoint boundaries:
+
+| viewport | tracks | rows | block width | widest cell | overflows |
+|---|---|---|---|---|---|
+| 1600 | 5 | 4 | 1100 | 806 | no |
+| 1440 | 5 | 4 | 1100 | 806 | no |
+| 1200 | 5 | 4 | 866 | 634 | no |
+| 1001 | 5 | 4 | 673 | 493 | no |
+| 1000 | 2 | 7 | 672 | 670 | no |
+| 768 | 2 | 7 | 663 | 661 | no |
+| 621 | 2 | 7 | 517 | 515 | no |
+| 620 | 1 | 11 | — | — | no |
+| 390 (iframe) | 1 | 11 | 356 | 284 | no |
+
+The email address appears exactly once at every width. **No interactive element
+under 44px** at any width — checked across `.rt a`, `.mail`, `.init`, `.more`,
+`.index a`, `.skip` and `.theme-toggle`.
+
+**Contrast**, computed from live colours against the painted background:
+
+| | light | dark |
+|---|---|---|
+| cell label `.k` | 4.54 | 5.93 |
+| cell value `.v` | 18.88 | 17.36 |
+| Issued for | 18.88 | 17.36 |
+| reference links | 18.88 | 17.36 |
+
+All pass 4.5:1. The labels clear it by 0.04 in light mode — that is the site-wide
+`--ref` on 8px monospace, not something A-006 introduced, but it has no headroom
+and any future darkening of `--paper` would break it.
+
+Hairlines are 1.44:1 in light. Not raised: the same `--line` rules every sheet,
+the text they group is fully legible without them, and changing it here alone
+would make A-006 the odd sheet.
+
+**Print** could not be rendered through this harness. Instead the print
+declarations were applied to screen with `data-theme="dark"` active — the worst
+case — and the computed result checked: paper `rgb(255,255,255)`, ink
+`rgb(0,0,0)`, `gap` 0, block background `none`, and real 1px cell borders at
+`rgb(204,204,204)`. So the dark theme does not leak into print, and the title
+block still prints ruled when backgrounds are suppressed. This is a computed
+result, not a printed page; a real print preview is still worth one human look.
+
 ### Correction — 2026-08-11 (SplitWise's database is SQLite)
 
 The 2026-08-07 entry below records the SplitWise `Technology` field being

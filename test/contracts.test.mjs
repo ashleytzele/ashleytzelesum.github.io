@@ -987,9 +987,22 @@ test('a photographic figure fits its column', () => {
   assert.doesNotMatch(rule[1], /width\s*:\s*\d+px/,
     'a photographic figure must not be given a fixed pixel width');
   assert.match(rule[1], /max-width\s*:\s*100%/, 'it must be allowed to shrink to its column');
-  // the drawn floor stays: this is the rule that must NOT change
-  assert.match(css, /\.figbox svg\{[^}]*min-width\s*:\s*1000px/,
-    'drawn figures keep their floor; their labels need it');
+  // The drawn floor stays — but not at 1000px. That number was assumed, never
+  // measured. Measured 2026-08-13: the figure column tops out at 970px, so a
+  // 1000px floor can never be satisfied and the drawings panned by 30px even at
+  // a 1440px viewport, below the breakpoint that shows the pan hint. Panning
+  // with no affordance, at the width most visitors use.
+  // The floor's purpose — labels never scaled to illegibility — is unchanged;
+  // only the value moves. It must stay under the 970px column so the drawing
+  // fits at desktop, and high enough to keep 8px labels readable. Asserted as a
+  // range rather than a constant, so the next person can retune it against a
+  // measurement instead of against this line.
+  const floor = /\.figbox svg\{[^}]*min-width\s*:\s*(\d+)px/.exec(css);
+  assert.ok(floor, 'drawn figures keep their floor; their labels need it');
+  const px = Number(floor[1]);
+  assert.ok(px >= 850 && px <= 960,
+    `drawn floor is ${px}px; it must sit under the 970px column and above the ` +
+    `660px that once rendered 5.3px labels`);
 });
 
 test('project panels are readable when the runtime fails', () => {
