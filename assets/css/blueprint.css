@@ -302,8 +302,13 @@ p{margin:0;color:var(--sec)}
 @media(max-width:760px){.pb{grid-template-columns:minmax(0,1fr)}}
 .pb .side{font-family:'MN',monospace;font-size:.68rem;color:var(--ref);line-height:1.9}
 .pdesc{font-size:.94rem;max-width:66ch}
-.figbox{border:1px solid var(--line);padding:calc(var(--u)*2);margin-top:calc(var(--u)*2.5);overflow-x:auto}
-.figbox .dwg .tl,.figbox .dwg .ts{font-size:10.5px}
+/* Capped at 820, not the full 970 column. Six figures were 64% of A-005's
+   height; at 2:1 each pixel of width costs half a pixel of height six times
+   over. The cap is on .figbox rather than the media so the caption aligns with
+   the frame, and it is left-aligned to the text column rather than centred. */
+.figbox{border:1px solid var(--line);padding:calc(var(--u)*2);margin-top:calc(var(--u)*2.5);
+  overflow-x:auto;max-width:820px}
+.figbox .dwg .tl,.figbox .dwg .ts{font-size:13px}
 /* img,svg{max-width:100%} above would shrink drawings to ~2px type on a phone;
    give them a floor and let the container pan instead. */
 /* Figures are drawn at viewBox 1000 wide, but the figure column tops out at
@@ -313,11 +318,17 @@ p{margin:0;color:var(--sec)}
    width:100%, so a floor under the column width lets the drawing simply fit at
    desktop and only pan once the column is genuinely too narrow. 900px keeps
    labels at 9.5px there, against 5.3px for the 660px floor tried earlier. */
-.figbox svg{min-width:900px;max-width:none}
-/* 1365, not 1040. The figure column reaches the 900px floor at about a 1366px
-   viewport, so a 1040px breakpoint left 1041-1365 panning silently — measured,
-   not derived. */
-@media(max-width:1365px){.figbox::after{content:"\2190 scroll to pan \2192";display:block;
+.figbox svg{min-width:780px;max-width:none}
+/* The floor dropped from 900 to 780 with the frame cap, which would have shrunk
+   every drawn label with it. The in-figure sizes rise to compensate, so a label
+   still renders at about 10px on screen — the same as before the cap, not the
+   8px the smaller floor would otherwise have given. */
+/* 1245, measured at the boundary rather than derived: the frame holds its 820
+   cap down to a 1246px viewport and starts panning at 1244. This number moves
+   whenever the cap or the drawn floor moves — it was 1040, then 1365 when the
+   floor dropped to 900, and now 1245 with the frame capped. Re-measure it, do
+   not calculate it. */
+@media(max-width:1245px){.figbox::after{content:"\2190 scroll to pan \2192";display:block;
   font-family:'MN',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--ref);margin-top:calc(var(--u)*1.5);position:sticky;left:0}}
 .figbox:focus-visible{outline:1.5px solid var(--ink);outline-offset:3px}

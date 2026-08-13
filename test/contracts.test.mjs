@@ -415,7 +415,11 @@ test('print forces A-001 reveal details into their completed state', () => {
 
 test('A-001 states background, present activity, direction and availability without interaction', () => {
   const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
-  assert.match(a001, /class="ident[^>]*>[\s\S]*Overview/);
+  // The "Overview" heading was removed with the paragraph it introduced: with
+  // the prose gone it labelled nothing but a field list, and it rendered as a
+  // bare h3 beside the mono label on the panel above it. The block still has to
+  // be here and still has to carry the fields.
+  assert.match(a001, /class="ident[^>]*>[\s\S]*class="idm"/);
   // The four component panels are JS-driven, so anything only a tab states is
   // invisible without a runtime. This asserts the *fact* is reachable without
   // interaction, not one sentence: the Overview paragraph that used to carry it
@@ -1043,9 +1047,19 @@ test('a photographic figure fits its column', () => {
   const floor = /\.figbox svg\{[^}]*min-width\s*:\s*(\d+)px/.exec(css);
   assert.ok(floor, 'drawn figures keep their floor; their labels need it');
   const px = Number(floor[1]);
-  assert.ok(px >= 850 && px <= 960,
-    `drawn floor is ${px}px; it must sit under the 970px column and above the ` +
-    `660px that once rendered 5.3px labels`);
+
+  // Compare against the frame cap read from the stylesheet, not a hardcoded
+  // range — the first version of this pinned 850-960 and went stale the moment
+  // the frame was capped. The floor must clear the frame's inner width or the
+  // drawings pan at every viewport, which is the defect the browser gate found.
+  const cap = /\.figbox\{[^}]*max-width\s*:\s*(\d+)px/.exec(css);
+  assert.ok(cap, 'expected a max-width on .figbox');
+  const inner = Number(cap[1]) - 34;          // padding 16 each side + 1px borders
+  assert.ok(px <= inner,
+    `drawn floor is ${px}px inside a ${inner}px frame — the drawings would pan at every width`);
+  assert.ok(px >= 700,
+    `drawn floor is ${px}px; below about 700 the labels stop being readable ` +
+    `(a 660px floor once rendered them at 5.3px)`);
 });
 
 test('project panels are readable when the runtime fails', () => {
