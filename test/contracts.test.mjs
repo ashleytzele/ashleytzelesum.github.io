@@ -338,7 +338,7 @@ test('A-003 contains exactly the approved role facts and handoffs', () => {
     // reworded 2026-08-13: the internship was one ecosystem, not five errands.
     // Kept short — the summary is scanned, and the four sub-domains it used to
     // list are stated in the bullets underneath it.
-    'Technical / R&amp;D', 'Researched and developed a highway digitalization ecosystem, alongside offline mapping, point-of-sale printing and mobile work.',
+    'Technical / R&amp;D', 'Researched and developed a highway digitalization ecosystem, alongside offline mapping, point-of-sale integration and mobile applications.',
     '5 workstreams &middot; Drawings 05.1&ndash;05.3', 'Project evidence &rarr; A-005', 'Scope &amp; results',
     'EXP-03 &middot; Previous', 'Aug 2025&ndash;Mar 2026', 'Lifeguard', 'Mashouf Wellness Center',
     'San Francisco, California', 'Protected patron safety through active surveillance, facility checks, and emergency readiness on the pool deck.',

@@ -221,7 +221,7 @@
                 <div class="experience-meta"><span>EXP-02 &middot; Internship</span><span>Jun&ndash;Aug 2026</span></div>
                 <h4>Software Engineering Intern</h4>
                 <p class="experience-org">OSPIT Mobility &middot; Technical / R&amp;D &middot; Malaysia</p>
-                <p class="experience-scope">Researched and developed a highway digitalization ecosystem, alongside offline mapping, point-of-sale printing and mobile work.</p>
+                <p class="experience-scope">Researched and developed a highway digitalization ecosystem, alongside offline mapping, point-of-sale integration and mobile applications.</p>
                 <p class="experience-evidence">5 workstreams &middot; Drawings 05.1&ndash;05.3<br><a href="#a005">Project evidence &rarr; A-005</a></p>
               </div>
               <button class="experience-more" type="button" aria-controls="exp-02-detail" aria-expanded="true" data-label="OSPIT">Close details &mdash; OSPIT</button>
@@ -441,10 +441,10 @@
         <div class="tagline">Enterprise Systems Architecture &amp; Operations</div></div>
       <div class="pb"><div class="side">OSPIT<br>Professional</div>
         <div>
-          <p class="pdesc">Researched, designed and developed a highway digitalization ecosystem
-            integrating roadside equipment, network monitoring, traffic operations and enterprise
-            maintenance. Progressed the initiative from live-system research and workflow design
-            through architecture, implementation, integration testing and development of a unified
+          <p class="pdesc">Researched and developed a highway digitalization ecosystem integrating roadside
+            equipment, network monitoring, traffic operations and enterprise maintenance. Defined
+            the operating workflows and system architecture, implemented the integration
+            foundation, validated fault and maintenance processes, and developed a unified
             Asset Console.</p>
           <div class="figbox" tabindex="0" role="group" aria-label="Figure 2, scrollable">
             <svg class="dwg" viewBox="0 0 1000 500" role="img"
@@ -508,10 +508,10 @@
             <div class="dgrid">
               <div class="fld"><span class="k">Problem</span><p>Roadside equipment was distributed across multiple platforms that identified, monitored and operated the same physical devices differently &mdash; an enterprise maintenance register, a traffic control system, an IoT telemetry platform and a network monitor. Equipment records, network alarms, traffic events and maintenance activity could not be correlated reliably, producing duplicate identities, unactionable alarm volumes and fragmented operational workflows.</p></div>
               <div class="fld"><span class="k">Research &amp; discovery</span><p>Analyzed live systems, source code, APIs, operational records and existing architecture documents to distinguish implemented capabilities from proposed designs. Identified gaps in equipment identity, network topology, maintenance data, credential management and system ownership.</p></div>
-              <div class="fld"><span class="k">Workflow design</span><p>Developed end-to-end process flows covering device registration, commissioning, monitoring, fault detection, human verification, work-order creation, repair and closure. Defined system responsibilities and prevented monitoring platforms from dispatching maintenance work without human approval.</p></div>
-              <div class="fld"><span class="k">Architecture</span><p>Designed a layered architecture connecting roadside devices and telemetry, network monitoring, traffic operations and enterprise maintenance. Established an Asset Hub to correlate system-specific identifiers, synchronize equipment records and provide one operational view of each physical device. Defined field ownership, device-lifecycle rules and synchronization behavior across the platforms, with dry-run defaults, idempotent execution and validation that prevents a partial read from being treated as complete data.</p></div>
-              <div class="fld"><span class="k">Technical challenge</span><p>Diagnosed identity, monitoring and data-quality failures across live systems, including duplicate device identifiers, incomplete API reads, invalid monitoring codes, shared addresses and missing activation status. One reconciliation run stayed silent because the comparison never read whether a device was active, so devices switched off in the control system still counted as live in the register. Implemented validation and explicit failure states that prevent partial or conflicting records from being reported as healthy.</p></div>
-              <div class="fld"><span class="k">Result</span><p>Identity and fault correlation run in production &mdash; 386 matched identities across 430 records with no conflicts, and 248 raw outages reduced to 24 findings. The report-to-repair workflow is validated in staging and the Asset Console reads live systems; neither is deployed.</p></div>
+              <div class="fld"><span class="k">Workflow design</span><p>Developed end-to-end process flows covering device registration, commissioning, monitoring, fault detection, human verification, work-order creation, repair and closure. Defined system responsibilities and designed the maintenance workflow to require human approval before dispatch.</p></div>
+              <div class="fld"><span class="k">Architecture</span><p>Designed a layered architecture connecting roadside telemetry, network monitoring, traffic operations and enterprise maintenance. Developed an Asset Hub that correlates system-specific identifiers and synchronizes equipment records into one operational view of each physical device. Implemented field-ownership and device-lifecycle rules, idempotent synchronization, dry-run defaults and validation that rejects an incomplete read rather than treating it as complete.</p></div>
+              <div class="fld"><span class="k">Technical challenge</span><p>Diagnosed identity and data-quality defects across live systems, including duplicate identifiers, incomplete API responses and conflicting device states. Identified that reconciliation never read activation status, so devices switched off in the control system still counted as live in the register. Added the missing comparison and implemented explicit failure states for partial or conflicting data.</p></div>
+              <div class="fld"><span class="k">Result</span><p>Deployed identity and fault correlation to production. 386 of 391 roadside devices carry one identity across the register, the control system and the network monitor, with no conflicts, gaps or duplicate codes, and 248 monitoring outages reduce to 24 actionable findings. The report-to-repair workflow is validated in staging and the Asset Console reads live systems; neither is deployed. Counts verified August 2026.</p></div>
               <div class="fld"><span class="k">Key takeaway</span><p>Established explicit ownership across operational, monitoring and enterprise systems. Integration alone could not resolve conflicting identities, incomplete records or authority boundaries.</p></div>
             </div>
             <div class="refs"><span>Client work &mdash; not published</span></div>
