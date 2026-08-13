@@ -190,7 +190,7 @@ p{margin:0;color:var(--sec)}
 
 /* A-002 education route */
 #a002 .education-heading{margin-top:calc(var(--u)*5)}
-#a002 .education-heading p{max-width:58ch;margin-top:calc(var(--u)*2);font-size:.92rem;line-height:1.8}
+#a002 .education-heading p{max-width:66ch;margin-top:calc(var(--u)*2);font-size:.92rem;line-height:1.8}
 #a002 .education-route{position:relative;display:grid;
   grid-template-columns:minmax(0,1fr) minmax(120px,.34fr) minmax(0,1fr);
   align-items:center;margin-top:calc(var(--u)*7)}
@@ -259,12 +259,17 @@ p{margin:0;color:var(--sec)}
 .spec{border-top:1px solid var(--ink);padding-top:calc(var(--u)*2);margin-top:calc(var(--u)*4)}
 .spec .sk{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ref)}
 .spec .sh{margin:calc(var(--u)*1) 0;font-size:1.05rem;font-weight:600;color:var(--ink)}
-.spec p{font-size:.93rem;max-width:46ch}
+/* 66ch, not 46ch. The measures across this sheet set ran 46-66 with no system,
+   and the narrowest sat on A-001, which is read first. At 46ch this paragraph
+   capped at ~340px inside a ~440px column, throwing away a quarter of the width
+   and adding a line to every paragraph. Where a container is narrower than 66ch
+   it still wins; this only stops the cap biting before the column does. */
+.spec p{font-size:.93rem;max-width:66ch}
 .spec dl{display:grid;grid-template-columns:auto 1fr;gap:5px calc(var(--u)*2);margin:calc(var(--u)*2) 0 0}
 .spec dt{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ref);padding-top:3px}
 .spec dd{margin:0;color:var(--sec);font-size:.9rem}
 .ident{margin-top:calc(var(--u)*4);border-top:1px solid var(--ink);padding-top:calc(var(--u)*2)}
-.ident p{font-size:.96rem;max-width:46ch}.ident b{color:var(--ink);font-weight:600}
+.ident p{font-size:.96rem;max-width:66ch}.ident b{color:var(--ink);font-weight:600}
 /* The one piece of project evidence allowed off A-005, because a recruiter
    decides before reaching it. Ruled rather than coloured, so it reads as a
    called-out note on a drawing and not as a highlight box. */
@@ -296,7 +301,7 @@ p{margin:0;color:var(--sec)}
 .pb{display:grid;grid-template-columns:4.5rem minmax(0,1fr);gap:calc(var(--u)*3);margin-top:calc(var(--u)*2)}
 @media(max-width:760px){.pb{grid-template-columns:minmax(0,1fr)}}
 .pb .side{font-family:'MN',monospace;font-size:.68rem;color:var(--ref);line-height:1.9}
-.pdesc{font-size:.94rem;max-width:60ch}
+.pdesc{font-size:.94rem;max-width:66ch}
 .figbox{border:1px solid var(--line);padding:calc(var(--u)*2);margin-top:calc(var(--u)*2.5);overflow-x:auto}
 .figbox .dwg .tl,.figbox .dwg .ts{font-size:10.5px}
 /* img,svg{max-width:100%} above would shrink drawings to ~2px type on a phone;
@@ -424,7 +429,7 @@ p{margin:0;color:var(--sec)}
 .dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:calc(var(--u)*3) calc(var(--u)*4)}
 .fld .k{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ref);
   display:block;padding-bottom:6px;border-bottom:1px solid var(--hair);margin-bottom:8px}
-.fld p{font-size:.9rem;max-width:46ch}
+.fld p{font-size:.9rem;max-width:66ch}
 .fld ul{margin:0;padding-left:1.1em;color:var(--sec);font-size:.9rem}
 .fld li{margin-bottom:4px}
 .refs{display:flex;gap:calc(var(--u)*2);flex-wrap:wrap;margin-top:calc(var(--u)*2.5);
@@ -578,7 +583,7 @@ p{margin:0;color:var(--sec)}
    drawings that evidence it. No script participates beyond the site-wide reveal,
    and there is no figure — the mapping lives only in the evidence links, so
    adding a project is adding one link. */
-.a4-lead{font-size:clamp(.95rem,1.7vw,1.1rem);color:var(--sec);max-width:54ch;
+.a4-lead{font-size:clamp(.95rem,1.7vw,1.1rem);color:var(--sec);max-width:62ch;
   margin-top:calc(var(--u)*2);text-wrap:pretty}
 /* One measure. With no figure competing for width, the claims hold a comfortable
    line length instead of stretching across the pane. */
@@ -596,7 +601,7 @@ p{margin:0;color:var(--sec)}
 .claim h3 .n{font-family:'MN',monospace;font-size:.76rem;font-weight:400;color:var(--ref);
   flex:none;width:3.4rem}
 .claim-b{margin-left:calc(3.4rem + var(--u)*2)}
-.claim-b p{font-size:.94rem;margin-top:calc(var(--u)*1.5);max-width:60ch;text-wrap:pretty}
+.claim-b p{font-size:.94rem;margin-top:calc(var(--u)*1.5);max-width:66ch;text-wrap:pretty}
 .claim-b .how{color:var(--sec);font-size:.9rem}
 /* Evidence references. The border is --ref, not --line: at 1px it is the only
    resting-state signal that these are controls, so it has to clear 3:1 per WCAG
@@ -635,7 +640,7 @@ p{margin:0;color:var(--sec)}
 .stk .practice a:hover{border-bottom-color:var(--ink)}
 .handoff{margin-top:calc(var(--u)*5);padding-top:calc(var(--u)*2.5);border-top:1px solid var(--hair);
   display:flex;align-items:center;gap:calc(var(--u)*2);flex-wrap:wrap}
-.handoff p{font-size:.9rem;max-width:46ch}
+.handoff p{font-size:.9rem;max-width:66ch}
 /* One column at every width — there is no figure to place, so the sheet never
    needs a second track. Below 640 the reference number moves above its heading
    and the claim body loses its indent, which is what buys the measure back on a

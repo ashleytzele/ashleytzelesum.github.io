@@ -416,7 +416,12 @@ test('print forces A-001 reveal details into their completed state', () => {
 test('A-001 states background, present activity, direction and availability without interaction', () => {
   const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
   assert.match(a001, /class="ident[^>]*>[\s\S]*Overview/);
-  assert.match(a001, /From Malaysia to San Francisco/);
+  // The four component panels are JS-driven, so anything only a tab states is
+  // invisible without a runtime. This asserts the *fact* is reachable without
+  // interaction, not one sentence: the Overview paragraph that used to carry it
+  // was a mashup of three tab panels and was cut as duplication, so the
+  // background now sits in the field list instead. Any phrasing passes.
+  assert.match(a001, /Malaysia/);
   assert.match(a001, /Student Lead in Aquatics/);
   assert.match(a001, /systems, interfaces and physical operations/);
   assert.match(a001, /<dt>Availability<\/dt><dd>Summer 2027<\/dd>/);
