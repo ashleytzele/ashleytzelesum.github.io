@@ -413,29 +413,62 @@ p{margin:0;color:var(--sec)}
 .refs span{font-family:'MN',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ref)}
 
 /* A-006 */
-.dep{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));border:1px solid var(--line);
+/* A-006 title block. Every sheet header has been abbreviating this block for
+   five sheets; here it is drawn. Hairlines are the container's --line
+   background showing through a 1px grid gap, so every division is exactly one
+   pixel and no cell can double its neighbour's border. Print overrides this —
+   backgrounds are not guaranteed to render on paper, so the print block swaps
+   in real borders. */
+.tblock{display:grid;grid-template-columns:repeat(4,1fr) 1.45fr;
+  grid-template-areas:
+    "title  title  title  title  drawn"
+    "issued issued issued issued drawn"
+    "doc    rev    sheets scale  refs"
+    "status date   loc    loc    refs";
+  gap:1px;background:var(--line);border:1px solid var(--line);
   margin-top:calc(var(--u)*4)}
-.dep div{padding:calc(var(--u)*2);border-right:1px solid var(--line)}
-.dep div:last-child{border-right:0}
-.dep .k{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ref)}
-.dep .v{font-size:1.02rem;font-weight:600;margin-top:8px;letter-spacing:-.02em}
-.dep .d{font-family:'MN',monospace;font-size:.7rem;color:var(--ref);margin-top:6px;line-height:1.8}
-@media(max-width:900px){.dep div{border-right:0;border-bottom:1px solid var(--line)}.dep div:last-child{border-bottom:0}}
-.init{display:inline-block;margin-top:calc(var(--u)*4);border:1px solid var(--ink);padding:calc(var(--u)*1.75) calc(var(--u)*3);
-  font-family:'MN',monospace;font-size:.76rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;
+.tblock>div{background:var(--paper);padding:calc(var(--u)*2)}
+.c-title{grid-area:title;padding-top:calc(var(--u)*3);padding-bottom:calc(var(--u)*3)}
+.c-issued{grid-area:issued} .c-drawn{grid-area:drawn} .c-refs{grid-area:refs}
+.c-doc{grid-area:doc} .c-rev{grid-area:rev} .c-sheets{grid-area:sheets}
+.c-scale{grid-area:scale} .c-status{grid-area:status} .c-date{grid-area:date}
+.c-loc{grid-area:loc}
+.tblock .k{font-family:'MN',monospace;font-size:8px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ref);display:block;margin-bottom:7px}
+.tblock .v{font-size:.95rem;font-weight:600;letter-spacing:-.015em}
+.tblock .s{font-family:'MN',monospace;font-size:.7rem;color:var(--ref);display:block;
+  margin-top:5px;line-height:1.7}
+.tt{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:500;letter-spacing:-.035em;line-height:1.1}
+.tt .of{display:block;font-size:.42em;font-weight:400;letter-spacing:.02em;
+  color:var(--sec);margin-bottom:4px}
+.issue{font-size:clamp(1rem,2vw,1.22rem);font-weight:600;letter-spacing:-.02em}
+.rt{display:flex;flex-direction:column;margin-top:calc(var(--u)*1.5)}
+.rt a{min-height:44px;display:flex;align-items:center;gap:8px;text-decoration:none;
+  border-top:1px solid var(--hair);font-family:'MN',monospace;font-size:.76rem}
+.rt a:first-child{border-top:0}
+.rt a .ar{margin-left:auto;color:var(--ref)}
+.mail{font-family:'MN',monospace;font-size:.74rem;word-break:break-all;
+  display:inline-flex;align-items:center;min-height:44px;margin-top:2px}
+@media(max-width:1000px){
+  .tblock{grid-template-columns:repeat(2,1fr);
+    grid-template-areas:
+      "title  title"
+      "issued issued"
+      "drawn  refs"
+      "doc    rev"
+      "sheets scale"
+      "status date"
+      "loc    loc"}
+}
+@media(max-width:620px){
+  .tblock{grid-template-columns:minmax(0,1fr);grid-template-areas:none}
+  .tblock>div{grid-area:auto}
+}
+.init{display:inline-block;margin-top:calc(var(--u)*3);border:1px solid var(--ink);
+  padding:calc(var(--u)*1.75) calc(var(--u)*3);font-family:'MN',monospace;font-size:.76rem;
+  letter-spacing:.22em;text-transform:uppercase;text-decoration:none;
   transition:background .2s linear,color .2s linear}
 .init:hover{background:var(--ink);color:var(--paper)}
-.endpage{text-align:center;padding:calc(var(--u)*10) 0 calc(var(--u)*5)}
-.endpage .e{font-family:'MN',monospace;font-size:9.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--ref)}
-.endpage .b{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:500;letter-spacing:-.035em;margin-top:calc(var(--u)*2)}
-.endmeta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:calc(var(--u)*2);
-  max-width:640px;margin:calc(var(--u)*5) auto 0;border-top:1px solid var(--line);padding-top:calc(var(--u)*2.5)}
-.endmeta .k{font-family:'MN',monospace;font-size:8px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--ref);display:block;margin-bottom:5px}
-.endmeta .v{font-family:'MN',monospace;font-size:.8rem;font-weight:500}
-.sig{margin-top:calc(var(--u)*7)}
-.sig .n{font-size:1.15rem;font-weight:500;letter-spacing:-.025em}
-.sig .r{font-family:'MN',monospace;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ref);margin-top:6px}
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}
   /* !important because each of these has to beat a .runtime-ready rule that hides
@@ -466,6 +499,11 @@ p{margin:0;color:var(--sec)}
   .sheet{break-after:page}.sheet:last-child{break-after:auto}
   .cover .pane{min-height:auto}.rule{display:none}
   .detail{display:block!important}.more{display:none}
+  /* The title block's rules are a background showing through a grid gap, and
+     browsers do not reliably print backgrounds. Without this the block — the
+     document's formal terminator — prints as unruled text. */
+  .tblock{background:none;gap:0}
+  .tblock>div{border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
   .dwg .ln{stroke-dashoffset:0;animation:none}
   .dwg .fd,.an{opacity:1;animation:none}
   #a001 .part-desc,#a001 .part-ref{opacity:1!important;animation:none!important}

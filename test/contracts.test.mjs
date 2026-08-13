@@ -1060,3 +1060,47 @@ test('every project panel opens on a context field and shares one spine', () => 
     }
   }
 });
+
+// --- A-006 title block ------------------------------------------------------
+const a006Of = (s) => s.slice(s.indexOf('id="a006"'));
+
+test('A-006 shows the email address once', () => {
+  // The sheet previously printed it three times: the button, the line under it,
+  // and the end block. A mailto on the action button is fine — that is a
+  // labelled control, not a printed address — so this counts visible text.
+  const text = a006Of(html).replace(/<[^>]+>/g, ' ');
+  const shown = (text.match(/ashleysumtzele04@gmail\.com/g) || []).length;
+  assert.equal(shown, 1, `A-006 prints the address ${shown} times, expected 1`);
+});
+
+test('A-006 centres nothing', () => {
+  // Every sheet is left-aligned to the document grid. The old .endpage broke
+  // that on the last screen of the site, which is the worst place to break it.
+  const rules = css.match(/\.(?:tblock|endpage|endmeta|sig|dep)[^{]*\{[^}]*\}/g) || [];
+  for (const r of rules) {
+    assert.ok(!/text-align\s*:\s*center/.test(r), `centred text on A-006: ${r}`);
+    assert.ok(!/margin\s*:[^;]*\bauto\b/.test(r), `auto margin on A-006: ${r}`);
+  }
+});
+
+test('the components the title block replaces are gone', () => {
+  for (const c of ['dep', 'endpage', 'endmeta', 'sig']) {
+    assert.ok(!new RegExp(`class="[^"]*\\b${c}\\b`).test(html), `.${c} still in markup`);
+    assert.ok(!new RegExp(`^\\.${c}[\\s{.,:]`, 'm').test(css), `.${c} still in stylesheet`);
+  }
+});
+
+test('the title block carries every field the spec names', () => {
+  const a006 = a006Of(html);
+  const fields = ['Document title', 'Issued for', 'Drawn by', 'References',
+    'Document no.', 'Revision', 'Sheets', 'Scale', 'Status', 'Issued', 'Location'];
+  for (const f of fields) {
+    assert.ok(a006.includes(`>${f}<`), `title block is missing the ${f} field`);
+  }
+  const cells = [...a006.matchAll(/<div class="(c-[a-z]+)"[^>]*>([\s\S]*?)(?=<div class="c-|<\/div>\s*<a class="init)/g)];
+  assert.equal(cells.length, 11, `expected 11 title-block cells, found ${cells.length}`);
+  for (const [, cls, body] of cells) {
+    const value = body.replace(/<span class="k">[\s\S]*?<\/span>/, '').replace(/<[^>]+>/g, '').trim();
+    assert.ok(value.length > 0, `empty title-block cell: .${cls}`);
+  }
+});
