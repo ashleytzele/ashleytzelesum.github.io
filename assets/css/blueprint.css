@@ -494,8 +494,9 @@ p{margin:0;color:var(--sec)}
    sideways pan on every viewport under about 1100px. */
 .figbox img,.figbox video{width:100%;max-width:100%;height:auto;display:block;
   border:1px solid var(--hair)}
-/* The recording is 16:9 inside a 2:1 frame. Cover crops ~12% off the top and
-   bottom; contain would pillarbox it and break the row of equal figures. */
+/* No video ships today — 05.6 is a still. Kept so a future recording lands in
+   the 2:1 frame cropped rather than pillarboxed, which would break the row of
+   equal figures. */
 .figbox video{object-fit:cover;background:var(--paper)}
 
 /* Cover drawing frame, responsive. Registration marks are document notation, not

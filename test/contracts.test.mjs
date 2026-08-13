@@ -476,9 +476,12 @@ test('every media element declares intrinsic size and a text alternative', () =>
   }
 });
 
+// The sheet currently ships no video — 05.6 moved from a screen recording to a
+// still. These two checks deliberately do NOT require one to exist: that would
+// make the test dictate the design. They bind any video that is ever added
+// back, which is when the rules below start mattering again.
 test('every video satisfies the media slot contract', () => {
   const videos = html.match(/<video[^>]*>/g) || [];
-  assert.ok(videos.length > 0, 'expected at least one video, to prove the slot');
   for (const v of videos) {
     assert.match(v, /\bposter="[^"]+"/, `no poster frame: ${v}`);
     assert.ok(v.includes('muted'), `must be muted: ${v}`);
@@ -530,7 +533,6 @@ test('no .figbox media rule (img/video) uses a min-width floor', () => {
 
 test('every video declares an aspect-ratio, to prevent layout shift on metadata load', () => {
   const videos = html.match(/<video\b[^>]*>/g) || [];
-  assert.ok(videos.length > 0, 'expected at least one video, to prove the check');
   for (const v of videos) {
     assert.match(v, /aspect-ratio\s*:\s*[\d.]+\s*\/\s*[\d.]+/, `no aspect-ratio: ${v}`);
   }
