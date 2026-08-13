@@ -588,6 +588,38 @@ test('every video declares an aspect-ratio, to prevent layout shift on metadata 
   }
 });
 
+test('the one project claim on A-001 cannot drift from A-005', () => {
+  // A-001 states cad-to-map's evidence because a recruiter decides before
+  // reaching A-005. That duplicates countable facts across two sheets, which is
+  // exactly how the sheets fell out of sync before. Rather than ban the
+  // duplication, pin it: the numbers are read from both sheets and compared, so
+  // changing one without the other fails here instead of shipping.
+  const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
+  const p1 = html.slice(html.indexOf('id="proj-1"'), html.indexOf('id="proj-2"'));
+
+  const num = (s, re) => { const m = re.exec(s); return m ? Number(m[1]) : null; };
+  const pairs = [
+    ['tests', num(a001, /(\d+)\s+tests\b/), num(p1, /(\d+)\s+Python tests\b/)],
+    ['routing checks', num(a001, /(\d+)\s+routing checks\b/), num(p1, /(\d+)\s+routing checks\b/)],
+  ];
+  for (const [what, onA001, onA005] of pairs) {
+    assert.ok(onA001 !== null, `A-001 no longer states the ${what} count`);
+    assert.ok(onA005 !== null, `05.1 no longer states the ${what} count`);
+    assert.equal(onA001, onA005,
+      `A-001 says ${onA001} ${what}, 05.1 says ${onA005} — the sheets have drifted`);
+  }
+  // the site count is spelled, not numeric, so compare the word
+  const sites = /\b(one|two|three|four|five|six|seven|eight|nine|ten)\s+kiosk sites\b/i;
+  const s1 = sites.exec(a001), s5 = sites.exec(p1);
+  assert.ok(s1 && s5, 'both sheets must state the kiosk-site count');
+  assert.equal(s1[1].toLowerCase(), s5[1].toLowerCase(),
+    `A-001 says ${s1[1]} kiosk sites, 05.1 says ${s5[1]}`);
+
+  // and it stays *one* claim — A-001 is not a second projects sheet
+  const links = [...a001.matchAll(/href="#proj-\d"/g)];
+  assert.equal(links.length, 1, `A-001 links to ${links.length} projects; it may cite one`);
+});
+
 test('A-001 keeps project inventory claims on the projects sheet', () => {
   const a001 = html.slice(html.indexOf('id="a001"'), html.indexOf('id="a002"'));
   const engineering = /engineering:\{([^}]*)\}/.exec(js);
@@ -916,7 +948,9 @@ test('every A-004 evidence link targets a project that exists', () => {
   const targets = [...a004.matchAll(/class="ev" href="#(proj-\d)"/g)].map(m => m[1]);
   assert.ok(targets.length >= 10, `expected the evidence links, found ${targets.length}`);
   for (const t of new Set(targets)) {
-    assert.ok(html.includes(`<article class="proj an" id="${t}">`),
+    // matched by id and the proj class, not by the exact class string — pinning
+    // "proj an" made adding a modifier class look like a broken link
+    assert.ok(new RegExp(`<article class="proj[^"]*" id="${t}"`).test(html),
       `evidence link points at #${t}, which does not exist`);
     // and the article must still contain the panel that :target opens
     const n = t.split('-')[1];
@@ -1026,12 +1060,24 @@ test('project panels are readable when the runtime fails', () => {
     'the runtime must collapse the panels once it has initialised');
 });
 
-test('A-005 asserts no ranking between its projects', () => {
+test('A-005 marks one project, and does not tier the rest', () => {
+  // The original rule was "no ranking at all", written after two group labels
+  // split the sheet into "Featured engineering work" and "Other builds" —
+  // which read the three most verifiable projects as the lesser three. That
+  // grouping stays banned.
+  // What changed: a reviewer pointed out that six equal entries waste the
+  // strongest one, and Ashley chose to mark a single project. One marker does
+  // not recreate a tier; a second one starts to, so the count is pinned.
   const a005 = /<section class="sheet" id="a005"[\s\S]*?\n<\/section>/.exec(html)?.[0] ?? '';
   for (const gone of ['Featured engineering work', 'Other builds']) {
     assert.ok(!a005.includes(gone),
       `"${gone}" marks the three most verifiable projects as the lesser three`);
   }
+  const marks = [...a005.matchAll(/class="feat-mark"/g)];
+  assert.equal(marks.length, 1, `${marks.length} projects are marked; exactly one may be`);
+  const feats = [...a005.matchAll(/<article class="proj[^"]*\bfeat\b[^"]*" id="(proj-\d)"/g)];
+  assert.deepEqual(feats.map(m => m[1]), ['proj-1'],
+    'the marked project must be the one A-001 cites, or the two sheets disagree');
 });
 
 test('05.6 names SQLite, the database the deployed app actually uses', () => {

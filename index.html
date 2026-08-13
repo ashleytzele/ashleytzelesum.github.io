@@ -134,6 +134,7 @@
         <div class="ident an" style="animation-delay:1.3s">
           <h3 class="sk">Overview</h3>
           <p>From Malaysia to San Francisco, I am studying Computer Science at San Francisco State while working as a Student Lead in Aquatics. My software work spans systems, interfaces and physical operations, with a focus on making complicated tools usable by the people who depend on them.</p>
+          <p class="lead-ev">The fullest example is <a href="#proj-1">cad-to-map</a>, which turns a CAD site plan into a wayfinding map that runs with no network connection. Six kiosk sites were built from it, and its public repository carries 80 tests and 21 routing checks.</p>
           <dl class="idm">
             <dt>Location</dt><dd>San Francisco, CA &middot; relocatable</dd>
             <dt>Availability</dt><dd>Summer 2027</dd>
@@ -334,7 +335,7 @@
       </div>
 
       <div class="claim" id="c3">
-        <h3><span class="n">04.3</span> I verify what I will not be there to watch</h3>
+        <h3><span class="n">04.3</span> If I will not be there to watch it, it has to prove itself</h3>
         <div class="claim-b">
           <p>80 Python tests and 21 routing checks guard a converter running unattended at 6
             sites. 73 more run with no network at all, every external call fixtured. A
@@ -351,7 +352,7 @@
       </div>
 
       <div class="claim" id="c4">
-        <h3><span class="n">04.4</span> I work out what the thing actually is before I build the screen</h3>
+        <h3><span class="n">04.4</span> What the thing actually is comes before what it looks like</h3>
         <div class="claim-b">
           <p>I swim competitively, so I already knew which numbers mattered &mdash; and deciding
             what a race is actually made of took far longer than building the charts. Equipment
@@ -396,7 +397,8 @@
         detail drawing. Client work is drawn rather than screenshotted.</p></div>
 
     <!-- 05.1 -->
-    <article class="proj an" id="proj-1">
+    <article class="proj an feat" id="proj-1">
+      <div class="feat-mark">Start here &middot; most complete public project</div>
       <div class="ph"><div class="r">05.1</div><h3>cad-to-map</h3>
         <div class="tagline">Open Source Tool</div></div>
       <div class="pb"><div class="side">Personal<br>Public</div>
@@ -593,7 +595,7 @@
           <div class="figbox" tabindex="0" role="group" aria-label="Figure 4, scrollable">
             <svg class="dwg" viewBox="0 0 1000 500" role="img"
               aria-label="Terminal transcript of running python -m scoutmini pace Leclerc Monaco, season 2024, against real FastF1 timing data: Charles Leclerc&rsquo;s fastest lap, median race pace and tyre strategy for the 2024 Monaco Grand Prix, with the data source printed as the final, emphasised line.">
-              <text class="tl fd" style="animation-delay:.1s" x="40" y="30">ASKED IN ENGLISH &middot; ANSWERED FROM REAL DATA</text>
+              <text class="tl fd" style="animation-delay:.1s" x="40" y="30">ONE QUESTION IN ENGLISH &middot; ONE COMMAND</text>
 
               <g class="fd" style="animation-delay:.3s"><rect class="f" x="40" y="62" width="920" height="372" pathLength="1"/></g>
               <g class="fd" style="animation-delay:.45s"><text class="ts" x="64" y="104" style="fill:var(--ink)">$ python -m scoutmini pace Leclerc Monaco --season 2024</text></g>
@@ -609,17 +611,17 @@
               <g class="fd" style="animation-delay:1.5s"><text class="ts" x="64" y="400" style="fill:var(--ink)">$</text>
                 <rect x="78" y="389" width="9" height="13" fill="var(--ink)"/></g>
 
-              <text class="tl fd" style="animation-delay:1.65s" x="40" y="478">THE MODEL NEVER ANSWERS FROM MEMORY</text>
+              <text class="tl fd" style="animation-delay:1.65s" x="40" y="478">F1 IS THE FIRST SPORT &middot; THE ENGINE IS NOT F1-SPECIFIC</text>
             </svg>
             <div class="figcap"><span>Fig. 05.4 &mdash; Real CLI output, verbatim</span><span>FastF1 timing data</span></div>
           </div>
           <button class="more" type="button" data-more="p4" aria-controls="p4" data-label="05.4" aria-expanded="true">Close detail &mdash; 05.4</button>
           <div class="detail" id="p4" data-open="true">
             <div class="dgrid">
-              <div class="fld"><span class="k">Inspiration</span><p>Getting into a sport means asking questions with obvious answers to everyone but you: who drives for which team, who is number 11, why that lap mattered. Ask a chatbot and you get a fluent answer that may be entirely invented, which is worse than no answer when you have no way to check it. The idea was an assistant a newcomer could trust, because it answers only from real data and shows where each number came from.</p></div>
-              <div class="fld"><span class="k">Approach</span><p>Fetch the numbers first, then let the model write only from what a tool returned. It never answers from memory, and every report prints its source. An agent mode lets it choose which data tools to call across several steps. It is built against Formula 1 timing data, and the shape is deliberately sport-agnostic: the model never touches the data source directly, so another sport is another set of tools rather than a rewrite.</p></div>
+              <div class="fld"><span class="k">Inspiration</span><p>Getting into a sport means asking questions with obvious answers to everyone but you: who drives for which team, who is number 11, why that lap mattered. Ask a chatbot and you get a fluent answer that may be entirely invented, which is worse than no answer when you have no way to check it. The idea was an assistant a newcomer could actually check.</p></div>
+              <div class="fld"><span class="k">Approach</span><p>Fetch the numbers first, then let the model write only from what a tool returned. An agent mode lets it choose which data tools to call across several steps. It is built against Formula 1 timing data, and the shape is deliberately sport-agnostic: the model never touches the data source directly, so another sport is another set of tools rather than a rewrite.</p></div>
               <div class="fld"><span class="k">Result</span><p>73 tests, all offline, with every external call fixtured, so the suite runs anywhere without a network or an API key.</p></div>
-              <div class="fld"><span class="k">What I learned</span><p>I built it so the model never answers from memory: it only ever sees what a tool returned, and every report prints its sources. Prompting it to be careful did not hold; only the structure did.</p></div>
+              <div class="fld"><span class="k">What I learned</span><p>Prompting the model to be careful did not hold. Only the structure did &mdash; it cannot cite a number it was never handed.</p></div>
               <div class="fld"><span class="k">Technology</span><p>Python &middot; OpenAI function calling &middot; Typer &middot; Jolpica-F1 &middot; FastF1 &middot; pytest</p></div>
             </div>
             <div class="refs"><a href="https://github.com/ashleytzele/scoutmini"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> Source</a></div>

@@ -265,6 +265,12 @@ p{margin:0;color:var(--sec)}
 .spec dd{margin:0;color:var(--sec);font-size:.9rem}
 .ident{margin-top:calc(var(--u)*4);border-top:1px solid var(--ink);padding-top:calc(var(--u)*2)}
 .ident p{font-size:.96rem;max-width:46ch}.ident b{color:var(--ink);font-weight:600}
+/* The one piece of project evidence allowed off A-005, because a recruiter
+   decides before reaching it. Ruled rather than coloured, so it reads as a
+   called-out note on a drawing and not as a highlight box. */
+.lead-ev{border-left:1px solid var(--ink);padding-left:calc(var(--u)*2);
+  margin-top:calc(var(--u)*2.5)}
+.lead-ev a{font-weight:600;text-underline-offset:3px}
 .idm{display:grid;grid-template-columns:auto 1fr;gap:6px calc(var(--u)*2);margin:calc(var(--u)*2) 0 0}
 .idm dt{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ref);padding-top:3px}
 .idm dd{margin:0;color:var(--sec);font-size:.9rem;overflow-wrap:anywhere}
@@ -275,6 +281,14 @@ p{margin:0;color:var(--sec)}
 
 /* A-005 project index + expand */
 .proj{border-top:1px solid var(--ink);padding-top:calc(var(--u)*2.5);margin-top:calc(var(--u)*3.5)}
+/* One project is marked, not a tier of them. The earlier sheet split six
+   projects into "Featured engineering work" and "Other builds", which read the
+   three most verifiable ones as the lesser three; that grouping stays banned.
+   A heavier rule is the drawing convention for a primary element, so the marker
+   is weight, not colour. */
+.proj.feat{border-top-width:2px}
+.feat-mark{font-family:'MN',monospace;font-size:8.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ref);margin-bottom:calc(var(--u)*1.5)}
 .ph{display:grid;grid-template-columns:4.5rem minmax(0,1fr) auto;gap:calc(var(--u)*3);align-items:baseline}
 .ph .r{font-family:'MN',monospace;font-size:.74rem;color:var(--ref)}
 .ph .tagline{font-family:'MN',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ref)}
