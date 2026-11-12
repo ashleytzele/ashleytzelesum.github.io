@@ -24,3 +24,9 @@ proto-assets/
 # outside the repo until they are cropped, re-encoded and actually referenced.
 CAD *.png
 CAD-MAP *.mov
+
+# Local tooling and leftovers from the version 2 working tree, never published
+.claude/
+graphify-out/
+docs/archive/
+assets/
