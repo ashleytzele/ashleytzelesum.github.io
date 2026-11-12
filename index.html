@@ -967,6 +967,13 @@ body{background-image:none}
   if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
     document.querySelectorAll('.cadv video').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); v.controls = true; });
   }
+  /* v86: videos built from a string can miss the muted flag on iPhone, which blocks autoplay. Set it as a property and play when on screen */
+  if (!window.matchMedia('(prefers-reduced-motion:reduce)').matches && 'IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { var v = e.target; if (e.isIntersecting) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } else v.pause(); });
+    }, { threshold: .25 });
+    document.querySelectorAll('.cadv video').forEach(function (v) { v.muted = true; v.defaultMuted = true; v.playsInline = true; v.setAttribute('playsinline', ''); vio.observe(v); });
+  }
   /* ScoutMini terminal: types the command, prints the report, loops */
   (function () {
     var body = document.querySelector('.term .term-body');
