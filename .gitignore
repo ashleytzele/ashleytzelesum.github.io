@@ -30,3 +30,24 @@ CAD-MAP *.mov
 graphify-out/
 docs/archive/
 assets/
+
+# Original photos and videos never go in the repo, only the web copies that
+# ADDING-MEDIA.md makes. Keeps phone exports and 4K clips from being committed.
+img/originals/
+originals/
+*.MOV
+*.mov
+*.HEIC
+*.heic
+*.MP4
+*.JPG
+*.JPEG
+*.jpeg
+*.BMP
+*.bmp
+*.tif
+*.tiff
+
+# Scratch output from checks (screenshots, contact sheets)
+rec/
+*.log
