@@ -15,7 +15,7 @@
   --mid:#DCDCDF;
   --deep:#C9C9CE;
   --ink:#111113;
-  --muted:#6B6B72;
+  --muted:#64646B;
   --line:#CDCDD2;
   --display:"Archivo","Arial Narrow",system-ui,sans-serif;
   --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -616,7 +616,7 @@ a{color:inherit}
 .pc .tag.f,.hpt .tag.f,.sg-txt .tag.f,.pj-txt .tag.f,.sc-txt .tag.f{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .status::before{background:var(--ink)}
 /* v35: lilac base with aubergine ink; no section divider rules so the motion reads as one piece */
-:root{--bg:#E9E9EB;--paper:#F5F5F6;--mid:#DCDCDF;--deep:#C9C9CE;--ink:#111113;--muted:#6B6B72;--line:#CDCDD2;--lilac:#111113}
+:root{--bg:#E9E9EB;--paper:#F5F5F6;--mid:#DCDCDF;--deep:#C9C9CE;--ink:#111113;--muted:#64646B;--line:#CDCDD2;--lilac:#111113}
 .sh{border-top:0}
 .oc{border-block:0}
 .btn.solid,.btn.sm.solid{background:var(--ink);color:var(--bg);border-color:var(--ink)}
@@ -750,6 +750,12 @@ body{background-image:none}
 .brand{display:inline-flex;align-items:center;gap:.55rem}
 .brand-head{width:40px;height:40px;display:block;transition:transform .25s}
 .brand:hover .brand-head{transform:rotate(-8deg) scale(1.06)}
+
+/* v80: fit every project card inside the visible band (below the nav, above the fold) at any screen ratio. JS sets the vertical offset and a scale when a card is taller than the band */
+@media (min-width:861px) and (prefers-reduced-motion:no-preference){
+  .slide,.slide.l,.slide.r{align-items:center!important;padding-top:0!important;padding-bottom:0!important}
+  .slide .sc{margin-top:0!important;transform-origin:center center}
+}
 </style>
 <link rel="icon" href="img/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
@@ -788,7 +794,7 @@ body{background-image:none}
 
   
 
-  <div class="band" aria-label="Looking for Summer 2027 software engineering internships"><div class="band-track"><span>Looking for Summer 2027 software engineering internships &nbsp;·&nbsp; San Francisco, CA &nbsp;·&nbsp; Open to relocating &nbsp;·&nbsp; </span><span aria-hidden="true">Looking for Summer 2027 software engineering internships &nbsp;·&nbsp; San Francisco, CA &nbsp;·&nbsp; Open to relocating &nbsp;·&nbsp; </span></div></div>
+  <aside class="band" aria-label="Looking for Summer 2027 software engineering internships"><div class="band-track"><span>Looking for Summer 2027 software engineering internships &nbsp;·&nbsp; San Francisco, CA &nbsp;·&nbsp; Open to relocating &nbsp;·&nbsp; </span><span aria-hidden="true">Looking for Summer 2027 software engineering internships &nbsp;·&nbsp; San Francisco, CA &nbsp;·&nbsp; Open to relocating &nbsp;·&nbsp; </span></div></aside>
   <section class="sec" id="work" style="padding-top:0">
     <div class="wrap">
       <div class="sh"><h2 class="disp big" aria-label="Projects"><span class="bg-o" aria-hidden="true">Projects</span><span class="bg-f" aria-hidden="true">Projects</span></h2></div>
@@ -842,7 +848,7 @@ body{background-image:none}
   </section>
 </main>
 
-<div class="band" aria-label="Looking for Summer 2027 software engineering internships"><div class="band-track"><span>Looking for Summer 2027 software engineering internships &nbsp;·&nbsp; San Francisco, CA &nbsp;·&nbsp; Open to relocating &nbsp;·&nbsp; </span><span aria-hidden="true">Looking for Summer 2027 software engineering internships &nbsp;·&nbsp; San Francisco, CA &nbsp;·&nbsp; Open to relocating &nbsp;·&nbsp; </span></div></div>
+<aside class="band" aria-hidden="true"><div class="band-track"><span>Looking for Summer 2027 software engineering internships &nbsp;·&nbsp; San Francisco, CA &nbsp;·&nbsp; Open to relocating &nbsp;·&nbsp; </span><span aria-hidden="true">Looking for Summer 2027 software engineering internships &nbsp;·&nbsp; San Francisco, CA &nbsp;·&nbsp; Open to relocating &nbsp;·&nbsp; </span></div></aside>
 
 <footer class="foot" id="contact">
   <div class="wrap">
@@ -983,6 +989,20 @@ body{background-image:none}
   }
   var slideEls = [].slice.call(stgEl.querySelectorAll('.slide'));
   var DIAG_K = 0.14, DIAG_MAX = 120;
+  /* v80: measure each card against the band between the nav and the bottom edge; shrink it if it cannot fit */
+  function hfit() {
+    if (!pinMQ.matches) { slideEls.forEach(function (sl) { var c = sl.firstElementChild; if (c) c.style.scale = ''; sl._fit = null; }); return; }
+    var nav = document.getElementById('nav'), nb = nav ? nav.getBoundingClientRect().height : 0;
+    var pad = Math.max(12, window.innerHeight * 0.03), top = nb + pad, bot = window.innerHeight - pad, band = bot - top;
+    slideEls.forEach(function (sl, i) {
+      var c = sl.firstElementChild; if (!c) return;
+      c.style.scale = '';
+      var h = c.offsetHeight, k = h > band ? band / h : 1;
+      c.style.scale = k < 1 ? k.toFixed(3) : '';
+      var vh = h * k, room = Math.max(0, (band - vh) / 2);
+      sl._fit = { c: (top + bot) / 2 - window.innerHeight / 2, room: room, st: (sl.classList.contains('l') ? -1 : 1) * room * 0.5 };
+    });
+  }
   function hmove() {
     if (!pinMQ.matches) return;
     var top = hpinEl.getBoundingClientRect().top + window.scrollY, range = Math.max(1, hpinEl.offsetHeight - window.innerHeight);
@@ -990,16 +1010,21 @@ body{background-image:none}
     var X = p * (stgEl.scrollWidth - window.innerWidth), W = window.innerWidth;
     stgEl.style.transform = 'translate3d(' + (-X) + 'px,0,0)';
     /* v62: diagonal travel. Each card sits lower the further left it is on screen, so cards come in high on the right and drift down to the left */
+    /* v80: the offset is clamped to the free room around each card, so a card never slides under the nav or below the fold */
     slideEls.forEach(function (sl) {
+      var f = sl._fit || { c: 0, room: 0, st: 0 };
       var cx = sl.offsetLeft - X + sl.offsetWidth / 2;
-      var dy = Math.max(-DIAG_MAX, Math.min(DIAG_MAX, -DIAG_K * (cx - W / 2)));
+      var dy = f.st + Math.max(-DIAG_MAX, Math.min(DIAG_MAX, -DIAG_K * (cx - W / 2)));
+      dy = f.c + Math.max(-f.room, Math.min(f.room, dy));
       sl.style.translate = '0 ' + dy.toFixed(1) + 'px';
     });
     document.getElementById('work').style.setProperty('--dx', (-p * 160).toFixed(1) + 'px');
   }
   window.addEventListener('scroll', hmove, { passive: true });
-  window.addEventListener('resize', function () { hsize(); hmove(); });
-  hsize(); hmove();
+  window.addEventListener('resize', function () { hfit(); hsize(); hmove(); });
+  hfit(); hsize(); hmove();
+  window.addEventListener('load', function () { hfit(); hmove(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { hfit(); hmove(); });
 
   /* Split hero name into letters for the entrance */
   document.querySelectorAll('[data-split]').forEach(function (el) {
