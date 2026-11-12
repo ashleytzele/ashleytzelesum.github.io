@@ -761,7 +761,7 @@ body{background-image:none}
 .cam .pr{clip-path:circle(var(--r) at var(--mx) var(--my))}
 .cam.rev .pr{transition:clip-path .45s cubic-bezier(.2,.7,.2,1)}
 .cam::after{content:"";position:absolute;left:var(--mx);top:var(--my);width:calc(var(--r)*2);height:calc(var(--r)*2);translate:-50% -50%;border:1.5px solid var(--ink);border-radius:50%;pointer-events:none;opacity:var(--ro,0);transition:opacity .2s}
-@media (max-width:860px){.lt{grid-template-columns:1fr}.cam{justify-self:center;max-width:340px;cursor:pointer}}
+@media (max-width:860px){.lt{grid-template-columns:1fr}.cam{justify-self:center;max-width:340px}}
 .brand{display:inline-flex;align-items:center;gap:.55rem}
 .brand-head{width:40px;height:40px;display:block;transition:transform .25s}
 .brand:hover .brand-head{transform:rotate(-8deg) scale(1.06)}
@@ -784,6 +784,10 @@ body{background-image:none}
 .cam:not(.liquid) .pa{-webkit-mask:radial-gradient(circle var(--r) at var(--mx) var(--my),transparent 98%,#000 100%);mask:radial-gradient(circle var(--r) at var(--mx) var(--my),transparent 98%,#000 100%)}
 .cam.rev .pa{transition:opacity .45s}
 .cam.on .pa{opacity:0}
+
+/* v83: touch screens show only the cartoon */
+.cam.still{cursor:auto}
+.cam.still::after{display:none}
 </style>
 <link rel="icon" href="img/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
@@ -870,7 +874,7 @@ body{background-image:none}
       </div>
       <figure class="cam" id="cam">
         <img class="pa" src="img/life-avatar.webp" width="720" height="960" alt="Ashley holding a camera, illustrated">
-        <img class="pr" src="img/life-trek.webp" width="720" height="960" alt="" aria-hidden="true">
+        <img class="pr" src="img/life-trek.webp" loading="lazy" width="720" height="960" alt="" aria-hidden="true">
       </figure>
     </div>
   </section>
@@ -1138,11 +1142,9 @@ body{background-image:none}
       ph.addEventListener('pointerenter', function () { ph.style.setProperty('--ro', 1); go(ph.offsetWidth * .24); });
       ph.addEventListener('pointerleave', function () { ph.style.setProperty('--ro', 0); go(0); });
     } else {
-      var on = false;
-      ph.setAttribute('role', 'button'); ph.setAttribute('tabindex', '0'); ph.setAttribute('aria-label', 'Show the real photo');
-      function tog() { on = !on; ph.classList.add('rev'); ph.classList.toggle('on', on); ph.style.setProperty('--mx', '50%'); ph.style.setProperty('--my', '40%'); ph.style.setProperty('--r', on ? '120%' : '0px'); ph.setAttribute('aria-label', on ? 'Show the illustration' : 'Show the real photo'); }
-      ph.addEventListener('click', tog);
-      ph.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tog(); } });
+      /* phones and tablets: just the cartoon, no hidden photo */
+      var pr = ph.querySelector('.pr'); if (pr) pr.remove();
+      ph.classList.add('still');
     }
   })();
   /* v64: big section headings fill and drift with scroll */
