@@ -792,6 +792,8 @@ body{background-image:none}
 .cam.still::after{display:none}
 /* v84: narrow windows (and phone emulation in dev tools) show only the cartoon, even with a mouse */
 @media (max-width:860px){.cam .liq{display:none}.cam.liquid.live .pa{visibility:visible}}
+/* v85: on phones and tablets the stacked project cards keep the page's side margins */
+@media (max-width:860px){#stg{padding-inline:var(--gutter);box-sizing:border-box}}
 </style>
 <link rel="icon" href="img/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
