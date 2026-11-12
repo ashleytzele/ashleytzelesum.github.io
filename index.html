@@ -771,6 +771,13 @@ body{background-image:none}
   .slide,.slide.l,.slide.r{align-items:center!important;padding-top:0!important;padding-bottom:0!important}
   .slide .sc{margin-top:0!important;transform-origin:center center}
 }
+
+/* v81: liquid reveal canvas sits over the illustration; the plain circle and its ring are off in this mode */
+.cam.liquid{cursor:auto}
+.cam.liquid::after{display:none}
+.cam.liquid .pr{visibility:hidden}
+.cam .liq{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.cam .pa{transition:translate .5s cubic-bezier(.2,.7,.2,1)}
 </style>
 <link rel="icon" href="img/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
@@ -1048,6 +1055,57 @@ body{background-image:none}
   });
 
 
+  /* v81: liquid reveal, after the landonorris.com hero. The cursor leaves a trail of soft dots that fade out;
+     the dots are blurred and thresholded at low resolution so they merge like drops, and that shape cuts the
+     real photo out of a canvas laid over the illustration */
+  function liquid(ph) {
+    var real = ph.querySelector('.pr'), art = ph.querySelector('.pa');
+    if (!real || !window.requestAnimationFrame) return false;
+    var cv = document.createElement('canvas'); cv.className = 'liq'; cv.setAttribute('aria-hidden', 'true');
+    var ctx = cv.getContext('2d'), m = document.createElement('canvas'), mx = m.getContext('2d'),
+        g = document.createElement('canvas'), gx = g.getContext('2d', { willReadFrequently: true });
+    if (!ctx || !mx || !gx) return false;
+    ph.appendChild(cv); ph.classList.add('liquid');
+    var K = .5, W = 0, H = 0, dpr = 1, pts = [], head = null, pres = 0, inside = false, raf = null, LIFE = 750;
+    function size() {
+      var b = ph.getBoundingClientRect(); W = b.width; H = b.height; dpr = Math.min(2, window.devicePixelRatio || 1);
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      m.width = g.width = Math.max(1, Math.round(W * K)); m.height = g.height = Math.max(1, Math.round(H * K));
+    }
+    size(); window.addEventListener('resize', size);
+    function frame(now) {
+      raf = null;
+      pres += ((inside ? 1 : 0) - pres) * .14; if (Math.abs(pres - (inside ? 1 : 0)) < .01) pres = inside ? 1 : 0;
+      pts = pts.filter(function (p) { return now - p.t < LIFE; });
+      var R = W * .11 * K;
+      mx.clearRect(0, 0, m.width, m.height); mx.fillStyle = '#fff';
+      pts.forEach(function (p) { var k = 1 - (now - p.t) / LIFE, r = R * Math.pow(k, .7); mx.beginPath(); mx.arc(p.x * K, p.y * K, r, 0, 7); mx.fill(); });
+      if (head && pres > 0) { mx.beginPath(); mx.arc(head.x * K, head.y * K, R * 1.35 * pres, 0, 7); mx.fill(); }
+      gx.clearRect(0, 0, g.width, g.height); gx.filter = 'blur(' + (W * .03 * K).toFixed(1) + 'px)'; gx.drawImage(m, 0, 0); gx.filter = 'none';
+      var d = gx.getImageData(0, 0, g.width, g.height), a = d.data;
+      for (var i = 3; i < a.length; i += 4) { var v = (a[i] / 255 - .42) / .1; v = v < 0 ? 0 : v > 1 ? 1 : v; a[i] = 255 * v * v * (3 - 2 * v); a[i - 1] = a[i - 2] = a[i - 3] = 255; }
+      gx.putImageData(d, 0, 0);
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      if (pts.length || pres > 0) {
+        ctx.globalCompositeOperation = 'source-over'; ctx.drawImage(real, 0, 0, cv.width, cv.height);
+        ctx.globalCompositeOperation = 'destination-in'; ctx.imageSmoothingEnabled = true; ctx.drawImage(g, 0, 0, cv.width, cv.height);
+        ctx.globalCompositeOperation = 'source-over';
+        raf = requestAnimationFrame(frame);
+      }
+    }
+    function kick() { if (!raf) raf = requestAnimationFrame(frame); }
+    ph.addEventListener('pointermove', function (e) {
+      var b = cv.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top, now = performance.now();
+      if (head) { var dx = x - head.x, dy = y - head.y, n = Math.min(12, Math.floor(Math.hypot(dx, dy) / 6)); for (var i = 1; i <= n; i++) pts.push({ x: head.x + dx * i / (n + 1), y: head.y + dy * i / (n + 1), t: now }); }
+      pts.push({ x: x, y: y, t: now }); head = { x: x, y: y };
+      var px = (e.clientX - (b.left + b.width / 2)) / b.width, py = (e.clientY - (b.top + b.height / 2)) / b.height;
+      if (art) art.style.translate = (px * -8).toFixed(1) + 'px ' + (py * -6).toFixed(1) + 'px';
+      kick();
+    });
+    ph.addEventListener('pointerenter', function (e) { inside = true; head = null; kick(); });
+    ph.addEventListener('pointerleave', function () { inside = false; if (art) art.style.translate = ''; kick(); });
+    return true;
+  }
   /* v70: camera cut-out reveal. Hover shows the real photo through a circle; tap toggles on touch screens */
   (function () {
     var ph = document.getElementById('cam');
@@ -1060,7 +1118,9 @@ body{background-image:none}
       raf = R !== target ? requestAnimationFrame(anim) : null;
     }
     function go(t) { target = t; if (!raf) raf = requestAnimationFrame(anim); }
-    if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    var fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+    if (fine && !window.matchMedia('(prefers-reduced-motion:reduce)').matches && liquid(ph)) return;
+    if (fine) {
       ph.addEventListener('pointermove', function (e) {
         var b = ph.getBoundingClientRect();
         ph.style.setProperty('--mx', (e.clientX - b.left) + 'px');
