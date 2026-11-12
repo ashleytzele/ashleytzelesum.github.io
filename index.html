@@ -777,7 +777,13 @@ body{background-image:none}
 .cam.liquid::after{display:none}
 .cam.liquid .pr{visibility:hidden}
 .cam .liq{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.cam .pa{transition:translate .5s cubic-bezier(.2,.7,.2,1)}
+
+/* v82: hidden layer is the swimmer. While the liquid reveal runs the canvas draws both layers, so the cartoon is hidden;
+   in the circle and tap modes the cartoon is masked out inside the circle */
+.cam.liquid.live .pa{visibility:hidden}
+.cam:not(.liquid) .pa{-webkit-mask:radial-gradient(circle var(--r) at var(--mx) var(--my),transparent 98%,#000 100%);mask:radial-gradient(circle var(--r) at var(--mx) var(--my),transparent 98%,#000 100%)}
+.cam.rev .pa{transition:opacity .45s}
+.cam.on .pa{opacity:0}
 </style>
 <link rel="icon" href="img/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
@@ -864,7 +870,7 @@ body{background-image:none}
       </div>
       <figure class="cam" id="cam">
         <img class="pa" src="img/life-avatar.webp" width="720" height="960" alt="Ashley holding a camera, illustrated">
-        <img class="pr" src="img/life-real.webp" width="720" height="960" alt="" aria-hidden="true">
+        <img class="pr" src="img/life-swim.webp" width="720" height="960" alt="" aria-hidden="true">
       </figure>
     </div>
   </section>
@@ -1063,8 +1069,9 @@ body{background-image:none}
     if (!real || !window.requestAnimationFrame) return false;
     var cv = document.createElement('canvas'); cv.className = 'liq'; cv.setAttribute('aria-hidden', 'true');
     var ctx = cv.getContext('2d'), m = document.createElement('canvas'), mx = m.getContext('2d'),
-        g = document.createElement('canvas'), gx = g.getContext('2d', { willReadFrequently: true });
-    if (!ctx || !mx || !gx) return false;
+        g = document.createElement('canvas'), gx = g.getContext('2d', { willReadFrequently: true }),
+        t = document.createElement('canvas'), tx = t.getContext('2d');
+    if (!ctx || !mx || !gx || !tx || !art) return false;
     ph.appendChild(cv); ph.classList.add('liquid');
     var K = .5, W = 0, H = 0, dpr = 1, pts = [], head = null, pres = 0, inside = false, raf = null, LIFE = 750;
     function size() {
@@ -1087,23 +1094,25 @@ body{background-image:none}
       gx.putImageData(d, 0, 0);
       ctx.clearRect(0, 0, cv.width, cv.height);
       if (pts.length || pres > 0) {
-        ctx.globalCompositeOperation = 'source-over'; ctx.drawImage(real, 0, 0, cv.width, cv.height);
-        ctx.globalCompositeOperation = 'destination-in'; ctx.imageSmoothingEnabled = true; ctx.drawImage(g, 0, 0, cv.width, cv.height);
-        ctx.globalCompositeOperation = 'source-over';
+        if (t.width !== cv.width || t.height !== cv.height) { t.width = cv.width; t.height = cv.height; }
+        tx.globalCompositeOperation = 'source-over'; tx.clearRect(0, 0, t.width, t.height); tx.drawImage(real, 0, 0, t.width, t.height);
+        tx.globalCompositeOperation = 'destination-in'; tx.drawImage(g, 0, 0, t.width, t.height);
+        ctx.globalCompositeOperation = 'source-over'; ctx.drawImage(art, 0, 0, cv.width, cv.height);
+        ctx.globalCompositeOperation = 'destination-out'; ctx.drawImage(g, 0, 0, cv.width, cv.height);
+        ctx.globalCompositeOperation = 'source-over'; ctx.drawImage(t, 0, 0);
+        ph.classList.add('live');
         raf = requestAnimationFrame(frame);
-      }
+      } else ph.classList.remove('live');
     }
     function kick() { if (!raf) raf = requestAnimationFrame(frame); }
     ph.addEventListener('pointermove', function (e) {
       var b = cv.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top, now = performance.now();
       if (head) { var dx = x - head.x, dy = y - head.y, n = Math.min(12, Math.floor(Math.hypot(dx, dy) / 6)); for (var i = 1; i <= n; i++) pts.push({ x: head.x + dx * i / (n + 1), y: head.y + dy * i / (n + 1), t: now }); }
       pts.push({ x: x, y: y, t: now }); head = { x: x, y: y };
-      var px = (e.clientX - (b.left + b.width / 2)) / b.width, py = (e.clientY - (b.top + b.height / 2)) / b.height;
-      if (art) art.style.translate = (px * -8).toFixed(1) + 'px ' + (py * -6).toFixed(1) + 'px';
       kick();
     });
     ph.addEventListener('pointerenter', function (e) { inside = true; head = null; kick(); });
-    ph.addEventListener('pointerleave', function () { inside = false; if (art) art.style.translate = ''; kick(); });
+    ph.addEventListener('pointerleave', function () { inside = false; kick(); });
     return true;
   }
   /* v70: camera cut-out reveal. Hover shows the real photo through a circle; tap toggles on touch screens */
@@ -1131,7 +1140,7 @@ body{background-image:none}
     } else {
       var on = false;
       ph.setAttribute('role', 'button'); ph.setAttribute('tabindex', '0'); ph.setAttribute('aria-label', 'Show the real photo');
-      function tog() { on = !on; ph.classList.add('rev'); ph.style.setProperty('--mx', '50%'); ph.style.setProperty('--my', '40%'); ph.style.setProperty('--r', on ? '120%' : '0px'); ph.setAttribute('aria-label', on ? 'Show the illustration' : 'Show the real photo'); }
+      function tog() { on = !on; ph.classList.add('rev'); ph.classList.toggle('on', on); ph.style.setProperty('--mx', '50%'); ph.style.setProperty('--my', '40%'); ph.style.setProperty('--r', on ? '120%' : '0px'); ph.setAttribute('aria-label', on ? 'Show the illustration' : 'Show the real photo'); }
       ph.addEventListener('click', tog);
       ph.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tog(); } });
     }
