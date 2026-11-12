@@ -128,9 +128,9 @@ html.cv-lock{overflow:hidden}
     }
     function tick() {
       raf = null;
-      var idle = performance.now() - lastAct > 3500;
+      var idle = performance.now() - lastAct > 2000;
       if (!dragging && (Math.abs(vel.x) > .05 || Math.abs(vel.y) > .05)) { cam.x += vel.x; cam.y += vel.y; vel.x *= .94; vel.y *= .94; }
-      else if (!dragging && idle && !still && !anim && inView) { cam.x += .25; cam.y += .12; }
+      else if (!dragging && idle && !still && !anim && inView) { cam.x += .35; cam.y += .17; }
       if (anim) {
         var t = Math.min(1, (performance.now() - anim.t0) / 700), e = 1 - Math.pow(1 - t, 3);
         cam.x = anim.fx + (anim.tx - anim.fx) * e; cam.y = anim.fy + (anim.ty - anim.fy) * e;
