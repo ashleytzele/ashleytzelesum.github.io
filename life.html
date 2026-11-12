@@ -88,13 +88,16 @@ html.cv-lock{overflow:hidden}
       var k; do { k = Math.floor(rnd() * WIDTHS.length); } while (k === prev && rnd() < .7);
       prev = k; cols.push({ w: WIDTHS[k], h: 0, items: [] });
     }
+    /* videos only go in the widest columns, so make sure there are a few of them, spread across the row */
+    var BIG = WIDTHS[WIDTHS.length - 1], nBig = cols.filter(function (c) { return c.w === BIG; }).length;
+    for (var b = 1; nBig < (small ? 3 : 4); b += 3) { if (cols[b % NC].w !== BIG) { cols[b % NC].w = BIG; nBig++; } }
     var xs = 0; cols.forEach(function (c) { c.x = xs; xs += c.w + GAP; });
     var TW = xs;
     /* spread photos out, then drop each into the column that is shortest relative to its width */
     var order = ITEMS.slice(); for (var q = order.length - 1; q > 0; q--) { var r = Math.floor(rnd() * (q + 1)), t = order[q]; order[q] = order[r]; order[r] = t; }
     order.forEach(function (it) {
       var best = 0, bv = 1e12;
-      cols.forEach(function (c, ci) { var v = c.h / c.w + (it.type === 'video' && c.w === WIDTHS[0] ? 3 : 0); if (v < bv) { bv = v; best = ci; } });
+      cols.forEach(function (c, ci) { if (it.type === 'video' && c.w !== BIG) return; var v = c.h / c.w; if (v < bv) { bv = v; best = ci; } });
       var c = cols[best];
       it.ww = c.w; it.hh = Math.round(c.w * it.h / it.w); it.x = c.x; it.y = c.h; it.col = best;
       c.h += it.hh + GAP; c.items.push(it);
