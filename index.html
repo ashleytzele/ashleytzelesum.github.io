@@ -788,6 +788,8 @@ body{background-image:none}
 /* v83: touch screens show only the cartoon */
 .cam.still{cursor:auto}
 .cam.still::after{display:none}
+/* v84: narrow windows (and phone emulation in dev tools) show only the cartoon, even with a mouse */
+@media (max-width:860px){.cam .liq{display:none}.cam.liquid.live .pa{visibility:visible}}
 </style>
 <link rel="icon" href="img/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
@@ -1108,7 +1110,8 @@ body{background-image:none}
         raf = requestAnimationFrame(frame);
       } else ph.classList.remove('live');
     }
-    function kick() { if (!raf) raf = requestAnimationFrame(frame); }
+    var wide = window.matchMedia('(min-width:861px)');
+    function kick() { if (!wide.matches) { pts = []; inside = false; ctx.clearRect(0, 0, cv.width, cv.height); ph.classList.remove('live'); return; } if (!raf) raf = requestAnimationFrame(frame); }
     ph.addEventListener('pointermove', function (e) {
       var b = cv.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top, now = performance.now();
       if (head) { var dx = x - head.x, dy = y - head.y, n = Math.min(12, Math.floor(Math.hypot(dx, dy) / 6)); for (var i = 1; i <= n; i++) pts.push({ x: head.x + dx * i / (n + 1), y: head.y + dy * i / (n + 1), t: now }); }
