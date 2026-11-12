@@ -876,7 +876,7 @@ body{background-image:none}
       </div>
       <figure class="cam" id="cam">
         <img class="pa" src="img/life-avatar.webp" width="720" height="960" alt="Ashley holding a camera, illustrated">
-        <img class="pr" src="img/life-trek.webp" loading="lazy" width="720" height="960" alt="" aria-hidden="true">
+        <img class="pr" data-src="img/life-trek.webp" width="720" height="960" alt="" aria-hidden="true">
       </figure>
     </div>
   </section>
@@ -1073,6 +1073,7 @@ body{background-image:none}
   function liquid(ph) {
     var real = ph.querySelector('.pr'), art = ph.querySelector('.pa');
     if (!real || !window.requestAnimationFrame) return false;
+    if (!real.getAttribute('src')) real.src = real.getAttribute('data-src'); /* only desktops download the hidden photo */
     var cv = document.createElement('canvas'); cv.className = 'liq'; cv.setAttribute('aria-hidden', 'true');
     var ctx = cv.getContext('2d'), m = document.createElement('canvas'), mx = m.getContext('2d'),
         g = document.createElement('canvas'), gx = g.getContext('2d', { willReadFrequently: true }),
@@ -1137,6 +1138,7 @@ body{background-image:none}
     var fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
     if (fine && !window.matchMedia('(prefers-reduced-motion:reduce)').matches && liquid(ph)) return;
     if (fine) {
+      var pr0 = ph.querySelector('.pr'); if (pr0 && !pr0.getAttribute('src')) pr0.src = pr0.getAttribute('data-src');
       ph.addEventListener('pointermove', function (e) {
         var b = ph.getBoundingClientRect();
         ph.style.setProperty('--mx', (e.clientX - b.left) + 'px');
