@@ -781,7 +781,9 @@ body{background-image:none}
 /* v82: hidden layer is the swimmer. While the liquid reveal runs the canvas draws both layers, so the cartoon is hidden;
    in the circle and tap modes the cartoon is masked out inside the circle */
 .cam.liquid.live .pa{visibility:hidden}
-.cam:not(.liquid) .pa{-webkit-mask:radial-gradient(circle var(--r) at var(--mx) var(--my),transparent 98%,#000 100%);mask:radial-gradient(circle var(--r) at var(--mx) var(--my),transparent 98%,#000 100%)}
+/* Safari draws a zero-radius radial mask as fully transparent, so the mask only applies in the mouse circle mode and never at radius 0 */
+.cam:not(.liquid):not(.still) .pa{-webkit-mask:radial-gradient(circle calc(var(--r) + 1px) at var(--mx) var(--my),transparent 98%,#000 100%);mask:radial-gradient(circle calc(var(--r) + 1px) at var(--mx) var(--my),transparent 98%,#000 100%)}
+.cam.still .pa{-webkit-mask:none;mask:none}
 .cam.rev .pa{transition:opacity .45s}
 .cam.on .pa{opacity:0}
 
