@@ -68,6 +68,8 @@ a{color:inherit}
 .nav nav a:not(.btn){font-size:.92rem;font-weight:500;text-decoration:none;position:relative}
 .nav nav a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
 .nav nav a:not(.btn):hover::after{transform:scaleX(1)}
+.nav nav a[aria-current="true"]::after{transform:scaleX(1)}
+.nav nav a[aria-current="true"]{font-weight:600}
 @media (max-width:760px){.nav nav a:not(.btn){display:none}}
 
 /* Hero */
@@ -93,8 +95,9 @@ a{color:inherit}
 .hero-foot .r{justify-self:end;text-align:right}
 .hero-foot .r p{margin-left:auto}
 .status{display:inline-flex;align-items:center;gap:.55rem;font-weight:600;font-size:.92rem;margin-bottom:.6rem}
-.status::before{content:"";width:.6rem;height:.6rem;border-radius:50%;background:var(--ink);animation:blink 1.8s ease-in-out infinite}
-@keyframes blink{50%{opacity:.25}}
+.status::before{content:"";width:.6rem;height:.6rem;border-radius:50%;background:var(--ink);animation:blink 3.2s ease-in-out infinite}
+@keyframes blink{50%{opacity:.45}}
+@media (prefers-reduced-motion:reduce){.status::before{animation:none}}
 @media (max-width:720px){
   .hero-foot{grid-template-columns:1fr;gap:.9rem}.hero-foot .mid{display:none}.hero-foot .r{justify-self:start;text-align:left}.hero-foot .r p{margin-left:0}
   .photo{width:44vw}
@@ -919,7 +922,6 @@ body{background-image:none}
   </section>
 </main>
 
-<aside class="band" aria-hidden="true"><div class="band-track"><span>Open to Summer 2027 software engineering internships &nbsp;·&nbsp; San Francisco, CA &nbsp;·&nbsp; Open to relocating &nbsp;·&nbsp; </span><span aria-hidden="true">Open to Summer 2027 software engineering internships &nbsp;·&nbsp; San Francisco, CA &nbsp;·&nbsp; Open to relocating &nbsp;·&nbsp; </span></div></aside>
 
 <footer class="foot" id="contact">
   <div class="wrap">
@@ -1037,7 +1039,7 @@ body{background-image:none}
     }
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
-        if (e.isIntersecting && !running) run();
+        if (e.isIntersecting && !running) { running = true; later(run, 2600); } /* v91: read the full report first, then retype */
         else if (!e.isIntersecting && running) { running = false; timers.forEach(clearTimeout); timers = []; body.innerHTML = finalState(); }
       });
     }, { threshold: .4 });
@@ -1338,6 +1340,25 @@ body{background-image:none}
       else t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     });
   });
+
+
+  /* v91: underline the nav link for the section on screen */
+  (function () {
+    var links = [].slice.call(document.querySelectorAll('.nav nav a[href^="#"]'));
+    var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    if (!secs.every(Boolean)) return;
+    var tick = null;
+    function mark() {
+      tick = null;
+      var y = window.innerHeight * .35, cur = -1;
+      secs.forEach(function (s, i) { if (s.getBoundingClientRect().top <= y) cur = i; });
+      if (cur >= 0 && secs[cur].getBoundingClientRect().bottom < y * .5) cur = -1;
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = secs.length - 1;
+      links.forEach(function (a, i) { if (i === cur) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+    }
+    window.addEventListener('scroll', function () { if (!tick) tick = requestAnimationFrame(mark); }, { passive: true });
+    window.addEventListener('resize', mark); mark();
+  })();
 
 })();
 
