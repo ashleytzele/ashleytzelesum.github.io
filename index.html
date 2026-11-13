@@ -322,6 +322,9 @@ a{color:inherit}
 .sc-txt .tag.f{background:var(--ink);color:var(--bg)}
 .sc-txt h3{font-size:clamp(1.5rem,2.4vw,2.2rem);line-height:1.05;text-wrap:balance}
 .sc-txt .d{color:var(--muted);max-width:44ch}
+.sc-txt .hard{max-width:46ch;font-size:.95rem;line-height:1.45}
+.sc-txt .bw{font-size:.86rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:.2rem .5rem;align-items:baseline}
+.sc-txt .bw span{font-weight:700;color:var(--ink)}
 .sc-txt .links{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
 .sc-txt .nolink{color:var(--muted);font-weight:500;font-size:.92rem}
 @media (max-width:860px){
@@ -794,6 +797,36 @@ body{background-image:none}
 @media (max-width:860px){.cam .liq{display:none}.cam.liquid.live .pa{visibility:visible}}
 /* v85: on phones and tablets the stacked project cards keep the page's side margins */
 @media (max-width:860px){#stg{padding-inline:var(--gutter);box-sizing:border-box}}
+/* v87: with reduced motion on desktop, the projects stack vertically like on phones instead of becoming a sideways strip with no scroll cue */
+@media (min-width:861px) and (prefers-reduced-motion:reduce){
+  #hpin .hsticky{position:static;height:auto;display:block;overflow:visible}
+  #hpin .htrack{display:block;width:auto;overflow:visible;scroll-snap-type:none;transform:none!important;padding:0}
+  #hpin #stg{padding-inline:var(--gutter);box-sizing:border-box;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(2rem,4vw,4rem) clamp(1.5rem,3vw,3rem);max-width:1400px;margin:0 auto}
+  #stg .slide{flex:none;height:auto;display:block;padding:0!important;translate:none!important}
+  #stg .slide.feat-slide{grid-column:1/-1}
+  #stg .slide .sc{width:100%!important;max-width:none!important;scale:none!important}
+}
+/* v88: experience and education read as one left-aligned column (dates on the rail), with no fade-in, so there are no half-empty screens */
+:is(#tl,#edu){--rail:11rem;max-width:980px}
+:is(#tl,#edu)::before,:is(#tl,#edu)::after{left:calc(var(--rail) + 2.1rem)}
+:is(#tl,#edu) .ti,:is(#tl,#edu) .ti:nth-child(odd),:is(#tl,#edu) .ti:nth-child(even){grid-template-columns:var(--rail) 2.2rem minmax(0,1fr);gap:0 1rem;padding-bottom:clamp(1.8rem,3vw,2.6rem)}
+:is(#tl,#edu) .ti::before{left:calc(var(--rail) + 2.1rem - 7px)}
+:is(#tl,#edu) .ti:nth-child(n) .t{display:block;grid-column:1;grid-row:1;text-align:right;padding-top:.9rem}
+:is(#tl,#edu) .ti:nth-child(n) .c{grid-column:3;grid-row:1;text-align:left}
+:is(#tl,#edu) .ti:nth-child(n) .d{margin-left:0}
+.js :is(#tl,#edu) .ti:not(.in){opacity:1;transform:none}
+.js :is(#tl,#edu) .ti:not(.in) .c,.js :is(#tl,#edu) .ti:nth-child(even):not(.in) .c{clip-path:none}
+.js :is(#tl,#edu) .ti:not(.in) .t{opacity:1}
+.js :is(#tl,#edu) .ti:not(.in)::before{transform:none}
+:is(#tl,#edu) .ti .c{translate:none}
+@media (max-width:760px){
+  :is(#tl,#edu){--rail:0rem}
+  :is(#tl,#edu)::before,:is(#tl,#edu)::after{left:.5rem}
+  :is(#tl,#edu) .ti,:is(#tl,#edu) .ti:nth-child(odd),:is(#tl,#edu) .ti:nth-child(even){grid-template-columns:1.8rem minmax(0,1fr);gap:0 .6rem}
+  :is(#tl,#edu) .ti::before{left:calc(.5rem - 7px)}
+  :is(#tl,#edu) .ti:nth-child(n) .t{grid-column:2;grid-row:2;text-align:left;padding:.6rem 0 0}
+  :is(#tl,#edu) .ti:nth-child(n) .c{grid-column:2;grid-row:1}
+}
 </style>
 <link rel="icon" href="img/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
@@ -920,41 +953,20 @@ body{background-image:none}
   function svg(k) { return '<svg viewBox="0 0 320 200" aria-hidden="true">' + chrome + art[k] + '</svg>'; }
 
   var projects = [
-    { k: 'gator', n: 'GatorPath', d: 'A degree planner for SF State where the AI suggests and the code verifies, with every requirement cited to the official Bulletin.', t: ['Featured', 'AI', 'MCP'], l: [['Live demo', 'https://gatorpath.fly.dev'], ['Repo', 'https://github.com/ashleytzele/gatorpath']] },
-    { k: 'hw', n: 'Highway Digitalization Ecosystem', d: 'One identity for every roadside device across three systems, with fault correlation and a report-to-repair workflow.', t: ['OSPIT Mobility', 'Client work'], l: [] },
-    { k: 'cad', n: 'cad-to-map', d: 'Turns CAD site plans into interactive maps that work offline, with search and walking directions.', t: ['Open source', 'Python'], l: [['Repo', 'https://github.com/ashleytzele/cad-to-map']] },
-    { k: 'scout', n: 'ScoutMini', d: 'A Formula 1 assistant that answers only from real data and cites its sources.', t: ['AI', 'Python'], l: [['Repo', 'https://github.com/ashleytzele/scoutmini']] },
-    { k: 'split', n: 'SplitWise Swimming Analytics', d: 'Swim race analytics that turn simple stopwatch splits into pace and velocity charts.', t: ['Live demo', 'Flask'], l: [['Live demo', 'https://splitwise-mo3y.onrender.com'], ['Repo', 'https://github.com/ashleytzele/SplitWise-Swim']] },
-    { k: 'quorum', n: 'Quorum', d: 'Turns meeting recordings, transcripts and team notes into clean, templated minutes.', t: ['AI', 'Python'], l: [['Repo', 'https://github.com/ashleytzele/Quorum']] },
+    { k: 'gator', b: 'Python, FastAPI, MCP, Anthropic API', h: 'Every plan the AI drafts has to pass a check against rules parsed from the official Bulletin, so renumbered courses and invented prerequisites get caught before a student sees them.', n: 'GatorPath', d: 'A degree planner for SF State where the AI suggests and the code verifies, with every requirement cited to the official Bulletin.', t: ['Featured', 'AI', 'MCP'], l: [['Live demo', 'https://gatorpath.fly.dev'], ['Repo', 'https://github.com/ashleytzele/gatorpath']] },
+    { k: 'hw', b: '', h: 'Built at OSPIT Mobility: devices that each system named differently are matched to one identity, so a fault seen in one place can be traced across all three.', n: 'Highway Digitalization Ecosystem', d: 'One identity for every roadside device across three systems, with fault correlation and a report-to-repair workflow.', t: ['OSPIT Mobility', 'Client work'], l: [] },
+    { k: 'cad', b: 'Python, ezdxf, Shapely, MapLibre GL', h: 'Real drawings are messy, with unclosed outlines, mislabeled layers and nested blocks, so the converter cleans them into map data and routes walking directions offline.', n: 'cad-to-map', d: 'Turns CAD site plans into interactive maps that work offline, with search and walking directions.', t: ['Open source', 'Python'], l: [['Repo', 'https://github.com/ashleytzele/cad-to-map']] },
+    { k: 'scout', b: 'Python, Typer, OpenAI API, Jolpica-F1, FastF1', h: 'The model never answers from memory: it only sees the data the tools fetched, and every report prints its sources. The test suite runs with no network.', n: 'ScoutMini', d: 'A Formula 1 assistant that answers only from real data and cites its sources.', t: ['AI', 'Python'], l: [['Repo', 'https://github.com/ashleytzele/scoutmini']] },
+    { k: 'split', b: 'Flask, SQLite, pandas, Chart.js, Render', h: 'Turns raw split times into velocity per segment, then lets a swimmer compare any two swims and see which variables move together.', n: 'SplitWise Swimming Analytics', d: 'Swim race analytics that turn simple stopwatch splits into pace and velocity charts.', t: ['Live demo', 'Flask'], l: [['Live demo', 'https://splitwise-mo3y.onrender.com'], ['Repo', 'https://github.com/ashleytzele/SplitWise-Swim']] },
+    { k: 'quorum', b: 'JavaScript, Supabase, Python, Flask', h: 'AI minutes are generated locally through a small bridge and are optional: if it is offline, the rest of the meeting flow still works.', n: 'Quorum', d: 'Turns meeting recordings, transcripts and team notes into clean, templated minutes.', t: ['AI', 'Python'], l: [['Repo', 'https://github.com/ashleytzele/Quorum']] },
   ];
-  var stackText = { hw: 'OSPIT Mobility, client work', cad: 'Python, MapLibre GL', scout: 'Python, Jolpica-F1 API', split: 'Flask, SQLite, Chart.js', quorum: 'Python, Flask, OpenAI API, Supabase', gator: 'Oct 2026 to present, MCP server, website' };
-  function lk(p, cls) {
-    return p.l.length ? p.l.map(function (x) { return '<a href="' + x[1] + '">' + x[0] + '</a>'; }).join('') : '<span class="nl">Client work</span>';
-  }
-  /* Option 1: ledger with preview that follows the cursor */
-  var peek = document.createElement('div'); peek.className = 'peek'; peek.setAttribute('aria-hidden', 'true'); document.body.appendChild(peek);
-  function ledger(el) {
-    if (!el) return;
-    el.innerHTML = '<div class="lh"><span>Project</span><span>What it is</span><span>Built with</span><span style="text-align:right">Links</span></div>' + projects.map(function (p) {
-      return '<div class="lr" data-k="' + p.k + '"><span class="pn">' + p.n + '</span><span class="ds">' + p.d + '</span><span class="st">' + stackText[p.k] + '</span><span class="lk">' + lk(p) + '</span></div>';
-    }).join('');
-    el.querySelectorAll('.lr').forEach(function (r) {
-      r.addEventListener('pointerenter', function () { peek.innerHTML = svg(r.getAttribute('data-k')); peek.classList.add('show'); });
-      r.addEventListener('pointermove', function (e) {
-        var x = e.clientX + 28; if (x + 320 > window.innerWidth) x = e.clientX - 328;
-        var y = Math.min(Math.max(e.clientY - 100, 76), window.innerHeight - 250);
-        peek.style.transform = 'translate(' + x + 'px,' + y + 'px)';
-      });
-      r.addEventListener('pointerleave', function () { peek.classList.remove('show'); });
-    });
-  }
   var stgEl = document.getElementById('stg');
   var HW_HTML = '<div class="hl"><div class="hl-up" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg><i></i></div><div class="hl-stack"><div class="hl-row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 13h4" />  <path d="M12 18h6a2 2 0 012 2v1" />  <path d="M12 8h8" />  <path d="M12 9a4.17 4.17 0 01-3 4" />  <path d="M16 8V5a2 2 0 012-2" />  <path d="M6 18a4 4 0 01-2-7.465" />  <path d="M6.004 5.125a4 4 0 00-2.526 5.77" />  <path d="M6.294 6.294A3 3 0 1112 5v13a4 4 0 11-7.967-.518" />  <circle cx="16" cy="13" r="0.5" fill="currentColor" />  <circle cx="18" cy="3" r="0.5" fill="currentColor" />  <circle cx="20" cy="21" r="0.5" fill="currentColor" />  <circle cx="20" cy="8" r="0.5" fill="currentColor" /></svg><span class="hl-tag">Layer 4</span><span class="hl-name">Executive insight</span></div><div class="hl-row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" />  <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" />  <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" /></svg><span class="hl-tag">Layer 3</span><span class="hl-name">Enterprise planning</span></div><div class="hl-row"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2" />  <line x1="8" x2="16" y1="21" y2="21" />  <line x1="12" x2="12" y1="17" y2="21" /></svg><span class="hl-tag">Layer 2</span><span class="hl-name">Control centre</span></div><div class="hl-row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9" />  <path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5" />  <circle cx="12" cy="9" r="2" />  <path d="M16.2 4.8c2 2 2.26 5.11.8 7.47" />  <path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1" />  <path d="M9.5 18h5" />  <path d="m8 22 4-11 4 11" /></svg><span class="hl-tag">Layer 1</span><span class="hl-name">Field sensing</span></div></div></div>';
   var SC_HTML = '<div class="term" role="img" aria-label="ScoutMini terminal: one command returns a pace report for Charles Leclerc at the 2024 Monaco Grand Prix, ending with its data source"><div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>scoutmini</span></div><pre class="term-body" aria-hidden="true"></pre></div>';
-  var SW_HTML = '<figure class="cadv"><video src="img/splitwise.mp4" poster="img/splitwise-poster.jpg" width="1280" height="726" muted loop playsinline autoplay preload="metadata" aria-label="SplitWise demo: the dashboard, split times over time, velocity analysis and a side-by-side swim comparison"></video><figcaption><span>Dashboard</span><span>Trends</span><span>Velocity</span><span>Compare</span></figcaption></figure>';
-  var GP_HTML = '<figure class="cadv gpv"><video src="img/gatorpath.mp4" poster="img/gatorpath-poster.jpg" width="1280" height="720" muted loop playsinline autoplay preload="metadata" aria-label="GatorPath demo: choosing your record, the plan being built from the Bulletin, the graduation date, the weekly schedule and the chat assistant answering a question"></video><figcaption><span>Your record</span><span>Plan</span><span>Schedule</span><span>Ask Gator AI</span></figcaption></figure>';
-  var QM_HTML = '<figure class="cadv qmv"><video src="img/quorum.mp4" poster="img/quorum-poster.jpg" width="1280" height="736" muted loop playsinline autoplay preload="metadata" aria-label="Quorum demo: recording a meeting, writing a pre-meeting note, presenting it, generating the minutes and the finished minutes document"></video><figcaption><span>Record</span><span>Note</span><span>Present</span><span>Minutes</span></figcaption></figure>';
-  var BA_HTML = '<figure class="cadv"><video src="img/cad-to-map.mp4" poster="img/cad-poster.jpg" width="1120" height="560" muted loop playsinline autoplay preload="metadata" aria-label="A CAD site plan fades into the interactive map, which then tilts from 2D to 3D"></video><figcaption><span>CAD plan</span><span>2D map</span><span>3D map</span></figcaption></figure>';
+  var SW_HTML = '<figure class="cadv"><video data-src="img/splitwise.mp4" poster="img/splitwise-poster.jpg" width="1280" height="726" muted loop playsinline preload="none" aria-label="SplitWise demo: the dashboard, split times over time, velocity analysis and a side-by-side swim comparison"></video><figcaption><span>Dashboard</span><span>Trends</span><span>Velocity</span><span>Compare</span></figcaption></figure>';
+  var GP_HTML = '<figure class="cadv gpv"><video data-src="img/gatorpath.mp4" poster="img/gatorpath-poster.jpg" width="1280" height="720" muted loop playsinline preload="none" aria-label="GatorPath demo: choosing your record, the plan being built from the Bulletin, the graduation date, the weekly schedule and the chat assistant answering a question"></video><figcaption><span>Your record</span><span>Plan</span><span>Schedule</span><span>Ask Gator AI</span></figcaption></figure>';
+  var QM_HTML = '<figure class="cadv qmv"><video data-src="img/quorum.mp4" poster="img/quorum-poster.jpg" width="1280" height="736" muted loop playsinline preload="none" aria-label="Quorum demo: recording a meeting, writing a pre-meeting note, presenting it, generating the minutes and the finished minutes document"></video><figcaption><span>Record</span><span>Note</span><span>Present</span><span>Minutes</span></figcaption></figure>';
+  var BA_HTML = '<figure class="cadv"><video data-src="img/cad-to-map.mp4" poster="img/cad-poster.jpg" width="1120" height="560" muted loop playsinline preload="none" aria-label="A CAD site plan fades into the interactive map, which then tilts from 2D to 3D"></video><figcaption><span>CAD plan</span><span>2D map</span><span>3D map</span></figcaption></figure>';
   var PV = { hw: 0, cad: 1, scout: 2, split: 3, quorum: 4 };
   stgEl.innerHTML = projects.map(function (p, i) {
     var side = i % 2 ? 'r' : 'l';
@@ -962,17 +974,23 @@ body{background-image:none}
       ? p.l.map(function (x, j) { return '<a class="btn' + (j === 0 ? ' solid' : '') + '" href="' + x[1] + '">' + x[0] + '</a>'; }).join('')
       : '<span class="nolink">Client work, no public links</span>';
     var tags = p.t.map(function (x, j) { return '<span class="tag' + (j === 0 ? ' f' : '') + '">' + x + '</span>'; }).join('');
-    return '<div class="slide ' + side + (p.k === 'gator' ? ' feat-slide' : '') + '"><article class="sc ' + (p.k === 'gator' ? 'feat' : 'pv' + PV[p.k]) + '"><div class="sc-pic">' + (p.k === 'cad' ? BA_HTML : p.k === 'hw' ? HW_HTML : p.k === 'scout' ? SC_HTML : p.k === 'split' ? SW_HTML : p.k === 'gator' ? GP_HTML : p.k === 'quorum' ? QM_HTML : svg(p.k)) + '</div><div class="sc-txt"><div class="tags">' + tags + '</div><h3 class="disp">' + p.n + '</h3><p class="d">' + p.d + '</p><div class="links">' + links + '</div></div></article></div>';
+    return '<div class="slide ' + side + (p.k === 'gator' ? ' feat-slide' : '') + '"><article class="sc ' + (p.k === 'gator' ? 'feat' : 'pv' + PV[p.k]) + '"><div class="sc-pic">' + (p.k === 'cad' ? BA_HTML : p.k === 'hw' ? HW_HTML : p.k === 'scout' ? SC_HTML : p.k === 'split' ? SW_HTML : p.k === 'gator' ? GP_HTML : p.k === 'quorum' ? QM_HTML : svg(p.k)) + '</div><div class="sc-txt"><div class="tags">' + tags + '</div><h3 class="disp">' + p.n + '</h3><p class="d">' + p.d + '</p>' + (p.h ? '<p class="hard">' + p.h + '</p>' : '') + (p.b ? '<p class="bw"><span>Built with</span>' + p.b + '</p>' : '') + '<div class="links">' + links + '</div></div></article></div>';
   }).join('');
   if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
-    document.querySelectorAll('.cadv video').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); v.controls = true; });
+    document.querySelectorAll('.cadv video').forEach(function (v) { v.src = v.getAttribute('data-src'); v.preload = 'metadata'; v.controls = true; });
   }
   /* v86: videos built from a string can miss the muted flag on iPhone, which blocks autoplay. Set it as a property and play when on screen */
   if (!window.matchMedia('(prefers-reduced-motion:reduce)').matches && 'IntersectionObserver' in window) {
+    /* v89: a video downloads only when its card comes near the screen, then plays while visible */
+    var near = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting && !e.target.getAttribute('src')) { e.target.src = e.target.getAttribute('data-src'); near.unobserve(e.target); } });
+    }, { rootMargin: '300px' });
     var vio = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { var v = e.target; if (e.isIntersecting) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } else v.pause(); });
+      es.forEach(function (e) { var v = e.target; if (e.isIntersecting) { if (!v.getAttribute('src')) v.src = v.getAttribute('data-src'); var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } else v.pause(); });
     }, { threshold: .25 });
-    document.querySelectorAll('.cadv video').forEach(function (v) { v.muted = true; v.defaultMuted = true; v.playsInline = true; v.setAttribute('playsinline', ''); vio.observe(v); });
+    document.querySelectorAll('.cadv video').forEach(function (v) { v.muted = true; v.defaultMuted = true; v.playsInline = true; v.setAttribute('playsinline', ''); near.observe(v); vio.observe(v); });
+  } else if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.cadv video').forEach(function (v) { v.src = v.getAttribute('data-src'); v.autoplay = true; });
   }
   /* ScoutMini terminal: types the command, prints the report, loops */
   (function () {
@@ -1069,6 +1087,11 @@ body{background-image:none}
   window.addEventListener('resize', function () { hfit(); hsize(); hmove(); });
   hfit(); hsize(); hmove();
   window.addEventListener('load', function () { hfit(); hmove(); });
+  /* v90: refit when a card changes height (a video's real size arrives, the terminal types, fonts swap) */
+  if ('ResizeObserver' in window) {
+    var refit = null, ro = new ResizeObserver(function () { if (refit) return; refit = requestAnimationFrame(function () { refit = null; hfit(); hmove(); }); });
+    slideEls.forEach(function (sl) { if (sl.firstElementChild) ro.observe(sl.firstElementChild); });
+  }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { hfit(); hmove(); });
 
   /* Split hero name into letters for the entrance */
