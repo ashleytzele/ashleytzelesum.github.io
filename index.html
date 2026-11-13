@@ -594,7 +594,7 @@ a{color:inherit}
 /* v24: richer experience motion: wipe-in cards, popping dots, date fade, scroll drift */
 .ti .c{clip-path:inset(0 0 0 0);translate:0 calc(var(--ep,0) * -34px);transition:clip-path 1s var(--ease),transform .3s var(--ease)}
 .ti .t{transition:opacity .8s var(--ease) .25s}
-.ti::before{transition:background .3s,transform .6s cubic-bezier(.2,1.4,.4,1)}
+.ti::before{transition:background .3s,transform .5s var(--ease)}
 .js :is(#tl,#edu) .ti:not(.in) .c{clip-path:inset(0 0 0 100%)}
 .js :is(#tl,#edu) .ti:nth-child(even):not(.in) .c{clip-path:inset(0 100% 0 0)}
 .js :is(#tl,#edu) .ti:not(.in) .t{opacity:0}
@@ -707,18 +707,18 @@ body{background-image:none}
 .term-body .t-rule{display:block;height:1px;background:var(--line);margin:.5em 0 .9em}
 .term-body .t-cur{display:inline-block;width:.6em;height:1.1em;background:var(--ink);vertical-align:-.2em;animation:tblink 1s steps(1) infinite}
 @keyframes tblink{50%{opacity:0}}
-.sc-pic .cadv video[src*="splitwise"]{aspect-ratio:1280/726}
+.sc-pic .cadv video[data-src*="splitwise"]{aspect-ratio:1280/726}
 .cadv figcaption{flex-wrap:nowrap;white-space:nowrap;gap:.35rem;font-size:clamp(.62rem,1.1vw,.78rem)}
 .cadv figcaption span+span::before{width:10px;margin-right:.35rem}
 /* v57: SplitWise card, wide video frame on top */
 @media (min-width:861px){
-.slide .sc.pv3:has(video[src*="splitwise"]){width:min(58vw,820px)!important;grid-template-columns:1fr!important;align-items:start!important;gap:1.1rem!important}
-.slide .sc.pv3:has(video[src*="splitwise"]) .sc-txt{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:2rem;align-items:end}
-.slide .sc.pv3:has(video[src*="splitwise"]) .sc-txt .links{grid-column:2;grid-row:1/span 4;align-self:end}
+.slide .sc.pv3:has(video[data-src*="splitwise"]){width:min(58vw,820px)!important;grid-template-columns:1fr!important;align-items:start!important;gap:1.1rem!important}
+.slide .sc.pv3:has(video[data-src*="splitwise"]) .sc-txt{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:2rem;align-items:end}
+.slide .sc.pv3:has(video[data-src*="splitwise"]) .sc-txt .links{grid-column:2;grid-row:1/span 4;align-self:end}
 }
-.slide .sc.pv3 .sc-pic:has(video[src*="splitwise"]),.sc-pic:has(video[src*="splitwise"]){aspect-ratio:auto!important;height:auto!important;padding:0!important;border:0!important;background:none!important;display:block!important}
-.sc-pic:has(video[src*="splitwise"]) .cadv video{max-height:none;width:100%;height:auto}
-.sc-pic:has(video[src*="splitwise"]) .cadv figcaption{justify-content:flex-start}
+.slide .sc.pv3 .sc-pic:has(video[data-src*="splitwise"]),.sc-pic:has(video[data-src*="splitwise"]){aspect-ratio:auto!important;height:auto!important;padding:0!important;border:0!important;background:none!important;display:block!important}
+.sc-pic:has(video[data-src*="splitwise"]) .cadv video{max-height:none;width:100%;height:auto}
+.sc-pic:has(video[data-src*="splitwise"]) .cadv figcaption{justify-content:flex-start}
 /* v58: GatorPath featured card */
 .slide .sc.feat{display:grid;gap:1.4rem;width:100%}
 .slide .sc.feat .sc-pic{aspect-ratio:auto!important;height:auto!important;padding:0!important;border:0!important;background:none!important;display:block!important}
@@ -836,6 +836,12 @@ body{background-image:none}
   .term{height:auto}
   .term-body{flex:none;font-size:clamp(10px,3.3cqw,13px)}
 }
+/* v93 (Impeccable): captions at least 12px on phones, balanced line breaks in project text, no overshoot on timeline dots */
+@media (max-width:860px){.cadv figcaption{font-size:max(12px,.78rem)!important;flex-wrap:wrap;white-space:normal;row-gap:.2rem}}
+.sc-txt h3{text-wrap:balance}
+.sc-txt p,.hero-foot p,.lt p,.ti .d li,.ti .dl li{text-wrap:pretty}
+.ti h3,.foot h2.disp,.wrap > h2.disp{text-wrap:balance}
+.ti::before{transition:background .3s,transform .5s var(--ease)!important}
 </style>
 <link rel="icon" href="img/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
